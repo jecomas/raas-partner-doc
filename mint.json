@@ -5,6 +5,12 @@
   },
   "name": "Partners API",
   "favicon": "favicon.png",
+  "openapi": [
+    "swagger-partner.json",
+    "swagger-partner-send.json",
+    "swagger-partner-full.json",
+    "swagger-partner-widget-ask.json"
+  ],
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -15,22 +21,22 @@
     {
       "name": "Partner",
       "url": "partner",
-      "openapi": "/swagger-partner.json"
+      "openapi": "swagger-partner.json"
     },
     {
       "name": "Partner Send",
       "url": "partner-send",
-      "openapi": "/swagger-partner-send.json"
+      "openapi": "swagger-partner-send.json"
     },
     {
       "name": "Partner Full",
       "url": "partner-full",
-      "openapi": "/swagger-partner-full.json"
+      "openapi": "swagger-partner-full.json"
     },
     {
       "name": "Partner Widget Ask",
       "url": "partner-widget-ask",
-      "openapi": "/swagger-partner-widget-ask.json"
+      "openapi": "swagger-partner-widget-ask.json"
     }
   ],
   "navigation": [
