@@ -1,0 +1,60 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Partners API",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  },
+  "favicon": "favicon.png",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Partner",
+        "openapi": {
+          "source": "/swagger-partner.json",
+          "directory": "partner"
+        }
+      },
+      {
+        "tab": "Partner Send",
+        "openapi": {
+          "source": "/swagger-partner-send.json",
+          "directory": "partner-send"
+        }
+      },
+      {
+        "tab": "Partner Full",
+        "openapi": {
+          "source": "/swagger-partner-full.json",
+          "directory": "partner-full"
+        }
+      },
+      {
+        "tab": "Partner Widget Ask",
+        "openapi": {
+          "source": "/swagger-partner-widget-ask.json",
+          "directory": "partner-widget-ask"
+        }
+      }
+    ]
+  },
+  "api": {
+    "openapi": "swagger.json",
+    "mdx": {
+      "server": "https://raas-partner-cv.nomas.cash/v1"
+    }
+  }
+}
