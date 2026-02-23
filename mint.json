@@ -6,10 +6,10 @@
   "name": "Partners API",
   "favicon": "favicon.png",
   "openapi": [
-    "swagger-partner.json",
-    "swagger-partner-send.json",
-    "swagger-partner-full.json",
-    "swagger-partner-widget-ask.json"
+    "/swagger-partner.json",
+    "/swagger-partner-send.json",
+    "/swagger-partner-full.json",
+    "/swagger-partner-widget-ask.json"
   ],
   "colors": {
     "primary": "#0D9373",
