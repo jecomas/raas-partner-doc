@@ -1,0 +1,6515 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": ""
+  },
+  "servers": [
+    {
+      "url": "https://raas-partner-cv.nomas.cash/v1"
+    }
+  ],
+  "paths": {
+    "/auth/sessionlink-v2": {
+      "post": {
+        "operationId": "getSessionLinkV2",
+        "responses": {
+          "200": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionLinkResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieves session Link V2 for partner integrations.\n\nEndpoint: `POST /auth/sessionlink-v2`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
+        "summary": "Get session link v2",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full",
+              "partner_send"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request body payload with the data required for this operation.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionLinkParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/sessionlink-v3": {
+      "post": {
+        "operationId": "getSessionLinkV3",
+        "responses": {
+          "200": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionLinkResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieves session Link V3 for partner integrations.\n\nEndpoint: `POST /auth/sessionlink-v3`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
+        "summary": "Get session link v3",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full",
+              "partner_send"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request body payload with the data required for this operation.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionLinkParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/sessionlink-v2-anonimous": {
+      "post": {
+        "operationId": "getSessionLinkV2Anonimous",
+        "responses": {
+          "200": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionLinkResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieves session Link V2 Anonimous for partner integrations.\n\nEndpoint: `POST /auth/sessionlink-v2-anonimous`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
+        "summary": "Get session link v2 anonimous",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full",
+              "partner_send"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request body payload with the data required for this operation.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "operationId": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/sessionlink": {
+      "post": {
+        "operationId": "getSessionLink",
+        "responses": {
+          "200": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionLinkResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieves session Link for partner integrations.\n\nEndpoint: `POST /auth/sessionlink`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
+        "summary": "Get session link",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full",
+              "partner_send"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request body payload with the data required for this operation.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionLinkParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/auth-by-token-link": {
+      "post": {
+        "operationId": "authByTokenLink",
+        "responses": {
+          "200": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerTokenReponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Authenticates the user or session for partner API usage.\n\nEndpoint: `POST /auth/auth-by-token-link`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
+        "summary": "Auth by token link",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full",
+              "partner_send"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request body payload with the data required for this operation.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenParams"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "examples": {},
+    "headers": {},
+    "parameters": {},
+    "requestBodies": {},
+    "responses": {},
+    "schemas": {
+      "PlatLevelStatusDetail": {
+        "enum": [
+          "None",
+          "InvalidAddress",
+          "InvalidEMail",
+          "UnreadableDoc",
+          "ProvideAdditionalInfo",
+          "InvalidPersonalData",
+          "OtpPrivacyMissing",
+          "OtpContractMissing",
+          "Compliance",
+          "ComplianceBlocked",
+          "OfacFailed"
+        ],
+        "type": "string"
+      },
+      "UserTokenResponse": {
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "statusDetail": {
+            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+          }
+        },
+        "required": [
+          "userId"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "GetUserTokenParams": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CountryAlpha2Code": {
+        "type": "string",
+        "enum": [
+          "AF",
+          "AX",
+          "AL",
+          "DE",
+          "AD",
+          "AO",
+          "AI",
+          "AQ",
+          "AG",
+          "SA",
+          "DZ",
+          "AR",
+          "AM",
+          "AW",
+          "AU",
+          "AT",
+          "AZ",
+          "BS",
+          "BD",
+          "BB",
+          "BH",
+          "BE",
+          "BZ",
+          "BJ",
+          "BM",
+          "BY",
+          "BO",
+          "BQ",
+          "BA",
+          "BW",
+          "BR",
+          "BN",
+          "BG",
+          "BF",
+          "BI",
+          "BT",
+          "CV",
+          "KH",
+          "CM",
+          "CA",
+          "QA",
+          "TD",
+          "CL",
+          "CN",
+          "CY",
+          "CO",
+          "KM",
+          "KP",
+          "KR",
+          "CI",
+          "CR",
+          "HR",
+          "CU",
+          "CW",
+          "DK",
+          "DM",
+          "EC",
+          "EG",
+          "SV",
+          "AE",
+          "ER",
+          "SK",
+          "SI",
+          "ES",
+          "US",
+          "EE",
+          "ET",
+          "PH",
+          "FI",
+          "FJ",
+          "FR",
+          "GA",
+          "GM",
+          "GE",
+          "GH",
+          "GI",
+          "GD",
+          "GR",
+          "GL",
+          "GP",
+          "GU",
+          "GT",
+          "GF",
+          "GG",
+          "GN",
+          "GW",
+          "GQ",
+          "GY",
+          "HT",
+          "HN",
+          "HK",
+          "HU",
+          "IN",
+          "ID",
+          "IQ",
+          "IR",
+          "IE",
+          "BV",
+          "IM",
+          "CX",
+          "IS",
+          "KY",
+          "CC",
+          "CK",
+          "FO",
+          "GS",
+          "HM",
+          "FK",
+          "MP",
+          "MH",
+          "PN",
+          "SB",
+          "TC",
+          "UM",
+          "VG",
+          "VI",
+          "IL",
+          "IT",
+          "JM",
+          "JP",
+          "JE",
+          "JO",
+          "KZ",
+          "KE",
+          "KG",
+          "KI",
+          "KW",
+          "LA",
+          "LS",
+          "LV",
+          "LB",
+          "LR",
+          "LY",
+          "LI",
+          "LT",
+          "LU",
+          "MO",
+          "MK",
+          "MG",
+          "MY",
+          "MW",
+          "MV",
+          "ML",
+          "MT",
+          "MA",
+          "MQ",
+          "MU",
+          "MR",
+          "YT",
+          "MX",
+          "FM",
+          "MD",
+          "MC",
+          "MN",
+          "ME",
+          "MS",
+          "MZ",
+          "MM",
+          "NA",
+          "NR",
+          "NP",
+          "NI",
+          "NE",
+          "NG",
+          "NU",
+          "NF",
+          "NO",
+          "NC",
+          "NZ",
+          "OM",
+          "NL",
+          "PK",
+          "PW",
+          "PS",
+          "PA",
+          "PG",
+          "PY",
+          "PE",
+          "PF",
+          "PL",
+          "PT",
+          "PR",
+          "GB",
+          "EH",
+          "CF",
+          "CZ",
+          "CG",
+          "CD",
+          "DO",
+          "RE",
+          "RW",
+          "RO",
+          "RU",
+          "WS",
+          "AS",
+          "BL",
+          "KN",
+          "SM",
+          "MF",
+          "PM",
+          "VC",
+          "SH",
+          "LC",
+          "ST",
+          "SN",
+          "RS",
+          "SC",
+          "SL",
+          "SG",
+          "SX",
+          "SY",
+          "SO",
+          "LK",
+          "SZ",
+          "ZA",
+          "SD",
+          "SS",
+          "SE",
+          "CH",
+          "SR",
+          "SJ",
+          "TH",
+          "TW",
+          "TZ",
+          "TJ",
+          "IO",
+          "TF",
+          "TL",
+          "TG",
+          "TK",
+          "TO",
+          "TT",
+          "TN",
+          "TM",
+          "TR",
+          "TV",
+          "UA",
+          "UG",
+          "UY",
+          "UZ",
+          "VU",
+          "VA",
+          "VE",
+          "VN",
+          "WF",
+          "YE",
+          "DJ",
+          "ZM",
+          "ZW"
+        ]
+      },
+      "Language": {
+        "enum": [
+          "en",
+          "es"
+        ],
+        "type": "string"
+      },
+      "RegisterUserParams": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "lastName2": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "Male",
+              "Female",
+              "Other",
+              "None"
+            ]
+          },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "birthState": {
+            "type": "string"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "placeDetail": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "lastName",
+          "dob",
+          "firstName",
+          "address1",
+          "countryCode",
+          "city",
+          "state",
+          "latitude",
+          "longitude"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RegisterTrustedUserResponse": {
+        "properties": {
+          "userId": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false,
+        "example": {
+          "userId": "trusted-user-uuid-7890"
+        }
+      },
+      "SessionLinkPaymentMethodType": {
+        "type": "string",
+        "enum": [
+          "BankAccount",
+          "DigitalWallet",
+          "Card",
+          "UBN"
+        ]
+      },
+      "AddUBNParams": {
+        "properties": {
+          "number": {
+            "type": "string"
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "number"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AddCardSessionParams": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "cardtype": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "number": {
+            "type": "string"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "securityCode": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string",
+            "enum": [
+              "NotApplicable",
+              "UATP",
+              "Visa",
+              "ChinaUnionPay",
+              "InterPayment",
+              "DiscoverCard",
+              "Dankort",
+              "Cardguard",
+              "MIR",
+              "MasterCard",
+              "Verve",
+              "InstaPayment",
+              "Maestro",
+              "DinersClubInternational",
+              "AmericanExpress",
+              "JCB",
+              "TROY"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "cardtype",
+          "number",
+          "nameOnCard",
+          "expirationDate",
+          "cardNetwork"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SessionLinkParams": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "lastName2": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "Male",
+              "Female",
+              "Other",
+              "None"
+            ]
+          },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "birthState": {
+            "type": "string"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "placeDetail": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentMethodType": {
+            "$ref": "#/components/schemas/SessionLinkPaymentMethodType"
+          },
+          "ubnParams": {
+            "$ref": "#/components/schemas/AddUBNParams"
+          },
+          "addCardParams": {
+            "$ref": "#/components/schemas/AddCardSessionParams",
+            "description": "Proper method for adding cards as payment method"
+          }
+        },
+        "required": [
+          "lastName",
+          "dob",
+          "firstName",
+          "address1",
+          "countryCode",
+          "city",
+          "state",
+          "latitude",
+          "longitude"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SessionLinkResponse": {
+        "properties": {
+          "link": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "statusDetail": {
+            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+          },
+          "cipStatus": {
+            "type": "string"
+          },
+          "cipStatusDetail": {
+            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+          },
+          "accountStatus": {
+            "type": "string"
+          },
+          "paymentMethodStatus": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "link"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UserStatus": {
+        "type": "string",
+        "enum": [
+          "new",
+          "ready"
+        ],
+        "description": "User status options."
+      },
+      "CIPData": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dobRaw": {
+            "type": "string"
+          },
+          "docType": {
+            "type": "string"
+          },
+          "expDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expDateRaw": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "idCountry": {
+            "type": "string"
+          },
+          "idName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "names": {
+            "type": "string"
+          },
+          "nationality": {
+            "type": "string"
+          },
+          "secondLastname": {
+            "type": "string"
+          },
+          "secondName": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "subtype": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CIPDocument": {
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "sides": {
+            "type": "number",
+            "format": "double"
+          },
+          "hasMRZ": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CIPData"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CIP": {
+        "description": "Customer Identification Process (CIP) Status and Info.\nChanged from Class to Interface for better serialization support.",
+        "properties": {
+          "sent": {
+            "type": "boolean"
+          },
+          "touched": {
+            "type": "boolean"
+          },
+          "rejected": {
+            "type": "boolean"
+          },
+          "manual_required": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/CIPDocument"
+            },
+            "type": "array"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "facematch_sent": {
+            "type": "boolean"
+          },
+          "facematch_ok": {
+            "type": "boolean"
+          },
+          "facematch_msg": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "IPhoneInfo": {
+        "properties": {
+          "isValid": {
+            "type": "boolean"
+          },
+          "callerName": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "carrier": {
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "User": {
+        "description": "Main User Interface representing a user in the system.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "uid": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "secondLastName": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "placeId": {
+            "type": "string",
+            "description": "Google Maps Place ID"
+          },
+          "country": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "birthState": {
+            "type": "string"
+          },
+          "zipcode": {
+            "type": "string",
+            "description": "Zip/Postal code.",
+            "deprecated": true
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "addressDescription": {
+            "type": "string",
+            "description": "Additional address description (e.g., \"Local 304, next to the grocery store\")."
+          },
+          "placeDetail": {
+            "type": "string",
+            "description": "Google Maps place details."
+          },
+          "gender": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "country_id": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/UserStatus"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "phoneVerified": {
+            "type": "boolean",
+            "description": "True if the phone number has been verified via OTP."
+          },
+          "password": {
+            "type": "string",
+            "description": "Numi Plat pincode/password.\nNote: Not used to validate user in RaaS."
+          },
+          "pincode": {
+            "type": "string",
+            "description": "Pincode used to validate user in RaaS."
+          },
+          "hasPincode": {
+            "type": "boolean"
+          },
+          "cip": {
+            "$ref": "#/components/schemas/CIP"
+          },
+          "firstTime": {
+            "type": "boolean"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "phoneInfo": {
+            "$ref": "#/components/schemas/IPhoneInfo",
+            "description": "Phone information set during registration.\nUsed to determine country code and select proper KYC provider."
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "tenantCode": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Latitude from user's current location"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Longitude from user's current location"
+          },
+          "profilePictureUrl": {
+            "type": "string",
+            "description": "Temporary URL for the user's profile picture.\nGenerated on demand, not persisted."
+          },
+          "customCountryCode": {
+            "type": "string"
+          },
+          "facebookPublicUserName": {
+            "type": "string"
+          },
+          "instagramPublicUserName": {
+            "type": "string"
+          },
+          "accountCode": {
+            "type": "string"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "hasPaymentMethod": {
+            "type": "boolean"
+          },
+          "showLanding": {
+            "type": "boolean"
+          },
+          "showCashLanding": {
+            "type": "boolean"
+          },
+          "isWidgetUser": {
+            "type": "boolean"
+          },
+          "subscriberType": {
+            "type": "string"
+          },
+          "idProspect": {
+            "type": "string"
+          },
+          "documentNumber": {
+            "type": "string"
+          },
+          "tAndCAccepted": {
+            "type": "boolean"
+          },
+          "recordConfirmed": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "tenantId",
+          "tenantCode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "WidgetWhiteLabel": {
+        "properties": {
+          "widgetType": {
+            "type": "string"
+          },
+          "widgetPrimaryColor": {
+            "type": "string"
+          },
+          "widgetFontURL": {
+            "type": "string"
+          },
+          "widgetFont": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "widgetType",
+          "widgetPrimaryColor",
+          "widgetFontURL",
+          "widgetFont"
+        ],
+        "type": "object"
+      },
+      "PartnerTokenReponse": {
+        "properties": {
+          "whiteLabel": {
+            "$ref": "#/components/schemas/WidgetWhiteLabel"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "required": [
+          "whiteLabel",
+          "apiKey"
+        ],
+        "type": "object"
+      },
+      "TokenParams": {
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "type": "object"
+      },
+      "LevelOneParamsRequst": {
+        "properties": {
+          "partnerCountryCode": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "placeDetail": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "address4": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "birthState": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "zipCode",
+          "city",
+          "address1",
+          "callLocationLongitude",
+          "callLocationLatitude",
+          "countryCode",
+          "state",
+          "userId"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RequestOTPParams": {
+        "properties": {
+          "lang": {
+            "$ref": "#/components/schemas/Language",
+            "description": "lang to send the sms"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Mobile phone number in international format (e.g. +11234567890)"
+          }
+        },
+        "type": "object"
+      },
+      "Pick_ValidateOTPParams.Exclude_keyofValidateOTPParams.deviceId__": {
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "otpCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "otpCode"
+        ],
+        "type": "object",
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "Omit_ValidateOTPParams.deviceId_": {
+        "$ref": "#/components/schemas/Pick_ValidateOTPParams.Exclude_keyofValidateOTPParams.deviceId__",
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "ValidateOTPParamsPartner": {
+        "$ref": "#/components/schemas/Omit_ValidateOTPParams.deviceId_"
+      },
+      "IsPhoneAvailableResponse": {
+        "properties": {
+          "available": {
+            "type": "boolean",
+            "description": "If the phone is already in use, this field will be set to false."
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "If the phone is verified by SMS, this field will be set to true."
+          },
+          "hasPincode": {
+            "type": "boolean",
+            "description": "If the user already set a pincode for this phone, this field will be set to true."
+          }
+        },
+        "required": [
+          "available",
+          "verified",
+          "hasPincode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "IsPhoneAvailableRequest": {
+        "properties": {
+          "phone": {
+            "type": "string",
+            "description": "Phone number to check. Phone number must be in E.164 format. e.g. \"+12223334444\""
+          }
+        },
+        "required": [
+          "phone"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "GetSessionTokenResponse": {
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "GetSessionTokenParams": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PerformLevelOneParams": {
+        "properties": {
+          "partnerCountryCode": {
+            "type": "string"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Language"
+          },
+          "addressDescription": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "city": {
+            "type": "string"
+          },
+          "birthState": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "Male",
+              "Female",
+              "Other",
+              "None"
+            ]
+          },
+          "placeDetail": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "secondLastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "callLocationLongitude",
+          "callLocationLatitude",
+          "city",
+          "state",
+          "zipCode",
+          "address1",
+          "lastName",
+          "firstName"
+        ],
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "detail": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "BaseIdentity": {
+        "properties": {
+          "surname": {
+            "type": "string"
+          },
+          "names": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dobRaw": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "idCountry": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "expDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expDateRaw": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "docType": {
+            "type": "string"
+          },
+          "nationality": {
+            "type": "string"
+          },
+          "idValidated": {
+            "type": "string"
+          },
+          "idName": {
+            "type": "string"
+          },
+          "zipcode": {
+            "type": "string"
+          },
+          "state_code": {
+            "type": "string"
+          },
+          "county_code": {
+            "type": "string"
+          },
+          "section_code": {
+            "type": "string"
+          },
+          "locality_code": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "secondLastname": {
+            "type": "string"
+          },
+          "secondName": {},
+          "maritalStatus": {
+            "type": "string"
+          },
+          "maidenName": {
+            "type": "string"
+          },
+          "thirdName": {
+            "type": "string"
+          },
+          "subtype": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AttachmentResponses": {
+        "properties": {
+          "userDocument": {},
+          "selfies": {},
+          "photoIdFileName": {}
+        },
+        "type": "object"
+      },
+      "ScanIdentityResponse": {
+        "description": "After scan using an non sync engine, API will return this object\nA client has to pull the data from this object's pull_url \nuntil the status is a ScanIdentityResponse or \"error\"",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "sync",
+              "async"
+            ],
+            "description": "If it's async the client has to pull the data from this url"
+          },
+          "estimatedTime": {
+            "type": "number",
+            "format": "double",
+            "description": "Estimated time in seconds."
+          },
+          "method": {
+            "type": "string",
+            "description": "What scan engine was used"
+          },
+          "pull_url": {
+            "type": "string",
+            "description": "Url to pull the data. If the type=sync\nyou have perform interval pulls to this url\nin order to monitor the status"
+          },
+          "data": {
+            "$ref": "#/components/schemas/BaseIdentity",
+            "description": "If type=sync data will contain the parsed ocr data"
+          },
+          "attachmentResponses": {
+            "$ref": "#/components/schemas/AttachmentResponses",
+            "description": "To have evidence of responses of frontId and backId scans saved"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "LevelTwoParams": {
+        "properties": {
+          "ssn": {
+            "type": "string"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "callLocationLongitude",
+          "callLocationLatitude"
+        ],
+        "type": "object"
+      },
+      "AlternateFlow": {
+        "type": "string",
+        "enum": [
+          "ssn"
+        ],
+        "nullable": false
+      },
+      "ErrorsCIPProcess": {
+        "properties": {
+          "ERROR_ID_SCAN_DATE_EXPIRED": {
+            "type": "string"
+          },
+          "ERROR_OFAC_NOT_VALID": {
+            "type": "string"
+          },
+          "ERROR_FACE_MATCH_NOT_VALID": {
+            "type": "string"
+          },
+          "ERROR_PHOTO_SCAN_ID_REQUIRED": {
+            "type": "string"
+          },
+          "ERROR_OCR_PROFILE_MATCH_NOT_VALID": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LevelStatus": {
+        "enum": [
+          "Pending",
+          "OnProcess",
+          "Success",
+          "Failed",
+          "Completed",
+          "UpgradePending",
+          "UpgradeInProgress",
+          "UpgradeFailed",
+          "UpgradeSoftFailed"
+        ],
+        "type": "string"
+      },
+      "PlatDocumentType": {
+        "enum": [
+          "None",
+          "Id",
+          "ProofOfResidence",
+          "ProofOfIncome",
+          "ProofOfLife",
+          "ProofOfAddress"
+        ],
+        "type": "string"
+      },
+      "Pick_CIP.Exclude_keyofCIP.id-or-attemps-or-isValidOFAC__": {
+        "properties": {
+          "cipLevel": {
+            "type": "number",
+            "format": "double",
+            "description": "this will updated  from event queue"
+          },
+          "hasPersonalInfo": {
+            "type": "boolean"
+          },
+          "hasHumanSelfie": {
+            "type": "boolean"
+          },
+          "hasProofOfLIfe": {
+            "type": "boolean"
+          },
+          "hasScanIds": {
+            "type": "boolean"
+          },
+          "isPerformLevel1": {
+            "type": "boolean"
+          },
+          "isPerformLevel2": {
+            "type": "boolean"
+          },
+          "profileAndOCRSimilarity": {
+            "type": "number",
+            "format": "double"
+          },
+          "errorsProcess": {
+            "$ref": "#/components/schemas/ErrorsCIPProcess",
+            "description": "Erorrs CIP Process"
+          },
+          "level1status": {
+            "$ref": "#/components/schemas/LevelStatus",
+            "description": "this will be used to update status from thee event queue"
+          },
+          "level1statusDetail": {
+            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+          },
+          "level2status": {
+            "$ref": "#/components/schemas/LevelStatus"
+          },
+          "level2statusDetail": {
+            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+          },
+          "docType": {
+            "$ref": "#/components/schemas/PlatDocumentType"
+          },
+          "isDocumentIdValueValidated": {
+            "type": "boolean",
+            "description": "This will be used when the document id value will be validated. For example The Nufi's CURP validation"
+          },
+          "isAlternateFlow": {
+            "type": "boolean",
+            "description": "This is for knowing the specific cip has an alternate flow"
+          },
+          "lolaCIP": {
+            "properties": {
+              "updateAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "inProgress": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "updateAt",
+              "inProgress"
+            ],
+            "type": "object",
+            "description": "This only applies for lola cip"
+          },
+          "polAttempsCount": {
+            "type": "number",
+            "format": "double",
+            "description": "token number requested in POL flow"
+          },
+          "polStatus": {
+            "type": "string",
+            "enum": [
+              "PASSED",
+              "NOT_PASSED",
+              "RETRY",
+              "FAILED"
+            ]
+          },
+          "polImg": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "Personal",
+              "Merchant",
+              "SupportServices",
+              "Saving",
+              "Rewards"
+            ]
+          },
+          "accountStatus": {
+            "type": "string",
+            "enum": [
+              "Requested",
+              "InProgress",
+              "Failed",
+              "Completed",
+              "Blocked",
+              "OtpMissing",
+              "Closed",
+              "WaitingBlackListsValidation",
+              "BankOnboardingFailed",
+              "WaitingSubaccountCreation",
+              "SubaccountCreationFailed"
+            ]
+          },
+          "accountStatusDetail": {
+            "type": "string",
+            "enum": [
+              "IdAlreadyUsed"
+            ],
+            "nullable": false
+          },
+          "status": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cipLevel",
+          "hasPersonalInfo",
+          "hasProofOfLIfe",
+          "hasScanIds",
+          "isPerformLevel1",
+          "isPerformLevel2",
+          "errorsProcess",
+          "level1status",
+          "level1statusDetail",
+          "level2status",
+          "level2statusDetail",
+          "docType"
+        ],
+        "type": "object",
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "Omit_CIP.id-or-attemps-or-isValidOFAC_": {
+        "$ref": "#/components/schemas/Pick_CIP.Exclude_keyofCIP.id-or-attemps-or-isValidOFAC__",
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "CIPInfo": {
+        "$ref": "#/components/schemas/Omit_CIP.id-or-attemps-or-isValidOFAC_"
+      },
+      "PerformResubmitUpgradeLevelParams": {
+        "properties": {
+          "level": {
+            "type": "number",
+            "format": "double"
+          },
+          "levelStatusDetail": {
+            "type": "string",
+            "enum": [
+              "None",
+              "InvalidAddress",
+              "InvalidEMail",
+              "UnreadableDoc",
+              "ProvideAdditionalInfo",
+              "InvalidPersonalData",
+              "OtpPrivacyMissing",
+              "OtpContractMissing",
+              "OfacFailed"
+            ]
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "address4": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "placeDetail": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "nationality": {
+            "type": "string"
+          },
+          "birthState": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "documents": {},
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "lastName2": {
+            "type": "string"
+          },
+          "isIdAddressDifferent": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "level",
+          "levelStatusDetail",
+          "callLocationLongitude",
+          "callLocationLatitude"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PolToken": {
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "type": "object"
+      },
+      "Partial_PolToken_": {
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "description": "Make all properties in T optional"
+      },
+      "PolTokenParams": {
+        "$ref": "#/components/schemas/Partial_PolToken_"
+      },
+      "Exclude_CIPBase-at-polStatus.null-or-undefined_": {
+        "type": "string",
+        "enum": [
+          "PASSED",
+          "NOT_PASSED",
+          "RETRY",
+          "FAILED"
+        ],
+        "description": "Exclude from T those types that are assignable to U"
+      },
+      "PolTokenValidation": {
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Exclude_CIPBase-at-polStatus.null-or-undefined_"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "DocType": {
+        "type": "string",
+        "enum": [
+          "ssn",
+          "di",
+          "ci",
+          "dui",
+          "dpi",
+          "dni",
+          "ine",
+          "ife",
+          "ine_ife",
+          "passport",
+          "driver_license",
+          "consular_id",
+          "green_card",
+          "state_id",
+          "none"
+        ],
+        "nullable": false
+      },
+      "DocumentTypeItem": {
+        "properties": {
+          "frontOnly": {
+            "type": "boolean"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "type": {
+            "$ref": "#/components/schemas/DocType"
+          }
+        },
+        "required": [
+          "frontOnly",
+          "active",
+          "type"
+        ],
+        "type": "object"
+      },
+      "FileUploaded": {
+        "properties": {
+          "fieldName": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "base64": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fileName",
+          "mimeType",
+          "base64"
+        ],
+        "type": "object"
+      },
+      "UploadScanIdsParams": {
+        "properties": {
+          "imageBack": {
+            "$ref": "#/components/schemas/FileUploaded"
+          },
+          "imageFront": {
+            "$ref": "#/components/schemas/FileUploaded"
+          },
+          "documentIdValue": {
+            "type": "string"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/DocType"
+          }
+        },
+        "required": [
+          "imageFront",
+          "documentType"
+        ],
+        "type": "object"
+      },
+      "UploadPolParams": {
+        "properties": {
+          "selfies": {
+            "items": {
+              "$ref": "#/components/schemas/FileUploaded"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "selfies"
+        ],
+        "type": "object"
+      },
+      "UploadFilesParams": {
+        "properties": {
+          "pol": {
+            "$ref": "#/components/schemas/UploadPolParams"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UploadScanIdsParams"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "id",
+              "pol"
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "type": "object"
+      },
+      "CanOperateParams": {
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "amountWantSend": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CanOperateResponse": {
+        "properties": {
+          "level": {
+            "type": "number",
+            "format": "double"
+          },
+          "levelOne": {
+            "type": "boolean"
+          },
+          "levelTwo": {
+            "type": "boolean"
+          },
+          "levelTwoFailed": {
+            "type": "boolean"
+          },
+          "levelOneFailed": {
+            "type": "boolean"
+          },
+          "isProcessData": {
+            "type": "boolean"
+          },
+          "canDoLevelTwo": {
+            "type": "boolean"
+          },
+          "makeCompleteCip": {
+            "type": "boolean"
+          },
+          "hasProofOfLife": {
+            "type": "boolean"
+          },
+          "hasScanIds": {
+            "type": "boolean"
+          },
+          "accountCompleted": {
+            "type": "boolean"
+          },
+          "accountFailed": {
+            "type": "boolean"
+          },
+          "canOperate": {
+            "type": "boolean"
+          },
+          "ofacFailed": {
+            "type": "boolean"
+          },
+          "level1status": {
+            "type": "string"
+          },
+          "level2status": {
+            "type": "string"
+          },
+          "level1statusDetail": {
+            "type": "string"
+          },
+          "level2statusDetail": {
+            "type": "string"
+          },
+          "sendLevel1LimitAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "accumulated": {
+            "type": "number",
+            "format": "double"
+          },
+          "rest": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "level",
+          "levelOne",
+          "levelTwo",
+          "levelTwoFailed",
+          "levelOneFailed",
+          "isProcessData",
+          "canDoLevelTwo",
+          "makeCompleteCip",
+          "hasProofOfLife",
+          "hasScanIds",
+          "accountCompleted",
+          "canOperate"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ContactInfo": {
+        "properties": {
+          "phone": {
+            "type": "string",
+            "example": "+12025550174"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "countryCode": {
+            "type": "string",
+            "example": "US"
+          },
+          "alias": {
+            "type": "string",
+            "example": "J-Dog"
+          },
+          "id": {
+            "type": "string",
+            "example": "b52b220b-0447-4cfc-b4dd-2434b9d07f35"
+          }
+        },
+        "required": [
+          "phone"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "FieldErrors": {
+        "properties": {},
+        "type": "object",
+        "additionalProperties": {
+          "properties": {
+            "value": {},
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message"
+          ],
+          "type": "object"
+        }
+      },
+      "ValidateError": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "stack": {
+            "type": "string"
+          },
+          "status": {
+            "type": "number",
+            "format": "double"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/FieldErrors"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status",
+          "fields"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "createContactRequestParamsPartner": {
+        "properties": {
+          "alias": {
+            "type": "string",
+            "example": "Janey"
+          },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code",
+            "example": "US"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+12025550155",
+            "minLength": 1
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe",
+            "minLength": 1
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Jane",
+            "minLength": 1
+          },
+          "email": {
+            "type": "string",
+            "example": "jane.doe@example.com"
+          }
+        },
+        "required": [
+          "countryCode",
+          "phone",
+          "lastName",
+          "firstName"
+        ],
+        "type": "object"
+      },
+      "updateContactRequestParams": {
+        "properties": {
+          "alias": {
+            "type": "string",
+            "example": "Janey Smith"
+          },
+          "countryCode": {
+            "type": "string",
+            "example": "US"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe Smith"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "email": {
+            "type": "string",
+            "example": "jane.doe.updated@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+12025550155"
+          }
+        },
+        "required": [
+          "phone"
+        ],
+        "type": "object"
+      },
+      "AvailablePaymentMethods": {
+        "type": "string",
+        "enum": [
+          "MobileWallet",
+          "BankAccount",
+          "DebitCard",
+          "CreditCard",
+          "CashLoadLocation",
+          "AppleDigitalWallet",
+          "GoogleDigitalWallet",
+          "CLABE",
+          "UBN",
+          "VirtualNetworkAccount"
+        ]
+      },
+      "CorridorDTO": {
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "SourcePaymentMethodType": {
+            "$ref": "#/components/schemas/AvailablePaymentMethods"
+          },
+          "DestinationPaymentMethodType": {
+            "$ref": "#/components/schemas/AvailablePaymentMethods"
+          },
+          "LowerLimit": {
+            "type": "number",
+            "format": "double"
+          },
+          "UpperLimit": {
+            "type": "number",
+            "format": "double"
+          },
+          "Fees": {},
+          "CorridorRequirements": {},
+          "IsActive": {
+            "type": "boolean"
+          },
+          "SourceCountry": {
+            "type": "string"
+          },
+          "DestinationCountry": {
+            "type": "string"
+          },
+          "DestinationCurrency": {
+            "type": "string"
+          },
+          "SourceCurrency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Id",
+          "SourcePaymentMethodType",
+          "DestinationPaymentMethodType",
+          "LowerLimit",
+          "UpperLimit",
+          "Fees",
+          "CorridorRequirements",
+          "IsActive",
+          "SourceCountry",
+          "DestinationCountry"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AvailableOperationsData": {
+        "properties": {
+          "operationType": {
+            "type": "string"
+          },
+          "destinationCountry": {
+            "type": "string"
+          },
+          "sourceCurrency": {
+            "type": "string"
+          },
+          "destinationCurrency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operationType",
+          "destinationCountry",
+          "sourceCurrency",
+          "destinationCurrency"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaasCanOperateRequest": {
+        "properties": {
+          "srcContry": {
+            "type": "string"
+          },
+          "destContry": {
+            "type": "string"
+          },
+          "operation": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "description": "User Role\nSender | Requester"
+          }
+        },
+        "required": [
+          "srcContry",
+          "destContry",
+          "operation",
+          "role"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EventSystem": {
+        "properties": {
+          "payload": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string",
+            "enum": [
+              "OperationCreated",
+              "OperationUpdated",
+              "UserLevelRegistered",
+              "UserCreated",
+              "UserUpdated",
+              "AccountUpdated",
+              "UserDeleted",
+              "ExchangeRateUpdated"
+            ]
+          }
+        },
+        "required": [
+          "payload",
+          "eventType"
+        ],
+        "type": "object"
+      },
+      "PaymentMethodStatus": {
+        "type": "string",
+        "enum": [
+          "Created",
+          "Validated",
+          "Blocked",
+          "Validating",
+          "Removed",
+          "Disconnected",
+          "ValidationNotApproved",
+          "ValidatedPull",
+          "ValidatedPush",
+          "ValidatedPullAndPush"
+        ]
+      },
+      "SourceOfFunding": {
+        "description": "simplifies delivered response for sources of funding",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Subscriber's main source of funding"
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "Bank account number"
+          },
+          "bankEntityNumber": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AvailablePaymentMethods",
+            "description": "Source of funding type:\nMobileWallet|BankAccount|DebitCard|CreditCard|CashLoadLocaion|CashPayoutLocation|MTOLoad|None|StorePay\""
+          },
+          "expirationDate": {
+            "type": "string",
+            "description": "Credit/Debit card expiration date"
+          },
+          "expirationMonth": {
+            "type": "string",
+            "description": "Credit/Debit card expiration month"
+          },
+          "expirationYear": {
+            "type": "string",
+            "description": "Credit/Debit card expiration year"
+          },
+          "cardType": {
+            "type": "string",
+            "description": "Card type: Credit|Debit"
+          },
+          "number": {
+            "type": "string",
+            "description": "Credit/Debit card number"
+          },
+          "name": {
+            "type": "string",
+            "description": "Credit/Debit card holder name.\nAccount name."
+          },
+          "tokenData": {
+            "type": "string",
+            "description": "Tokenized card data."
+          },
+          "application": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentMethodStatus"
+          },
+          "allowPullCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPullDomestic": {
+            "type": "boolean"
+          },
+          "allowPushCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPushDomestic": {
+            "type": "boolean"
+          },
+          "allowReviewAddress": {
+            "type": "boolean"
+          },
+          "canOperate": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "accountNumber",
+          "bankEntityNumber",
+          "type",
+          "expirationDate",
+          "expirationMonth",
+          "expirationYear",
+          "cardType",
+          "number",
+          "tokenData"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PaymentMethodType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "type": "number"
+      },
+      "PaymentToken": {
+        "properties": {
+          "paymentType": {
+            "$ref": "#/components/schemas/PaymentMethodType"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "transactionIdentifier": {
+            "type": "string"
+          },
+          "paymentNetwork": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "RaaSPaymentMethod": {
+        "properties": {
+          "allowReviewAddress": {
+            "type": "boolean"
+          },
+          "allowPushDomestic": {
+            "type": "boolean"
+          },
+          "allowPushCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPullDomestic": {
+            "type": "boolean"
+          },
+          "allowPullCrossBorder": {
+            "type": "boolean"
+          },
+          "accountPrefix": {
+            "type": "string"
+          },
+          "bin": {
+            "type": "string"
+          },
+          "paymentToken": {
+            "$ref": "#/components/schemas/PaymentToken",
+            "description": "The paymentToken field is only for capturing data from mobile, it won't send to numi plat"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentMethodStatus"
+          },
+          "application": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string"
+          },
+          "cardtype": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "securityCode": {
+            "type": "string"
+          },
+          "expirationMonth": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "beneficiaryAccountId": {
+            "type": "string"
+          },
+          "tokenData": {
+            "type": "string"
+          },
+          "cardType": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "bankEntityNumber": {
+            "type": "string"
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "bankAccountType": {
+            "type": "string",
+            "enum": [
+              "CheckingAccount",
+              "SavingsAccount",
+              "OtherAccount"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AvailablePaymentMethods"
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "country",
+          "type"
+        ],
+        "type": "object"
+      },
+      "AddCardParamsBase": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "payment method name:\np.e. VISA-1111"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ],
+            "description": "Payment method type\nDebitCard\" | \"CreditCard\""
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Main payment method?"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "cardtype": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ],
+            "description": "Card type\nDebitCard\" | \"CreditCard\""
+          },
+          "number": {
+            "type": "string",
+            "description": "Card number"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "string"
+          },
+          "expirationMonth": {
+            "type": "string"
+          },
+          "securityCode": {
+            "type": "string"
+          },
+          "tokenData": {
+            "type": "string",
+            "description": "Card full token json string"
+          },
+          "application": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "opPlatId": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string",
+            "enum": [
+              "NotApplicable",
+              "UATP",
+              "Visa",
+              "ChinaUnionPay",
+              "InterPayment",
+              "DiscoverCard",
+              "Dankort",
+              "Cardguard",
+              "MIR",
+              "MasterCard",
+              "Verve",
+              "InstaPayment",
+              "Maestro",
+              "DinersClubInternational",
+              "AmericanExpress",
+              "JCB",
+              "TROY"
+            ]
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "cardPorpuse": {
+            "type": "string",
+            "enum": [
+              "Source",
+              "Destination"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "cardtype",
+          "number",
+          "nameOnCard",
+          "expirationDate",
+          "expirationYear",
+          "expirationMonth",
+          "cardNetwork"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PlaidBankValidationResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "itemId": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string"
+          },
+          "accountSubType": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "accountRouting": {
+            "type": "string"
+          },
+          "bankName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AddBankAccountParamsBase": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "payment method name:\np.e. HSBC-1111"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "bankAccountType": {
+            "type": "string",
+            "enum": [
+              "CheckingAccount",
+              "SavingsAccount",
+              "OtherAccount"
+            ],
+            "description": "Bank account type"
+          },
+          "bankEntityNumber": {
+            "type": "string"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Main payment method?"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "application": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "accountNumber",
+          "bankAccountType",
+          "bankEntityNumber",
+          "isPrimary",
+          "latitude",
+          "longitude",
+          "application"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AddPaymentMethodResponse": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentMethodStatus"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "cardType": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "string"
+          },
+          "expirationMonth": {
+            "type": "string"
+          },
+          "securityCode": {
+            "type": "string"
+          },
+          "tokenData": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string"
+          },
+          "allowPullCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPullDomestic": {
+            "type": "boolean"
+          },
+          "allowPushCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPushDomestic": {
+            "type": "boolean"
+          },
+          "allowReviewAddress": {
+            "type": "boolean"
+          },
+          "requiresBalanceValidation": {
+            "type": "boolean"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "bankEntityNumber": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "errorValidation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CashOperatorsParamsBase": {
+        "properties": {
+          "operationAmmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CashNetwork": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "cashProvider": {
+            "type": "string",
+            "enum": [
+              "Numi",
+              "Greendot",
+              "Inpamex",
+              "Incomm",
+              "NumiCashDelivery"
+            ]
+          },
+          "imageUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "cashProvider",
+          "imageUrl"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CashLocation": {
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Enable": {
+            "type": "string"
+          },
+          "CashOperatorId": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "AddressLine1": {
+            "type": "string"
+          },
+          "AddressLine2": {
+            "type": "string"
+          },
+          "State": {
+            "type": "string"
+          },
+          "City": {
+            "type": "string"
+          },
+          "Longitude": {
+            "type": "string"
+          },
+          "Latitude": {
+            "type": "string"
+          },
+          "Phone": {
+            "type": "string"
+          },
+          "Image": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Id",
+          "Enable",
+          "CashOperatorId",
+          "Name",
+          "AddressLine1",
+          "AddressLine2",
+          "State",
+          "City",
+          "Longitude",
+          "Latitude",
+          "Phone",
+          "Image"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CashOperators": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "network": {
+            "items": {
+              "$ref": "#/components/schemas/CashNetwork"
+            },
+            "type": "array"
+          },
+          "country": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "location": {
+            "items": {
+              "$ref": "#/components/schemas/CashLocation"
+            },
+            "type": "array"
+          },
+          "cashAccountType": {
+            "type": "string",
+            "enum": [
+              "Credit",
+              "Prepaid"
+            ]
+          },
+          "imageCircleUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "externalId",
+          "network",
+          "country",
+          "name",
+          "imageUrl",
+          "location",
+          "cashAccountType",
+          "imageCircleUrl"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SetReferenceCodeParamsBase": {
+        "properties": {
+          "operationId": {
+            "type": "string",
+            "description": "plat Id of operation"
+          },
+          "senderName": {
+            "type": "string",
+            "description": "sender full name"
+          },
+          "receiverName": {
+            "type": "string",
+            "description": "receiver full name"
+          },
+          "networkId": {
+            "type": "string",
+            "description": "ID of cash operator. This can be obtained from Cash Operator"
+          },
+          "operationType": {
+            "type": "string"
+          },
+          "cashProvider": {
+            "type": "string",
+            "description": "can be (Numi, Greendot, Inpamex, NumiCashDelivery, Incomm) and it's obtained from Cash Network."
+          },
+          "ip": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operationId",
+          "senderName",
+          "receiverName",
+          "networkId",
+          "operationType",
+          "cashProvider"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "GetReferenceCodeResponse": {
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Code": {
+            "type": "string"
+          },
+          "TrackingNumber": {
+            "type": "string"
+          },
+          "ExpirationDate": {
+            "type": "string"
+          },
+          "CodeType": {
+            "type": "string"
+          },
+          "ResponseCode": {
+            "type": "string"
+          },
+          "ResponseMessage": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Code",
+          "TrackingNumber",
+          "ExpirationDate",
+          "CodeType",
+          "ResponseCode",
+          "ResponseMessage"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ReferenceCode": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "operationId": {
+            "type": "string",
+            "description": "internal Id of operation"
+          },
+          "operationCode": {
+            "type": "string",
+            "description": "short id of operation"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Iso 3 for Curency (USD,MXN)"
+          },
+          "senderName": {
+            "type": "string",
+            "description": "sender full name"
+          },
+          "receiverName": {
+            "type": "string",
+            "description": "receiver full name"
+          },
+          "networkId": {
+            "type": "string",
+            "description": "ID of cash operator. This can be obtained from Cash Operator"
+          },
+          "operationType": {
+            "type": "string"
+          },
+          "cashProvider": {
+            "type": "string",
+            "description": "can be (Numi, Greendot, Inpamex, NumiCashDelivery, Incomm) and it's obtained from Cash Network."
+          },
+          "code": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "subscriberId": {
+            "type": "string"
+          },
+          "operatorName": {
+            "type": "string"
+          },
+          "networkName": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "imageCircleUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "operationId",
+          "operationCode",
+          "amount",
+          "currency",
+          "senderName",
+          "receiverName",
+          "networkId",
+          "operationType",
+          "cashProvider",
+          "code",
+          "expirationDate",
+          "subscriberId",
+          "operatorName",
+          "networkName",
+          "imageUrl",
+          "imageCircleUrl"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaasBillingAddress": {
+        "properties": {
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "string"
+          },
+          "placeDetail": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address1",
+          "address2",
+          "address3",
+          "city",
+          "countryCode",
+          "latitude",
+          "longitude",
+          "placeDetail",
+          "state",
+          "streetNumber",
+          "zipCode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UpdateAndValidateBillingAddress": {
+        "properties": {
+          "PaymentMethodId": {
+            "type": "string"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/RaasBillingAddress"
+          }
+        },
+        "required": [
+          "PaymentMethodId",
+          "Address"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "VerifyMicroTrxParams": {
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "cardId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "cardId"
+        ],
+        "type": "object"
+      },
+      "AddCardPartnerParams": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "cardtype": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "number": {
+            "type": "string",
+            "minLength": 1
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expirationYear": {
+            "type": "string"
+          },
+          "expirationMonth": {
+            "type": "string"
+          },
+          "securityCode": {
+            "type": "string",
+            "minLength": 1
+          },
+          "currency": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string",
+            "enum": [
+              "NotApplicable",
+              "UATP",
+              "Visa",
+              "ChinaUnionPay",
+              "InterPayment",
+              "DiscoverCard",
+              "Dankort",
+              "Cardguard",
+              "MIR",
+              "MasterCard",
+              "Verve",
+              "InstaPayment",
+              "Maestro",
+              "DinersClubInternational",
+              "AmericanExpress",
+              "JCB",
+              "TROY"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "cardtype",
+          "number",
+          "isPrimary",
+          "nameOnCard",
+          "expirationDate",
+          "country",
+          "cardNetwork"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaaSPartnerPaymentMethod": {
+        "properties": {
+          "currency": {
+            "type": "string"
+          },
+          "bankAccountType": {
+            "type": "string",
+            "enum": [
+              "CheckingAccount",
+              "SavingsAccount",
+              "OtherAccount"
+            ]
+          },
+          "cardtype": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "number": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "bankEntityNumber": {
+            "type": "string"
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AddVNAParams": {
+        "properties": {
+          "provider": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "Account": {
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "UserId": {
+            "type": "string"
+          },
+          "Status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Id",
+          "UserId",
+          "Status"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CheckCardValidityResponse": {
+        "properties": {
+          "RegisterMethodErrorMessage": {
+            "type": "string",
+            "enum": [
+              "PAYMENTMETHOD_ALREADY_EXISTS",
+              "BAD_REQUEST",
+              "NAME_VALIDATION_FAILED",
+              "OCTTYPE_NOT_ENABLED",
+              "EXCEEDS_RULE_LIMIT_WEEK",
+              "EXCEEDS_RULE_LIMIT_MONTH",
+              "NONE",
+              "ADDRESS_VERIFICATION",
+              "TRANSACTION_FAILED",
+              "MISSING_CONFIGURATION",
+              "MISSING_PARAMETERS"
+            ]
+          },
+          "StatusMessage": {
+            "type": "string"
+          },
+          "Status": {
+            "type": "string",
+            "enum": [
+              "Succeeded",
+              "Failed",
+              "Queued"
+            ]
+          },
+          "CardStatus": {
+            "type": "string",
+            "enum": [
+              "ValidCard",
+              "InvalidCard"
+            ]
+          }
+        },
+        "required": [
+          "RegisterMethodErrorMessage",
+          "StatusMessage",
+          "Status",
+          "CardStatus"
+        ],
+        "type": "object"
+      },
+      "CheckCardValidityPushParams": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "holderName": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "number",
+            "format": "double"
+          },
+          "expirationMonth": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "country",
+          "state",
+          "accountNumber",
+          "holderName",
+          "expirationYear",
+          "expirationMonth"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CheckCardValidityPullParams": {
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "holderName": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "number",
+            "format": "double"
+          },
+          "expirationMonth": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "country",
+          "state",
+          "accountNumber",
+          "holderName",
+          "expirationYear",
+          "expirationMonth"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "OperationUserDetail": {
+        "properties": {
+          "tenantId": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "subscriberType": {
+            "type": "string"
+          },
+          "profilePictureUrl": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "orgId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LPOperationEventPaymentMethod": {
+        "type": "string",
+        "enum": [
+          "UBN",
+          "DebitCard",
+          "CreditCard"
+        ]
+      },
+      "PaymentMethodResponse": {
+        "properties": {
+          "accountPrefix": {
+            "type": "string"
+          },
+          "bin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "IgnoredOperationReason": {
+        "enum": [
+          "I_DONT_RECOGNIZE_CONTACT",
+          "AMOUNT_TOO_HIGHT",
+          "I_DONT_HAVE_MONEY_RIGHT_NOW",
+          "OTHER",
+          "I_DIDNT_MAKE_THIS_REQUEST",
+          "I_REQUESTED_A_DIFFERENT_AMOUNT"
+        ],
+        "type": "string"
+      },
+      "IgnoredOperationData": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "notifySupport": {
+            "type": "boolean"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/IgnoredOperationReason"
+          },
+          "responsibleUserId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "notifySupport",
+          "reason",
+          "responsibleUserId"
+        ],
+        "type": "object"
+      },
+      "Pick_OperationDetail.Exclude_keyofOperationDetail.recipientAmout__": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "platId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "statusDetails": {
+            "type": "string"
+          },
+          "mobileStatus": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "senderAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "senderCurrency": {
+            "type": "string"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "sourcePaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "sourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "transactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "estimatedExchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "hasReferenceCode": {
+            "type": "boolean"
+          },
+          "fromUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "toUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "fromTo": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "attributionLink": {
+            "type": "string"
+          },
+          "isIgnored": {
+            "type": "boolean"
+          },
+          "ignoredData": {
+            "$ref": "#/components/schemas/IgnoredOperationData"
+          },
+          "tenantfee": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "tax": {
+            "type": "number",
+            "format": "double"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "isLandingPortFlow": {
+            "type": "boolean"
+          },
+          "landingPortUrl": {
+            "type": "string"
+          },
+          "destinationAppId": {
+            "type": "string"
+          },
+          "sameTenant": {
+            "type": "boolean"
+          },
+          "cancelable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "type",
+          "createdAt",
+          "amount",
+          "code"
+        ],
+        "type": "object",
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "Omit_OperationDetail.recipientAmout_": {
+        "$ref": "#/components/schemas/Pick_OperationDetail.Exclude_keyofOperationDetail.recipientAmout__",
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "LPOperationUserDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Omit_OperationDetail.recipientAmout_"
+          },
+          {
+            "properties": {
+              "recipientAmount": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "required": [
+              "recipientAmount"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "LPOperationEvent": {
+        "properties": {
+          "operation": {
+            "$ref": "#/components/schemas/LPOperationUserDetail"
+          },
+          "pendingUserData": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "pendingPaymentMethod": {
+            "$ref": "#/components/schemas/LPOperationEventPaymentMethod"
+          },
+          "eventCase": {
+            "type": "string"
+          },
+          "userTo": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "userFrom": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          }
+        },
+        "required": [
+          "operation",
+          "eventCase",
+          "userTo",
+          "userFrom"
+        ],
+        "type": "object"
+      },
+      "OperationContactData": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "contactId": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "mobilePhone": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "lastName2": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "relationship": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "contactId",
+          "countryCode",
+          "firstName",
+          "middleName",
+          "lastName",
+          "lastName2",
+          "relationship"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "OperationData": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/OperationContactData"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/OperationContactData"
+          },
+          "sourcePaymentMethod": {},
+          "destinationPaymentMethod": {},
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "senderAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "senderCurrency": {
+            "type": "string"
+          },
+          "recipientAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "feePayer": {
+            "type": "string"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "code",
+          "createdBy",
+          "correlationId",
+          "sender",
+          "recipient",
+          "sourcePaymentMethod",
+          "destinationPaymentMethod",
+          "amount",
+          "currency",
+          "senderAmount",
+          "senderCurrency",
+          "recipientAmount",
+          "recipientCurrency",
+          "exchangeRate",
+          "feePayer"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RequestMoneyResponse": {
+        "properties": {
+          "operation": {
+            "$ref": "#/components/schemas/OperationData"
+          },
+          "link": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "link"
+        ],
+        "type": "object"
+      },
+      "RequestMoneyBase": {
+        "properties": {
+          "correlationId": {
+            "type": "string"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/RaaSPaymentMethod"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "senderCurrency": {
+            "type": "string"
+          },
+          "senderAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "bonusAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "userTenantId": {
+            "type": "string"
+          },
+          "application": {
+            "type": "string"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "correlationId",
+          "destinationPaymentMethod",
+          "reason",
+          "recipientAmount",
+          "recipientCurrency"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RequestMoneyParams": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestMoneyBase"
+          },
+          {
+            "properties": {
+              "requestTo": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "Pick_OperationDetailResponse.Exclude_keyofOperationDetailResponse.id-or-type-or-showWarningScreen__": {
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "platId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "statusDetails": {
+            "type": "string"
+          },
+          "mobileStatus": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "recipientAmout": {
+            "type": "number",
+            "format": "double"
+          },
+          "senderAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "senderCurrency": {
+            "type": "string"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "sourcePaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "sourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "transactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "estimatedExchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "hasReferenceCode": {
+            "type": "boolean"
+          },
+          "fromUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "toUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "fromTo": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "attributionLink": {
+            "type": "string"
+          },
+          "isIgnored": {
+            "type": "boolean"
+          },
+          "ignoredData": {
+            "$ref": "#/components/schemas/IgnoredOperationData"
+          },
+          "tenantfee": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "tax": {
+            "type": "number",
+            "format": "double"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "isLandingPortFlow": {
+            "type": "boolean"
+          },
+          "landingPortUrl": {
+            "type": "string"
+          },
+          "destinationAppId": {
+            "type": "string"
+          },
+          "sameTenant": {
+            "type": "boolean"
+          },
+          "cancelable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "status",
+          "createdAt",
+          "amount",
+          "code",
+          "recipientAmout"
+        ],
+        "type": "object",
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_": {
+        "$ref": "#/components/schemas/Pick_OperationDetailResponse.Exclude_keyofOperationDetailResponse.id-or-type-or-showWarningScreen__",
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OperationResponsePartner": {
+        "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_",
+        "example": {
+          "id": "op_12345",
+          "code": "123456",
+          "status": "Pending",
+          "amount": 100,
+          "currency": "USD",
+          "createdAt": "2023-01-01T12:00:00Z",
+          "recipientAmout": 100,
+          "recipientCurrency": "USD",
+          "senderAmount": 100,
+          "senderCurrency": "USD",
+          "exchangeRate": 1,
+          "transactionFee": 0,
+          "totalAmount": 100
+        }
+      },
+      "RequestMoneyPartnerParams": {
+        "properties": {
+          "requestTo": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "destinationPaymentMethodId": {
+            "type": "string"
+          },
+          "recipientAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "requestTo",
+          "correlationId",
+          "destinationPaymentMethodId",
+          "recipientAmount",
+          "recipientCurrency"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SendMoneyResponse": {
+        "properties": {
+          "operation": {
+            "$ref": "#/components/schemas/OperationData"
+          },
+          "landingPortUrl": {
+            "type": "string"
+          },
+          "isLandingPortFlow": {
+            "type": "boolean"
+          },
+          "platId": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "description": "RaaS Operation Id"
+          },
+          "link": {
+            "type": "string",
+            "description": "kochava link"
+          }
+        },
+        "required": [
+          "platId",
+          "id",
+          "link"
+        ],
+        "type": "object"
+      },
+      "SendMoneyBase": {
+        "properties": {
+          "correlationId": {
+            "type": "string"
+          },
+          "sourcePaymentMethod": {
+            "$ref": "#/components/schemas/RaaSPaymentMethod"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/RaaSPaymentMethod"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "senderAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "senderCurrency": {
+            "type": "string"
+          },
+          "recipientAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "feeType": {
+            "type": "string",
+            "enum": [
+              "UserPays",
+              "ThirdPartyPays",
+              "SplitPay"
+            ]
+          },
+          "sourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "transactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "string"
+          },
+          "userTenantId": {
+            "type": "string"
+          },
+          "tenantFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "partnerFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "tax": {
+            "type": "number",
+            "format": "double"
+          },
+          "quotationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "correlationId",
+          "sourcePaymentMethod",
+          "amount",
+          "currency",
+          "senderAmount",
+          "senderCurrency",
+          "recipientAmount",
+          "recipientCurrency",
+          "feeType",
+          "sourceFee",
+          "transactionFee",
+          "destinationFee",
+          "exchangeRate",
+          "callLocationLongitude",
+          "callLocationLatitude",
+          "quotationId"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SendMoneyParams": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SendMoneyBase"
+          },
+          {
+            "properties": {
+              "sendTo": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sendTo"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "SendMoneyPartnerParams": {
+        "properties": {
+          "quotationId": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "destinationPaymentMethodId": {
+            "type": "string"
+          },
+          "sourcePaymentMethodId": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "sendTo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "quotationId",
+          "correlationId"
+        ],
+        "type": "object"
+      },
+      "SendMoneyPartnerV2Params": {
+        "properties": {
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/RaaSPaymentMethod"
+          },
+          "sendTo": {
+            "$ref": "#/components/schemas/PerformLevelOneParams"
+          },
+          "quotationId": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "destinationPaymentMethodId": {
+            "type": "string"
+          },
+          "sourcePaymentMethodId": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "quotationId",
+          "correlationId"
+        ],
+        "type": "object"
+      },
+      "ReceiveMoneyParams": {
+        "properties": {
+          "destinationPaymentMethod": {},
+          "correlationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "destinationPaymentMethod",
+          "correlationId"
+        ],
+        "type": "object"
+      },
+      "RaasQuoteTransactionResponse": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sourceCurrency": {
+            "type": "string"
+          },
+          "destinationCurrency": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "None",
+              "LimitsValidation",
+              "BalanceCheck",
+              "UnusableCard",
+              "SenderInvalidPhone",
+              "RecipientInvalidPhone",
+              "NeedUpgradeLevel1",
+              "NeedUpgradeLevel2",
+              "CorridorNotAvailable",
+              "USPeerTransferNotAllowed",
+              "AuthorizationFailed"
+            ]
+          },
+          "reasonDetail": {
+            "type": "string",
+            "enum": [
+              "None",
+              "Sender",
+              "Recipient",
+              "LimitsValidation",
+              "BalanceCheck",
+              "UnusableCard",
+              "SenderInvalidPhone",
+              "RecipientInvalidPhone"
+            ]
+          },
+          "sourceAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "tax": {
+            "type": "number",
+            "format": "double"
+          },
+          "sourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "transactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "partnerFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "senderChargeBack": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientChargeBack": {
+            "type": "number",
+            "format": "double"
+          },
+          "isExecutable": {
+            "type": "boolean"
+          },
+          "validTimeInMinutes": {
+            "type": "number",
+            "format": "double"
+          },
+          "operationType": {
+            "type": "string",
+            "enum": [
+              "SendFunds",
+              "RequestFunds",
+              "WalletLoad",
+              "WalletTransferOut",
+              "TopUp",
+              "RequestTopUp",
+              "SendFundsVirtualAgent",
+              "RequestFundsVirtualAgent",
+              "StorePayment",
+              "SubscriptionFee",
+              "Reward",
+              "WalletTransfer"
+            ]
+          },
+          "tenantFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "senderUserId": {
+            "type": "string"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "sourceCurrency",
+          "destinationCurrency",
+          "reason",
+          "reasonDetail",
+          "sourceAmount",
+          "amount",
+          "destinationAmount",
+          "exchangeRate",
+          "tax",
+          "sourceFee",
+          "destinationFee",
+          "transactionFee",
+          "partnerFee",
+          "senderChargeBack",
+          "recipientChargeBack",
+          "isExecutable",
+          "validTimeInMinutes",
+          "operationType",
+          "tenantFee"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "QuoteTransactionBase": {
+        "properties": {
+          "senderUserId": {
+            "type": "string"
+          },
+          "senderCountryCode": {
+            "type": "string"
+          },
+          "recipientUserId": {
+            "type": "string"
+          },
+          "recipientCountryCode": {
+            "type": "string"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "recipientAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "isSenderAmount": {
+            "type": "boolean"
+          },
+          "amountCurrency": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "operationType": {
+            "description": "\"SendFunds\"|\"RequestFunds\"|\"WalletLoad\"|\"WalletTransferOut\"|\"TopUp\"|\"RequestTopUp\"|\"SendFundsVirtualAgent\"|\"RequestFundsVirtualAgent\"|\"StorePayment\""
+          },
+          "sourcePaymentMethod": {},
+          "destinationPaymentMethod": {},
+          "tennantFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenantCode": {
+            "type": "string"
+          },
+          "boardId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "senderCountryCode",
+          "recipientUserId",
+          "recipientCountryCode",
+          "recipientCurrency",
+          "recipientAmount",
+          "isSenderAmount",
+          "amountCurrency",
+          "amount",
+          "operationType",
+          "sourcePaymentMethod"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "QuoteTransactionPartnersBase": {
+        "properties": {
+          "recipientUserId": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "isSenderAmount": {
+            "type": "boolean"
+          },
+          "sourcePaymentMethodId": {
+            "type": "string"
+          },
+          "sourcePaymentMethod": {},
+          "destinationPaymentMethodId": {
+            "type": "string"
+          },
+          "destinationPaymentMethod": {}
+        },
+        "required": [
+          "recipientUserId",
+          "currency",
+          "amount",
+          "isSenderAmount"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaasPreQuoteValues": {
+        "properties": {
+          "ExchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "SourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "TransactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "DestinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "TenantFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "Type": {
+            "$ref": "#/components/schemas/AvailablePaymentMethods"
+          },
+          "TotalAmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "ExchangeRate",
+          "SourceFee",
+          "TransactionFee",
+          "DestinationFee",
+          "TenantFee",
+          "Type"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaasPreQuoteResponse": {
+        "properties": {
+          "Quotes": {
+            "items": {
+              "$ref": "#/components/schemas/RaasPreQuoteValues"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "Quotes"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PartnerPreQuoteRequest": {
+        "properties": {
+          "DestinationPaymentMethod": {},
+          "Amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "DestinationPaymentMethod",
+          "Amount"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "Pick_OperationDetailResponse.Exclude_keyofOperationDetailResponse.-or-correlationId-or-showWarningScreen__": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "platId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "statusDetails": {
+            "type": "string"
+          },
+          "mobileStatus": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "recipientAmout": {
+            "type": "number",
+            "format": "double"
+          },
+          "senderAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "senderCurrency": {
+            "type": "string"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "sourcePaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "sourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "transactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "estimatedExchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "hasReferenceCode": {
+            "type": "boolean"
+          },
+          "fromUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "toUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "fromTo": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "attributionLink": {
+            "type": "string"
+          },
+          "isIgnored": {
+            "type": "boolean"
+          },
+          "ignoredData": {
+            "$ref": "#/components/schemas/IgnoredOperationData"
+          },
+          "tenantfee": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "tax": {
+            "type": "number",
+            "format": "double"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "isLandingPortFlow": {
+            "type": "boolean"
+          },
+          "landingPortUrl": {
+            "type": "string"
+          },
+          "destinationAppId": {
+            "type": "string"
+          },
+          "sameTenant": {
+            "type": "boolean"
+          },
+          "cancelable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "type",
+          "createdAt",
+          "amount",
+          "code",
+          "recipientAmout"
+        ],
+        "type": "object",
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "Omit_OperationDetailResponse.-or-correlationId-or-showWarningScreen_": {
+        "$ref": "#/components/schemas/Pick_OperationDetailResponse.Exclude_keyofOperationDetailResponse.-or-correlationId-or-showWarningScreen__",
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "OperationDetail": {
+        "$ref": "#/components/schemas/Omit_OperationDetailResponse.-or-correlationId-or-showWarningScreen_"
+      },
+      "OperationDetailResponse": {
+        "properties": {
+          "cancelable": {
+            "type": "boolean"
+          },
+          "sameTenant": {
+            "type": "boolean"
+          },
+          "destinationAppId": {
+            "type": "string"
+          },
+          "landingPortUrl": {
+            "type": "string"
+          },
+          "isLandingPortFlow": {
+            "type": "boolean"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "tax": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "tenantfee": {
+            "type": "number",
+            "format": "double"
+          },
+          "ignoredData": {
+            "$ref": "#/components/schemas/IgnoredOperationData"
+          },
+          "isIgnored": {
+            "type": "boolean"
+          },
+          "attributionLink": {
+            "type": "string"
+          },
+          "fromTo": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "toUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "fromUser": {
+            "$ref": "#/components/schemas/OperationUserDetail"
+          },
+          "hasReferenceCode": {
+            "type": "boolean"
+          },
+          "estimatedExchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "transactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "sourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "sourcePaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethodResponse"
+          },
+          "recipientCurrency": {
+            "type": "string"
+          },
+          "senderCurrency": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "showWarningScreen": {
+            "type": "boolean"
+          },
+          "senderAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientAmout": {
+            "type": "number",
+            "format": "double"
+          },
+          "code": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "mobileStatus": {
+            "type": "string"
+          },
+          "statusDetails": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "platId": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "recipientAmout",
+          "code",
+          "status",
+          "amount",
+          "createdAt",
+          "type",
+          "id"
+        ],
+        "type": "object"
+      },
+      "ReplaceCardParams": {
+        "properties": {
+          "paymentMethodId": {
+            "type": "string"
+          },
+          "opPlatId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "paymentMethodId",
+          "opPlatId"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SetPaymentMethodParams": {
+        "properties": {
+          "paymentMethodId": {
+            "type": "string"
+          },
+          "opPlatId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "paymentMethodId",
+          "opPlatId"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AcceptOrRejectFundsRequest": {
+        "properties": {
+          "senderUserPhone": {
+            "type": "string"
+          },
+          "recepientUserPhone": {
+            "type": "string"
+          },
+          "senderUserEmail": {
+            "type": "string"
+          },
+          "recepientUserEmail": {
+            "type": "string"
+          },
+          "accept": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "accept"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaaSCancelOperationResponse": {
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "ticketId": {
+            "type": "string",
+            "nullable": true
+          },
+          "errorDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CancelOperationRequest": {
+        "properties": {
+          "OperationId": {
+            "type": "string"
+          },
+          "ReferenceCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "OperationId",
+          "ReferenceCode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "DraftRequestMoney": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "requestTo": {
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "countryCode": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "phoneNumber": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "countryCode",
+              "lastName",
+              "firstName",
+              "phoneNumber"
+            ],
+            "type": "object"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "countryCode",
+          "firstName",
+          "lastName",
+          "requestTo",
+          "amount",
+          "currency"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaasQuoteLiteTransactionResponse": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sourceAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "sourceCurrency": {
+            "type": "string"
+          },
+          "destinationCurrency": {
+            "type": "string"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "tax": {
+            "type": "number",
+            "format": "double"
+          },
+          "sourceFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "partnerFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "transactionFee": {
+            "type": "number",
+            "format": "double"
+          },
+          "senderChargeBack": {
+            "type": "number",
+            "format": "double"
+          },
+          "recipientChargeBack": {
+            "type": "number",
+            "format": "double"
+          },
+          "isExecutable": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "None",
+              "LimitsValidation",
+              "BalanceCheck",
+              "UnusableCard",
+              "SenderInvalidPhone",
+              "RecipientInvalidPhone",
+              "NeedUpgradeLevel1",
+              "NeedUpgradeLevel2",
+              "CorridorNotAvailable",
+              "USPeerTransferNotAllowed"
+            ]
+          },
+          "validTimeInMinutes": {
+            "type": "number",
+            "format": "double"
+          },
+          "operationType": {
+            "type": "string",
+            "enum": [
+              "SendFunds",
+              "RequestFunds",
+              "WalletLoad",
+              "WalletTransferOut",
+              "TopUp",
+              "RequestTopUp",
+              "SendFundsVirtualAgent",
+              "RequestFundsVirtualAgent",
+              "StorePayment",
+              "SubscriptionFee",
+              "Reward",
+              "WalletTransfer"
+            ]
+          },
+          "reasonDetail": {
+            "type": "string",
+            "enum": [
+              "None",
+              "Sender",
+              "Recipient"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "sourceAmount",
+          "amount",
+          "destinationAmount",
+          "sourceCurrency",
+          "destinationCurrency",
+          "exchangeRate",
+          "tax",
+          "sourceFee",
+          "destinationFee",
+          "partnerFee",
+          "transactionFee",
+          "senderChargeBack",
+          "recipientChargeBack",
+          "isExecutable",
+          "reason",
+          "validTimeInMinutes",
+          "operationType",
+          "reasonDetail"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "QuoteLiteTransaction": {
+        "properties": {
+          "operationType": {
+            "type": "string",
+            "enum": [
+              "SendFunds",
+              "RequestFunds",
+              "WalletLoad",
+              "WalletTransferOut",
+              "TopUp",
+              "RequestTopUp",
+              "SendFundsVirtualAgent",
+              "RequestFundsVirtualAgent",
+              "StorePayment",
+              "SubscriptionFee",
+              "Reward",
+              "WalletTransfer"
+            ]
+          },
+          "sourceCountry": {
+            "type": "string"
+          },
+          "sourcePaymentMethodType": {
+            "type": "string",
+            "enum": [
+              "MobileWallet",
+              "BankAccount",
+              "DebitCard",
+              "CreditCard",
+              "CashLoadLocation",
+              "CashPayoutLocation",
+              "MTOLoad",
+              "None",
+              "StorePay",
+              "AppleDigitalWallet",
+              "GoogleDigitalWallet",
+              "DebitCreditCard",
+              "CLABE",
+              "UBN"
+            ]
+          },
+          "destinationCountry": {
+            "type": "string"
+          },
+          "destinationPaymentMethodType": {
+            "type": "string",
+            "enum": [
+              "MobileWallet",
+              "BankAccount",
+              "DebitCard",
+              "CreditCard",
+              "CashLoadLocation",
+              "CashPayoutLocation",
+              "MTOLoad",
+              "None",
+              "StorePay",
+              "AppleDigitalWallet",
+              "GoogleDigitalWallet",
+              "DebitCreditCard",
+              "CLABE",
+              "UBN"
+            ]
+          },
+          "isSenderAmount": {
+            "type": "boolean"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "amountCurrency": {
+            "type": "string"
+          },
+          "destinationAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "destinationCurrency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operationType",
+          "sourceCountry",
+          "sourcePaymentMethodType",
+          "destinationCountry",
+          "destinationPaymentMethodType",
+          "isSenderAmount",
+          "amount",
+          "amountCurrency",
+          "destinationAmount",
+          "destinationCurrency"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ExchangeRate": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "currencyCodeDest": {
+            "type": "string"
+          },
+          "currencyCodeSrc": {
+            "type": "string"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "exchangeRateUpdatedAt": {
+            "type": "string"
+          },
+          "exchangeRateRaw": {
+            "type": "number",
+            "format": "double"
+          },
+          "boardId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "currencyCodeDest",
+          "currencyCodeSrc",
+          "exchangeRate",
+          "exchangeRateUpdatedAt"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "QuickAmount": {
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "isMostFrequent": {
+            "type": "boolean",
+            "description": "This config is to display the most frequent quick amount in the UI"
+          },
+          "exchange": {
+            "type": "number",
+            "format": "double"
+          },
+          "currencyCodeSrc": {
+            "type": "string"
+          },
+          "currencyCodeDest": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "exchange",
+          "currencyCodeSrc",
+          "currencyCodeDest"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ShortLinkRequest": {
+        "properties": {
+          "link": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "link"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ShortLinkResponse": {
+        "properties": {
+          "shortUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "shortUrl"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CIPWebRequest": {
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CIPWebResponse": {
+        "properties": {
+          "link": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "link"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ISOCurrenciesCodes": {
+        "description": "ISO 4217 Currency Codes supported.",
+        "enum": [
+          "MXN",
+          "USD",
+          "NIO",
+          "CRC",
+          "INR",
+          "PHP",
+          "HTG",
+          "BRL",
+          "BOB",
+          "PYG",
+          "HNL",
+          "DOP",
+          "COP",
+          "CLP",
+          "ARS",
+          "PEN",
+          "GTQ",
+          "PAB",
+          "JMD",
+          "UYU",
+          "VES"
+        ],
+        "type": "string"
+      },
+      "countryI18NNames": {
+        "properties": {},
+        "type": "object"
+      },
+      "Country": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/CountryAlpha2Code",
+            "example": "US"
+          },
+          "name": {
+            "type": "string",
+            "example": "United States"
+          },
+          "dialCode": {
+            "type": "string",
+            "example": "+1"
+          },
+          "currencyCode": {
+            "$ref": "#/components/schemas/ISOCurrenciesCodes",
+            "example": "USD"
+          },
+          "phoneLength": {
+            "type": "number",
+            "format": "double",
+            "example": 10
+          },
+          "lengthWithFormat": {
+            "type": "number",
+            "format": "double",
+            "example": 14
+          },
+          "format": {
+            "type": "string",
+            "example": "000-000-0000"
+          },
+          "formatWithDialCode": {
+            "type": "string",
+            "example": "+1 (000) 000-0000"
+          },
+          "names": {
+            "$ref": "#/components/schemas/countryI18NNames",
+            "example": {
+              "es": "Estados Unidos",
+              "en": "United States"
+            }
+          },
+          "timeZone": {
+            "type": "string",
+            "example": "America/New_York"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "additionalProperties": false,
+        "example": {
+          "id": "US",
+          "name": "United States",
+          "currencyCode": "USD",
+          "phoneLength": 10,
+          "lengthWithFormat": 14,
+          "format": "000-000-0000",
+          "formatWithDialCode": "+1 (000) 000-0000",
+          "timeZone": "America/New_York"
+        }
+      },
+      "UserUpdateParams": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "secondLastName": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "placeId": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "country_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "ready"
+            ]
+          },
+          "firstTime": {
+            "type": "boolean"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLatitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "callLocationLongitude": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "Pick_ValidatePINCodeParams.Exclude_keyofValidatePINCodeParams.deviceId__": {
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "pincode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pincode"
+        ],
+        "type": "object",
+        "description": "From T, pick a set of properties whose keys are in the union K"
+      },
+      "Omit_ValidatePINCodeParams.deviceId_": {
+        "$ref": "#/components/schemas/Pick_ValidatePINCodeParams.Exclude_keyofValidatePINCodeParams.deviceId__",
+        "description": "Construct a type with the properties of T except for those in type K."
+      },
+      "ValidatePINCodeParamsPartner": {
+        "$ref": "#/components/schemas/Omit_ValidatePINCodeParams.deviceId_"
+      },
+      "SetPincodeParams": {
+        "properties": {
+          "pincode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pincode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SetPincodeParamsPartner": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SetPincodeParams"
+          },
+          {
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}

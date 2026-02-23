@@ -1,0 +1,44 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "api": {
+    "baseUrl": "https://raas-partner-cv.nomas.cash/v1"
+  },
+  "name": "Partners API",
+  "favicon": "favicon.png",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373",
+    "anchors": "#0D9373"
+  },
+  "tabs": [
+    {
+      "name": "Partner",
+      "url": "partner",
+      "openapi": "/swagger-partner.json"
+    },
+    {
+      "name": "Partner Send",
+      "url": "partner-send",
+      "openapi": "/swagger-partner-send.json"
+    },
+    {
+      "name": "Partner Full",
+      "url": "partner-full",
+      "openapi": "/swagger-partner-full.json"
+    },
+    {
+      "name": "Partner Widget Ask",
+      "url": "partner-widget-ask",
+      "openapi": "/swagger-partner-widget-ask.json"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Introduction",
+      "pages": [
+        "api-reference/introduction"
+      ]
+    }
+  ]
+}
