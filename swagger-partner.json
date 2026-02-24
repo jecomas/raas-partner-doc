@@ -5,7 +5,7 @@
   },
   "servers": [
     {
-      "url": "https://raas-partner-cv.nomas.cash/v1"
+      "url": "/v1"
     }
   ],
   "paths": {
@@ -14,7 +14,7 @@
         "operationId": "getUserToken",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -24,7 +24,7 @@
             }
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -42,7 +42,7 @@
             }
           },
           "404": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,7 +60,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -78,7 +78,7 @@
             }
           }
         },
-        "description": "Retrieves user Token for partner integrations.\n\nEndpoint: `POST /auth/get-user-token`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
+        "description": "Retrieves user Token for partner integrations.",
         "summary": "Get user token",
         "tags": [
           "Users"
@@ -93,7 +93,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Body with phoneNumber or email.",
           "required": true,
           "content": {
             "application/json": {
@@ -110,7 +110,7 @@
         "operationId": "registerUserV2",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -120,7 +120,7 @@
             }
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -138,7 +138,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -156,8 +156,8 @@
             }
           }
         },
-        "description": "Registers user V2 for partner integrations.\n\nEndpoint: `POST /auth/register-user-v2`.\nTags: Default, Partner.\nSecurity: api_key.\nScopes: partner.",
-        "summary": "Register user v2",
+        "description": "Registers user V2 for partner integrations.",
+        "summary": "Register user V2",
         "tags": [
           "Users"
         ],
@@ -170,7 +170,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Registration data.",
           "required": true,
           "content": {
             "application/json": {
@@ -585,7 +585,7 @@
         "operationId": "getDestinationSOFForRequestMoney",
         "responses": {
           "200": {
-            "description": "TSOA responder used to build a typed HTTP response for successResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -598,7 +598,7 @@
             }
           },
           "500": {
-            "description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -616,8 +616,8 @@
             }
           }
         },
-        "description": "Get Destination SOFFor Request Money Operation.\n\nEndpoint: `GET /user/funding/source/request-money/{userToken}`.\nTags: Default, Partner.\nScopes: partner.",
-        "summary": "Get Payment Methods for Request Funds",
+        "description": "Gets destination source of funding for request money operations.",
+        "summary": "Get destination SOF for request money",
         "tags": [
           "Funding"
         ],
@@ -630,7 +630,7 @@
         ],
         "parameters": [
           {
-            "description": "User token that identifies the target user in Partner API flows.",
+            "description": "User token identifier.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -639,7 +639,7 @@
             }
           },
           {
-            "description": "Parameter sourceCountry used by this endpoint.",
+            "description": "Origin country code.",
             "in": "query",
             "name": "sourceCountry",
             "required": false,
@@ -648,7 +648,7 @@
             }
           },
           {
-            "description": "Parameter destinationCountry used by this endpoint.",
+            "description": "Target country code.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -659,93 +659,12 @@
         ]
       }
     },
-    "/user/funding/source/card/add/{userToken}": {
-      "post": {
-        "operationId": "addCard",
-        "responses": {
-          "200": {
-            "description": "TSOA responder used to build a typed HTTP response for successResponse.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RaaSPaymentMethod"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "TSOA responder used to build a typed HTTP response for badResponse.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {},
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "TSOA responder used to build a typed HTTP response for errorResponse.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Add Card.\n\nEndpoint: `POST /user/funding/source/card/add/{userToken}`.\nTags: Default, Partner, Partner Send.\nScopes: partner, partner_send.",
-        "summary": "Add card",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "User token that identifies the target user in Partner API flows.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Request payload for this endpoint.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddCardPartnerParams"
-              }
-            }
-          }
-        }
-      }
-    },
     "/user/funding/source/get-payment-method/{userToken}": {
       "get": {
         "operationId": "getPaymentMethod",
         "responses": {
           "200": {
-            "description": "TSOA responder used to build a typed HTTP response for successResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -755,7 +674,7 @@
             }
           },
           "500": {
-            "description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -773,7 +692,7 @@
             }
           }
         },
-        "description": "Get Payment Method.\n\nEndpoint: `GET /user/funding/source/get-payment-method/{userToken}`.\nTags: Default, Partner, Partner Send.\nScopes: partner, partner_send.",
+        "description": "Retrieves specific payment method details by card/account number.",
         "summary": "Get payment method",
         "tags": [
           "Funding"
@@ -788,7 +707,7 @@
         ],
         "parameters": [
           {
-            "description": "User token that identifies the target user in Partner API flows.",
+            "description": "User token identifier.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -797,7 +716,7 @@
             }
           },
           {
-            "description": "Parameter number used by this endpoint.",
+            "description": "Last 4 digits or full number.",
             "in": "query",
             "name": "number",
             "required": false,
@@ -814,7 +733,7 @@
         "operationId": "getPaymentMethodV2",
         "responses": {
           "200": {
-            "description": "TSOA responder used to build a typed HTTP response for successResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -824,7 +743,7 @@
             }
           },
           "500": {
-            "description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -842,8 +761,8 @@
             }
           }
         },
-        "description": "Get Payment Method V2.\n\nEndpoint: `GET /user/funding/source/get-payment-method-v2/{userToken}`.\nTags: Default, Partner, Partner Send.\nScopes: Default, partner, partner_send.",
-        "summary": "Get payment method v2",
+        "description": "Retrieves specific payment method details by internal identifier.",
+        "summary": "Get payment method V2",
         "tags": [
           "Funding"
         ],
@@ -858,7 +777,7 @@
         ],
         "parameters": [
           {
-            "description": "User token that identifies the target user in Partner API flows.",
+            "description": "User token identifier.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -867,7 +786,7 @@
             }
           },
           {
-            "description": "Identifier for id.",
+            "description": "Specific payment method identifier.",
             "in": "query",
             "name": "id",
             "required": false,
@@ -884,7 +803,7 @@
         "operationId": "addUBNAccount",
         "responses": {
           "200": {
-            "description": "TSOA responder used to build a typed HTTP response for successResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -894,7 +813,7 @@
             }
           },
           "400": {
-            "description": "TSOA responder used to build a typed HTTP response for badRequestResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -904,7 +823,7 @@
             }
           },
           "403": {
-            "description": "TSOA responder used to build a typed HTTP response for forbiddenResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -914,7 +833,7 @@
             }
           },
           "500": {
-            "description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -924,8 +843,8 @@
             }
           }
         },
-        "description": "Add UBNAccount.\n\nEndpoint: `POST /user/funding/source/ubn-account/add/{userToken}`.\nTags: Default, Partner, Partner Full.\nScopes: partner, partner_full.",
-        "summary": "Add u b n account",
+        "description": "Adds a new UBN account to the user's account.",
+        "summary": "Add UBN account",
         "tags": [
           "Funding"
         ],
@@ -939,7 +858,7 @@
         ],
         "parameters": [
           {
-            "description": "User token that identifies the target user in Partner API flows.",
+            "description": "User token identifier.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -949,7 +868,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request payload for this endpoint.",
+          "description": "UBN account details.",
           "required": true,
           "content": {
             "application/json": {
@@ -966,7 +885,7 @@
         "operationId": "addVNAccount",
         "responses": {
           "200": {
-            "description": "TSOA responder used to build a typed HTTP response for successResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -996,7 +915,7 @@
             "description": "No content"
           },
           "400": {
-            "description": "TSOA responder used to build a typed HTTP response for badRequestResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1006,7 +925,7 @@
             }
           },
           "403": {
-            "description": "TSOA responder used to build a typed HTTP response for forbiddenResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1016,7 +935,7 @@
             }
           },
           "500": {
-            "description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1026,8 +945,8 @@
             }
           }
         },
-        "description": "Add VNAccount.\n\nEndpoint: `POST /user/funding/source/vna-account/add/{userToken}`.\nTags: Default, Partner, Partner Full.\nScopes: partner, partner_full.",
-        "summary": "Add v n account",
+        "description": "Adds a new VN account to the user's account.",
+        "summary": "Add VNA account",
         "tags": [
           "Funding"
         ],
@@ -1041,7 +960,7 @@
         ],
         "parameters": [
           {
-            "description": "User token that identifies the target user in Partner API flows.",
+            "description": "User token identifier.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1051,7 +970,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request payload for this endpoint.",
+          "description": "VNA account details.",
           "required": true,
           "content": {
             "application/json": {
@@ -1123,7 +1042,7 @@
           }
         },
         "description": "Executes the request-money v2 flow with corridor and exchange-rate validations.\n\nEndpoint: `POST /user/operations/request-money-v2/{userToken}`.\nTags: Default, Partner.\nSecurity: api_key.\nScopes: partner.",
-        "summary": "Request v2",
+        "summary": "Request V2",
         "tags": [
           "Operations"
         ],
@@ -4907,8 +4826,7 @@
             "type": "string"
           },
           "securityCode": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
           },
           "currency": {
             "type": "string"
@@ -6439,6 +6357,9 @@
           "Amount": {
             "type": "number",
             "format": "double"
+          },
+          "Currency": {
+            "type": "string"
           }
         },
         "required": [
@@ -7115,10 +7036,6 @@
           "amountCurrency": {
             "type": "string"
           },
-          "destinationAmount": {
-            "type": "number",
-            "format": "double"
-          },
           "destinationCurrency": {
             "type": "string"
           }
@@ -7132,7 +7049,6 @@
           "isSenderAmount",
           "amount",
           "amountCurrency",
-          "destinationAmount",
           "destinationCurrency"
         ],
         "type": "object",

@@ -5,7 +5,7 @@
   },
   "servers": [
     {
-      "url": "https://raas-partner-cv.nomas.cash/v1"
+      "url": "/v1"
     }
   ],
   "paths": {
@@ -14,7 +14,7 @@
         "operationId": "getSessionLinkV2",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -27,7 +27,7 @@
             "description": "No content"
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -45,7 +45,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -63,8 +63,8 @@
             }
           }
         },
-        "description": "Retrieves session Link V2 for partner integrations.\n\nEndpoint: `POST /auth/sessionlink-v2`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
-        "summary": "Get session link v2",
+        "description": "Retrieves session link V2 for partner integrations.",
+        "summary": "Get session link V2",
         "tags": [
           "Users"
         ],
@@ -79,7 +79,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Session parameters.",
           "required": true,
           "content": {
             "application/json": {
@@ -96,7 +96,7 @@
         "operationId": "getSessionLinkV3",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -109,7 +109,7 @@
             "description": "No content"
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -127,7 +127,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -145,8 +145,8 @@
             }
           }
         },
-        "description": "Retrieves session Link V3 for partner integrations.\n\nEndpoint: `POST /auth/sessionlink-v3`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
-        "summary": "Get session link v3",
+        "description": "Retrieves session link V3 for partner integrations.",
+        "summary": "Get session link V3",
         "tags": [
           "Users"
         ],
@@ -161,7 +161,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Session parameters.",
           "required": true,
           "content": {
             "application/json": {
@@ -173,12 +173,12 @@
         }
       }
     },
-    "/auth/sessionlink-v2-anonimous": {
-      "post": {
+    "/auth/sessionlink-v4/{userToken}": {
+      "get": {
         "operationId": "getSessionLinkV2Anonimous",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -191,7 +191,7 @@
             "description": "No content"
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -209,7 +209,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -227,8 +227,8 @@
             }
           }
         },
-        "description": "Retrieves session Link V2 Anonimous for partner integrations.\n\nEndpoint: `POST /auth/sessionlink-v2-anonimous`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
-        "summary": "Get session link v2 anonimous",
+        "description": "Retrieves session link V4 for partner integrations.",
+        "summary": "Get session link V4",
         "tags": [
           "Users"
         ],
@@ -241,23 +241,17 @@
             ]
           }
         ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "operationId": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              }
+        "parameters": [
+          {
+            "description": "User identifier token.",
+            "in": "path",
+            "name": "userToken",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
-        }
+        ]
       }
     },
     "/auth/sessionlink": {
@@ -265,7 +259,7 @@
         "operationId": "getSessionLink",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -278,7 +272,7 @@
             "description": "No content"
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -296,7 +290,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -314,7 +308,7 @@
             }
           }
         },
-        "description": "Retrieves session Link for partner integrations.\n\nEndpoint: `POST /auth/sessionlink`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
+        "description": "Retrieves session link for partner integrations.",
         "summary": "Get session link",
         "tags": [
           "Users"
@@ -330,7 +324,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Session parameters.",
           "required": true,
           "content": {
             "application/json": {
@@ -347,7 +341,7 @@
         "operationId": "authByTokenLink",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -357,7 +351,7 @@
             }
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -379,7 +373,7 @@
             }
           },
           "404": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -401,7 +395,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -423,8 +417,8 @@
             }
           }
         },
-        "description": "Authenticates the user or session for partner API usage.\n\nEndpoint: `POST /auth/auth-by-token-link`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
-        "summary": "Auth by token link",
+        "description": "Authenticates the user or session for partner API usage.",
+        "summary": "Authenticate by token link",
         "tags": [
           "Users"
         ],
@@ -439,7 +433,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Request body with token.",
           "required": true,
           "content": {
             "application/json": {
@@ -3929,8 +3923,7 @@
             "type": "string"
           },
           "securityCode": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
           },
           "currency": {
             "type": "string"
@@ -5461,6 +5454,9 @@
           "Amount": {
             "type": "number",
             "format": "double"
+          },
+          "Currency": {
+            "type": "string"
           }
         },
         "required": [
@@ -6137,10 +6133,6 @@
           "amountCurrency": {
             "type": "string"
           },
-          "destinationAmount": {
-            "type": "number",
-            "format": "double"
-          },
           "destinationCurrency": {
             "type": "string"
           }
@@ -6154,7 +6146,6 @@
           "isSenderAmount",
           "amount",
           "amountCurrency",
-          "destinationAmount",
           "destinationCurrency"
         ],
         "type": "object",
