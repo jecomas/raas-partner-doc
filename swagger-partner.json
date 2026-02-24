@@ -78,7 +78,7 @@
             }
           }
         },
-        "description": "Retrieves user Token for partner integrations.",
+        "description": "Retrieves user token by phone number or email for partner integrations.",
         "summary": "Get user token",
         "tags": [
           "Users"
@@ -93,7 +93,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Body with phoneNumber or email.",
+          "description": "Payload with phoneNumber or email.",
           "required": true,
           "content": {
             "application/json": {
@@ -156,7 +156,7 @@
             }
           }
         },
-        "description": "Registers user V2 for partner integrations.",
+        "description": "Registers user for partner integrations (V2).",
         "summary": "Register user V2",
         "tags": [
           "Users"
@@ -187,7 +187,7 @@
         "operationId": "listContacts",
         "responses": {
           "200": {
-            "description": "Business response payload for successful calls. Error responses are handled through typed TSOA responders when defined.",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
@@ -215,8 +215,8 @@
             }
           }
         },
-        "description": "Lists contacts for partner integrations.\n\nEndpoint: `GET /user/contacts/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-        "summary": "List contacts",
+        "description": "Retrieves the contact list for a specific user.",
+        "summary": "List user contacts",
         "tags": [
           "Contacts"
         ],
@@ -230,7 +230,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -247,7 +247,7 @@
             "description": "Created"
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -279,7 +279,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -301,7 +301,7 @@
             }
           }
         },
-        "description": "Creates contact for partner integrations.\n\nEndpoint: `POST /user/contacts/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
+        "description": "Creates a new contact for the specified user.",
         "summary": "Create contact",
         "tags": [
           "Contacts"
@@ -316,7 +316,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -326,7 +326,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Contact details.",
           "required": true,
           "content": {
             "application/json": {
@@ -354,7 +354,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -376,8 +376,8 @@
             }
           }
         },
-        "description": "Updates d Contact for partner integrations.\n\nEndpoint: `PUT /user/contacts/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-        "summary": "Updated contact",
+        "description": "Updates an existing contact's information.",
+        "summary": "Update contact",
         "tags": [
           "Contacts"
         ],
@@ -391,7 +391,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -401,7 +401,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request body payload with the data required for this operation.",
+          "description": "Updated contact data.",
           "required": true,
           "content": {
             "application/json": {
@@ -418,7 +418,7 @@
         "operationId": "contactHasOperations",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -444,7 +444,7 @@
             }
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -454,7 +454,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -464,8 +464,8 @@
             }
           }
         },
-        "description": "Retrieves contact User Detail for partner integrations.\n\nEndpoint: `GET /user/contacts/user/{userToken}/{phoneOrEmail}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-        "summary": "Contact has operations",
+        "description": "Checks if a contact has any operational history with the user.",
+        "summary": "Check contact operations",
         "tags": [
           "Contacts"
         ],
@@ -479,7 +479,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -488,7 +488,7 @@
             }
           },
           {
-            "description": "Path parameter `phoneOrEmail` with phone number in E.164 format.",
+            "description": "Identifier for the contact.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -504,7 +504,7 @@
         "operationId": "getAvailablePaymentMethods",
         "responses": {
           "200": {
-            "description": "TSOA responder used to build a typed HTTP response for successResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -517,7 +517,7 @@
             }
           },
           "500": {
-            "description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -535,7 +535,7 @@
             }
           }
         },
-        "description": "Get Available Payment Methods.\n\nEndpoint: `GET /user/corridors/available-methods/{userToken}`.",
+        "description": "Retrieves available payment methods for a specific corridor and user.",
         "summary": "Get available payment methods",
         "tags": [
           "Funding"
@@ -550,7 +550,7 @@
         ],
         "parameters": [
           {
-            "description": "User token that identifies the target user in Partner API flows.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -559,7 +559,7 @@
             }
           },
           {
-            "description": "Parameter destinationCountry used by this endpoint.",
+            "description": "Target country code.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -568,7 +568,7 @@
             }
           },
           {
-            "description": "Parameter operationType used by this endpoint.",
+            "description": "Type of operation (e.g., SendFunds).",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -982,107 +982,12 @@
         }
       }
     },
-    "/user/operations/request-money-v2/{userToken}": {
-      "post": {
-        "operationId": "requestV2",
-        "responses": {
-          "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OperationResponsePartner"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Executes the request-money v2 flow with corridor and exchange-rate validations.\n\nEndpoint: `POST /user/operations/request-money-v2/{userToken}`.\nTags: Default, Partner.\nSecurity: api_key.\nScopes: partner.",
-        "summary": "Request V2",
-        "tags": [
-          "Operations"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Path parameter `userToken` that identifies the target user token.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Request body payload with the data required by this operation.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestMoneyPartnerParams"
-              }
-            }
-          }
-        }
-      }
-    },
     "/user/operations/status/{userToken}/{operationId}": {
       "get": {
         "operationId": "getOperationStatus",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1092,7 +997,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1110,7 +1015,7 @@
             }
           }
         },
-        "description": "Retrieves the latest status for a specific operation identifier.\n\nEndpoint: `GET /user/operations/status/{userToken}/{operationId}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
+        "description": "Retrieves the latest status for a specific operation.",
         "summary": "Get operation status",
         "tags": [
           "Operations"
@@ -1125,7 +1030,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1134,7 +1039,7 @@
             }
           },
           {
-            "description": "Path parameter `operationId` that identifies the target resource.",
+            "description": "Identifier for the operation.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -1150,7 +1055,7 @@
         "operationId": "getOperation",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1160,7 +1065,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1170,8 +1075,8 @@
             }
           }
         },
-        "description": "Retrieves detailed information for a specific operation.\n\nEndpoint: `GET /user/operations/detail/{id}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-        "summary": "Get operation",
+        "description": "Retrieves detailed information for a specific operation.",
+        "summary": "Get operation detail",
         "tags": [
           "Operations"
         ],
@@ -1186,7 +1091,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `id` that identifies the target resource.",
+            "description": "Identifier for the operation.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -1202,7 +1107,7 @@
         "operationId": "getOperations",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1215,7 +1120,7 @@
             }
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1225,7 +1130,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1235,8 +1140,8 @@
             }
           }
         },
-        "description": "Retrieves the operation list for the target user with pagination controls.\n\nEndpoint: `GET /user/operations/{userToken}`.\nTags: Partner.\nSecurity: api_key.\nScopes: partner_full, partner_send, partner.",
-        "summary": "Get operations",
+        "description": "Retrieves the operation list for the target user.",
+        "summary": "Get operations by user",
         "tags": [
           "Operations"
         ],
@@ -1251,7 +1156,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1260,7 +1165,7 @@
             }
           },
           {
-            "description": "Optional query parameter `toPhoneNumber` used to filter or shape the response.",
+            "description": "Optional filter by recipient phone number.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -1276,7 +1181,7 @@
         "operationId": "getFrequentContacts",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1289,7 +1194,7 @@
             }
           },
           "400": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1311,7 +1216,7 @@
             }
           }
         },
-        "description": "Retrieves frequent contacts inferred from the user operation history.\n\nEndpoint: `GET /user/operations/frequent/{userToken}/{limit}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
+        "description": "Retrieves frequent contacts for the user.",
         "summary": "Get frequent contacts",
         "tags": [
           "Operations"
@@ -1327,7 +1232,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1336,7 +1241,7 @@
             }
           },
           {
-            "description": "Path parameter `limit` required by this endpoint.",
+            "description": "Maximum number of contacts to retrieve.",
             "in": "path",
             "name": "limit",
             "required": true,

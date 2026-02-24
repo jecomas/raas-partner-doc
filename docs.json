@@ -27,6 +27,27 @@
           "source": "/swagger-partner.json",
           "directory": "partner"
         }
+      },
+      {
+        "tab": "Partner Send",
+        "openapi": {
+          "source": "/swagger-partner-send.json",
+          "directory": "partner-send"
+        }
+      },
+      {
+        "tab": "Partner Full",
+        "openapi": {
+          "source": "/swagger-partner-full.json",
+          "directory": "partner-full"
+        }
+      },
+      {
+        "tab": "Partner Widget Ask",
+        "openapi": {
+          "source": "/swagger-partner-widget-ask.json",
+          "directory": "partner-widget-ask"
+        }
       }
     ]
   },

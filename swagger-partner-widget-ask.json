@@ -63,7 +63,7 @@
             }
           }
         },
-        "description": "Retrieves session link V2 for partner integrations.",
+        "description": "Retrieves session link for partner integrations (V2).",
         "summary": "Get session link V2",
         "tags": [
           "Users"
@@ -93,7 +93,7 @@
     },
     "/auth/sessionlink-v3": {
       "post": {
-        "operationId": "getSessionLinkV3",
+        "operationId": "getSessionTokenV3",
         "responses": {
           "200": {
             "description": "",
@@ -145,7 +145,7 @@
             }
           }
         },
-        "description": "Retrieves session link V3 for partner integrations.",
+        "description": "Retrieves session link for partner integrations (V3).",
         "summary": "Get session link V3",
         "tags": [
           "Users"
@@ -227,7 +227,7 @@
             }
           }
         },
-        "description": "Retrieves session link V4 for partner integrations.",
+        "description": "Retrieves session link for partner integrations (V4).",
         "summary": "Get session link V4",
         "tags": [
           "Users"
@@ -243,7 +243,7 @@
         ],
         "parameters": [
           {
-            "description": "User identifier token.",
+            "description": "Identifier for the target user.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -417,7 +417,7 @@
             }
           }
         },
-        "description": "Authenticates the user or session for partner API usage.",
+        "description": "Authenticates the user or session using a token link.",
         "summary": "Authenticate by token link",
         "tags": [
           "Users"
@@ -433,7 +433,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body with token.",
+          "description": "Payload containing the token.",
           "required": true,
           "content": {
             "application/json": {

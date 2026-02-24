@@ -6160,7 +6160,7 @@
 						}
 					}
 				},
-				"description": "Validates a partner session token and returns user session details when valid.",
+				"description": "Validates a partner session token and returns user session details.",
 				"summary": "Validate session",
 				"tags": [
 					"Partner Send",
@@ -6177,7 +6177,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request body with sessionId.",
+					"description": "Payload containing the session ID.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6266,7 +6266,7 @@
 						}
 					}
 				},
-				"description": "Retrieves user Token V2 for partner integrations.",
+				"description": "Retrieves user token by phone number or email for partner integrations.",
 				"summary": "Get user token V2",
 				"tags": [
 					"Partner Send",
@@ -6283,7 +6283,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Body with phoneNumber or email.",
+					"description": "Payload with phoneNumber or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6364,7 +6364,7 @@
 						}
 					}
 				},
-				"description": "Retrieves user Token for partner integrations.",
+				"description": "Retrieves user token by phone number or email for partner integrations.",
 				"summary": "Get user token",
 				"tags": [
 					"Partner",
@@ -6381,7 +6381,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Body with phoneNumber or email.",
+					"description": "Payload with phoneNumber or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6444,7 +6444,7 @@
 						}
 					}
 				},
-				"description": "Registers user V2 for partner integrations.",
+				"description": "Registers user for partner integrations (V2).",
 				"summary": "Register user V2",
 				"tags": [
 					"Partner",
@@ -6522,7 +6522,7 @@
 						}
 					}
 				},
-				"description": "Registers user V3 for partner integrations.",
+				"description": "Registers user for partner integrations (V3, automatic upgrade).",
 				"summary": "Register user V3",
 				"tags": [
 					"Partner Full",
@@ -6681,7 +6681,7 @@
 						}
 					}
 				},
-				"description": "Registers trusted User for partner integrations.",
+				"description": "Registers trusted user for partner integrations.",
 				"summary": "Register trusted user",
 				"tags": [
 					"Partner Full",
@@ -6774,7 +6774,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter identifying the target user.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -6850,7 +6850,7 @@
 						}
 					}
 				},
-				"description": "Retrieves session link V2 for partner integrations.",
+				"description": "Retrieves session link for partner integrations (V2).",
 				"summary": "Get session link V2",
 				"tags": [
 					"Partner Widget Ask",
@@ -6883,7 +6883,7 @@
 		},
 		"/auth/sessionlink-v3": {
 			"post": {
-				"operationId": "getSessionLinkV3",
+				"operationId": "getSessionTokenV3",
 				"responses": {
 					"200": {
 						"description": "",
@@ -6935,7 +6935,7 @@
 						}
 					}
 				},
-				"description": "Retrieves session link V3 for partner integrations.",
+				"description": "Retrieves session link for partner integrations (V3).",
 				"summary": "Get session link V3",
 				"tags": [
 					"Partner Widget Ask",
@@ -7020,7 +7020,7 @@
 						}
 					}
 				},
-				"description": "Retrieves session link V4 for partner integrations.",
+				"description": "Retrieves session link for partner integrations (V4).",
 				"summary": "Get session link V4",
 				"tags": [
 					"Partner Widget Ask",
@@ -7039,7 +7039,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User identifier token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -7121,7 +7121,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Optional operationId.",
+					"description": "Optional operation identifier.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7304,7 +7304,7 @@
 						}
 					}
 				},
-				"description": "Authenticates the user or session for partner API usage.",
+				"description": "Authenticates the user or session using a token link.",
 				"summary": "Authenticate by token link",
 				"tags": [
 					"Partner Widget Ask",
@@ -7323,7 +7323,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request body with token.",
+					"description": "Payload containing the token.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7427,7 +7427,7 @@
 						}
 					}
 				},
-				"description": "Processes request OTP in partner API flows.",
+				"description": "Requests OTP in partner API flows.",
 				"summary": "Request OTP",
 				"tags": [
 					"Partner Full",
@@ -7444,7 +7444,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request body with phone or email.",
+					"description": "Payload with phone or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7574,7 +7574,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request body with OTP and identity.",
+					"description": "Payload with OTP and identity details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7661,7 +7661,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request body with phone number.",
+					"description": "Payload containing the phone number.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7741,7 +7741,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Body with phone or email.",
+					"description": "Payload with phone or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7758,10 +7758,10 @@
 				"operationId": "performLevelOne",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7771,7 +7771,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7781,8 +7781,8 @@
 						}
 					}
 				},
-				"description": "Performs level One in partner API flows.\n\nEndpoint: `POST /cip/level/one/{phoneNumber}`.",
-				"summary": "performLevelOne",
+				"description": "Performs level One in partner API flows.",
+				"summary": "Perform level one",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -7796,7 +7796,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `phoneNumber` with phone number in E.164 format.",
+						"description": "Phone number in E.164 format.",
 						"in": "path",
 						"name": "phoneNumber",
 						"required": true,
@@ -7806,7 +7806,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload required for this operation.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7823,10 +7823,10 @@
 				"operationId": "performLevelOneV2",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7836,7 +7836,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7846,8 +7846,8 @@
 						}
 					}
 				},
-				"description": "Performs level One V2 in partner API flows.\n\nEndpoint: `POST /cip/level/one/v2/{userToken}`.",
-				"summary": "performLevelOneV2",
+				"description": "Performs level One V2 in partner API flows.",
+				"summary": "Perform level one V2",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -7861,7 +7861,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -7871,7 +7871,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload required for this operation.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7888,7 +7888,7 @@
 				"operationId": "uploadDocuments",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7898,7 +7898,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7908,7 +7908,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7918,8 +7918,8 @@
 						}
 					}
 				},
-				"description": "Uploads documents required by partner API flows.\n\nEndpoint: `POST /cip/documents/{phoneNumber}`.\nTags: File.\nDeprecated: This endpoint is maintained for backward compatibility.",
-				"summary": "uploadDocuments",
+				"description": "Uploads documents required by partner API flows.",
+				"summary": "Upload documents",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -7934,7 +7934,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `phoneNumber` with phone number in E.164 format.",
+						"description": "Phone number in E.164 format.",
 						"in": "path",
 						"name": "phoneNumber",
 						"required": true,
@@ -7950,10 +7950,10 @@
 				"operationId": "uploadProofOfLife",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7963,7 +7963,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -7973,8 +7973,8 @@
 						}
 					}
 				},
-				"description": "Uploads proof Of Life required by partner API flows.\n\nEndpoint: `POST /cip/proof-of-life/{phoneNumber}`.\nTags: File.",
-				"summary": "uploadProofOfLife",
+				"description": "Uploads proof Of Life required by partner API flows.",
+				"summary": "Upload proof of life",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -7988,7 +7988,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `phoneNumber` with phone number in E.164 format.",
+						"description": "Phone number in E.164 format.",
 						"in": "path",
 						"name": "phoneNumber",
 						"required": true,
@@ -8004,10 +8004,10 @@
 				"operationId": "setLevelTwo",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8017,7 +8017,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8027,8 +8027,8 @@
 						}
 					}
 				},
-				"description": "Sets level Two in partner API flows.\n\nEndpoint: `POST /cip/set-level/two/{phoneNumber}`.",
-				"summary": "setLevelTwo",
+				"description": "Sets level Two in partner API flows.",
+				"summary": "Set level two",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8042,7 +8042,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `phoneNumber` with phone number in E.164 format.",
+						"description": "Phone number in E.164 format.",
 						"in": "path",
 						"name": "phoneNumber",
 						"required": true,
@@ -8052,7 +8052,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload required for this operation.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -8069,10 +8069,10 @@
 				"operationId": "setTrustedLevelTwo",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8082,7 +8082,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8092,8 +8092,8 @@
 						}
 					}
 				},
-				"description": "Sets trusted Level Two in partner API flows.\n\nEndpoint: `POST /cip/level/two/{phoneNumber}/trusted`.",
-				"summary": "setTrustedLevelTwo",
+				"description": "Sets trusted Level Two in partner API flows.",
+				"summary": "Set trusted level two",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8107,7 +8107,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `phoneNumber` with phone number in E.164 format.",
+						"description": "Phone number in E.164 format.",
 						"in": "path",
 						"name": "phoneNumber",
 						"required": true,
@@ -8123,10 +8123,10 @@
 				"operationId": "setTrustedLevelTwoV2",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8136,7 +8136,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8146,8 +8146,8 @@
 						}
 					}
 				},
-				"description": "Sets trusted Level Two V2 in partner API flows.\n\nEndpoint: `POST /cip/level/two/trusted/v2/{userToken}`.",
-				"summary": "setTrustedLevelTwoV2",
+				"description": "Sets trusted Level Two V2 in partner API flows.",
+				"summary": "Set trusted level two V2",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8161,7 +8161,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8177,10 +8177,10 @@
 				"operationId": "setAlternateCIP",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8190,7 +8190,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8200,8 +8200,8 @@
 						}
 					}
 				},
-				"description": "Sets alternate CIP in partner API flows.\n\nEndpoint: `POST /cip/alternate/{phoneNumber}`.",
-				"summary": "setAlternateCIP",
+				"description": "Sets alternate CIP in partner API flows.",
+				"summary": "Set alternate CIP",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8215,7 +8215,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Optional query parameter `type` used to filter or customize the response.",
+						"description": "Optional query parameter used to filter or customize the response.",
 						"in": "query",
 						"name": "type",
 						"required": true,
@@ -8224,7 +8224,7 @@
 						}
 					},
 					{
-						"description": "Path parameter `phoneNumber` with phone number in E.164 format.",
+						"description": "Phone number in E.164 format.",
 						"in": "path",
 						"name": "phoneNumber",
 						"required": true,
@@ -8240,7 +8240,7 @@
 				"operationId": "getCIPInfo",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8250,7 +8250,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8260,7 +8260,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8270,8 +8270,8 @@
 						}
 					}
 				},
-				"description": "Retrieves cIPInfo for partner integrations.\n\nEndpoint: `GET /cip/process/{phoneNumber}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send, partner_full.",
-				"summary": "getCIPInfo",
+				"description": "Retrieves CIP info for partner integrations.",
+				"summary": "Get CIP info",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -8287,7 +8287,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `phoneNumber` with phone number in E.164 format.",
+						"description": "Phone number in E.164 format.",
 						"in": "path",
 						"name": "phoneNumber",
 						"required": true,
@@ -8303,7 +8303,7 @@
 				"operationId": "getCIPInfoV2",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8313,7 +8313,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8323,7 +8323,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8333,8 +8333,8 @@
 						}
 					}
 				},
-				"description": "Retrieves cIPInfo V2 for partner integrations.\n\nEndpoint: `GET /cip/process/v2/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send, partner_full.",
-				"summary": "getCIPInfoV2",
+				"description": "Retrieves CIP info V2 for partner integrations.",
+				"summary": "Get CIP info V2",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -8350,7 +8350,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8366,10 +8366,10 @@
 				"operationId": "performResubmitUpgradeLevel",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8379,7 +8379,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8389,8 +8389,8 @@
 						}
 					}
 				},
-				"description": "Performs resubmit Upgrade Level in partner API flows.\n\nEndpoint: `POST /cip/level/resubmit-upgrade`.",
-				"summary": "performResubmitUpgradeLevel",
+				"description": "Performs resubmit Upgrade Level in partner API flows.",
+				"summary": "Perform resubmit upgrade level",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8404,7 +8404,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload required for this operation.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -8421,7 +8421,7 @@
 				"operationId": "getPolToken",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8431,7 +8431,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8441,7 +8441,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8451,8 +8451,8 @@
 						}
 					}
 				},
-				"description": "Retrieves pol Token for partner integrations.\n\nEndpoint: `GET /cip/poltoken/{userToken}`.",
-				"summary": "getPolToken",
+				"description": "Retrieves POL token for partner integrations.",
+				"summary": "Get POL token",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8466,7 +8466,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8482,7 +8482,7 @@
 				"operationId": "validatePolToken",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8492,7 +8492,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8502,7 +8502,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8512,8 +8512,8 @@
 						}
 					}
 				},
-				"description": "Validates pol Token according to partner API rules.\n\nEndpoint: `POST /cip/validatePoltoken/{userToken}`.",
-				"summary": "validatePolToken",
+				"description": "Validates POL token according to partner API rules.",
+				"summary": "Validate POL token",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8527,7 +8527,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8537,7 +8537,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload containing the token to validate.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -8554,7 +8554,7 @@
 				"operationId": "getDocsTypesByUser",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8567,7 +8567,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8577,7 +8577,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8587,8 +8587,8 @@
 						}
 					}
 				},
-				"description": "Retrieves docs Types By User for partner integrations.\n\nEndpoint: `GET /cip/docs-types-by-user/{userToken}`.",
-				"summary": "getDocsTypesByUser",
+				"description": "Retrieves document types by user for partner integrations.",
+				"summary": "Get document types by user",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8602,7 +8602,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8618,10 +8618,10 @@
 				"operationId": "uploadFiles",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8631,7 +8631,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8641,8 +8641,8 @@
 						}
 					}
 				},
-				"description": "Uploads files required by partner API flows.\n\nEndpoint: `POST /cip/uploadFiles/{userToken}`.",
-				"summary": "uploadFiles",
+				"description": "Uploads files required by partner API flows.",
+				"summary": "Upload files",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8656,7 +8656,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8666,7 +8666,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload containing file details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -8683,10 +8683,10 @@
 				"operationId": "startLevelTwo",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8696,7 +8696,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8706,8 +8706,8 @@
 						}
 					}
 				},
-				"description": "Starts level Two in partner API flows.\n\nEndpoint: `POST /cip/level/two/{userToken}`.",
-				"summary": "startLevelTwo",
+				"description": "Starts level Two in partner API flows.",
+				"summary": "Start level two",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8721,7 +8721,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8731,7 +8731,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload required for this operation.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -8748,7 +8748,7 @@
 				"operationId": "canOperate",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8758,7 +8758,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8768,7 +8768,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8778,8 +8778,8 @@
 						}
 					}
 				},
-				"description": "Can Operate endpoint for partner API workflows.\n\nEndpoint: `POST /cip/can-operate/{userToken}`.",
-				"summary": "canOperate",
+				"description": "Checks if a user is eligible to operate based on their CIP status.",
+				"summary": "Can operate",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8793,7 +8793,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8803,7 +8803,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Payload containing operation details for evaluation.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -8820,7 +8820,7 @@
 				"operationId": "getLolaCIPLink",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8842,7 +8842,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8852,7 +8852,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8862,8 +8862,8 @@
 						}
 					}
 				},
-				"description": "Retrieves lola CIPLink for partner integrations.\n\nEndpoint: `GET /cip/lola/link/{userToken}`.",
-				"summary": "getLolaCIPLink",
+				"description": "Retrieves Lola CIP link for partner integrations.",
+				"summary": "Get Lola CIP link",
 				"tags": [
 					"Partner Full",
 					"Identity (CIP)"
@@ -8877,7 +8877,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8888,33 +8888,12 @@
 				]
 			}
 		},
-		"/user/config/env": {
-			"get": {
-				"operationId": "GetEnvVariables",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"description": "Returns all environment variables.\nThis endpoint is for debugging purposes and has no security.",
-				"tags": [
-					"Config"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
 		"/user/contacts/{userToken}": {
 			"get": {
 				"operationId": "listContacts",
 				"responses": {
 					"200": {
-						"description": "Business response payload for successful calls. Error responses are handled through typed TSOA responders when defined.",
+						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -8942,8 +8921,8 @@
 						}
 					}
 				},
-				"description": "Lists contacts for partner integrations.\n\nEndpoint: `GET /user/contacts/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "listContacts",
+				"description": "Retrieves the contact list for a specific user.",
+				"summary": "List user contacts",
 				"tags": [
 					"Partner",
 					"Partner Send",
@@ -8959,7 +8938,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -8976,7 +8955,7 @@
 						"description": "Created"
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9008,7 +8987,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9030,8 +9009,8 @@
 						}
 					}
 				},
-				"description": "Creates contact for partner integrations.\n\nEndpoint: `POST /user/contacts/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "createContact",
+				"description": "Creates a new contact for the specified user.",
+				"summary": "Create contact",
 				"tags": [
 					"Partner",
 					"Partner Send",
@@ -9047,7 +9026,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -9057,7 +9036,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Contact details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -9085,7 +9064,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9107,8 +9086,8 @@
 						}
 					}
 				},
-				"description": "Updates d Contact for partner integrations.\n\nEndpoint: `PUT /user/contacts/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "updatedContact",
+				"description": "Updates an existing contact's information.",
+				"summary": "Update contact",
 				"tags": [
 					"Partner",
 					"Partner Send",
@@ -9124,7 +9103,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -9134,7 +9113,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required for this operation.",
+					"description": "Updated contact data.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -9151,7 +9130,7 @@
 				"operationId": "contactHasOperations",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9177,7 +9156,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9187,7 +9166,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9197,8 +9176,8 @@
 						}
 					}
 				},
-				"description": "Retrieves contact User Detail for partner integrations.\n\nEndpoint: `GET /user/contacts/user/{userToken}/{phoneOrEmail}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "contactHasOperations",
+				"description": "Checks if a contact has any operational history with the user.",
+				"summary": "Check contact operations",
 				"tags": [
 					"Partner",
 					"Partner Send",
@@ -9214,7 +9193,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -9223,7 +9202,7 @@
 						}
 					},
 					{
-						"description": "Path parameter `phoneOrEmail` with phone number in E.164 format.",
+						"description": "Identifier for the contact.",
 						"in": "path",
 						"name": "phoneOrEmail",
 						"required": true,
@@ -9924,7 +9903,7 @@
 				"operationId": "getCorridors",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9937,7 +9916,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -9955,8 +9934,8 @@
 						}
 					}
 				},
-				"description": "Get Corridors.\n\nEndpoint: `GET /user/corridors`.\nTags: Partner.\nScopes: partner, partner_send, partner_full.",
-				"summary": "getCorridors",
+				"description": "Retrieves a list of available corridors for fund operations.",
+				"summary": "Get corridors",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -9972,7 +9951,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Parameter sourceCountry used by this endpoint.",
+						"description": "Origin country code.",
 						"in": "query",
 						"name": "sourceCountry",
 						"required": false,
@@ -9981,7 +9960,7 @@
 						}
 					},
 					{
-						"description": "Parameter destinationCountry used by this endpoint.",
+						"description": "Target country code.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -9990,7 +9969,7 @@
 						}
 					},
 					{
-						"description": "Parameter operationType used by this endpoint.",
+						"description": "Type of operation (e.g., SendFunds).",
 						"in": "query",
 						"name": "operationType",
 						"required": false,
@@ -10007,7 +9986,7 @@
 				"operationId": "getAvailablePaymentMethods",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10020,7 +9999,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10038,8 +10017,8 @@
 						}
 					}
 				},
-				"description": "Get Available Payment Methods.\n\nEndpoint: `GET /user/corridors/available-methods/{userToken}`.",
-				"summary": "getAvailablePaymentMethods",
+				"description": "Retrieves available payment methods for a specific corridor and user.",
+				"summary": "Get available payment methods",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -10056,7 +10035,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token that identifies the target user in Partner API flows.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -10065,7 +10044,7 @@
 						}
 					},
 					{
-						"description": "Parameter destinationCountry used by this endpoint.",
+						"description": "Target country code.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -10074,7 +10053,7 @@
 						}
 					},
 					{
-						"description": "Parameter operationType used by this endpoint.",
+						"description": "Type of operation (e.g., SendFunds).",
 						"in": "query",
 						"name": "operationType",
 						"required": false,
@@ -10091,7 +10070,7 @@
 				"operationId": "getAvailableOperationType",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10104,7 +10083,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10122,8 +10101,8 @@
 						}
 					}
 				},
-				"description": "Get Available Operation Type.\n\nEndpoint: `GET /user/corridors/available-operations/{userToken}`.",
-				"summary": "getAvailableOperationType",
+				"description": "Retrieves available operation types for a specific corridor and user.",
+				"summary": "Get available operation types",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -10139,7 +10118,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token that identifies the target user in Partner API flows.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -10148,7 +10127,7 @@
 						}
 					},
 					{
-						"description": "Parameter destinationCountry used by this endpoint.",
+						"description": "Target country code.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -10164,7 +10143,7 @@
 				"operationId": "getAvailableOperationsNoUser",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10177,7 +10156,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10199,8 +10178,8 @@
 						}
 					}
 				},
-				"description": "Get Available Operations No User.\n\nEndpoint: `GET /user/corridors/available-operations-data-free`.",
-				"summary": "getAvailableOperationsNoUser",
+				"description": "Retrieves available operations without requiring user authentication.",
+				"summary": "Get available operations without user",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -10216,7 +10195,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Parameter toPhoneNumber used by this endpoint.",
+						"description": "Optional recipient phone number to filter corridors.",
 						"in": "query",
 						"name": "toPhoneNumber",
 						"required": false,
@@ -10232,7 +10211,7 @@
 				"operationId": "getAvailablePayoutMethods",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10245,7 +10224,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -10263,8 +10242,8 @@
 						}
 					}
 				},
-				"description": "Get Available Payout Methods.\n\nEndpoint: `GET /user/corridors/available-payout-methods/{userToken}`.",
-				"summary": "getAvailablePayoutMethods",
+				"description": "Retrieves available payout methods for a specific corridor and user.",
+				"summary": "Get available payout methods",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -10280,7 +10259,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token that identifies the target user in Partner API flows.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -10289,7 +10268,7 @@
 						}
 					},
 					{
-						"description": "Parameter destinationCountry used by this endpoint.",
+						"description": "Target country code.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -10298,7 +10277,7 @@
 						}
 					},
 					{
-						"description": "Parameter operationType used by this endpoint.",
+						"description": "Type of operation (e.g., SendFunds).",
 						"in": "query",
 						"name": "operationType",
 						"required": false,
@@ -10308,79 +10287,6 @@
 						}
 					}
 				]
-			}
-		},
-		"/hooks": {
-			"post": {
-				"operationId": "eventsHook",
-				"responses": {
-					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse."
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "TSOA responder used to build a typed HTTP response for badRequestResponse.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for errorResponse.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Events Hook.\n\nEndpoint: `POST /hooks`.",
-				"summary": "eventsHook",
-				"tags": [
-					"Default"
-				],
-				"security": [
-					{
-						"api_key": [
-							"admin"
-						]
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"description": "Parameter event used by this endpoint.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/EventSystem"
-							}
-						}
-					}
-				}
 			}
 		},
 		"/funding/source/request-money": {
@@ -13173,7 +13079,7 @@
 				"operationId": "getLandingPortStatusEvent",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13183,7 +13089,7 @@
 						}
 					},
 					"400": {
-						"description": "Parameter badRequestReponse used by this endpoint.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13193,7 +13099,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for errorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13203,8 +13109,8 @@
 						}
 					}
 				},
-				"description": "Get Landing Port Status Event.\n\nEndpoint: `GET /user/landing-port/status/{operationId}`.",
-				"summary": "getLandingPortStatusEvent",
+				"description": "Retrieves the status event for a landing port operation.",
+				"summary": "Get landing port status",
 				"tags": [
 					"Partner Full"
 				],
@@ -13217,7 +13123,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Identifier for operationId.",
+						"description": "Identifier for the target operation.",
 						"in": "path",
 						"name": "operationId",
 						"required": true,
@@ -13228,57 +13134,12 @@
 				]
 			}
 		},
-		"/user/operations/short-url": {
-			"post": {
-				"operationId": "shortUrl",
-				"responses": {
-					"204": {
-						"description": "No content"
-					}
-				},
-				"description": "Generates a short URL from a partner-provided URL for shareable operation links.\n\nEndpoint: `POST /user/operations/short-url`.\nTags: Default, Partner.",
-				"summary": "shortUrl",
-				"tags": [
-					"Partner Send",
-					"Partner Full",
-					"Operations"
-				],
-				"security": [
-					{
-						"api_key": [
-							"partner_send",
-							"partner_full"
-						]
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"properties": {
-									"url": {
-										"type": "string"
-									}
-								},
-								"required": [
-									"url"
-								],
-								"type": "object"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/user/operations/request-money-v2/{userToken}": {
 			"post": {
-				"operationId": "requestV2",
+				"operationId": "requestMoneyV2",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13288,7 +13149,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13310,7 +13171,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13332,22 +13193,24 @@
 						}
 					}
 				},
-				"description": "Executes the request-money v2 flow with corridor and exchange-rate validations.\n\nEndpoint: `POST /user/operations/request-money-v2/{userToken}`.\nTags: Default, Partner.\nSecurity: api_key.\nScopes: partner.",
-				"summary": "requestV2",
+				"description": "Requests money from another user (V2).",
+				"summary": "Request money V2",
 				"tags": [
-					"Partner",
+					"Partner Send",
+					"Partner Full",
 					"Operations"
 				],
 				"security": [
 					{
 						"api_key": [
-							"partner"
+							"partner_send",
+							"partner_full"
 						]
 					}
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13357,7 +13220,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Request details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -13369,102 +13232,12 @@
 				}
 			}
 		},
-		"/user/operations/send-money/{userToken}": {
-			"post": {
-				"operationId": "send",
-				"responses": {
-					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/SendMoneyResponse"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Executes the legacy send-money flow for backward-compatible partner integrations.\n\nEndpoint: `POST /user/operations/send-money/{userToken}`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner_full.",
-				"summary": "send",
-				"tags": [
-					"Partner Full",
-					"Partner Send",
-					"Operations"
-				],
-				"security": [
-					{
-						"api_key": [
-							"partner_full",
-							"partner_send"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
-						"in": "path",
-						"name": "userToken",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/SendMoneyParams"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/user/operations/send-funds/{userToken}": {
 			"post": {
 				"operationId": "sendFunds",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13474,7 +13247,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13492,7 +13265,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13510,8 +13283,8 @@
 						}
 					}
 				},
-				"description": "Executes the send-money workflow and returns operation details for the created transfer.\n\nEndpoint: `POST /user/operations/send-funds/{userToken}`.\nTags: Partner Send.\nSecurity: api_key.\nScopes: partner_send, partner.",
-				"summary": "sendFunds",
+				"description": "Sends funds to another user.",
+				"summary": "Send funds",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -13527,7 +13300,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13537,7 +13310,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Send details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -13554,7 +13327,7 @@
 				"operationId": "sendFundsV2",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13564,7 +13337,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13582,7 +13355,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13600,8 +13373,8 @@
 						}
 					}
 				},
-				"description": "Executes the send-money v2 workflow with the updated partner request contract.\n\nEndpoint: `POST /user/operations/send-funds-v2/{userToken}`.\nTags: Partner Send.\nSecurity: api_key.\nScopes: partner_send.",
-				"summary": "sendFundsV2",
+				"description": "Sends funds to another user (V2).",
+				"summary": "Send funds V2",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -13617,7 +13390,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13627,7 +13400,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Send details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -13644,13 +13417,13 @@
 				"operationId": "receive",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"204": {
 						"description": "No content"
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13668,7 +13441,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13686,8 +13459,8 @@
 						}
 					}
 				},
-				"description": "Executes a receive-money workflow for the target user and selected destination method.\n\nEndpoint: `POST /user/operations/receive-money/{userToken}`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner_full.",
-				"summary": "receive",
+				"description": "Receives funds into the user account.",
+				"summary": "Receive funds",
 				"tags": [
 					"Partner Full",
 					"Operations"
@@ -13701,7 +13474,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13711,7 +13484,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Receive details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -13728,7 +13501,7 @@
 				"operationId": "getOperationStatus",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13738,7 +13511,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13756,8 +13529,8 @@
 						}
 					}
 				},
-				"description": "Retrieves the latest status for a specific operation identifier.\n\nEndpoint: `GET /user/operations/status/{userToken}/{operationId}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "getOperationStatus",
+				"description": "Retrieves the latest status for a specific operation.",
+				"summary": "Get operation status",
 				"tags": [
 					"Partner",
 					"Partner Send",
@@ -13773,7 +13546,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13782,7 +13555,7 @@
 						}
 					},
 					{
-						"description": "Path parameter `operationId` that identifies the target resource.",
+						"description": "Identifier for the operation.",
 						"in": "path",
 						"name": "operationId",
 						"required": true,
@@ -13870,7 +13643,7 @@
 				"operationId": "operationQuote",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13880,7 +13653,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -13902,8 +13675,8 @@
 						}
 					}
 				},
-				"description": "Calculates operation quote values for the provided transfer request.\n\nEndpoint: `POST /user/operations/operation-quote/{userToken}`.\nTags: Partner Send.\nSecurity: api_key.\nScopes: partner_send, partner.",
-				"summary": "operationQuote",
+				"description": "Calculates operation quote values for a transfer request.",
+				"summary": "Get operation quote",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -13919,7 +13692,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13929,7 +13702,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Request details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -14010,7 +13783,7 @@
 				"operationId": "preQuote",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14020,7 +13793,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14030,8 +13803,8 @@
 						}
 					}
 				},
-				"description": "Calculates a pre-quote to validate amounts, currencies, and corridor compatibility before execution.\n\nEndpoint: `POST /user/operations/pre-quote/{userToken}`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner_full, partner_send.",
-				"summary": "preQuote",
+				"description": "Validates amounts and currencies before execution.",
+				"summary": "Pre-quote validation",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -14047,7 +13820,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14057,7 +13830,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Request details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -14074,7 +13847,7 @@
 				"operationId": "getOperation",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14084,7 +13857,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14094,8 +13867,8 @@
 						}
 					}
 				},
-				"description": "Retrieves detailed information for a specific operation.\n\nEndpoint: `GET /user/operations/detail/{id}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "getOperation",
+				"description": "Retrieves detailed information for a specific operation.",
+				"summary": "Get operation detail",
 				"tags": [
 					"Partner",
 					"Partner Send",
@@ -14113,7 +13886,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `id` that identifies the target resource.",
+						"description": "Identifier for the operation.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -14129,7 +13902,7 @@
 				"operationId": "getOperations",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14142,7 +13915,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14152,7 +13925,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14162,8 +13935,8 @@
 						}
 					}
 				},
-				"description": "Retrieves the operation list for the target user with pagination controls.\n\nEndpoint: `GET /user/operations/{userToken}`.\nTags: Partner.\nSecurity: api_key.\nScopes: partner_full, partner_send, partner.",
-				"summary": "getOperations",
+				"description": "Retrieves the operation list for the target user.",
+				"summary": "Get operations by user",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -14181,7 +13954,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14190,7 +13963,7 @@
 						}
 					},
 					{
-						"description": "Optional query parameter `toPhoneNumber` used to filter or shape the response.",
+						"description": "Optional filter by recipient phone number.",
 						"in": "query",
 						"name": "toPhoneNumber",
 						"required": false,
@@ -14206,7 +13979,7 @@
 				"operationId": "getInAndOutOperations",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14219,7 +13992,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14229,7 +14002,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14239,8 +14012,8 @@
 						}
 					}
 				},
-				"description": "Retrieves inbound and outbound operations for the target user.\n\nEndpoint: `GET /user/operations/in-out/{userToken}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner_full, partner_send, partner.",
-				"summary": "getInAndOutOperations",
+				"description": "Retrieves inbound and outbound operations for the target user.",
+				"summary": "Get inbound and outbound operations",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -14256,7 +14029,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14265,7 +14038,7 @@
 						}
 					},
 					{
-						"description": "Optional query parameter `toPhoneNumber` used to filter or shape the response.",
+						"description": "Optional filter by recipient phone number.",
 						"in": "query",
 						"name": "toPhoneNumber",
 						"required": false,
@@ -14274,7 +14047,7 @@
 						}
 					},
 					{
-						"description": "Optional query parameter `toEmail` used to filter or shape the response.",
+						"description": "Optional filter by recipient email.",
 						"in": "query",
 						"name": "toEmail",
 						"required": false,
@@ -14290,7 +14063,7 @@
 				"operationId": "getCompletedOperationsBetweenUsers",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14303,7 +14076,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14313,7 +14086,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14323,8 +14096,8 @@
 						}
 					}
 				},
-				"description": "Retrieves completed operations between two users for relationship history.\n\nEndpoint: `GET /user/operations/completed/{userToken}`.",
-				"summary": "getCompletedOperationsBetweenUsers",
+				"description": "Retrieves completed operations between two users.",
+				"summary": "Get completed operations history",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -14340,7 +14113,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the source user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14349,7 +14122,7 @@
 						}
 					},
 					{
-						"description": "Optional query parameter `toPhoneNumber` used to filter or shape the response.",
+						"description": "Optional filter by target phone number.",
 						"in": "query",
 						"name": "toPhoneNumber",
 						"required": false,
@@ -14358,7 +14131,7 @@
 						}
 					},
 					{
-						"description": "Optional query parameter `toEmail` used to filter or shape the response.",
+						"description": "Optional filter by target email.",
 						"in": "query",
 						"name": "toEmail",
 						"required": false,
@@ -14374,13 +14147,13 @@
 				"operationId": "replacePaymentMethod",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"204": {
 						"description": "No content"
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14390,7 +14163,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14400,8 +14173,8 @@
 						}
 					}
 				},
-				"description": "Replaces the payment method linked to an existing operation.\n\nEndpoint: `POST /user/operations/replace-payment-method/{userId}`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner_full, partner.",
-				"summary": "replacePaymentMethod",
+				"description": "Replaces the payment method linked to an existing operation.",
+				"summary": "Replace payment method",
 				"tags": [
 					"Partner Full",
 					"Operations"
@@ -14415,7 +14188,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userId` that identifies the target resource.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userId",
 						"required": true,
@@ -14425,7 +14198,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Request details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -14442,13 +14215,13 @@
 				"operationId": "setPaymentMethod",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses."
+						"description": ""
 					},
 					"204": {
 						"description": "No content"
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14458,7 +14231,7 @@
 						}
 					},
 					"500": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14468,8 +14241,8 @@
 						}
 					}
 				},
-				"description": "Assigns a payment method to an existing operation.\n\nEndpoint: `POST /user/operations/set-payment-method/{userId}`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner_full, partner.",
-				"summary": "setPaymentMethod",
+				"description": "Assigns a payment method to an existing operation.",
+				"summary": "Set payment method",
 				"tags": [
 					"Partner Full",
 					"Operations"
@@ -14483,7 +14256,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userId` that identifies the target resource.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userId",
 						"required": true,
@@ -14493,7 +14266,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Request details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -14510,7 +14283,7 @@
 				"operationId": "getFrequentContacts",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14523,7 +14296,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14545,8 +14318,8 @@
 						}
 					}
 				},
-				"description": "Retrieves frequent contacts inferred from the user operation history.\n\nEndpoint: `GET /user/operations/frequent/{userToken}/{limit}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "getFrequentContacts",
+				"description": "Retrieves frequent contacts for the user.",
+				"summary": "Get frequent contacts",
 				"tags": [
 					"Partner",
 					"Partner Send",
@@ -14564,7 +14337,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14573,7 +14346,7 @@
 						}
 					},
 					{
-						"description": "Path parameter `limit` required by this endpoint.",
+						"description": "Maximum number of contacts to retrieve.",
 						"in": "path",
 						"name": "limit",
 						"required": true,
@@ -14593,8 +14366,8 @@
 						"description": "No content"
 					}
 				},
-				"description": "Triggers a notification workflow for cash operation completion events.\n\nEndpoint: `GET /user/operations/notify-cash-operation/{userToken}/{operationId}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "notifyCashOperation",
+				"description": "Triggers a notification for cash operation completion.",
+				"summary": "Notify cash operation",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -14610,7 +14383,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14619,7 +14392,7 @@
 						}
 					},
 					{
-						"description": "Path parameter `operationId` that identifies the target resource.",
+						"description": "Identifier for the operation.",
 						"in": "path",
 						"name": "operationId",
 						"required": true,
@@ -14638,8 +14411,8 @@
 						"description": "No content"
 					}
 				},
-				"description": "Triggers a notification workflow when card validation requires user action.\n\nEndpoint: `GET /user/operations/notify-validate-card/{userToken}/{paymentMethodId}`.\nTags: Default, Partner, Partner Send.\nSecurity: api_key.\nScopes: partner, partner_send.",
-				"summary": "notifyValidateCard",
+				"description": "Triggers a notification for card validation.",
+				"summary": "Notify validate card",
 				"tags": [
 					"Partner Full",
 					"Operations"
@@ -14653,7 +14426,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14662,7 +14435,7 @@
 						}
 					},
 					{
-						"description": "Path parameter `paymentMethodId` that identifies the target resource.",
+						"description": "Identifier for the payment method.",
 						"in": "path",
 						"name": "paymentMethodId",
 						"required": true,
@@ -14681,7 +14454,7 @@
 						"description": "No content"
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14691,8 +14464,8 @@
 						}
 					}
 				},
-				"description": "Accepts or rejects a pending funds request operation.\n\nEndpoint: `POST /user/operations/accept-reject-funds/{userToken}`.\nTags: Default, Partner, Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full.",
-				"summary": "acceptoOrRejectFunds",
+				"description": "Accepts or rejects a pending funds request.",
+				"summary": "Accept or reject funds",
 				"tags": [
 					"Partner Full",
 					"Operations"
@@ -14706,7 +14479,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14716,7 +14489,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Request details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -14733,7 +14506,7 @@
 				"operationId": "cancelOperaton",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14743,7 +14516,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14753,8 +14526,8 @@
 						}
 					}
 				},
-				"description": "Cancels an eligible operation and returns cancellation outcome details.\n\nEndpoint: `POST /user/operations/cancel-operation/{userToken}`.\nTags: Default, Partner, Partner Full.\nSecurity: api_key.\nScopes: partner, partner_full, partner_send.",
-				"summary": "cancelOperaton",
+				"description": "Cancels an eligible operation.",
+				"summary": "Cancel operation",
 				"tags": [
 					"Partner Full",
 					"Operations"
@@ -14768,7 +14541,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `userToken` that identifies the target user token.",
+						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14778,7 +14551,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request body payload with the data required by this operation.",
+					"description": "Request details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -14795,7 +14568,7 @@
 				"operationId": "createSupportTicket",
 				"responses": {
 					"200": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14805,7 +14578,7 @@
 						}
 					},
 					"400": {
-						"description": "Typed TSOA response handler for controlled HTTP responses.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -14815,8 +14588,8 @@
 						}
 					}
 				},
-				"description": "Creates a support ticket associated with a specific operation.\n\nEndpoint: `POST /user/operations/create-support-ticket/{id}`.",
-				"summary": "createSupportTicket",
+				"description": "Creates a support ticket for an operation.",
+				"summary": "Create support ticket",
 				"tags": [
 					"Partner Full",
 					"Operations"
@@ -14830,7 +14603,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Path parameter `id` that identifies the target resource.",
+						"description": "Identifier for the operation.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -15003,10 +14776,10 @@
 		},
 		"/user/exchange-rates/exchange-rates": {
 			"get": {
-				"operationId": "GetExchangeRates",
+				"operationId": "getExchangeRates",
 				"responses": {
 					"200": {
-						"description": "ExchangeRate[]",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15037,7 +14810,8 @@
 						}
 					}
 				},
-				"description": "Gets exchange rates between currencies",
+				"description": "Gets exchange rates between currencies.",
+				"summary": "Get exchange rates",
 				"tags": [
 					"Partner Full"
 				],
@@ -15051,7 +14825,7 @@
 				],
 				"parameters": [
 					{
-						"description": "ISO 4217 3-alpha",
+						"description": "Source currency code.",
 						"in": "query",
 						"name": "currencyCodeSrc",
 						"required": false,
@@ -15060,7 +14834,7 @@
 						}
 					},
 					{
-						"description": "ISO 4217 3-alpha",
+						"description": "Destination currency code.",
 						"in": "query",
 						"name": "currencyCodeDest",
 						"required": false,
@@ -15076,7 +14850,7 @@
 				"operationId": "shortLink",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15096,7 +14870,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for internalServerErrorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15114,8 +14888,8 @@
 						}
 					}
 				},
-				"description": "Short Link.\n\nEndpoint: `POST /service/short-link`.",
-				"summary": "shortLink",
+				"description": "Shortens a long URL into a more manageable link.",
+				"summary": "Shorten link",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -15131,7 +14905,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request payload for this endpoint.",
+					"description": "URL to shorten.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -15148,7 +14922,7 @@
 				"operationId": "getCIPWebLink",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15168,7 +14942,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for internalServerErrorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15186,8 +14960,8 @@
 						}
 					}
 				},
-				"description": "Get CIPWeb Link.\n\nEndpoint: `POST /service/get-cip-web-link`.",
-				"summary": "getCIPWebLink",
+				"description": "Generates a web link for user identity verification (CIP).",
+				"summary": "Get CIP web link",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -15203,7 +14977,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request payload for this endpoint.",
+					"description": "User token for verification.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -15220,7 +14994,7 @@
 				"operationId": "allowedCountries",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15233,8 +15007,8 @@
 						}
 					}
 				},
-				"description": "Allowed Countries.\n\nEndpoint: `GET /service/allowed_countries`.",
-				"summary": "allowedCountries",
+				"description": "Retrieves a list of countries supported for operations.",
+				"summary": "List allowed countries",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -15257,7 +15031,7 @@
 				"operationId": "getPlaceDetails",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15267,7 +15041,7 @@
 						}
 					},
 					"500": {
-						"description": "TSOA responder used to build a typed HTTP response for internalServerErrorResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15285,8 +15059,8 @@
 						}
 					}
 				},
-				"description": "Get Place Details.\n\nEndpoint: `POST /service/place_details`.",
-				"summary": "getPlaceDetails",
+				"description": "Retrieves fine-grained details for a specific address or place.",
+				"summary": "Get place details",
 				"tags": [
 					"Partner Send",
 					"Partner Full",
@@ -15302,7 +15076,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request payload for this endpoint.",
+					"description": "Address string to geocode.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -15330,11 +15104,11 @@
 						"description": ""
 					},
 					"302": {
-						"description": "TSOA responder used to build a typed HTTP response for redirectResponse."
+						"description": ""
 					}
 				},
-				"description": "Plaid Redirect.\n\nEndpoint: `GET /service/plaid-redirect`.",
-				"summary": "plaidRedirect",
+				"description": "Handles redirection from the Plaid authentication flow.",
+				"summary": "Plaid redirect",
 				"tags": [
 					"Partner Full",
 					"Services"
@@ -15356,7 +15130,7 @@
 				"operationId": "getTenantInfo",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15414,11 +15188,11 @@
 						}
 					},
 					"404": {
-						"description": "TSOA responder used to build a typed HTTP response for tenantNotFoundResponse."
+						"description": ""
 					}
 				},
-				"description": "Get Tenant Info.\n\nEndpoint: `GET /tenant/tenant-info`.",
-				"summary": "getTenantInfo",
+				"description": "Retrieves configuration and support information for the current tenant.",
+				"summary": "Get tenant information",
 				"tags": [
 					"Partner Full",
 					"Tenant"
@@ -15438,17 +15212,31 @@
 				"operationId": "getProfile",
 				"responses": {
 					"200": {
-						"description": "Created",
+						"description": "OK",
 						"content": {
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/User"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"id": "user_123",
+											"firstName": "John",
+											"lastName": "Doe",
+											"email": "john@example.com",
+											"phoneNumber": "+15551234567",
+											"countryCode": "US",
+											"tenantId": "tenant_123",
+											"tenantCode": "T123"
+										}
+									}
 								}
 							}
 						}
 					},
 					"404": {
-						"description": "TSOA responder used to build a typed HTTP response for notFoundResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15476,8 +15264,8 @@
 						}
 					}
 				},
-				"description": "Get Profile.\n\nEndpoint: `GET /user/profile/{phoneOrEmail}`.",
-				"summary": "getProfile",
+				"description": "Retrieves the profile information for a specific user.",
+				"summary": "Get user profile",
 				"tags": [
 					"Partner Full",
 					"Users"
@@ -15491,7 +15279,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Parameter phoneOrEmail used by this endpoint.",
+						"description": "Identifier (phone or email) for the target user.",
 						"in": "path",
 						"name": "phoneOrEmail",
 						"required": true,
@@ -15508,7 +15296,7 @@
 						"description": "Updated"
 					},
 					"404": {
-						"description": "TSOA responder used to build a typed HTTP response for notFoundResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15536,8 +15324,8 @@
 						}
 					}
 				},
-				"description": "Update Profile.\n\nEndpoint: `PUT /user/profile/{phoneOrEmail}`.",
-				"summary": "updateProfile",
+				"description": "Updates the profile information for a specific user.",
+				"summary": "Update user profile",
 				"tags": [
 					"Partner Full",
 					"Users"
@@ -15552,7 +15340,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Parameter phoneOrEmail used by this endpoint.",
+						"description": "Identifier (phone or email) for the target user.",
 						"in": "path",
 						"name": "phoneOrEmail",
 						"required": true,
@@ -15562,7 +15350,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Request payload for this endpoint.",
+					"description": "Updated profile data.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -15579,7 +15367,7 @@
 				"operationId": "validatePINCode",
 				"responses": {
 					"200": {
-						"description": "TSOA responder used to build a typed HTTP response for successResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15611,7 +15399,7 @@
 						}
 					},
 					"403": {
-						"description": "TSOA responder used to build a typed HTTP response for banFoundResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15633,7 +15421,7 @@
 						}
 					},
 					"404": {
-						"description": "TSOA responder used to build a typed HTTP response for notFoundResponse.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15655,7 +15443,7 @@
 						}
 					},
 					"500": {
-						"description": "Parameter wrongPinCode used by this endpoint.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15682,8 +15470,8 @@
 						}
 					}
 				},
-				"description": "Validate PINCode.\n\nEndpoint: `POST /user/validate-pincode`.",
-				"summary": "validatePINCode",
+				"description": "Validates a user's PIN code for secure operations.",
+				"summary": "Validate PIN code",
 				"tags": [
 					"Partner Full",
 					"Users"
@@ -15698,7 +15486,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request payload for this endpoint.",
+					"description": "PIN validation details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -15718,7 +15506,7 @@
 						"description": "Created"
 					},
 					"400": {
-						"description": "Parameter badRequestRepsonse used by this endpoint.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15740,7 +15528,7 @@
 						}
 					},
 					"403": {
-						"description": "Parameter pinAlreadySetRepsonse used by this endpoint.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15762,7 +15550,7 @@
 						}
 					},
 					"404": {
-						"description": "Parameter notFoundRepsonse used by this endpoint.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -15784,8 +15572,8 @@
 						}
 					}
 				},
-				"description": "Create Pin.\n\nEndpoint: `POST /user/pin`.",
-				"summary": "createPin",
+				"description": "Creates or sets a new PIN code for the user.",
+				"summary": "Create PIN code",
 				"tags": [
 					"Partner Full",
 					"Users"
@@ -15800,7 +15588,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Request payload for this endpoint.",
+					"description": "PIN creation details.",
 					"required": true,
 					"content": {
 						"application/json": {
