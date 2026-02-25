@@ -6177,7 +6177,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload containing the session ID.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6269,21 +6268,20 @@
 				"description": "Retrieves user token by phone number or email for partner integrations.",
 				"summary": "Get user token V2",
 				"tags": [
-					"Partner Send",
+					"Partner",
 					"Partner Full",
 					"Users"
 				],
 				"security": [
 					{
 						"api_key": [
-							"partner_send",
+							"partner",
 							"partner_full"
 						]
 					}
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload with phoneNumber or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6381,7 +6379,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload with phoneNumber or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6459,7 +6456,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Registration data.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6537,7 +6533,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Registration data.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6615,7 +6610,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Registration data.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6696,7 +6690,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Registration data.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6774,7 +6767,6 @@
 				],
 				"parameters": [
 					{
-						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -6784,7 +6776,6 @@
 					}
 				],
 				"requestBody": {
-					"description": "Registration data.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6869,7 +6860,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Session parameters.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -6954,7 +6944,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Session parameters.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7039,7 +7028,6 @@
 				],
 				"parameters": [
 					{
-						"description": "Identifier for the target user.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -7121,7 +7109,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Optional operation identifier.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7211,7 +7198,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Session parameters.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7323,7 +7309,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload containing the token.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7444,7 +7429,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload with phone or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7574,7 +7558,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload with OTP and identity details.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7661,7 +7644,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload containing the phone number.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7741,7 +7723,6 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "Payload with phone or email.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -13196,14 +13177,14 @@
 				"description": "Requests money from another user (V2).",
 				"summary": "Request money V2",
 				"tags": [
-					"Partner Send",
+					"Partner",
 					"Partner Full",
 					"Operations"
 				],
 				"security": [
 					{
 						"api_key": [
-							"partner_send",
+							"partner",
 							"partner_full"
 						]
 					}

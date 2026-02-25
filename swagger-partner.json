@@ -5,10 +5,105 @@
   },
   "servers": [
     {
-      "url": "/v1"
+      "url": "https://raas-partner-cv.nomas.cash/v1"
     }
   ],
   "paths": {
+    "/auth/get-user-token-v2": {
+      "post": {
+        "operationId": "getUserTokenV2",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieves user token by phone number or email for partner integrations.",
+        "summary": "Get user token V2",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetUserTokenParams"
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/get-user-token": {
       "post": {
         "operationId": "getUserToken",
@@ -93,7 +188,6 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Payload with phoneNumber or email.",
           "required": true,
           "content": {
             "application/json": {
@@ -170,7 +264,6 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Registration data.",
           "required": true,
           "content": {
             "application/json": {
@@ -976,6 +1069,102 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddVNAParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/operations/request-money-v2/{userToken}": {
+      "post": {
+        "operationId": "requestMoneyV2",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResponsePartner"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Requests money from another user (V2).",
+        "summary": "Request money V2",
+        "tags": [
+          "Operations"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "description": "Identifier for the target user.",
+            "in": "path",
+            "name": "userToken",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Request details.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestMoneyPartnerParams"
               }
             }
           }
