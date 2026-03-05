@@ -63,7 +63,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión ( V2)",
+        "description": "\nOrquesta la precreación de usuarios remotos para instanciar links de checkout pre-autenticados, delegando cobro en webviews.",
+        "summary": "Obtener session link u i ( cobro V2)",
         "tags": [
           "Users"
         ],
@@ -78,7 +79,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Configuración y datos del usuario.",
+          "description": "- Objeto rico en datos de pago, montos, fees y KYC base.",
           "required": true,
           "content": {
             "application/json": {
@@ -144,7 +145,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión ( V3)",
+        "description": "\nConstruye un session link de fondeo validando y matcheando rigurosamente que los alias reportados y la identidad CIP coincidan sin colisiones previas.",
+        "summary": "Obtener session link u i ( cobro V3 match)",
         "tags": [
           "Users"
         ],
@@ -159,7 +161,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Configuración de la sesión y datos del usuario.",
+          "description": "- Schema contenedor de importes, referencias geográficas y de control.",
           "required": true,
           "content": {
             "application/json": {
@@ -225,7 +227,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión ( V4)",
+        "description": "\nRetorna el Link UI transaccional empleando unicamente el identificador UUID ya enrolado y validado asumiendo pre-existencia del cliente.",
+        "summary": "Obtener session link u i ( cobro V4 fast)",
         "tags": [
           "Users"
         ],
@@ -240,7 +243,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del socio/usuario.",
+            "description": "- Identificador o Token autenticado en base.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -305,7 +308,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión anónimo ( V2)",
+        "description": "\nProduce un checkout url sin atadura de identity atada a una correlación, usado para embudos con registro opcional posterior.",
+        "summary": "Obtener session link u i ( anónimo)",
         "tags": [
           "Users"
         ],
@@ -318,7 +322,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Parámetros que incluyen el identificador de operación.",
+          "description": "- Contiene opcionalmente el identificador cruzado de la operación base.",
           "required": true,
           "content": {
             "application/json": {
@@ -389,7 +393,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión estándar",
+        "description": "\nVersion base inicial de obtención de Session Link validando e incrustando en el token todos los flags de la orden (Deprecated use V2/V3).",
+        "summary": "Obtener session link u i ( legacy)",
         "tags": [
           "Users"
         ],
@@ -404,7 +409,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos del usuario y configuración de pago.",
+          "description": "- Formulario descriptivo transaccional.",
           "required": true,
           "content": {
             "application/json": {

@@ -63,7 +63,8 @@
             }
           }
         },
-        "summary": "Registrar usuario de confianza",
+        "description": "\nCrea un perfil de usuario preautorizado validando la disponibilidad de alias sin encolar promociones CIP pesadas.",
+        "summary": "Registrar usuario verificado",
         "tags": [
           "Users"
         ],
@@ -76,12 +77,259 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos del usuario.",
+          "description": "- Colección nominal de datos y domicilio simplificado.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RegisterUserParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/request-otp": {
+      "post": {
+        "operationId": "requestOtp",
+        "responses": {
+          "200": {
+            "description": "Code Sent"
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "\nEmite un token temporal de un solo uso por via SMS u otro canal subscrito al usuario para atestiguar tenencia del dispositivo.",
+        "summary": "Solicitar OTP verificación",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- Canal seleccionado y lenguage.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestOTPParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/validate-otp": {
+      "post": {
+        "operationId": "validateOtp",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "remainingAttempts": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "remainingAttempts",
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "\nCompara dinamicamente el valor numerico recibido contra el persistido en la BD, si hace match desactiva restricciones del UI.",
+        "summary": "Validar emisión OTP",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- Llave numerica tipiada por cliente.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateOTPParamsPartner"
               }
             }
           }
@@ -146,7 +394,8 @@
             }
           }
         },
-        "summary": "Verificar disponibilidad de teléfono",
+        "description": "\nSindea la bóveda base para contestar si un alias esta virgen (disponible) o ya pertenece a un perfil establecido o incompleto.",
+        "summary": "Auditar teléfono",
         "tags": [
           "Users"
         ],
@@ -159,7 +408,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Número de teléfono a consultar.",
+          "description": "- LADA y digitos contiguos.",
           "required": true,
           "content": {
             "application/json": {
@@ -199,7 +448,8 @@
             }
           }
         },
-        "summary": "Verificación de identidad nivel 1 ( V2)",
+        "description": "\nAsienta las bases del onboarding para un usuario mediante token estandarizado, registrando en CIP la fase 1.",
+        "summary": "Iniciar onboarding de identidad ( nivel 1)",
         "tags": [
           "Users"
         ],
@@ -212,7 +462,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador único del usuario.",
+            "description": "- Identificador JWT o UUID único de red.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -222,7 +472,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos de perfil y dirección del usuario.",
+          "description": "- Campos primarios con datos del usuario y dirección.",
           "required": true,
           "content": {
             "application/json": {
@@ -269,7 +519,8 @@
             }
           }
         },
-        "summary": "Subir documentos de identidad ( legacy)",
+        "description": "\nSe encarga de procesar flujos en memoria con imágenes codificadas, subirlas al servicio cloud partner y validarlas.",
+        "summary": "Subir documentos de identidad",
         "tags": [
           "Users"
         ],
@@ -283,7 +534,7 @@
         ],
         "parameters": [
           {
-            "description": "- Teléfono del usuario dueño de los documentos.",
+            "description": "- Teléfono registrado y verificado.",
             "in": "path",
             "name": "phoneNumber",
             "required": true,
@@ -322,7 +573,8 @@
             }
           }
         },
-        "summary": "Subir prueba de vida ( selfie)",
+        "description": "\nConsiste en la segunda etapa del enrolamiento fuerte, requiere imágenes/video del rostro procesados contra inteligencia biométrica.",
+        "summary": "Subir prueba de vida ( selfie/ video)",
         "tags": [
           "Users"
         ],
@@ -335,7 +587,7 @@
         ],
         "parameters": [
           {
-            "description": "- Teléfono del usuario.",
+            "description": "- Elemento indexador.",
             "in": "path",
             "name": "phoneNumber",
             "required": true,
@@ -374,7 +626,8 @@
             }
           }
         },
-        "summary": "Establecer nivel 2 CIP",
+        "description": "\nDeclara asíncronamente o consolida el final de la cadena de pasos CIP basándose en el análisis y extracción documental.",
+        "summary": "Consolidar nivel 2",
         "tags": [
           "Users"
         ],
@@ -387,7 +640,7 @@
         ],
         "parameters": [
           {
-            "description": "- Teléfono del usuario.",
+            "description": "- Teléfono a impactar.",
             "in": "path",
             "name": "phoneNumber",
             "required": true,
@@ -397,7 +650,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos complementarios de identidad.",
+          "description": "- Confirmación de validación secundaria.",
           "required": true,
           "content": {
             "application/json": {
@@ -437,7 +690,8 @@
             }
           }
         },
-        "summary": "Nivel 2 CIP de confianza",
+        "description": "\nEleva instantáneamente a un cliente a un estado avalado bajo el riesgo e imputabilidad directa del Partner originador, pasando por alto KYC estricto.",
+        "summary": "Marcar como nivel 2 ( confiable)",
         "tags": [
           "Users"
         ],
@@ -450,7 +704,7 @@
         ],
         "parameters": [
           {
-            "description": "- Teléfono del usuario.",
+            "description": "- Teléfono ligado al cliente a upgradear.",
             "in": "path",
             "name": "phoneNumber",
             "required": true,
@@ -489,7 +743,8 @@
             }
           }
         },
-        "summary": "Nivel 2 CIP de confianza ( V2)",
+        "description": "\nRealiza un ascenso directo a Nivel 2 utilizando token V2 permitiendo delegar verificaciones y aceptar operaciones máximas.",
+        "summary": "Traspasar confianza a identidad V2 ( trusted level)",
         "tags": [
           "Users"
         ],
@@ -502,7 +757,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador o Token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -541,7 +796,8 @@
             }
           }
         },
-        "summary": "Cambiar flujo CIP alternativo",
+        "description": "\nConmuta a la identidad hacia procesos de originación alternativos o legacy para sobreescribir flujos automatizados caídos.",
+        "summary": "Activar flujo CIP alterno",
         "tags": [
           "Users"
         ],
@@ -554,7 +810,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del flujo alternativo.",
+            "description": "- Indicador del proceso paralelo o vendor secundario.",
             "in": "query",
             "name": "type",
             "required": true,
@@ -563,7 +819,7 @@
             }
           },
           {
-            "description": "- Teléfono del usuario.",
+            "description": "- Indice de usuario.",
             "in": "path",
             "name": "phoneNumber",
             "required": true,
@@ -609,7 +865,8 @@
             }
           }
         },
-        "summary": "Consultar estado CIP ( v1)",
+        "description": "\nRecupera el detalle de nivel CIP y avance de recolección de pruebas de un usuario individual.",
+        "summary": "Consultar estado de validación ( CIP)",
         "tags": [
           "Users"
         ],
@@ -623,7 +880,7 @@
         ],
         "parameters": [
           {
-            "description": "- Teléfono del usuario.",
+            "description": "- Número de celular que indexa la cuenta.",
             "in": "path",
             "name": "phoneNumber",
             "required": true,
@@ -669,7 +926,8 @@
             }
           }
         },
-        "summary": "Consultar estado CIP ( V2)",
+        "description": "\nRecupera el detalle y estado actual del enrolamiento CIP usando un token estándar del sistema V2.",
+        "summary": "Consultar estado de identidad V2",
         "tags": [
           "Users"
         ],
@@ -682,7 +940,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador V2 o JWT.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -721,7 +979,8 @@
             }
           }
         },
-        "summary": "Reintentar actualización de nivel",
+        "description": "\nEmpleado en flujos de revisión asincrónicos para relanzar o actualizar el estado de evaluación en un panel.",
+        "summary": "Reevaluar nivel CIP ( forzar upgrade)",
         "tags": [
           "Users"
         ],
@@ -734,7 +993,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos para el reintento.",
+          "description": "- Campos y razones para el upgrade.",
           "required": true,
           "content": {
             "application/json": {
@@ -781,7 +1040,8 @@
             }
           }
         },
-        "summary": "Obtener token prueba de vida",
+        "description": "\nCrea una clave de un sólo uso encriptada necesaria para realizar verificaciones liveness/video.",
+        "summary": "Obtener token biométrico de prueba de vida ( po l)",
         "tags": [
           "Users"
         ],
@@ -794,7 +1054,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador del suscriptor.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -840,7 +1100,8 @@
             }
           }
         },
-        "summary": "Validar token prueba de vida",
+        "description": "\nEjecuta el cruce algorítmico evaluando si las métricas de un Proof of Life capturado en un SDK coinciden con la identidad del PoL Token.",
+        "summary": "Validar token biométrico ( po l)",
         "tags": [
           "Users"
         ],
@@ -853,7 +1114,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Token V2.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -863,7 +1124,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Token biométrico a validar.",
+          "description": "- Credenciales resultantes del SDK biométrico.",
           "required": true,
           "content": {
             "application/json": {
@@ -913,7 +1174,8 @@
             }
           }
         },
-        "summary": "Obtener tipos de documentos por usuario",
+        "description": "\nRecupera qué identificaciones emitidas por gobierno son válidas para aplicar enrolamiento considerando la jurisdicción del tenant.",
+        "summary": "Consultar tipos de documentos habilitados",
         "tags": [
           "Users"
         ],
@@ -926,7 +1188,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- String JWT.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -965,7 +1227,8 @@
             }
           }
         },
-        "summary": "Cargar archivos delegados",
+        "description": "\nPunto de montaje genérico multipropósito que delega imágenes recibidas (pol, ids) a handlers inyectados en runtime.",
+        "summary": "Subir ficheros adjuntos ( multiuso)",
         "tags": [
           "Users"
         ],
@@ -978,7 +1241,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- JWT estándar.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -988,7 +1251,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Archivos y metadatos de carga.",
+          "description": "- Base 64 binaria y tipo de documento adjunto.",
           "required": true,
           "content": {
             "application/json": {
@@ -1028,7 +1291,8 @@
             }
           }
         },
-        "summary": "Iniciar nivel 2 CIP ( V2)",
+        "description": "\nEmplea un proxy API del core V2 para re-desencadenar las verificaciones biométricas faltantes.",
+        "summary": "Disparar validaciones nivel 2",
         "tags": [
           "Users"
         ],
@@ -1041,7 +1305,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- UUID originador.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1051,7 +1315,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos complementarios para el nivel superior.",
+          "description": "- Referencia opcional adicional dictada por flow front-end.",
           "required": true,
           "content": {
             "application/json": {
@@ -1098,7 +1362,8 @@
             }
           }
         },
-        "summary": "Consultar viabilidad operativa",
+        "description": "\nEvalúa acumulados transaccionales y estatus de CIP para denegar o autorizar flujos dentro de un contexto de negocio puntual.",
+        "summary": "Consultar viabilidad operativa ( CIP check)",
         "tags": [
           "Users"
         ],
@@ -1111,7 +1376,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Válido Token o UUID.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1121,7 +1386,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos adicionales para la validación de montos.",
+          "description": "- Teléfono alterno o meta de transferencia a considerar.",
           "required": true,
           "content": {
             "application/json": {
@@ -1180,7 +1445,8 @@
             }
           }
         },
-        "summary": "Obtener enlace CIP lola",
+        "description": "\nRecupera un enlace temporal directo al flujo KYC (Lola) embebido con el fin de avanzar la biometría u OCR en el ecosistema.",
+        "summary": "Obtener link de flujo CIP ( lola)",
         "tags": [
           "Users"
         ],
@@ -1193,7 +1459,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador clave del originador.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1240,7 +1506,8 @@
             }
           }
         },
-        "summary": "Listar corredores disponibles",
+        "description": "\nRetorna los corredores de transferencia filtrados acordes a la región y el tipo de operación.",
+        "summary": "Obtener corredores de servicio",
         "tags": [
           "Funding"
         ],
@@ -1254,7 +1521,7 @@
         ],
         "parameters": [
           {
-            "description": "- Código ISO del país de origen.",
+            "description": "- País de origen.",
             "in": "query",
             "name": "sourceCountry",
             "required": false,
@@ -1263,7 +1530,7 @@
             }
           },
           {
-            "description": "- Código ISO del país de destino.",
+            "description": "- País destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1272,7 +1539,7 @@
             }
           },
           {
-            "description": "- Tipo de operación (ej: SendFunds).",
+            "description": "- Tipo de operación (por defecto SendFunds).",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -1320,7 +1587,8 @@
             }
           }
         },
-        "summary": "Obtener métodos de pago disponibles",
+        "description": "\nCalcula los métodos de pago disponibles según el origen y destino del corredor para un usuario particular.",
+        "summary": "Obtener métodos de pago ( orígen)",
         "tags": [
           "Funding"
         ],
@@ -1334,7 +1602,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador o token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1343,7 +1611,7 @@
             }
           },
           {
-            "description": "- País destino de la operación.",
+            "description": "- Código de país de destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1352,7 +1620,7 @@
             }
           },
           {
-            "description": "- Tipo de operación.",
+            "description": "- Modalidad transaccional.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -1400,7 +1668,8 @@
             }
           }
         },
-        "summary": "Obtener tipos de operación disponibles",
+        "description": "\nDetermina las operaciones lógicas ofertadas a nivel usuario según su ubicación nacional y destino objetivo (Send/Request).",
+        "summary": "Obtener tipos de operación permitidos",
         "tags": [
           "Funding"
         ],
@@ -1414,7 +1683,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Token criptográfico único por usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1423,7 +1692,7 @@
             }
           },
           {
-            "description": "- País destino.",
+            "description": "- País de destino para la evaluación.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1474,7 +1743,8 @@
             }
           }
         },
-        "summary": "Obtener operaciones disponibles sin usuario",
+        "description": "\nDescubre qué transacciones son habilitadas globalmente hacia un destino considerando el tenant público de acceso, sin un usuario provisto.",
+        "summary": "Obtener parámetros operativos públicos",
         "tags": [
           "Funding"
         ],
@@ -1488,7 +1758,7 @@
         ],
         "parameters": [
           {
-            "description": "- (Opcional) Teléfono del destinatario para filtrar corredores específicos.",
+            "description": "- Teléfono de destino (Opcional).",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -1535,7 +1805,8 @@
             }
           }
         },
-        "summary": "Obtener métodos de cobro disponibles",
+        "description": "\nInspecciona todos los corredores y unifica los métodos de cobro o desembolso aprobados para el destino.",
+        "summary": "Obtener métodos de destino disponibles",
         "tags": [
           "Funding"
         ],
@@ -1549,7 +1820,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Token del usuario que origina la consulta.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1558,7 +1829,7 @@
             }
           },
           {
-            "description": "- País destino.",
+            "description": "- Siglas ISO del país destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1567,7 +1838,7 @@
             }
           },
           {
-            "description": "- Tipo de operación.",
+            "description": "- Operacion intentada.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -1630,7 +1901,8 @@
             }
           }
         },
-        "summary": "Generar micro-transacción de validación",
+        "description": "\nDispara transacciones de céntimos para validación fuerte de cuentas como requerimiento anti-lavado.",
+        "summary": "Forzar micro transacciones de cuenta",
         "tags": [
           "Funding"
         ],
@@ -1653,7 +1925,7 @@
           }
         ],
         "requestBody": {
-          "description": "- ID del método de pago a validar.",
+          "description": "- Objeto con el ID del método de pago.",
           "required": true,
           "content": {
             "application/json": {
@@ -1702,7 +1974,8 @@
             }
           }
         },
-        "summary": "Eliminar fuente de fondos",
+        "description": "\nDesvincula y elimina un método de pago previamente agregado. No afectará a transacciones ya en tránsito.",
+        "summary": "Eliminar método de pago",
         "tags": [
           "Funding"
         ],
@@ -1715,7 +1988,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador del usuario propietario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1724,7 +1997,7 @@
             }
           },
           {
-            "description": "- Identificador del método de pago a eliminar.",
+            "description": "- Cadena alfanumérica única del método.",
             "in": "query",
             "name": "paymentMethodId",
             "required": true,
@@ -1780,7 +2053,8 @@
             }
           }
         },
-        "summary": "Agregar cuenta UBN ( méxico)",
+        "description": "\nIncorpora un enlace hacia un número de cuenta UBN o bancaria a favor de la colección del usuario.",
+        "summary": "Registrar cuenta bancaria UBN",
         "tags": [
           "Funding"
         ],
@@ -1805,7 +2079,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos de la cuenta UBN.",
+          "description": "- Payload validado con los parámetros obligatorios.",
           "required": true,
           "content": {
             "application/json": {
@@ -1879,7 +2153,8 @@
             }
           }
         },
-        "summary": "Obtener fuentes de fondos de contacto",
+        "description": "\nInspecciona en los registros unificados en qué cuentas destino (ajenas al usuario originado) se depositó.",
+        "summary": "Obtener métodos de fondeo por contacto",
         "tags": [
           "Funding"
         ],
@@ -1893,7 +2168,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del remitente.",
+            "description": "- Usuario origen solicitante.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1902,7 +2177,7 @@
             }
           },
           {
-            "description": "- Teléfono del destinatario.",
+            "description": "- Fono del target que fue beneficiario.",
             "in": "query",
             "name": "destinationPhone",
             "required": true,
@@ -1938,7 +2213,8 @@
             }
           }
         },
-        "summary": "Obtener cuenta interna del usuario",
+        "description": "\nDetermina directamente a través del motor primario de persistencia las cuentas operativas de usuarios core RaaS.",
+        "summary": "Extraer cuenta general",
         "tags": [
           "Funding"
         ],
@@ -1951,7 +2227,7 @@
         ],
         "parameters": [
           {
-            "description": "- ID o Token del usuario.",
+            "description": "- ID o Token real de usuario.",
             "in": "path",
             "name": "raasUserId",
             "required": true,
@@ -2017,7 +2293,8 @@
             }
           }
         },
-        "summary": "Actualizar dirección de facturación de tarjeta",
+        "description": "\nEnruta el flujo de actualización hacia el procesador central asíncronamente con binchecking de Address en medios tipo Pull/Push.",
+        "summary": "Actualizar billing address",
         "tags": [
           "Funding"
         ],
@@ -2030,7 +2307,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Solicitud desde Token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2040,7 +2317,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Nueva dirección y ID del método de pago.",
+          "description": "- Address objeto parametrizado.",
           "required": true,
           "content": {
             "application/json": {
@@ -2107,7 +2384,8 @@
             }
           }
         },
-        "summary": "Validar tarjeta ( push)",
+        "description": "\nEfectúa sondeos a través del core en la pasarela OCT de operaciones Push para certificar salud de tarjeta sin guardar registro del método completo.",
+        "summary": "Evaluar validación push ( sondeo de b i n)",
         "tags": [
           "Funding"
         ],
@@ -2120,7 +2398,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos de la tarjeta a validar.",
+          "description": "- Información fraccional no almacenada.",
           "required": true,
           "content": {
             "application/json": {
@@ -2187,7 +2465,8 @@
             }
           }
         },
-        "summary": "Validar tarjeta ( pull)",
+        "description": "\nDetermina por reglas interbancarias y sondeos en procesadores de red si la tarjeta pull transciende para captura de fondos.",
+        "summary": "Evaluar validación pull",
         "tags": [
           "Funding"
         ],
@@ -2200,7 +2479,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos de la tarjeta a validar.",
+          "description": "- Payload evaluable sin grabación a persistencia base.",
           "required": true,
           "content": {
             "application/json": {
@@ -2247,7 +2526,8 @@
             }
           }
         },
-        "summary": "Consultar estado de landing port",
+        "description": "\nConsulta y retorna el estado actual de una operación de Landing Port a partir de su ID de operación.",
+        "summary": "Obtener estado de operación de landing port",
         "tags": [],
         "security": [
           {
@@ -2258,7 +2538,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador único de la operación.",
+            "description": "- UUID único de la operación a consultar.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -2328,6 +2608,7 @@
             }
           }
         },
+        "description": "\nGenera un evento de cobro de un originador hacia un beneficiario utilizando validaciones reforzadas V2 y cotización viva.",
         "summary": "Solicitar dinero V2",
         "tags": [
           "Operations"
@@ -2342,7 +2623,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario solicitante.",
+            "description": "- Identificador en bóveda o UUID red.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2352,7 +2633,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Parámetros de la solicitud (monto, destinatario, método de pago).",
+          "description": "- Credenciales e id de corredor para lanzar el request.",
           "required": true,
           "content": {
             "application/json": {
@@ -2415,7 +2696,8 @@
             }
           }
         },
-        "summary": "Enviar fondos (vía cotización)",
+        "description": "\nInstancia moderna e interconector para operaciones Send utilizando ids de cotizaciones en firme amarradas al order.",
+        "summary": "Mandar dinero v1 ( full send)",
         "tags": [
           "Operations"
         ],
@@ -2429,7 +2711,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario remitente.",
+            "description": "- Remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2439,7 +2721,7 @@
           }
         ],
         "requestBody": {
-          "description": "- ID de la cotización y datos adicionales (razón, correlationId).",
+          "description": "- Diccionario validacional que requiere quotation obligatoria.",
           "required": true,
           "content": {
             "application/json": {
@@ -2502,7 +2784,8 @@
             }
           }
         },
-        "summary": "Enviar fondos V2 ( m2 m)",
+        "description": "\nVariante más adaptada para flujos de caja y billeteras de destino final, admitiendo destinatarios ambiguos sin contacto precargado en la agenda tradicional.",
+        "summary": "Mandar dinero V2",
         "tags": [
           "Operations"
         ],
@@ -2516,7 +2799,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador o Token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2526,7 +2809,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos de la cotización y destinatario.",
+          "description": "- Envía a un destino arbitrario utilizando cotización y sin depender estrictamente del book local.",
           "required": true,
           "content": {
             "application/json": {
@@ -2585,7 +2868,8 @@
             }
           }
         },
-        "summary": "Recibir dinero",
+        "description": "\nAcepta proactivamente un fondeo de dinero para pasarlo de pendiente a depositado.",
+        "summary": "Recibir dinero ( legacy)",
         "tags": [
           "Operations"
         ],
@@ -2598,7 +2882,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario receptor.",
+            "description": "- Quien recibe los fondos.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2608,7 +2892,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos del método de recepción y correlationId.",
+          "description": "- Información de confirmación.",
           "required": true,
           "content": {
             "application/json": {
@@ -2653,7 +2937,8 @@
             }
           }
         },
-        "summary": "Obtener cotización de operación",
+        "description": "\nPre-calcula montos transfronterizos emitiendo una foto de conversión con fees pre-asignados a un order inminente.",
+        "summary": "Solicitar cotización base",
         "tags": [
           "Operations"
         ],
@@ -2667,7 +2952,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- UUID solicitante.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2677,7 +2962,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos de la transacción para cotizar.",
+          "description": "- Pares de divisas y monto origen/destino sugerido.",
           "required": true,
           "content": {
             "application/json": {
@@ -2726,7 +3011,8 @@
             }
           }
         },
-        "summary": "Obtener cotización ( partners)",
+        "description": "\nCotiza comisiones, tipo de cambio e impuestos para asentar un envío de fondos, reteniendo la tasa por seguridad temporal.",
+        "summary": "Crear cotización firme ( v1)",
         "tags": [
           "Operations"
         ],
@@ -2740,7 +3026,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del remitente.",
+            "description": "- UUID del firmante.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2750,7 +3036,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos detallados para la cotización.",
+          "description": "- Instrumento fondeador y métodos elegidos.",
           "required": true,
           "content": {
             "application/json": {
@@ -2787,7 +3073,8 @@
             }
           }
         },
-        "summary": "Obtener cotización V2 ( m2 m)",
+        "description": "\nCotiza comisiones interbancarias basándose en parámetros más ambiguos omitiendo destino exacto requerido en V1.",
+        "summary": "Crear cotización firme ( V2)",
         "tags": [
           "Operations"
         ],
@@ -2801,7 +3088,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador del evaluador activo.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2811,7 +3098,6 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos para la cotización.",
           "required": true,
           "content": {
             "application/json": {
@@ -2848,7 +3134,8 @@
             }
           }
         },
-        "summary": "Pre-cotización de operación",
+        "description": "\nSimula un escenario preliminar de tarifas según paridades y corredores sin requerimientos completos de identidad o cuenta de destino.",
+        "summary": "Simular cotización preliminar ( pre- quote)",
         "tags": [
           "Operations"
         ],
@@ -2862,7 +3149,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador del prospecto.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2872,7 +3159,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos básicos para la estimación.",
+          "description": "- Instrumento origen, monto bruto.",
           "required": true,
           "content": {
             "application/json": {
@@ -2909,7 +3196,8 @@
             }
           }
         },
-        "summary": "Obtener detalle de operación",
+        "description": "\nExtrae la anatomía detallada, el pipeline audit y los métodos contables asociados a un hash UUID de operación transaccional.",
+        "summary": "Consultar detalle de operación",
         "tags": [
           "Operations"
         ],
@@ -2924,7 +3212,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador de la operación.",
+            "description": "- Código UUID unívoco de la operación transaccional.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -2973,7 +3261,8 @@
             }
           }
         },
-        "summary": "Listar operaciones del usuario",
+        "description": "\nEnumera el histórico de movimientos transaccionales de entrada y salida asociables al identificador del originador.",
+        "summary": "Listar operaciones históricas",
         "tags": [
           "Operations"
         ],
@@ -2988,7 +3277,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- ID del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2997,7 +3286,7 @@
             }
           },
           {
-            "description": "- (Opcional) Teléfono del contacto para filtrar.",
+            "description": "- Parámetro de filtrado opcional.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -3046,7 +3335,8 @@
             }
           }
         },
-        "summary": "Obtener operaciones entrada/salida",
+        "description": "\nCondensa tanto recepciones como envíos de fondos de este usuario filtrando aquellos ajenos a su control en la red.",
+        "summary": "Consultar entradas y salidas de saldo",
         "tags": [
           "Operations"
         ],
@@ -3060,7 +3350,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario origen.",
+            "description": "- Entidad a la cual computar transacciones.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3069,7 +3359,6 @@
             }
           },
           {
-            "description": "- (Opcional) Teléfono del contacto.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -3078,7 +3367,6 @@
             }
           },
           {
-            "description": "- (Opcional) Email del contacto.",
             "in": "query",
             "name": "toEmail",
             "required": false,
@@ -3127,7 +3415,8 @@
             }
           }
         },
-        "summary": "Obtener operaciones completadas entre usuarios",
+        "description": "\nExtrae la lista de las operaciones exitosas ya culminadas dirigidas o provenientes hacia un teléfono/email específico.",
+        "summary": "Consultar operaciones completadas ( contactos cruzados)",
         "tags": [
           "Operations"
         ],
@@ -3141,7 +3430,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del primer usuario.",
+            "description": "- Identificador o Token autenticado.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3150,7 +3439,7 @@
             }
           },
           {
-            "description": "- (Opcional) Teléfono del segundo usuario.",
+            "description": "- Teléfono del beneficiario/contacto.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -3159,7 +3448,7 @@
             }
           },
           {
-            "description": "- (Opcional) Email del segundo usuario.",
+            "description": "- Email alternativo del beneficiario.",
             "in": "query",
             "name": "toEmail",
             "required": false,
@@ -3201,7 +3490,8 @@
             }
           }
         },
-        "summary": "Reemplazar método de pago",
+        "description": "\nSustituye en caliente o desvincula un método de pago involucrado en una operación no completada, ajustando las referencias.",
+        "summary": "Reemplazar método en operación activa",
         "tags": [
           "Operations"
         ],
@@ -3214,7 +3504,7 @@
         ],
         "parameters": [
           {
-            "description": "- ID del usuario.",
+            "description": "- UUID de usuario sobre el que actúa.",
             "in": "path",
             "name": "userId",
             "required": true,
@@ -3224,7 +3514,7 @@
           }
         ],
         "requestBody": {
-          "description": "- IDs del nuevo método de pago y la operación.",
+          "description": "- Token del origen, Token destino y UUID de la transacción.",
           "required": true,
           "content": {
             "application/json": {
@@ -3267,7 +3557,8 @@
             }
           }
         },
-        "summary": "Establecer método de pago",
+        "description": "\nObliga a la inyección manual de un método de fondeo específico dentro de una instrucción transaccional genérica originada en RequestMoney.",
+        "summary": "Enchufar instrumento a orden pendiente",
         "tags": [
           "Operations"
         ],
@@ -3280,7 +3571,7 @@
         ],
         "parameters": [
           {
-            "description": "- ID del usuario.",
+            "description": "- UUID de usuario validante.",
             "in": "path",
             "name": "userId",
             "required": true,
@@ -3290,7 +3581,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos de la asociación.",
+          "description": "- Instrucción, conector ID transaccional y método id.",
           "required": true,
           "content": {
             "application/json": {
@@ -3342,7 +3633,8 @@
             }
           }
         },
-        "summary": "Obtener contactos frecuentes",
+        "description": "\nProporciona la libreta de contactos con interacciones iterativas consolidadas para sugerencias smart rápidas.",
+        "summary": "Obtener contactos frecuentes ( top n)",
         "tags": [
           "Operations"
         ],
@@ -3357,7 +3649,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Quien hace la consulta.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3366,7 +3658,7 @@
             }
           },
           {
-            "description": "- Cantidad máxima de contactos a retornar.",
+            "description": "- Número top N de contactos requeridos.",
             "in": "path",
             "name": "limit",
             "required": true,
@@ -3386,7 +3678,8 @@
             "description": "No content"
           }
         },
-        "summary": "Notificar operación en efectivo",
+        "description": "\nDesencadena una notificación de alerta backend hacia un operador de efectivo tras registrar la intención de depósito.",
+        "summary": "Notificar a cajero sucursal cash",
         "tags": [
           "Operations"
         ],
@@ -3400,7 +3693,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Usuario RaaS que opera en efectivo.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3409,7 +3702,7 @@
             }
           },
           {
-            "description": "- ID de la operación.",
+            "description": "- UUID de la petición que se intenta concretar con cash.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -3428,7 +3721,8 @@
             "description": "No content"
           }
         },
-        "summary": "Notificar validación de tarjeta",
+        "description": "\nEmpleado en integraciones asincrónicas para notificar a la red la necesidad de procesado offline de validación en tarjeta.",
+        "summary": "Despertar validación de tarjeta",
         "tags": [
           "Operations"
         ],
@@ -3441,7 +3735,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario.",
+            "description": "- Identificador o Token autenticado.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3450,7 +3744,7 @@
             }
           },
           {
-            "description": "- ID de la tarjeta.",
+            "description": "- Identificador del método o PAN truncado.",
             "in": "path",
             "name": "paymentMethodId",
             "required": true,
@@ -3479,7 +3773,8 @@
             }
           }
         },
-        "summary": "Aceptar o rechazar fondos",
+        "description": "\nCambia activamente la bandera de asentimiento para una operación de depósito o de recepción.",
+        "summary": "Aceptar o rechazar recepción/envío",
         "tags": [
           "Operations"
         ],
@@ -3492,7 +3787,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario receptor.",
+            "description": "- UUID del beneficiario o remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3502,7 +3797,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Decisión (aceptar/rechazar) y datos de usuarios.",
+          "description": "- Datos implicados y flag boolean para aceptar o rechazar.",
           "required": true,
           "content": {
             "application/json": {
@@ -3539,7 +3834,8 @@
             }
           }
         },
-        "summary": "Cancelar operación",
+        "description": "\nRevierte asincrónicamente el estatus de un envío marcándolo para retorno al originador, requiriendo su refCode en procesadores que soporten cancelación tardía.",
+        "summary": "Cancelar operación p2 p",
         "tags": [
           "Operations"
         ],
@@ -3552,7 +3848,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario que cancela.",
+            "description": "- JWT del originador arrepentido.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3562,7 +3858,7 @@
           }
         ],
         "requestBody": {
-          "description": "- ID de la operación a cancelar.",
+          "description": "- Formulario con el ID y las causas de revert.",
           "required": true,
           "content": {
             "application/json": {
@@ -3599,7 +3895,8 @@
             }
           }
         },
-        "summary": "Crear ticket de soporte para operación",
+        "description": "\nLevanta un ticket estructurado interconectado con el helpdesk y CRM asociando como metadata un movimiento fallido.",
+        "summary": "Crear ticket de soporte de operación",
         "tags": [
           "Operations"
         ],
@@ -3612,7 +3909,7 @@
         ],
         "parameters": [
           {
-            "description": "- ID de la operación.",
+            "description": "- UUID base de la operación a reportar.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -3651,7 +3948,8 @@
             }
           }
         },
-        "summary": "Crear borrador de solicitud",
+        "description": "\nConsolida un template borrador previo a invocar un RequestMoney genérico usado por interfaces tipo landing page.",
+        "summary": "Borrador explícito de solicitud ( draft)",
         "tags": [
           "Operations"
         ],
@@ -3664,7 +3962,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos del borrador (monto, solicitante, etc).",
+          "description": "- Esbozo o datos recolectados parcialmente del remitente.",
           "required": true,
           "content": {
             "application/json": {
@@ -3701,7 +3999,8 @@
             }
           }
         },
-        "summary": "Validar operación por deep link",
+        "description": "\nRecupera el detalle de un cobro P2P encapsulado en un enlace utilizando su hash o ID en claro.",
+        "summary": "Evaluar link de cobro",
         "tags": [
           "Operations"
         ],
@@ -3714,7 +4013,7 @@
         ],
         "parameters": [
           {
-            "description": "- ID del Deep Link u operación.",
+            "description": "- Id del operation link.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -3750,7 +4049,8 @@
             }
           }
         },
-        "summary": "Cotización lite ( sin persistencia)",
+        "description": "\nExtrae proyecciones y costos mínimos para simular un envío sin dependencias estrictas de identidad en el gateway.",
+        "summary": "Simulación de comisiones ( quote lite)",
         "tags": [
           "Operations"
         ],
@@ -3764,7 +4064,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos de la transacción (monedas, montos).",
+          "description": "- Modelo reducido con tipo de paridad y montos.",
           "required": true,
           "content": {
             "application/json": {
@@ -3842,7 +4142,8 @@
             "description": ""
           }
         },
-        "summary": "Obtener información del inquilino",
+        "description": "\nRecupera la información del tenant logueado incluyendo país, correos de soporte y configuraciones permitidas.",
+        "summary": "Obtener información del tenant",
         "tags": [],
         "security": [
           {
@@ -3897,6 +4198,7 @@
             }
           }
         },
+        "description": "\nRecupera todos los detalles, atributos y nivel actual del perfil de un usuario dado su teléfono o correo electrónico.",
         "summary": "Obtener perfil de usuario",
         "tags": [],
         "security": [
@@ -3909,7 +4211,7 @@
         ],
         "parameters": [
           {
-            "description": "- Teléfono o correo electrónico del usuario.",
+            "description": "- Identificador del usuario.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -3954,6 +4256,7 @@
             }
           }
         },
+        "description": "\nLocaliza un usuario y actualiza los atributos permitidos de su modelo, normalizando mayúsculas en nombres.",
         "summary": "Actualizar perfil de usuario",
         "tags": [],
         "security": [
@@ -3966,7 +4269,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del usuario (Teléfono/Email).",
+            "description": "- Identificador único de origen para el usuario.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -3976,7 +4279,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Campos a actualizar.",
+          "description": "- Campos del usuario que requieran ser actualizados.",
           "required": true,
           "content": {
             "application/json": {
@@ -4096,6 +4399,7 @@
             }
           }
         },
+        "description": "\nAplica un proceso de validación cruzada y hashing para cerciorarse de la autenticidad del PIN transaccional otorgado, o bien expulsa ante sucesivos fallos.",
         "summary": "Validar código p i n",
         "tags": [],
         "security": [
@@ -4108,7 +4412,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Teléfono/Email y el código PIN.",
+          "description": "- Objeto requerimiento con los datos de teléfono y nuevo PIN.",
           "required": true,
           "content": {
             "application/json": {
@@ -4194,6 +4498,7 @@
             }
           }
         },
+        "description": "\nConfigura de forma irreversible en almacenamiento seguro un PIN transaccional o de ingreso para un usuario si el mismo no estuviese fijado.",
         "summary": "Crear código p i n",
         "tags": [],
         "security": [
@@ -4206,7 +4511,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Teléfono/Email y el nuevo PIN.",
+          "description": "- Objeto requerimiento con los datos requeridos como el PIN.",
           "required": true,
           "content": {
             "application/json": {
