@@ -78,116 +78,20 @@
             }
           }
         },
-        "description": "Retrieves user token by phone number or email for partner integrations.",
-        "summary": "Get user token V2",
+        "summary": "Obtener token de usuario ( V2)",
         "tags": [
           "Users"
         ],
         "security": [
           {
             "api_key": [
-              "partner",
-              "partner_full"
+              "partner"
             ]
           }
         ],
         "parameters": [],
         "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetUserTokenParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/get-user-token": {
-      "post": {
-        "operationId": "getUserToken",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserTokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves user token by phone number or email for partner integrations.",
-        "summary": "Get user token",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
+          "description": "- Datos de contacto del usuario.",
           "required": true,
           "content": {
             "application/json": {
@@ -250,8 +154,7 @@
             }
           }
         },
-        "description": "Registers user for partner integrations (V2).",
-        "summary": "Register user V2",
+        "summary": "Registrar usuario ( V2)",
         "tags": [
           "Users"
         ],
@@ -264,6 +167,7 @@
         ],
         "parameters": [],
         "requestBody": {
+          "description": "- Datos obligatorios del usuario.",
           "required": true,
           "content": {
             "application/json": {
@@ -275,12 +179,412 @@
         }
       }
     },
+    "/auth/register-user-v3": {
+      "post": {
+        "operationId": "createUserV3",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Crear usuario ( V3)",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- Información del nuevo usuario.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/request-otp": {
+      "post": {
+        "operationId": "requestOtp",
+        "responses": {
+          "200": {
+            "description": "Code Sent"
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Solicitar código OTP",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- Datos de contacto y preferencias de idioma.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestOTPParams"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/validate-otp": {
+      "post": {
+        "operationId": "validateOtp",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "remainingAttempts": {
+                      "type": "number",
+                      "format": "double"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "remainingAttempts",
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Validar código OTP",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- Código OTP y datos de contacto.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateOTPParamsPartner"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/session-token": {
+      "post": {
+        "operationId": "getSessionToken",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSessionTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Obtener token de sesión",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- Datos de contacto del usuario.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSessionTokenParams"
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/contacts/{userToken}": {
       "get": {
         "operationId": "listContacts",
         "responses": {
           "200": {
-            "description": "Ok",
+            "description": "Lista de objetos con información de contactos.",
             "content": {
               "application/json": {
                 "schema": {
@@ -288,28 +592,12 @@
                     "$ref": "#/components/schemas/ContactInfo"
                   },
                   "type": "array"
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": [
-                      {
-                        "phone": "+12025550174",
-                        "firstName": "John",
-                        "lastName": "Doe",
-                        "email": "john.doe@example.com",
-                        "countryCode": "US",
-                        "alias": "J-Dog",
-                        "id": "b52b220b-0447-4cfc-b4dd-2434b9d07f35"
-                      }
-                    ]
-                  }
                 }
               }
             }
           }
         },
-        "description": "Retrieves the contact list for a specific user.",
-        "summary": "List user contacts",
+        "summary": "Listar contactos del usuario",
         "tags": [
           "Contacts"
         ],
@@ -323,7 +611,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token identificador del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -394,8 +682,7 @@
             }
           }
         },
-        "description": "Creates a new contact for the specified user.",
-        "summary": "Create contact",
+        "summary": "Crear nuevo contacto",
         "tags": [
           "Contacts"
         ],
@@ -409,7 +696,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario dueño de la agenda.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -419,7 +706,7 @@
           }
         ],
         "requestBody": {
-          "description": "Contact details.",
+          "description": "- Datos del nuevo contacto.",
           "required": true,
           "content": {
             "application/json": {
@@ -431,7 +718,7 @@
         }
       },
       "put": {
-        "operationId": "updatedContact",
+        "operationId": "updateContact",
         "responses": {
           "200": {
             "description": "Updated"
@@ -469,8 +756,7 @@
             }
           }
         },
-        "description": "Updates an existing contact's information.",
-        "summary": "Update contact",
+        "summary": "Actualizar contacto existente",
         "tags": [
           "Contacts"
         ],
@@ -484,7 +770,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -494,7 +780,7 @@
           }
         ],
         "requestBody": {
-          "description": "Updated contact data.",
+          "description": "- Campos del contacto a actualizar.",
           "required": true,
           "content": {
             "application/json": {
@@ -508,7 +794,7 @@
     },
     "/user/contacts/user/{userToken}/{phoneOrEmail}": {
       "get": {
-        "operationId": "contactHasOperations",
+        "operationId": "getContactUserDetail",
         "responses": {
           "200": {
             "description": "",
@@ -557,8 +843,7 @@
             }
           }
         },
-        "description": "Checks if a contact has any operational history with the user.",
-        "summary": "Check contact operations",
+        "summary": "Obtener detalle de usuario del contacto",
         "tags": [
           "Contacts"
         ],
@@ -572,7 +857,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -581,7 +866,7 @@
             }
           },
           {
-            "description": "Identifier for the contact.",
+            "description": "- Identificador del contacto.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -628,8 +913,7 @@
             }
           }
         },
-        "description": "Retrieves available payment methods for a specific corridor and user.",
-        "summary": "Get available payment methods",
+        "summary": "Obtener métodos de pago disponibles",
         "tags": [
           "Funding"
         ],
@@ -643,7 +927,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -652,7 +936,7 @@
             }
           },
           {
-            "description": "Target country code.",
+            "description": "- País destino de la operación.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -661,7 +945,7 @@
             }
           },
           {
-            "description": "Type of operation (e.g., SendFunds).",
+            "description": "- Tipo de operación.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -675,7 +959,7 @@
     },
     "/user/funding/source/request-money/{userToken}": {
       "get": {
-        "operationId": "getDestinationSOFForRequestMoney",
+        "operationId": "listFundingSourcesForRequest",
         "responses": {
           "200": {
             "description": "",
@@ -709,8 +993,7 @@
             }
           }
         },
-        "description": "Gets destination source of funding for request money operations.",
-        "summary": "Get destination SOF for request money",
+        "summary": "Listar fuentes de fondos para solicitud",
         "tags": [
           "Funding"
         ],
@@ -723,7 +1006,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -732,7 +1015,7 @@
             }
           },
           {
-            "description": "Origin country code.",
+            "description": "- País de origen.",
             "in": "query",
             "name": "sourceCountry",
             "required": false,
@@ -741,7 +1024,7 @@
             }
           },
           {
-            "description": "Target country code.",
+            "description": "- País de destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -785,8 +1068,7 @@
             }
           }
         },
-        "description": "Retrieves specific payment method details by card/account number.",
-        "summary": "Get payment method",
+        "summary": "Obtener método de pago por número",
         "tags": [
           "Funding"
         ],
@@ -800,7 +1082,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -809,7 +1091,7 @@
             }
           },
           {
-            "description": "Last 4 digits or full number.",
+            "description": "- (Opcional) Número o terminación del método de pago.",
             "in": "query",
             "name": "number",
             "required": false,
@@ -854,8 +1136,7 @@
             }
           }
         },
-        "description": "Retrieves specific payment method details by internal identifier.",
-        "summary": "Get payment method V2",
+        "summary": "Obtener método de pago por ID ( V2)",
         "tags": [
           "Funding"
         ],
@@ -870,7 +1151,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -879,7 +1160,7 @@
             }
           },
           {
-            "description": "Specific payment method identifier.",
+            "description": "- (Opcional) ID del método de pago.",
             "in": "query",
             "name": "id",
             "required": false,
@@ -936,8 +1217,7 @@
             }
           }
         },
-        "description": "Adds a new UBN account to the user's account.",
-        "summary": "Add UBN account",
+        "summary": "Agregar cuenta UBN ( méxico)",
         "tags": [
           "Funding"
         ],
@@ -945,13 +1225,14 @@
           {
             "api_key": [
               "partner",
-              "partner_full"
+              "partner_full",
+              "partner_send"
             ]
           }
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -961,114 +1242,12 @@
           }
         ],
         "requestBody": {
-          "description": "UBN account details.",
+          "description": "- Datos de la cuenta UBN.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddUBNParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/funding/source/vna-account/add/{userToken}": {
-      "post": {
-        "operationId": "addVNAccount",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "createdAt": {
-                      "type": "string"
-                    },
-                    "isPrimary": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
-                    "id": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "description": "Adds a new VN account to the user's account.",
-        "summary": "Add VNA account",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "User token identifier.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "VNA account details.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddVNAParams"
               }
             }
           }
@@ -1134,8 +1313,7 @@
             }
           }
         },
-        "description": "Requests money from another user (V2).",
-        "summary": "Request money V2",
+        "summary": "Solicitar dinero V2",
         "tags": [
           "Operations"
         ],
@@ -1149,7 +1327,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario solicitante.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1159,7 +1337,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request details.",
+          "description": "- Parámetros de la solicitud (monto, destinatario, método de pago).",
           "required": true,
           "content": {
             "application/json": {
@@ -1204,8 +1382,7 @@
             }
           }
         },
-        "description": "Retrieves the latest status for a specific operation.",
-        "summary": "Get operation status",
+        "summary": "Consultar estado de operación",
         "tags": [
           "Operations"
         ],
@@ -1219,7 +1396,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1228,7 +1405,7 @@
             }
           },
           {
-            "description": "Identifier for the operation.",
+            "description": "- Identificador de la operación.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -1264,8 +1441,7 @@
             }
           }
         },
-        "description": "Retrieves detailed information for a specific operation.",
-        "summary": "Get operation detail",
+        "summary": "Obtener detalle de operación",
         "tags": [
           "Operations"
         ],
@@ -1280,7 +1456,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the operation.",
+            "description": "- Identificador de la operación.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -1329,8 +1505,7 @@
             }
           }
         },
-        "description": "Retrieves the operation list for the target user.",
-        "summary": "Get operations by user",
+        "summary": "Listar operaciones del usuario",
         "tags": [
           "Operations"
         ],
@@ -1345,7 +1520,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1354,7 +1529,7 @@
             }
           },
           {
-            "description": "Optional filter by recipient phone number.",
+            "description": "- (Opcional) Teléfono del contacto para filtrar.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -1405,8 +1580,7 @@
             }
           }
         },
-        "description": "Retrieves frequent contacts for the user.",
-        "summary": "Get frequent contacts",
+        "summary": "Obtener contactos frecuentes",
         "tags": [
           "Operations"
         ],
@@ -1421,7 +1595,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1430,7 +1604,7 @@
             }
           },
           {
-            "description": "Maximum number of contacts to retrieve.",
+            "description": "- Cantidad máxima de contactos a retornar.",
             "in": "path",
             "name": "limit",
             "required": true,
@@ -1850,9 +2024,7 @@
           "address1",
           "countryCode",
           "city",
-          "state",
-          "latitude",
-          "longitude"
+          "state"
         ],
         "type": "object",
         "additionalProperties": false
@@ -1864,10 +2036,7 @@
           }
         },
         "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "userId": "trusted-user-uuid-7890"
-        }
+        "additionalProperties": false
       },
       "SessionLinkPaymentMethodType": {
         "type": "string",
@@ -2063,9 +2232,7 @@
           "address1",
           "countryCode",
           "city",
-          "state",
-          "latitude",
-          "longitude"
+          "state"
         ],
         "type": "object",
         "additionalProperties": false
@@ -2596,8 +2763,6 @@
           "zipCode",
           "city",
           "address1",
-          "callLocationLongitude",
-          "callLocationLatitude",
           "countryCode",
           "state",
           "userId"
@@ -2796,8 +2961,6 @@
           }
         },
         "required": [
-          "callLocationLongitude",
-          "callLocationLatitude",
           "city",
           "state",
           "zipCode",
@@ -2992,10 +3155,6 @@
             "format": "double"
           }
         },
-        "required": [
-          "callLocationLongitude",
-          "callLocationLatitude"
-        ],
         "type": "object"
       },
       "AlternateFlow": {
@@ -3302,9 +3461,7 @@
         },
         "required": [
           "level",
-          "levelStatusDetail",
-          "callLocationLongitude",
-          "callLocationLatitude"
+          "levelStatusDetail"
         ],
         "type": "object",
         "additionalProperties": false
@@ -3577,32 +3734,25 @@
       "ContactInfo": {
         "properties": {
           "phone": {
-            "type": "string",
-            "example": "+12025550174"
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "example": "John"
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "example": "Doe"
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "example": "john.doe@example.com"
+            "type": "string"
           },
           "countryCode": {
-            "type": "string",
-            "example": "US"
+            "type": "string"
           },
           "alias": {
-            "type": "string",
-            "example": "J-Dog"
+            "type": "string"
           },
           "id": {
-            "type": "string",
-            "example": "b52b220b-0447-4cfc-b4dd-2434b9d07f35"
+            "type": "string"
           }
         },
         "required": [
@@ -3658,31 +3808,25 @@
       "createContactRequestParamsPartner": {
         "properties": {
           "alias": {
-            "type": "string",
-            "example": "Janey"
+            "type": "string"
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
-            "example": "US"
+            "$ref": "#/components/schemas/CountryAlpha2Code"
           },
           "phone": {
             "type": "string",
-            "example": "+12025550155",
             "minLength": 1
           },
           "lastName": {
             "type": "string",
-            "example": "Doe",
             "minLength": 1
           },
           "firstName": {
             "type": "string",
-            "example": "Jane",
             "minLength": 1
           },
           "email": {
-            "type": "string",
-            "example": "jane.doe@example.com"
+            "type": "string"
           }
         },
         "required": [
@@ -3696,28 +3840,22 @@
       "updateContactRequestParams": {
         "properties": {
           "alias": {
-            "type": "string",
-            "example": "Janey Smith"
+            "type": "string"
           },
           "countryCode": {
-            "type": "string",
-            "example": "US"
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "example": "Doe Smith"
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "example": "Jane"
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "example": "jane.doe.updated@example.com"
+            "type": "string"
           },
           "phone": {
-            "type": "string",
-            "example": "+12025550155"
+            "type": "string"
           }
         },
         "required": [
@@ -4017,6 +4155,9 @@
       },
       "RaaSPaymentMethod": {
         "properties": {
+          "paymentMethodOwner": {
+            "type": "string"
+          },
           "allowReviewAddress": {
             "type": "boolean"
           },
@@ -4374,8 +4515,6 @@
           "bankAccountType",
           "bankEntityNumber",
           "isPrimary",
-          "latitude",
-          "longitude",
           "application"
         ],
         "type": "object",
@@ -4575,8 +4714,6 @@
           "AddressLine2",
           "State",
           "City",
-          "Longitude",
-          "Latitude",
           "Phone",
           "Image"
         ],
@@ -4838,8 +4975,6 @@
           "address3",
           "city",
           "countryCode",
-          "latitude",
-          "longitude",
           "placeDetail",
           "state",
           "streetNumber",
@@ -5011,21 +5146,6 @@
           }
         },
         "type": "object"
-      },
-      "AddVNAParams": {
-        "properties": {
-          "provider": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "type": "object",
-        "additionalProperties": false
       },
       "Account": {
         "properties": {
@@ -5212,6 +5332,9 @@
       },
       "PaymentMethodResponse": {
         "properties": {
+          "paymentMethodOwner": {
+            "type": "string"
+          },
           "accountPrefix": {
             "type": "string"
           },
@@ -5413,6 +5536,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -5832,6 +5958,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -5849,22 +5978,7 @@
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "OperationResponsePartner": {
-        "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_",
-        "example": {
-          "id": "op_12345",
-          "code": "123456",
-          "status": "Pending",
-          "amount": 100,
-          "currency": "USD",
-          "createdAt": "2023-01-01T12:00:00Z",
-          "recipientAmout": 100,
-          "recipientCurrency": "USD",
-          "senderAmount": 100,
-          "senderCurrency": "USD",
-          "exchangeRate": 1,
-          "transactionFee": 0,
-          "totalAmount": 100
-        }
+        "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_"
       },
       "RequestMoneyPartnerParams": {
         "properties": {
@@ -5886,12 +6000,14 @@
           },
           "reason": {
             "type": "string"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/RaaSPaymentMethod"
           }
         },
         "required": [
           "requestTo",
           "correlationId",
-          "destinationPaymentMethodId",
           "recipientAmount",
           "recipientCurrency"
         ],
@@ -6041,8 +6157,6 @@
           "transactionFee",
           "destinationFee",
           "exchangeRate",
-          "callLocationLongitude",
-          "callLocationLatitude",
           "quotationId"
         ],
         "type": "object",
@@ -6597,6 +6711,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -6620,6 +6737,9 @@
       },
       "OperationDetailResponse": {
         "properties": {
+          "flow": {
+            "type": "string"
+          },
           "cancelable": {
             "type": "boolean"
           },
@@ -7296,66 +7416,43 @@
       "Country": {
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
-            "example": "US"
+            "$ref": "#/components/schemas/CountryAlpha2Code"
           },
           "name": {
-            "type": "string",
-            "example": "United States"
+            "type": "string"
           },
           "dialCode": {
-            "type": "string",
-            "example": "+1"
+            "type": "string"
           },
           "currencyCode": {
-            "$ref": "#/components/schemas/ISOCurrenciesCodes",
-            "example": "USD"
+            "$ref": "#/components/schemas/ISOCurrenciesCodes"
           },
           "phoneLength": {
             "type": "number",
-            "format": "double",
-            "example": 10
+            "format": "double"
           },
           "lengthWithFormat": {
             "type": "number",
-            "format": "double",
-            "example": 14
+            "format": "double"
           },
           "format": {
-            "type": "string",
-            "example": "000-000-0000"
+            "type": "string"
           },
           "formatWithDialCode": {
-            "type": "string",
-            "example": "+1 (000) 000-0000"
+            "type": "string"
           },
           "names": {
-            "$ref": "#/components/schemas/countryI18NNames",
-            "example": {
-              "es": "Estados Unidos",
-              "en": "United States"
-            }
+            "$ref": "#/components/schemas/countryI18NNames"
           },
           "timeZone": {
-            "type": "string",
-            "example": "America/New_York"
+            "type": "string"
           }
         },
         "required": [
           "id"
         ],
         "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "id": "US",
-          "name": "United States",
-          "currencyCode": "USD",
-          "phoneLength": 10,
-          "lengthWithFormat": 14,
-          "format": "000-000-0000",
-          "formatWithDialCode": "+1 (000) 000-0000",
-          "timeZone": "America/New_York"
-        }
+        "additionalProperties": false
       },
       "UserUpdateParams": {
         "properties": {
@@ -7429,10 +7526,6 @@
             "format": "double"
           }
         },
-        "required": [
-          "latitude",
-          "longitude"
-        ],
         "type": "object",
         "additionalProperties": false
       },

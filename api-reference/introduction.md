@@ -1,0 +1,75 @@
+---
+title: "API Reference"
+description: "Explore our API endpoints"
+---
+
+Welcome to the RaaS Partner API Reference. Our platform provides a robust set of tools for integrating financial services, including:
+
+- **Authentication & Security**: Secure access via API keys and user-specific tokens.
+- **User & Identity Management**: Comprehensive CIP/KYC workflows and profile management.
+- **Funding & Accounts**: Support for multiple funding sources, including bank accounts and cards.
+- **Operations & Network**: Real-time money transfers, currency exchange, and network corridor management.
+
+## mTLS Connection
+
+It is also possible to connect to the RaaS Partner services through mutual TLS (mTLS). For mTLS connections, the base URL changes from:
+
+`https://raas-partner-cv.nomas.cash/v1`
+
+to:
+
+`https://mtls-partner-cv.nomas.cash/v1`
+
+When making calls to the mTLS base URL, you must include the certificate data in the header of the service call.
+
+### Practical Example
+
+Below is an example demonstrating an API call using the mTLS endpoint and providing the certificate data in the request headers:
+
+```bash
+curl -X GET "https://mtls-partner-cv.nomas.cash/v1/some-endpoint" \
+  -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
+  --cert-type P12 \
+  --cert ./raas-partner.p12 \
+  --data '<ENDPOINT_BODY>'
+```
+
+## Happy Path Integration
+
+
+This section outlines the standard workflow for a successful integration.
+
+1. **Obtain User Token**: Use `getUserToken` to retrieve a session token for an existing user.
+2. **User Registration (Optional)**: If the user does not exist, use `registerUserV2` to create a new profile.
+3. **Create Contact**: Establish a recipient or contact using `createContact`.
+4. **Add Funding Source**: Securely link a card or bank account via `addCard`.
+5. **Execute Request**: Initiate the final transaction or request using `requestV2`.
+
+## Integration Sequence Diagram
+
+The following diagram illustrates the typical interaction between your system and the RaaS API.
+
+```mermaid
+sequenceDiagram
+    participant Partner as Partner Backend
+    participant API as RaaS API
+
+    Partner->>API: getUserToken (Credentials)
+    Note right of API: Check if user exists
+    API-->>Partner: userToken (Success)
+
+    alt User Not Found
+        Partner->>API: registerUserV2 (Identity Data)
+        API-->>Partner: userToken (Created)
+    end
+
+    Partner->>API: createContact (userToken, Contact Data)
+    API-->>Partner: contactCreated
+
+    Partner->>API: addCard (userToken, Card Data)
+    API-->>Partner: cardLinked
+
+    Partner->>API: requestV2 (userToken, Operation Data)
+    API-->>Partner: operationSuccess
+```
+

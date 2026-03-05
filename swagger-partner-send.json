@@ -9,234 +9,6 @@
     }
   ],
   "paths": {
-    "/auth/validate-session": {
-      "post": {
-        "operationId": "validateSession",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "expiresAt": {
-                      "type": "number",
-                      "format": "double"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "phone": {
-                      "type": "string"
-                    },
-                    "lastName": {
-                      "type": "string"
-                    },
-                    "firstName": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Validates a partner session token and returns user session details.",
-        "summary": "Validate session",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_send",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "sessionId": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "sessionId"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/get-user-token": {
-      "post": {
-        "operationId": "getUserToken",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserTokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves user token by phone number or email for partner integrations.",
-        "summary": "Get user token",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetUserTokenParams"
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/register-sender": {
       "post": {
         "operationId": "registerSender",
@@ -288,8 +60,7 @@
             }
           }
         },
-        "description": "Registers sender for partner integrations.",
-        "summary": "Register sender",
+        "summary": "Registrar remitente ( partner send)",
         "tags": [
           "Users"
         ],
@@ -302,6 +73,7 @@
         ],
         "parameters": [],
         "requestBody": {
+          "description": "- Datos de identidad del remitente.",
           "required": true,
           "content": {
             "application/json": {
@@ -364,8 +136,7 @@
             }
           }
         },
-        "description": "Registers receiver for partner integrations.",
-        "summary": "Register receiver",
+        "summary": "Registrar destinatario ( partner send)",
         "tags": [
           "Users"
         ],
@@ -378,6 +149,7 @@
         ],
         "parameters": [
           {
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -387,721 +159,12 @@
           }
         ],
         "requestBody": {
+          "description": "- Información del destinatario.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RegisterUserParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/sessionlink-v2": {
-      "post": {
-        "operationId": "getSessionLinkV2",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionLinkResponse"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves session link for partner integrations (V2).",
-        "summary": "Get session link V2",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SessionLinkParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/sessionlink-v3": {
-      "post": {
-        "operationId": "getSessionTokenV3",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionLinkResponse"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves session link for partner integrations (V3).",
-        "summary": "Get session link V3",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SessionLinkParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/sessionlink-v4/{userToken}": {
-      "get": {
-        "operationId": "getSessionLinkV2Anonimous",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionLinkResponse"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves session link for partner integrations (V4).",
-        "summary": "Get session link V4",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/auth/sessionlink": {
-      "post": {
-        "operationId": "getSessionLink",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionLinkResponse"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves session link for partner integrations.",
-        "summary": "Get session link",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SessionLinkParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/auth-by-token-link": {
-      "post": {
-        "operationId": "authByTokenLink",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PartnerTokenReponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Authenticates the user or session using a token link.",
-        "summary": "Authenticate by token link",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TokenParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/request-otp": {
-      "post": {
-        "operationId": "requestOtp",
-        "responses": {
-          "200": {
-            "description": "Code Sent"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Requests OTP in partner API flows.",
-        "summary": "Request OTP",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestOTPParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/is-phone-available": {
-      "post": {
-        "operationId": "isPhoneAvailable",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IsPhoneAvailableResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Checks if a phone number is available for registration.",
-        "summary": "Check phone availability",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IsPhoneAvailableRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/session-token": {
-      "post": {
-        "operationId": "getSessionToken",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetSessionTokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves session token for partner integrations.",
-        "summary": "Get session token",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetSessionTokenParams"
               }
             }
           }
@@ -1143,10 +206,9 @@
             }
           }
         },
-        "description": "Retrieves CIP info for partner integrations.",
-        "summary": "Get CIP info",
+        "summary": "Consultar estado CIP ( v1)",
         "tags": [
-          "Identity (CIP)"
+          "Users"
         ],
         "security": [
           {
@@ -1158,70 +220,9 @@
         ],
         "parameters": [
           {
-            "description": "Phone number in E.164 format.",
+            "description": "- Teléfono del usuario.",
             "in": "path",
             "name": "phoneNumber",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/cip/process/v2/{userToken}": {
-      "get": {
-        "operationId": "getCIPInfoV2",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CIPInfo"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves CIP info V2 for partner integrations.",
-        "summary": "Get CIP info V2",
-        "tags": [
-          "Identity (CIP)"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_send",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Identifier for the target user.",
-            "in": "path",
-            "name": "userToken",
             "required": true,
             "schema": {
               "type": "string"
@@ -1235,7 +236,7 @@
         "operationId": "listContacts",
         "responses": {
           "200": {
-            "description": "Ok",
+            "description": "Lista de objetos con información de contactos.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1243,28 +244,12 @@
                     "$ref": "#/components/schemas/ContactInfo"
                   },
                   "type": "array"
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": [
-                      {
-                        "phone": "+12025550174",
-                        "firstName": "John",
-                        "lastName": "Doe",
-                        "email": "john.doe@example.com",
-                        "countryCode": "US",
-                        "alias": "J-Dog",
-                        "id": "b52b220b-0447-4cfc-b4dd-2434b9d07f35"
-                      }
-                    ]
-                  }
                 }
               }
             }
           }
         },
-        "description": "Retrieves the contact list for a specific user.",
-        "summary": "List user contacts",
+        "summary": "Listar contactos del usuario",
         "tags": [
           "Contacts"
         ],
@@ -1278,7 +263,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token identificador del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1349,8 +334,7 @@
             }
           }
         },
-        "description": "Creates a new contact for the specified user.",
-        "summary": "Create contact",
+        "summary": "Crear nuevo contacto",
         "tags": [
           "Contacts"
         ],
@@ -1364,7 +348,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario dueño de la agenda.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1374,7 +358,7 @@
           }
         ],
         "requestBody": {
-          "description": "Contact details.",
+          "description": "- Datos del nuevo contacto.",
           "required": true,
           "content": {
             "application/json": {
@@ -1386,7 +370,7 @@
         }
       },
       "put": {
-        "operationId": "updatedContact",
+        "operationId": "updateContact",
         "responses": {
           "200": {
             "description": "Updated"
@@ -1424,8 +408,7 @@
             }
           }
         },
-        "description": "Updates an existing contact's information.",
-        "summary": "Update contact",
+        "summary": "Actualizar contacto existente",
         "tags": [
           "Contacts"
         ],
@@ -1439,7 +422,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1449,7 +432,7 @@
           }
         ],
         "requestBody": {
-          "description": "Updated contact data.",
+          "description": "- Campos del contacto a actualizar.",
           "required": true,
           "content": {
             "application/json": {
@@ -1463,7 +446,7 @@
     },
     "/user/contacts/user/{userToken}/{phoneOrEmail}": {
       "get": {
-        "operationId": "contactHasOperations",
+        "operationId": "getContactUserDetail",
         "responses": {
           "200": {
             "description": "",
@@ -1512,8 +495,7 @@
             }
           }
         },
-        "description": "Checks if a contact has any operational history with the user.",
-        "summary": "Check contact operations",
+        "summary": "Obtener detalle de usuario del contacto",
         "tags": [
           "Contacts"
         ],
@@ -1527,7 +509,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1536,7 +518,7 @@
             }
           },
           {
-            "description": "Identifier for the contact.",
+            "description": "- Identificador del contacto.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -1583,8 +565,7 @@
             }
           }
         },
-        "description": "Retrieves a list of available corridors for fund operations.",
-        "summary": "Get corridors",
+        "summary": "Listar corredores disponibles",
         "tags": [
           "Funding"
         ],
@@ -1598,7 +579,7 @@
         ],
         "parameters": [
           {
-            "description": "Origin country code.",
+            "description": "- Código ISO del país de origen.",
             "in": "query",
             "name": "sourceCountry",
             "required": false,
@@ -1607,7 +588,7 @@
             }
           },
           {
-            "description": "Target country code.",
+            "description": "- Código ISO del país de destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1616,7 +597,7 @@
             }
           },
           {
-            "description": "Type of operation (e.g., SendFunds).",
+            "description": "- Tipo de operación (ej: SendFunds).",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -1664,8 +645,7 @@
             }
           }
         },
-        "description": "Retrieves available payment methods for a specific corridor and user.",
-        "summary": "Get available payment methods",
+        "summary": "Obtener métodos de pago disponibles",
         "tags": [
           "Funding"
         ],
@@ -1679,7 +659,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1688,7 +668,7 @@
             }
           },
           {
-            "description": "Target country code.",
+            "description": "- País destino de la operación.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1697,7 +677,7 @@
             }
           },
           {
-            "description": "Type of operation (e.g., SendFunds).",
+            "description": "- Tipo de operación.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -1745,8 +725,7 @@
             }
           }
         },
-        "description": "Retrieves available operation types for a specific corridor and user.",
-        "summary": "Get available operation types",
+        "summary": "Obtener tipos de operación disponibles",
         "tags": [
           "Funding"
         ],
@@ -1760,7 +739,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1769,7 +748,7 @@
             }
           },
           {
-            "description": "Target country code.",
+            "description": "- País destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1820,8 +799,7 @@
             }
           }
         },
-        "description": "Retrieves available operations without requiring user authentication.",
-        "summary": "Get available operations without user",
+        "summary": "Obtener operaciones disponibles sin usuario",
         "tags": [
           "Funding"
         ],
@@ -1835,7 +813,7 @@
         ],
         "parameters": [
           {
-            "description": "Optional recipient phone number to filter corridors.",
+            "description": "- (Opcional) Teléfono del destinatario para filtrar corredores específicos.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -1882,8 +860,7 @@
             }
           }
         },
-        "description": "Retrieves available payout methods for a specific corridor and user.",
-        "summary": "Get available payout methods",
+        "summary": "Obtener métodos de cobro disponibles",
         "tags": [
           "Funding"
         ],
@@ -1897,7 +874,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1906,7 +883,7 @@
             }
           },
           {
-            "description": "Target country code.",
+            "description": "- País destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1915,7 +892,7 @@
             }
           },
           {
-            "description": "Type of operation (e.g., SendFunds).",
+            "description": "- Tipo de operación.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -1929,7 +906,7 @@
     },
     "/user/funding/source/send-money/{userToken}": {
       "get": {
-        "operationId": "getSOFForSendMoney",
+        "operationId": "listFundingSourcesForSend",
         "responses": {
           "200": {
             "description": "",
@@ -1963,8 +940,7 @@
             }
           }
         },
-        "description": "Gets source of funding for send money operations.",
-        "summary": "Get SOF for send money",
+        "summary": "Listar fuentes de fondos para envío",
         "tags": [
           "Funding"
         ],
@@ -1977,7 +953,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1986,7 +962,7 @@
             }
           },
           {
-            "description": "Origin country code.",
+            "description": "- País de origen.",
             "in": "query",
             "name": "sourceCountry",
             "required": false,
@@ -1995,7 +971,7 @@
             }
           },
           {
-            "description": "Target country code.",
+            "description": "- País de destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -2046,8 +1022,7 @@
             }
           }
         },
-        "description": "Gets available cash operators for the target user.",
-        "summary": "Get cash operators",
+        "summary": "Obtener operadores de efectivo",
         "tags": [
           "Funding"
         ],
@@ -2060,7 +1035,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2070,7 +1045,7 @@
           }
         ],
         "requestBody": {
-          "description": "Cash operator parameters.",
+          "description": "- Parámetros de consulta para operadores.",
           "required": true,
           "content": {
             "application/json": {
@@ -2119,8 +1094,7 @@
             }
           }
         },
-        "description": "Sets reference code for cash funding operations.",
-        "summary": "Set reference code",
+        "summary": "Generar código de referencia",
         "tags": [
           "Funding"
         ],
@@ -2133,7 +1107,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2143,7 +1117,7 @@
           }
         ],
         "requestBody": {
-          "description": "Reference code parameters.",
+          "description": "- Datos para la generación de la referencia.",
           "required": true,
           "content": {
             "application/json": {
@@ -2192,8 +1166,7 @@
             }
           }
         },
-        "description": "Retrieves reference code details by identifier.",
-        "summary": "Get reference code by ID",
+        "summary": "Consultar código de referencia por ID",
         "tags": [
           "Funding"
         ],
@@ -2206,7 +1179,7 @@
         ],
         "parameters": [
           {
-            "description": "Reference code identifier.",
+            "description": "- Identificador único de la referencia.",
             "in": "path",
             "name": "referenceCodeId",
             "required": true,
@@ -2215,7 +1188,7 @@
             }
           },
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2228,7 +1201,7 @@
     },
     "/user/funding/source/card/add/{userToken}": {
       "post": {
-        "operationId": "addCard",
+        "operationId": "createFundingCard",
         "responses": {
           "200": {
             "description": "",
@@ -2270,22 +1243,20 @@
             }
           }
         },
-        "description": "Adds a new card to the user's sources of funding.",
-        "summary": "Add card",
+        "summary": "Agregar tarjeta de financiamiento",
         "tags": [
           "Funding"
         ],
         "security": [
           {
             "api_key": [
-              "partner",
               "partner_send"
             ]
           }
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2295,7 +1266,7 @@
           }
         ],
         "requestBody": {
-          "description": "Card details and optional metadata.",
+          "description": "- Datos de la tarjeta y dirección de facturación.",
           "required": true,
           "content": {
             "application/json": {
@@ -2305,166 +1276,6 @@
             }
           }
         }
-      }
-    },
-    "/user/funding/source/card/generate-micro-trx/{userToken}": {
-      "post": {
-        "operationId": "generateMicroTrx",
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Generates a micro-transaction for card verification.",
-        "summary": "Generate micro-transaction",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "User token identifier.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Request body with payment method ID.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id"
-                ],
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/funding/source/delete/{userToken}": {
-      "post": {
-        "operationId": "deletePaymentMethod",
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "204": {
-            "description": "No content"
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Deletes a payment method from the user's account.",
-        "summary": "Delete payment method",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "User token identifier.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Target payment method identifier.",
-            "in": "query",
-            "name": "paymentMethodId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
       }
     },
     "/user/funding/source/get-payment-method/{userToken}": {
@@ -2500,8 +1311,7 @@
             }
           }
         },
-        "description": "Retrieves specific payment method details by card/account number.",
-        "summary": "Get payment method",
+        "summary": "Obtener método de pago por número",
         "tags": [
           "Funding"
         ],
@@ -2515,7 +1325,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2524,7 +1334,7 @@
             }
           },
           {
-            "description": "Last 4 digits or full number.",
+            "description": "- (Opcional) Número o terminación del método de pago.",
             "in": "query",
             "name": "number",
             "required": false,
@@ -2569,8 +1379,7 @@
             }
           }
         },
-        "description": "Retrieves specific payment method details by internal identifier.",
-        "summary": "Get payment method V2",
+        "summary": "Obtener método de pago por ID ( V2)",
         "tags": [
           "Funding"
         ],
@@ -2585,7 +1394,7 @@
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2594,7 +1403,7 @@
             }
           },
           {
-            "description": "Specific payment method identifier.",
+            "description": "- (Opcional) ID del método de pago.",
             "in": "query",
             "name": "id",
             "required": false,
@@ -2604,6 +1413,88 @@
             }
           }
         ]
+      }
+    },
+    "/user/funding/source/ubn-account/add/{userToken}": {
+      "post": {
+        "operationId": "addUBNAccount",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPaymentMethodResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Agregar cuenta UBN ( méxico)",
+        "tags": [
+          "Funding"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_full",
+              "partner_send"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "description": "- Token del usuario.",
+            "in": "path",
+            "name": "userToken",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "- Datos de la cuenta UBN.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddUBNParams"
+              }
+            }
+          }
+        }
       }
     },
     "/user/funding/contact/source/{userToken}": {
@@ -2668,22 +1559,21 @@
             }
           }
         },
-        "description": "Gets destination source of funding for contact users.",
-        "summary": "Get destination SOF for contacts",
+        "summary": "Obtener fuentes de fondos de contacto",
         "tags": [
           "Funding"
         ],
         "security": [
           {
             "api_key": [
-              "partner_send",
-              "partner_full"
+              "partner_full",
+              "partner_send"
             ]
           }
         ],
         "parameters": [
           {
-            "description": "User token identifier.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2692,7 +1582,7 @@
             }
           },
           {
-            "description": "Target user phone number.",
+            "description": "- Teléfono del destinatario.",
             "in": "query",
             "name": "destinationPhone",
             "required": true,
@@ -2701,313 +1591,6 @@
             }
           }
         ]
-      }
-    },
-    "/user/funding/source/account/{raasUserId}": {
-      "get": {
-        "operationId": "getUserAccount",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Account"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves user account details.",
-        "summary": "Get user account",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "Target user identifier.",
-            "in": "path",
-            "name": "raasUserId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/funding/source/card/update-billing-address/{userToken}": {
-      "post": {
-        "operationId": "UpdateAndValidateBillingAddress",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RaaSPaymentMethod"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Updates and validates the billing address for a specific card.",
-        "summary": "Update billing address",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "User token identifier.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Billing address details.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAndValidateBillingAddress"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/funding/card/check-validity-push": {
-      "post": {
-        "operationId": "CheckCardValidityPush",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CheckCardValidityResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Checks card validity (Push).",
-        "summary": "Check card validity push",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Card details for validation.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CheckCardValidityPushParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/funding/card/check-validity-pull": {
-      "post": {
-        "operationId": "CheckCardValidityPull",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CheckCardValidityResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Checks card validity (Pull).",
-        "summary": "Check card validity pull",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Card details for validation.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CheckCardValidityPullParams"
-              }
-            }
-          }
-        }
       }
     },
     "/user/operations/send-funds/{userToken}": {
@@ -3061,8 +1644,7 @@
             }
           }
         },
-        "description": "Sends funds to another user.",
-        "summary": "Send funds",
+        "summary": "Enviar fondos (vía cotización)",
         "tags": [
           "Operations"
         ],
@@ -3076,7 +1658,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3086,7 +1668,7 @@
           }
         ],
         "requestBody": {
-          "description": "Send details.",
+          "description": "- ID de la cotización y datos adicionales (razón, correlationId).",
           "required": true,
           "content": {
             "application/json": {
@@ -3149,8 +1731,7 @@
             }
           }
         },
-        "description": "Sends funds to another user (V2).",
-        "summary": "Send funds V2",
+        "summary": "Enviar fondos V2 ( m2 m)",
         "tags": [
           "Operations"
         ],
@@ -3164,7 +1745,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3174,7 +1755,7 @@
           }
         ],
         "requestBody": {
-          "description": "Send details.",
+          "description": "- Datos de la cotización y destinatario.",
           "required": true,
           "content": {
             "application/json": {
@@ -3219,8 +1800,7 @@
             }
           }
         },
-        "description": "Retrieves the latest status for a specific operation.",
-        "summary": "Get operation status",
+        "summary": "Consultar estado de operación",
         "tags": [
           "Operations"
         ],
@@ -3234,7 +1814,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3243,7 +1823,7 @@
             }
           },
           {
-            "description": "Identifier for the operation.",
+            "description": "- Identificador de la operación.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -3259,7 +1839,7 @@
         "operationId": "getOperationQuote",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -3269,7 +1849,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -3287,8 +1867,7 @@
             }
           }
         },
-        "description": "Retrieves quote data for an operation request based on partner inputs.\n\nEndpoint: `POST /user/operations/quotation/{userToken}`.\nTags: Partner Full.\nSecurity: api_key.\nScopes: partner_full.",
-        "summary": "Get operation quote",
+        "summary": "Obtener cotización de operación",
         "tags": [
           "Operations"
         ],
@@ -3302,7 +1881,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3312,7 +1891,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request body payload with the data required by this operation.",
+          "description": "- Datos de la transacción para cotizar.",
           "required": true,
           "content": {
             "application/json": {
@@ -3361,8 +1940,7 @@
             }
           }
         },
-        "description": "Calculates operation quote values for a transfer request.",
-        "summary": "Get operation quote",
+        "summary": "Obtener cotización ( partners)",
         "tags": [
           "Operations"
         ],
@@ -3376,7 +1954,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3386,7 +1964,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request details.",
+          "description": "- Datos detallados para la cotización.",
           "required": true,
           "content": {
             "application/json": {
@@ -3403,7 +1981,7 @@
         "operationId": "operationQuoteV2",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -3413,7 +1991,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -3423,8 +2001,7 @@
             }
           }
         },
-        "description": "Calculates operation quote values using the v2 quote request model.\n\nEndpoint: `POST /user/operations/operation-quote-v2/{userToken}`.\nTags: Partner Send.\nSecurity: api_key.\nScopes: partner_send, partner.",
-        "summary": "Operation quote V2",
+        "summary": "Obtener cotización V2 ( m2 m)",
         "tags": [
           "Operations"
         ],
@@ -3438,7 +2015,7 @@
         ],
         "parameters": [
           {
-            "description": "Path parameter `userToken` that identifies the target user token.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3448,7 +2025,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request body payload with the data required by this operation.",
+          "description": "- Datos para la cotización.",
           "required": true,
           "content": {
             "application/json": {
@@ -3485,8 +2062,7 @@
             }
           }
         },
-        "description": "Validates amounts and currencies before execution.",
-        "summary": "Pre-quote validation",
+        "summary": "Pre-cotización de operación",
         "tags": [
           "Operations"
         ],
@@ -3500,7 +2076,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3510,7 +2086,7 @@
           }
         ],
         "requestBody": {
-          "description": "Request details.",
+          "description": "- Datos básicos para la estimación.",
           "required": true,
           "content": {
             "application/json": {
@@ -3547,8 +2123,7 @@
             }
           }
         },
-        "description": "Retrieves detailed information for a specific operation.",
-        "summary": "Get operation detail",
+        "summary": "Obtener detalle de operación",
         "tags": [
           "Operations"
         ],
@@ -3563,7 +2138,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the operation.",
+            "description": "- Identificador de la operación.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -3612,8 +2187,7 @@
             }
           }
         },
-        "description": "Retrieves the operation list for the target user.",
-        "summary": "Get operations by user",
+        "summary": "Listar operaciones del usuario",
         "tags": [
           "Operations"
         ],
@@ -3628,7 +2202,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3637,7 +2211,7 @@
             }
           },
           {
-            "description": "Optional filter by recipient phone number.",
+            "description": "- (Opcional) Teléfono del contacto para filtrar.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -3686,8 +2260,7 @@
             }
           }
         },
-        "description": "Retrieves inbound and outbound operations for the target user.",
-        "summary": "Get inbound and outbound operations",
+        "summary": "Obtener operaciones entrada/salida",
         "tags": [
           "Operations"
         ],
@@ -3701,7 +2274,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario origen.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3710,7 +2283,7 @@
             }
           },
           {
-            "description": "Optional filter by recipient phone number.",
+            "description": "- (Opcional) Teléfono del contacto.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -3719,7 +2292,7 @@
             }
           },
           {
-            "description": "Optional filter by recipient email.",
+            "description": "- (Opcional) Email del contacto.",
             "in": "query",
             "name": "toEmail",
             "required": false,
@@ -3768,8 +2341,7 @@
             }
           }
         },
-        "description": "Retrieves completed operations between two users.",
-        "summary": "Get completed operations history",
+        "summary": "Obtener operaciones completadas entre usuarios",
         "tags": [
           "Operations"
         ],
@@ -3783,7 +2355,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the source user.",
+            "description": "- Token del primer usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3792,7 +2364,7 @@
             }
           },
           {
-            "description": "Optional filter by target phone number.",
+            "description": "- (Opcional) Teléfono del segundo usuario.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -3801,7 +2373,7 @@
             }
           },
           {
-            "description": "Optional filter by target email.",
+            "description": "- (Opcional) Email del segundo usuario.",
             "in": "query",
             "name": "toEmail",
             "required": false,
@@ -3852,8 +2424,7 @@
             }
           }
         },
-        "description": "Retrieves frequent contacts for the user.",
-        "summary": "Get frequent contacts",
+        "summary": "Obtener contactos frecuentes",
         "tags": [
           "Operations"
         ],
@@ -3868,7 +2439,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3877,7 +2448,7 @@
             }
           },
           {
-            "description": "Maximum number of contacts to retrieve.",
+            "description": "- Cantidad máxima de contactos a retornar.",
             "in": "path",
             "name": "limit",
             "required": true,
@@ -3897,8 +2468,7 @@
             "description": "No content"
           }
         },
-        "description": "Triggers a notification for cash operation completion.",
-        "summary": "Notify cash operation",
+        "summary": "Notificar operación en efectivo",
         "tags": [
           "Operations"
         ],
@@ -3912,7 +2482,7 @@
         ],
         "parameters": [
           {
-            "description": "Identifier for the target user.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -3921,7 +2491,7 @@
             }
           },
           {
-            "description": "Identifier for the operation.",
+            "description": "- ID de la operación.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -3937,7 +2507,7 @@
         "operationId": "operationQuoteLite",
         "responses": {
           "200": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -3947,7 +2517,7 @@
             }
           },
           "500": {
-            "description": "Typed TSOA response handler for controlled HTTP responses.",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -3957,8 +2527,7 @@
             }
           }
         },
-        "description": "Calculates a lightweight quote response optimized for quick pricing checks.\n\nEndpoint: `POST /user/operations/operation-quote-lite`.\nTags: Partner Send.\nSecurity: api_key.\nScopes: partner_send, partner.",
-        "summary": "Operation quote lite",
+        "summary": "Cotización lite ( sin persistencia)",
         "tags": [
           "Operations"
         ],
@@ -3972,7 +2541,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body payload with the data required by this operation.",
+          "description": "- Datos de la transacción (monedas, montos).",
           "required": true,
           "content": {
             "application/json": {
@@ -3984,149 +2553,9 @@
         }
       }
     },
-    "/service/short-link": {
-      "post": {
-        "operationId": "shortLink",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ShortLinkResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidateError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Shortens a long URL into a more manageable link.",
-        "summary": "Shorten link",
-        "tags": [
-          "Services"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_send",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "URL to shorten.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ShortLinkRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/service/get-cip-web-link": {
-      "post": {
-        "operationId": "getCIPWebLink",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CIPWebResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidateError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Generates a web link for user identity verification (CIP).",
-        "summary": "Get CIP web link",
-        "tags": [
-          "Services"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_send",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "User token for verification.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CIPWebRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/service/allowed_countries": {
+    "/user/exchange-rates/exchange-rates": {
       "get": {
-        "operationId": "allowedCountries",
+        "operationId": "getExchangeRates",
         "responses": {
           "200": {
             "description": "",
@@ -4134,41 +2563,9 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Country"
+                    "$ref": "#/components/schemas/ExchangeRate"
                   },
                   "type": "array"
-                }
-              }
-            }
-          }
-        },
-        "description": "Retrieves a list of countries supported for operations.",
-        "summary": "List allowed countries",
-        "tags": [
-          "Services"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": []
-      }
-    },
-    "/service/place_details": {
-      "post": {
-        "operationId": "getPlaceDetails",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
                 }
               }
             }
@@ -4192,39 +2589,35 @@
             }
           }
         },
-        "description": "Retrieves fine-grained details for a specific address or place.",
-        "summary": "Get place details",
-        "tags": [
-          "Services"
-        ],
+        "summary": "Obtener tasas de cambio",
+        "tags": [],
         "security": [
           {
             "api_key": [
-              "partner_send",
-              "partner_full"
+              "partner_send"
             ]
           }
         ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Address string to geocode.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "address": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "address"
-                ],
-                "type": "object"
-              }
+        "parameters": [
+          {
+            "description": "- (Opcional) Código ISO de la moneda origen (ej: USD).",
+            "in": "query",
+            "name": "currencyCodeSrc",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "- (Opcional) Código ISO de la moneda destino (ej: MXN).",
+            "in": "query",
+            "name": "currencyCodeDest",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           }
-        }
+        ]
       }
     }
   },
@@ -4635,9 +3028,7 @@
           "address1",
           "countryCode",
           "city",
-          "state",
-          "latitude",
-          "longitude"
+          "state"
         ],
         "type": "object",
         "additionalProperties": false
@@ -4649,10 +3040,7 @@
           }
         },
         "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "userId": "trusted-user-uuid-7890"
-        }
+        "additionalProperties": false
       },
       "SessionLinkPaymentMethodType": {
         "type": "string",
@@ -4848,9 +3236,7 @@
           "address1",
           "countryCode",
           "city",
-          "state",
-          "latitude",
-          "longitude"
+          "state"
         ],
         "type": "object",
         "additionalProperties": false
@@ -5381,8 +3767,6 @@
           "zipCode",
           "city",
           "address1",
-          "callLocationLongitude",
-          "callLocationLatitude",
           "countryCode",
           "state",
           "userId"
@@ -5581,8 +3965,6 @@
           }
         },
         "required": [
-          "callLocationLongitude",
-          "callLocationLatitude",
           "city",
           "state",
           "zipCode",
@@ -5777,10 +4159,6 @@
             "format": "double"
           }
         },
-        "required": [
-          "callLocationLongitude",
-          "callLocationLatitude"
-        ],
         "type": "object"
       },
       "AlternateFlow": {
@@ -6087,9 +4465,7 @@
         },
         "required": [
           "level",
-          "levelStatusDetail",
-          "callLocationLongitude",
-          "callLocationLatitude"
+          "levelStatusDetail"
         ],
         "type": "object",
         "additionalProperties": false
@@ -6362,32 +4738,25 @@
       "ContactInfo": {
         "properties": {
           "phone": {
-            "type": "string",
-            "example": "+12025550174"
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "example": "John"
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "example": "Doe"
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "example": "john.doe@example.com"
+            "type": "string"
           },
           "countryCode": {
-            "type": "string",
-            "example": "US"
+            "type": "string"
           },
           "alias": {
-            "type": "string",
-            "example": "J-Dog"
+            "type": "string"
           },
           "id": {
-            "type": "string",
-            "example": "b52b220b-0447-4cfc-b4dd-2434b9d07f35"
+            "type": "string"
           }
         },
         "required": [
@@ -6443,31 +4812,25 @@
       "createContactRequestParamsPartner": {
         "properties": {
           "alias": {
-            "type": "string",
-            "example": "Janey"
+            "type": "string"
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
-            "example": "US"
+            "$ref": "#/components/schemas/CountryAlpha2Code"
           },
           "phone": {
             "type": "string",
-            "example": "+12025550155",
             "minLength": 1
           },
           "lastName": {
             "type": "string",
-            "example": "Doe",
             "minLength": 1
           },
           "firstName": {
             "type": "string",
-            "example": "Jane",
             "minLength": 1
           },
           "email": {
-            "type": "string",
-            "example": "jane.doe@example.com"
+            "type": "string"
           }
         },
         "required": [
@@ -6481,28 +4844,22 @@
       "updateContactRequestParams": {
         "properties": {
           "alias": {
-            "type": "string",
-            "example": "Janey Smith"
+            "type": "string"
           },
           "countryCode": {
-            "type": "string",
-            "example": "US"
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "example": "Doe Smith"
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "example": "Jane"
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "example": "jane.doe.updated@example.com"
+            "type": "string"
           },
           "phone": {
-            "type": "string",
-            "example": "+12025550155"
+            "type": "string"
           }
         },
         "required": [
@@ -6802,6 +5159,9 @@
       },
       "RaaSPaymentMethod": {
         "properties": {
+          "paymentMethodOwner": {
+            "type": "string"
+          },
           "allowReviewAddress": {
             "type": "boolean"
           },
@@ -7159,8 +5519,6 @@
           "bankAccountType",
           "bankEntityNumber",
           "isPrimary",
-          "latitude",
-          "longitude",
           "application"
         ],
         "type": "object",
@@ -7360,8 +5718,6 @@
           "AddressLine2",
           "State",
           "City",
-          "Longitude",
-          "Latitude",
           "Phone",
           "Image"
         ],
@@ -7623,8 +5979,6 @@
           "address3",
           "city",
           "countryCode",
-          "latitude",
-          "longitude",
           "placeDetail",
           "state",
           "streetNumber",
@@ -7796,21 +6150,6 @@
           }
         },
         "type": "object"
-      },
-      "AddVNAParams": {
-        "properties": {
-          "provider": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "type": "object",
-        "additionalProperties": false
       },
       "Account": {
         "properties": {
@@ -7997,6 +6336,9 @@
       },
       "PaymentMethodResponse": {
         "properties": {
+          "paymentMethodOwner": {
+            "type": "string"
+          },
           "accountPrefix": {
             "type": "string"
           },
@@ -8198,6 +6540,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -8617,6 +6962,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -8634,22 +6982,7 @@
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "OperationResponsePartner": {
-        "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_",
-        "example": {
-          "id": "op_12345",
-          "code": "123456",
-          "status": "Pending",
-          "amount": 100,
-          "currency": "USD",
-          "createdAt": "2023-01-01T12:00:00Z",
-          "recipientAmout": 100,
-          "recipientCurrency": "USD",
-          "senderAmount": 100,
-          "senderCurrency": "USD",
-          "exchangeRate": 1,
-          "transactionFee": 0,
-          "totalAmount": 100
-        }
+        "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_"
       },
       "RequestMoneyPartnerParams": {
         "properties": {
@@ -8671,12 +7004,14 @@
           },
           "reason": {
             "type": "string"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/RaaSPaymentMethod"
           }
         },
         "required": [
           "requestTo",
           "correlationId",
-          "destinationPaymentMethodId",
           "recipientAmount",
           "recipientCurrency"
         ],
@@ -8826,8 +7161,6 @@
           "transactionFee",
           "destinationFee",
           "exchangeRate",
-          "callLocationLongitude",
-          "callLocationLatitude",
           "quotationId"
         ],
         "type": "object",
@@ -9382,6 +7715,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -9405,6 +7741,9 @@
       },
       "OperationDetailResponse": {
         "properties": {
+          "flow": {
+            "type": "string"
+          },
           "cancelable": {
             "type": "boolean"
           },
@@ -10081,66 +8420,43 @@
       "Country": {
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
-            "example": "US"
+            "$ref": "#/components/schemas/CountryAlpha2Code"
           },
           "name": {
-            "type": "string",
-            "example": "United States"
+            "type": "string"
           },
           "dialCode": {
-            "type": "string",
-            "example": "+1"
+            "type": "string"
           },
           "currencyCode": {
-            "$ref": "#/components/schemas/ISOCurrenciesCodes",
-            "example": "USD"
+            "$ref": "#/components/schemas/ISOCurrenciesCodes"
           },
           "phoneLength": {
             "type": "number",
-            "format": "double",
-            "example": 10
+            "format": "double"
           },
           "lengthWithFormat": {
             "type": "number",
-            "format": "double",
-            "example": 14
+            "format": "double"
           },
           "format": {
-            "type": "string",
-            "example": "000-000-0000"
+            "type": "string"
           },
           "formatWithDialCode": {
-            "type": "string",
-            "example": "+1 (000) 000-0000"
+            "type": "string"
           },
           "names": {
-            "$ref": "#/components/schemas/countryI18NNames",
-            "example": {
-              "es": "Estados Unidos",
-              "en": "United States"
-            }
+            "$ref": "#/components/schemas/countryI18NNames"
           },
           "timeZone": {
-            "type": "string",
-            "example": "America/New_York"
+            "type": "string"
           }
         },
         "required": [
           "id"
         ],
         "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "id": "US",
-          "name": "United States",
-          "currencyCode": "USD",
-          "phoneLength": 10,
-          "lengthWithFormat": 14,
-          "format": "000-000-0000",
-          "formatWithDialCode": "+1 (000) 000-0000",
-          "timeZone": "America/New_York"
-        }
+        "additionalProperties": false
       },
       "UserUpdateParams": {
         "properties": {
@@ -10214,10 +8530,6 @@
             "format": "double"
           }
         },
-        "required": [
-          "latitude",
-          "longitude"
-        ],
         "type": "object",
         "additionalProperties": false
       },

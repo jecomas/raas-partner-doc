@@ -63,8 +63,7 @@
             }
           }
         },
-        "description": "Retrieves session link for partner integrations (V2).",
-        "summary": "Get session link V2",
+        "summary": "Obtener enlace de sesión ( V2)",
         "tags": [
           "Users"
         ],
@@ -79,6 +78,7 @@
         ],
         "parameters": [],
         "requestBody": {
+          "description": "- Configuración y datos del usuario.",
           "required": true,
           "content": {
             "application/json": {
@@ -92,7 +92,7 @@
     },
     "/auth/sessionlink-v3": {
       "post": {
-        "operationId": "getSessionTokenV3",
+        "operationId": "getSessionLinkV3",
         "responses": {
           "200": {
             "description": "",
@@ -144,8 +144,7 @@
             }
           }
         },
-        "description": "Retrieves session link for partner integrations (V3).",
-        "summary": "Get session link V3",
+        "summary": "Obtener enlace de sesión ( V3)",
         "tags": [
           "Users"
         ],
@@ -160,6 +159,7 @@
         ],
         "parameters": [],
         "requestBody": {
+          "description": "- Configuración de la sesión y datos del usuario.",
           "required": true,
           "content": {
             "application/json": {
@@ -173,7 +173,7 @@
     },
     "/auth/sessionlink-v4/{userToken}": {
       "get": {
-        "operationId": "getSessionLinkV2Anonimous",
+        "operationId": "getSessionLinkV4",
         "responses": {
           "200": {
             "description": "",
@@ -225,8 +225,7 @@
             }
           }
         },
-        "description": "Retrieves session link for partner integrations (V4).",
-        "summary": "Get session link V4",
+        "summary": "Obtener enlace de sesión ( V4)",
         "tags": [
           "Users"
         ],
@@ -241,6 +240,7 @@
         ],
         "parameters": [
           {
+            "description": "- Identificador del socio/usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -249,6 +249,90 @@
             }
           }
         ]
+      }
+    },
+    "/auth/sessionlink-v2-anonimous": {
+      "post": {
+        "operationId": "getSessionLinkV2Anonymous",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionLinkResponse"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Obtener enlace de sesión anónimo ( V2)",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner_full"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- Parámetros que incluyen el identificador de operación.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "operationId": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        }
       }
     },
     "/auth/sessionlink": {
@@ -305,8 +389,7 @@
             }
           }
         },
-        "description": "Retrieves session link for partner integrations.",
-        "summary": "Get session link",
+        "summary": "Obtener enlace de sesión estándar",
         "tags": [
           "Users"
         ],
@@ -321,119 +404,12 @@
         ],
         "parameters": [],
         "requestBody": {
+          "description": "- Datos del usuario y configuración de pago.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SessionLinkParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/auth-by-token-link": {
-      "post": {
-        "operationId": "authByTokenLink",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PartnerTokenReponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Authenticates the user or session using a token link.",
-        "summary": "Authenticate by token link",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TokenParams"
               }
             }
           }
@@ -848,9 +824,7 @@
           "address1",
           "countryCode",
           "city",
-          "state",
-          "latitude",
-          "longitude"
+          "state"
         ],
         "type": "object",
         "additionalProperties": false
@@ -862,10 +836,7 @@
           }
         },
         "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "userId": "trusted-user-uuid-7890"
-        }
+        "additionalProperties": false
       },
       "SessionLinkPaymentMethodType": {
         "type": "string",
@@ -1061,9 +1032,7 @@
           "address1",
           "countryCode",
           "city",
-          "state",
-          "latitude",
-          "longitude"
+          "state"
         ],
         "type": "object",
         "additionalProperties": false
@@ -1594,8 +1563,6 @@
           "zipCode",
           "city",
           "address1",
-          "callLocationLongitude",
-          "callLocationLatitude",
           "countryCode",
           "state",
           "userId"
@@ -1794,8 +1761,6 @@
           }
         },
         "required": [
-          "callLocationLongitude",
-          "callLocationLatitude",
           "city",
           "state",
           "zipCode",
@@ -1990,10 +1955,6 @@
             "format": "double"
           }
         },
-        "required": [
-          "callLocationLongitude",
-          "callLocationLatitude"
-        ],
         "type": "object"
       },
       "AlternateFlow": {
@@ -2300,9 +2261,7 @@
         },
         "required": [
           "level",
-          "levelStatusDetail",
-          "callLocationLongitude",
-          "callLocationLatitude"
+          "levelStatusDetail"
         ],
         "type": "object",
         "additionalProperties": false
@@ -2575,32 +2534,25 @@
       "ContactInfo": {
         "properties": {
           "phone": {
-            "type": "string",
-            "example": "+12025550174"
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "example": "John"
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "example": "Doe"
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "example": "john.doe@example.com"
+            "type": "string"
           },
           "countryCode": {
-            "type": "string",
-            "example": "US"
+            "type": "string"
           },
           "alias": {
-            "type": "string",
-            "example": "J-Dog"
+            "type": "string"
           },
           "id": {
-            "type": "string",
-            "example": "b52b220b-0447-4cfc-b4dd-2434b9d07f35"
+            "type": "string"
           }
         },
         "required": [
@@ -2656,31 +2608,25 @@
       "createContactRequestParamsPartner": {
         "properties": {
           "alias": {
-            "type": "string",
-            "example": "Janey"
+            "type": "string"
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
-            "example": "US"
+            "$ref": "#/components/schemas/CountryAlpha2Code"
           },
           "phone": {
             "type": "string",
-            "example": "+12025550155",
             "minLength": 1
           },
           "lastName": {
             "type": "string",
-            "example": "Doe",
             "minLength": 1
           },
           "firstName": {
             "type": "string",
-            "example": "Jane",
             "minLength": 1
           },
           "email": {
-            "type": "string",
-            "example": "jane.doe@example.com"
+            "type": "string"
           }
         },
         "required": [
@@ -2694,28 +2640,22 @@
       "updateContactRequestParams": {
         "properties": {
           "alias": {
-            "type": "string",
-            "example": "Janey Smith"
+            "type": "string"
           },
           "countryCode": {
-            "type": "string",
-            "example": "US"
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "example": "Doe Smith"
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "example": "Jane"
+            "type": "string"
           },
           "email": {
-            "type": "string",
-            "example": "jane.doe.updated@example.com"
+            "type": "string"
           },
           "phone": {
-            "type": "string",
-            "example": "+12025550155"
+            "type": "string"
           }
         },
         "required": [
@@ -3015,6 +2955,9 @@
       },
       "RaaSPaymentMethod": {
         "properties": {
+          "paymentMethodOwner": {
+            "type": "string"
+          },
           "allowReviewAddress": {
             "type": "boolean"
           },
@@ -3372,8 +3315,6 @@
           "bankAccountType",
           "bankEntityNumber",
           "isPrimary",
-          "latitude",
-          "longitude",
           "application"
         ],
         "type": "object",
@@ -3573,8 +3514,6 @@
           "AddressLine2",
           "State",
           "City",
-          "Longitude",
-          "Latitude",
           "Phone",
           "Image"
         ],
@@ -3836,8 +3775,6 @@
           "address3",
           "city",
           "countryCode",
-          "latitude",
-          "longitude",
           "placeDetail",
           "state",
           "streetNumber",
@@ -4009,21 +3946,6 @@
           }
         },
         "type": "object"
-      },
-      "AddVNAParams": {
-        "properties": {
-          "provider": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "type": "object",
-        "additionalProperties": false
       },
       "Account": {
         "properties": {
@@ -4210,6 +4132,9 @@
       },
       "PaymentMethodResponse": {
         "properties": {
+          "paymentMethodOwner": {
+            "type": "string"
+          },
           "accountPrefix": {
             "type": "string"
           },
@@ -4411,6 +4336,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -4830,6 +4758,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -4847,22 +4778,7 @@
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "OperationResponsePartner": {
-        "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_",
-        "example": {
-          "id": "op_12345",
-          "code": "123456",
-          "status": "Pending",
-          "amount": 100,
-          "currency": "USD",
-          "createdAt": "2023-01-01T12:00:00Z",
-          "recipientAmout": 100,
-          "recipientCurrency": "USD",
-          "senderAmount": 100,
-          "senderCurrency": "USD",
-          "exchangeRate": 1,
-          "transactionFee": 0,
-          "totalAmount": 100
-        }
+        "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_"
       },
       "RequestMoneyPartnerParams": {
         "properties": {
@@ -4884,12 +4800,14 @@
           },
           "reason": {
             "type": "string"
+          },
+          "destinationPaymentMethod": {
+            "$ref": "#/components/schemas/RaaSPaymentMethod"
           }
         },
         "required": [
           "requestTo",
           "correlationId",
-          "destinationPaymentMethodId",
           "recipientAmount",
           "recipientCurrency"
         ],
@@ -5039,8 +4957,6 @@
           "transactionFee",
           "destinationFee",
           "exchangeRate",
-          "callLocationLongitude",
-          "callLocationLatitude",
           "quotationId"
         ],
         "type": "object",
@@ -5595,6 +5511,9 @@
           },
           "cancelable": {
             "type": "boolean"
+          },
+          "flow": {
+            "type": "string"
           }
         },
         "required": [
@@ -5618,6 +5537,9 @@
       },
       "OperationDetailResponse": {
         "properties": {
+          "flow": {
+            "type": "string"
+          },
           "cancelable": {
             "type": "boolean"
           },
@@ -6294,66 +6216,43 @@
       "Country": {
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
-            "example": "US"
+            "$ref": "#/components/schemas/CountryAlpha2Code"
           },
           "name": {
-            "type": "string",
-            "example": "United States"
+            "type": "string"
           },
           "dialCode": {
-            "type": "string",
-            "example": "+1"
+            "type": "string"
           },
           "currencyCode": {
-            "$ref": "#/components/schemas/ISOCurrenciesCodes",
-            "example": "USD"
+            "$ref": "#/components/schemas/ISOCurrenciesCodes"
           },
           "phoneLength": {
             "type": "number",
-            "format": "double",
-            "example": 10
+            "format": "double"
           },
           "lengthWithFormat": {
             "type": "number",
-            "format": "double",
-            "example": 14
+            "format": "double"
           },
           "format": {
-            "type": "string",
-            "example": "000-000-0000"
+            "type": "string"
           },
           "formatWithDialCode": {
-            "type": "string",
-            "example": "+1 (000) 000-0000"
+            "type": "string"
           },
           "names": {
-            "$ref": "#/components/schemas/countryI18NNames",
-            "example": {
-              "es": "Estados Unidos",
-              "en": "United States"
-            }
+            "$ref": "#/components/schemas/countryI18NNames"
           },
           "timeZone": {
-            "type": "string",
-            "example": "America/New_York"
+            "type": "string"
           }
         },
         "required": [
           "id"
         ],
         "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "id": "US",
-          "name": "United States",
-          "currencyCode": "USD",
-          "phoneLength": 10,
-          "lengthWithFormat": 14,
-          "format": "000-000-0000",
-          "formatWithDialCode": "+1 (000) 000-0000",
-          "timeZone": "America/New_York"
-        }
+        "additionalProperties": false
       },
       "UserUpdateParams": {
         "properties": {
@@ -6427,10 +6326,6 @@
             "format": "double"
           }
         },
-        "required": [
-          "latitude",
-          "longitude"
-        ],
         "type": "object",
         "additionalProperties": false
       },
