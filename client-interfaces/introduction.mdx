@@ -1,0 +1,23 @@
+---
+title: "Introduction"
+sidebarTitle: "Overview"
+description: "Manual de implementación de interfaces por parte del Cliente/Partner"
+---
+
+## Introducción
+
+Esta sección detalla las APIs que **corresponden ser implementadas por el Partner**. El backend de Platforma actuará como cliente consumiendo estos servicios para coordinar el ciclo de vida de los usuarios y las transacciones en la red virtual.
+
+### Responsabilidades del Partner
+
+*   **Alojamiento**: El Partner debe exponer estos endpoints en su infraestructura.
+*   **Endpoint Base**: Se debe proveer una URL base (ej: `https://api.partner.com/v1`) donde Platforma realizará las peticiones.
+*   **Seguridad**: El método de autenticación y los certificados (en caso de mTLS) deben coordinarse durante la fase de integración.
+*   **Contratos**: Los objetos JSON enviados y recibidos deben respetar estrictamente los esquemas definidos en esta documentación.
+
+### Flujo General
+
+1.  **Registro**: Platforma solicita la creación de una cuenta o una URL de registro.
+2.  **Autorización**: Ante una transacción entrante, Platforma consulta al Partner si la operación es válida y autorizada.
+3.  **Ejecución**: Platforma notifica el crédito de fondos o solicita reversiones según el estado final de la operación.
+

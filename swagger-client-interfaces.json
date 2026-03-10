@@ -3,1707 +3,213 @@
   "info": {
     "title": ""
   },
-  "servers": [
-    {
-      "url": "https://raas-partner-cv.nomas.cash/v1"
-    }
-  ],
   "paths": {
-    "/auth/get-user-token-v2": {
+    "/client-interfaces/pmo/create-account": {
       "post": {
-        "operationId": "getUserTokenV2",
+        "operationId": "createAccountClientApi",
         "responses": {
           "200": {
-            "description": "",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserTokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
+                  "$ref": "#/components/schemas/CreateAccountResponse"
                 }
               }
             }
           }
         },
-        "summary": "Obtener token de usuario ( V2)",
+        "description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nEste endpoint se invoca cuando en nuestros sistemas se requiere la creación formal \nde una cuenta asociada a los datos y documentos personales de un usuario (Payment Method Owner). \nEl partner debe registrar la cuenta y responder con un identificador unívoco de la nueva cuenta (`AccountIdentifier`).",
+        "summary": "Create account",
         "tags": [
-          "Users"
+          "Partner Implemented APIs"
         ],
-        "security": [
-          {
-            "api_key": [
-              "partner"
-            ]
-          }
-        ],
+        "security": [],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos de contacto del usuario.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GetUserTokenParams"
+                "$ref": "#/components/schemas/CreateAccountRequest"
               }
             }
           }
         }
       }
     },
-    "/auth/register-user-v2": {
+    "/client-interfaces/pmo/get-create-account-url": {
       "post": {
-        "operationId": "registerUserV2",
+        "operationId": "getCreateAccountUrlClientApi",
         "responses": {
           "200": {
-            "description": "",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserTokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
+                  "$ref": "#/components/schemas/GetCreateAccountUrlResponse"
                 }
               }
             }
           }
         },
-        "summary": "Registrar usuario ( V2)",
+        "description": "**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nInvoca la obtención de una URL temporal de registro delegada. \nEn casos donde el Partner orquesta el alta de cuenta de usuario, este endpoint debe\ngenerar y retornar una `RegistrationUrl` segura donde el usuario pueda completar o iniciar su empadronamiento.",
+        "summary": "Get create account URL",
         "tags": [
-          "Users"
+          "Partner Implemented APIs"
         ],
-        "security": [
-          {
-            "api_key": [
-              "partner"
-            ]
-          }
-        ],
+        "security": [],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos obligatorios del usuario.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterUserParams"
+                "$ref": "#/components/schemas/GetCreateAccountUrlRequest"
               }
             }
           }
         }
       }
     },
-    "/auth/register-user-v3": {
+    "/client-interfaces/pmo/tx-authorization": {
       "post": {
-        "operationId": "createUserV3",
+        "operationId": "txAuthorizationClientApi",
         "responses": {
           "200": {
-            "description": "",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserTokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
+                  "$ref": "#/components/schemas/TxAuthorizationResponse"
                 }
               }
             }
           }
         },
-        "summary": "Crear usuario ( V3)",
+        "description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nSolicitud de autorización para procesar una transacción de fondos entre dos partes (Remitente y Destinatario). \nEl partner validará internamente el saldo, los límites, y reglas de compliance (por ejemplo *AML*, *Velocity*)\nrespondiendo si la operación queda **Autorizada** (acompañada de un `TrackingIdentifier`) o denegada \npor alguna razón específica en `NonAuthorizedReason`.",
+        "summary": "Tx authorization",
         "tags": [
-          "Users"
+          "Partner Implemented APIs"
         ],
-        "security": [
-          {
-            "api_key": [
-              "partner"
-            ]
-          }
-        ],
+        "security": [],
         "parameters": [],
         "requestBody": {
-          "description": "- Información del nuevo usuario.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterUserParams"
+                "$ref": "#/components/schemas/TxAuthorizationRequest"
               }
             }
           }
         }
       }
     },
-    "/auth/request-otp": {
+    "/client-interfaces/vna/credit-funds": {
       "post": {
-        "operationId": "requestOtp",
+        "operationId": "creditFundsClientApi",
         "responses": {
           "200": {
-            "description": "Code Sent"
-          },
-          "400": {
-            "description": "",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
+                  "$ref": "#/components/schemas/CreditFundsResponse"
                 }
               }
             }
           }
         },
-        "summary": "Solicitar código OTP",
+        "description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nOrden de abono (crédito) hacia una cuenta de red virtual.\nNosotros enviaremos una notificación para indicar que se deben asentar fondos \na favor de un `AccountIdentifier` por el monto estipulado. \nEl sistema destino debe responder si la acción fue exitosa (`Success`), retornando \nun rastreo y/o el motivo por el cual falló (`NonCreditReason`).",
+        "summary": "Credit funds",
         "tags": [
-          "Users"
+          "Partner Implemented APIs"
         ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full"
-            ]
-          }
-        ],
+        "security": [],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos de contacto y preferencias de idioma.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RequestOTPParams"
+                "$ref": "#/components/schemas/CreditFundsRequest"
               }
             }
           }
         }
       }
     },
-    "/auth/validate-otp": {
+    "/client-interfaces/vna/get-credit-status": {
       "post": {
-        "operationId": "validateOtp",
+        "operationId": "getCreditStatusClientApi",
         "responses": {
           "200": {
-            "description": ""
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "remainingAttempts": {
-                      "type": "number",
-                      "format": "double"
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "remainingAttempts",
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
+                  "$ref": "#/components/schemas/GetCreditStatusResponse"
                 }
               }
             }
           }
         },
-        "summary": "Validar código OTP",
+        "description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nConsulta asíncrona del estado en el que reside una orden de crédito de fondos previa. \nCon el número de seguimiento (`CreditTrackingNumber`), el partner informará si el crédito \nestá en progreso (`InProgress`), aprobado (`Approved`), o si finalizó en error (`Failed`).",
+        "summary": "Get credit status",
         "tags": [
-          "Users"
+          "Partner Implemented APIs"
         ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full"
-            ]
-          }
-        ],
+        "security": [],
         "parameters": [],
         "requestBody": {
-          "description": "- Código OTP y datos de contacto.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ValidateOTPParamsPartner"
+                "$ref": "#/components/schemas/GetCreditStatusRequest"
               }
             }
           }
         }
       }
     },
-    "/auth/session-token": {
+    "/client-interfaces/vna/reverse-credit-funds": {
       "post": {
-        "operationId": "getSessionToken",
+        "operationId": "reverseCreditFundsClientApi",
         "responses": {
           "200": {
-            "description": "",
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetSessionTokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
+                  "$ref": "#/components/schemas/ReverseCreditFundsResponse"
                 }
               }
             }
           }
         },
-        "summary": "Obtener token de sesión",
+        "description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nOrden de reversión total de un movimiento de crédito previo asociado a un `CreditTrackingNumber`. \nEsto ocurre generalmente ante cancelaciones, fallas en la cadena de operación o re-ajustes financieros.\nEl Partner debe devolver los fondos de la cuenta dictada y confirmar el éxito retonando `Success` en `true`.",
+        "summary": "Reverse credit funds",
         "tags": [
-          "Users"
+          "Partner Implemented APIs"
         ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full"
-            ]
-          }
-        ],
+        "security": [],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos de contacto del usuario.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GetSessionTokenParams"
+                "$ref": "#/components/schemas/ReverseCreditFundsRequest"
               }
             }
           }
         }
-      }
-    },
-    "/user/contacts/{userToken}": {
-      "get": {
-        "operationId": "listContacts",
-        "responses": {
-          "200": {
-            "description": "Lista de objetos con información de contactos.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/ContactInfo"
-                  },
-                  "type": "array"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Listar contactos del usuario",
-        "tags": [
-          "Contacts"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token identificador del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "post": {
-        "operationId": "createContact",
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Failed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidateError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Crear nuevo contacto",
-        "tags": [
-          "Contacts"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario dueño de la agenda.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "- Datos del nuevo contacto.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/createContactRequestParamsPartner"
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "operationId": "updateContact",
-        "responses": {
-          "200": {
-            "description": "Updated"
-          },
-          "422": {
-            "description": "Validation Failed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidateError"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Actualizar contacto existente",
-        "tags": [
-          "Contacts"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "- Campos del contacto a actualizar.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/updateContactRequestParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/contacts/user/{userToken}/{phoneOrEmail}": {
-      "get": {
-        "operationId": "getContactUserDetail",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "hasCompletedOperations": {
-                      "type": "boolean"
-                    },
-                    "hasOperations": {
-                      "type": "boolean"
-                    },
-                    "userExists": {
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "hasCompletedOperations",
-                    "hasOperations",
-                    "userExists"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener detalle de usuario del contacto",
-        "tags": [
-          "Contacts"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del remitente.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- Identificador del contacto.",
-            "in": "path",
-            "name": "phoneOrEmail",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/corridors/available-methods/{userToken}": {
-      "get": {
-        "operationId": "getAvailablePaymentMethods",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener métodos de pago disponibles",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- País destino de la operación.",
-            "in": "query",
-            "name": "destinationCountry",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- Tipo de operación.",
-            "in": "query",
-            "name": "operationType",
-            "required": false,
-            "schema": {
-              "default": "SendFunds",
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/funding/source/request-money/{userToken}": {
-      "get": {
-        "operationId": "listFundingSourcesForRequest",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/SourceOfFunding"
-                  },
-                  "type": "array"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Listar fuentes de fondos para solicitud",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- País de origen.",
-            "in": "query",
-            "name": "sourceCountry",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- País de destino.",
-            "in": "query",
-            "name": "destinationCountry",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/funding/source/get-payment-method/{userToken}": {
-      "get": {
-        "operationId": "getPaymentMethod",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RaaSPaymentMethod"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener método de pago por número",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- (Opcional) Número o terminación del método de pago.",
-            "in": "query",
-            "name": "number",
-            "required": false,
-            "schema": {
-              "default": "",
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/funding/source/get-payment-method-v2/{userToken}": {
-      "get": {
-        "operationId": "getPaymentMethodV2",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RaaSPartnerPaymentMethod"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener método de pago por ID ( V2)",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "Default",
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- (Opcional) ID del método de pago.",
-            "in": "query",
-            "name": "id",
-            "required": false,
-            "schema": {
-              "default": "",
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/funding/source/ubn-account/add/{userToken}": {
-      "post": {
-        "operationId": "addUBNAccount",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddPaymentMethodResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Agregar cuenta UBN ( méxico)",
-        "tags": [
-          "Funding"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "- Datos de la cuenta UBN.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddUBNParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/operations/request-money-v2/{userToken}": {
-      "post": {
-        "operationId": "requestMoneyV2",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OperationResponsePartner"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Solicitar dinero V2",
-        "tags": [
-          "Operations"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario solicitante.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "- Parámetros de la solicitud (monto, destinatario, método de pago).",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestMoneyPartnerParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/operations/request-money-full": {
-      "post": {
-        "operationId": "requestMoneyFull",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RequestMoneyFullResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Solicitar dinero ( flujo atómico)",
-        "tags": [
-          "Operations"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "- Datos del solicitante y de la solicitud.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestMoneyFullParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/operations/status/{userToken}/{operationId}": {
-      "get": {
-        "operationId": "getOperationStatus",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Consultar estado de operación",
-        "tags": [
-          "Operations"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- Identificador de la operación.",
-            "in": "path",
-            "name": "operationId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/operations/detail/{id}": {
-      "get": {
-        "operationId": "getOperation",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OperationDetail"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener detalle de operación",
-        "tags": [
-          "Operations"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Identificador de la operación.",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/operations/{userToken}": {
-      "get": {
-        "operationId": "getOperations",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/OperationDetail"
-                  },
-                  "type": "array"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Listar operaciones del usuario",
-        "tags": [
-          "Operations"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full",
-              "partner_send",
-              "partner"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- (Opcional) Teléfono del contacto para filtrar.",
-            "in": "query",
-            "name": "toPhoneNumber",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/user/operations/frequent/{userToken}/{limit}": {
-      "get": {
-        "operationId": "getFrequentContacts",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/ContactInfo"
-                  },
-                  "type": "array"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "type": "string"
-                    },
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener contactos frecuentes",
-        "tags": [
-          "Operations"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_send",
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "description": "- Token del usuario.",
-            "in": "path",
-            "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "- Cantidad máxima de contactos a retornar.",
-            "in": "path",
-            "name": "limit",
-            "required": true,
-            "schema": {
-              "format": "double",
-              "type": "number"
-            }
-          }
-        ]
       }
     }
   },
   "components": {
-    "examples": {},
     "headers": {},
     "parameters": {},
     "requestBodies": {},

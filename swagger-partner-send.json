@@ -60,8 +60,7 @@
             }
           }
         },
-        "description": "\nInicia una apertura de cuenta validada con privilegios suficientes para fungir como originador regular de remesas.",
-        "summary": "Registrar remitente activo ( sender)",
+        "summary": "Registrar remitente ( partner send)",
         "tags": [
           "Users"
         ],
@@ -74,7 +73,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Datos KYC básicos requeribles para onboarding.",
+          "description": "- Datos de identidad del remitente.",
           "required": true,
           "content": {
             "application/json": {
@@ -137,8 +136,7 @@
             }
           }
         },
-        "description": "\nAgrega a un beneficiario inter-tenant validado al libro de contactos de un originador para habilitar su fondeo recurrente cruzado.",
-        "summary": "Inscribir beneficiario a remitente",
+        "summary": "Registrar destinatario ( partner send)",
         "tags": [
           "Users"
         ],
@@ -151,7 +149,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador o Token del originador en sesión.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -161,7 +159,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos identificables del receptor a vincular.",
+          "description": "- Información del destinatario.",
           "required": true,
           "content": {
             "application/json": {
@@ -208,8 +206,7 @@
             }
           }
         },
-        "description": "\nRecupera el detalle de nivel CIP y avance de recolección de pruebas de un usuario individual.",
-        "summary": "Consultar estado de validación ( CIP)",
+        "summary": "Consultar estado CIP ( v1)",
         "tags": [
           "Users"
         ],
@@ -223,7 +220,7 @@
         ],
         "parameters": [
           {
-            "description": "- Número de celular que indexa la cuenta.",
+            "description": "- Teléfono del usuario.",
             "in": "path",
             "name": "phoneNumber",
             "required": true,
@@ -239,7 +236,7 @@
         "operationId": "listContacts",
         "responses": {
           "200": {
-            "description": "Arreglo con la información de los contactos.",
+            "description": "Lista de objetos con información de contactos.",
             "content": {
               "application/json": {
                 "schema": {
@@ -252,8 +249,7 @@
             }
           }
         },
-        "description": "\nRecupera el listado completo de los contactos guardados por un usuario específico empleando su token de sesión.",
-        "summary": "Listar contactos de usuario",
+        "summary": "Listar contactos del usuario",
         "tags": [
           "Contacts"
         ],
@@ -267,7 +263,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token único identitario del usuario.",
+            "description": "- Token identificador del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -338,7 +334,6 @@
             }
           }
         },
-        "description": "\nAñade y almacena un nuevo contacto en la libreta de direcciones del usuario, previniendo duplicidades telefónicas.",
         "summary": "Crear nuevo contacto",
         "tags": [
           "Contacts"
@@ -353,7 +348,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario dueño del contacto.",
+            "description": "- Token del usuario dueño de la agenda.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -363,7 +358,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Datos del contacto a registrar.",
+          "description": "- Datos del nuevo contacto.",
           "required": true,
           "content": {
             "application/json": {
@@ -413,7 +408,6 @@
             }
           }
         },
-        "description": "\nModifica y guarda los atributos o la identidad parcial de un contacto previamente existente de un usuario.",
         "summary": "Actualizar contacto existente",
         "tags": [
           "Contacts"
@@ -428,7 +422,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token identificador del contacto para ser manipulado en el origen del usuario base.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -438,7 +432,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Objeto con atributos actualizados.",
+          "description": "- Campos del contacto a actualizar.",
           "required": true,
           "content": {
             "application/json": {
@@ -501,8 +495,7 @@
             }
           }
         },
-        "description": "\nAnaliza si un determinado contacto, basado en su teléfono o email, está registrado como usuario en plataforma y si ha tenido operaciones transaccionales con el remitente.",
-        "summary": "Obtener detalle y asociación del contacto",
+        "summary": "Obtener detalle de usuario del contacto",
         "tags": [
           "Contacts"
         ],
@@ -516,7 +509,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token único del usuario remitente.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -525,7 +518,7 @@
             }
           },
           {
-            "description": "- Teléfono o correo del contacto.",
+            "description": "- Identificador del contacto.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -572,8 +565,7 @@
             }
           }
         },
-        "description": "\nRetorna los corredores de transferencia filtrados acordes a la región y el tipo de operación.",
-        "summary": "Obtener corredores de servicio",
+        "summary": "Listar corredores disponibles",
         "tags": [
           "Funding"
         ],
@@ -587,7 +579,7 @@
         ],
         "parameters": [
           {
-            "description": "- País de origen.",
+            "description": "- Código ISO del país de origen.",
             "in": "query",
             "name": "sourceCountry",
             "required": false,
@@ -596,7 +588,7 @@
             }
           },
           {
-            "description": "- País destino.",
+            "description": "- Código ISO del país de destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -605,7 +597,7 @@
             }
           },
           {
-            "description": "- Tipo de operación (por defecto SendFunds).",
+            "description": "- Tipo de operación (ej: SendFunds).",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -653,8 +645,7 @@
             }
           }
         },
-        "description": "\nCalcula los métodos de pago disponibles según el origen y destino del corredor para un usuario particular.",
-        "summary": "Obtener métodos de pago ( orígen)",
+        "summary": "Obtener métodos de pago disponibles",
         "tags": [
           "Funding"
         ],
@@ -668,7 +659,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador o token del usuario.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -677,7 +668,7 @@
             }
           },
           {
-            "description": "- Código de país de destino.",
+            "description": "- País destino de la operación.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -686,7 +677,7 @@
             }
           },
           {
-            "description": "- Modalidad transaccional.",
+            "description": "- Tipo de operación.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -734,8 +725,7 @@
             }
           }
         },
-        "description": "\nDetermina las operaciones lógicas ofertadas a nivel usuario según su ubicación nacional y destino objetivo (Send/Request).",
-        "summary": "Obtener tipos de operación permitidos",
+        "summary": "Obtener tipos de operación disponibles",
         "tags": [
           "Funding"
         ],
@@ -749,7 +739,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token criptográfico único por usuario.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -758,7 +748,7 @@
             }
           },
           {
-            "description": "- País de destino para la evaluación.",
+            "description": "- País destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -809,8 +799,7 @@
             }
           }
         },
-        "description": "\nDescubre qué transacciones son habilitadas globalmente hacia un destino considerando el tenant público de acceso, sin un usuario provisto.",
-        "summary": "Obtener parámetros operativos públicos",
+        "summary": "Obtener operaciones disponibles sin usuario",
         "tags": [
           "Funding"
         ],
@@ -824,7 +813,7 @@
         ],
         "parameters": [
           {
-            "description": "- Teléfono de destino (Opcional).",
+            "description": "- (Opcional) Teléfono del destinatario para filtrar corredores específicos.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -871,8 +860,7 @@
             }
           }
         },
-        "description": "\nInspecciona todos los corredores y unifica los métodos de cobro o desembolso aprobados para el destino.",
-        "summary": "Obtener métodos de destino disponibles",
+        "summary": "Obtener métodos de cobro disponibles",
         "tags": [
           "Funding"
         ],
@@ -886,7 +874,7 @@
         ],
         "parameters": [
           {
-            "description": "- Token del usuario que origina la consulta.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -895,7 +883,7 @@
             }
           },
           {
-            "description": "- Siglas ISO del país destino.",
+            "description": "- País destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -904,7 +892,7 @@
             }
           },
           {
-            "description": "- Operacion intentada.",
+            "description": "- Tipo de operación.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -952,8 +940,7 @@
             }
           }
         },
-        "description": "\nRecupera un listado de los métodos e instrumentos con los que el usuario cuenta habilitados para fondear sus operaciones de envío de dinero.",
-        "summary": "Obtener métodos de fondeo ( send)",
+        "summary": "Listar fuentes de fondos para envío",
         "tags": [
           "Funding"
         ],
@@ -966,7 +953,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador o token del usuario remitente.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -984,7 +971,7 @@
             }
           },
           {
-            "description": "- País destino.",
+            "description": "- País de destino.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1035,8 +1022,7 @@
             }
           }
         },
-        "description": "\nDevuelve los operadores transaccionales de corresponsalía en efectivo a los cuales el usuario tiene permitido el acceso para realizar ingresos o cobros en ventanilla.",
-        "summary": "Obtener operadores de efectivo ( cash)",
+        "summary": "Obtener operadores de efectivo",
         "tags": [
           "Funding"
         ],
@@ -1049,7 +1035,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del usuario.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1059,7 +1045,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Parámetros extra de paginación o filtro para operadores.",
+          "description": "- Parámetros de consulta para operadores.",
           "required": true,
           "content": {
             "application/json": {
@@ -1108,8 +1094,7 @@
             }
           }
         },
-        "description": "\nConfigura o asienta un código referenciado temporal (boucher) que permite hacer un pago en efectivo conectándose con el ente compensador.",
-        "summary": "Crear código de referencia",
+        "summary": "Generar código de referencia",
         "tags": [
           "Funding"
         ],
@@ -1122,7 +1107,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador o token de usuario activo.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1132,7 +1117,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Objeto con datos del servicio, monto y ubicación del cobro.",
+          "description": "- Datos para la generación de la referencia.",
           "required": true,
           "content": {
             "application/json": {
@@ -1181,8 +1166,7 @@
             }
           }
         },
-        "description": "\nObtiene la estampa y estado final de evaluación en vivo para un código referencial que fue provisto previamente con pago en cash, y ha caducado o está por ser procesado.",
-        "summary": "Consultar código de referencia",
+        "summary": "Consultar código de referencia por ID",
         "tags": [
           "Funding"
         ],
@@ -1195,7 +1179,7 @@
         ],
         "parameters": [
           {
-            "description": "- ID interno del código referencial.",
+            "description": "- Identificador único de la referencia.",
             "in": "path",
             "name": "referenceCodeId",
             "required": true,
@@ -1204,7 +1188,7 @@
             }
           },
           {
-            "description": "- Token del usuario dueño.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1259,8 +1243,7 @@
             }
           }
         },
-        "description": "\nAsienta una tarjeta bancaria como nuevo instrumento de fondeo de dinero vinculado a cruces (corredores).",
-        "summary": "Registrar medio de pago ( tarjeta)",
+        "summary": "Agregar tarjeta de financiamiento",
         "tags": [
           "Funding"
         ],
@@ -1273,7 +1256,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador o token único de usuario.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1283,7 +1266,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Información cifrada y en bruto del plástico a agregar.",
+          "description": "- Datos de la tarjeta y dirección de facturación.",
           "required": true,
           "content": {
             "application/json": {
@@ -1293,6 +1276,74 @@
             }
           }
         }
+      }
+    },
+    "/user/funding/source/get-payment-method/{userToken}": {
+      "get": {
+        "operationId": "getPaymentMethod",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RaaSPaymentMethod"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Obtener método de pago por número",
+        "tags": [
+          "Funding"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner",
+              "partner_send"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "description": "- Token del usuario.",
+            "in": "path",
+            "name": "userToken",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "- (Opcional) Número o terminación del método de pago.",
+            "in": "query",
+            "name": "number",
+            "required": false,
+            "schema": {
+              "default": "",
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/user/funding/source/get-payment-method-v2/{userToken}": {
@@ -1328,8 +1379,7 @@
             }
           }
         },
-        "description": "\nRecupera la estructura resumida V2 para un método de pago basado en su ID de pasarela u originación.",
-        "summary": "Consultar estado de método de pago V2",
+        "summary": "Obtener método de pago por ID ( V2)",
         "tags": [
           "Funding"
         ],
@@ -1344,7 +1394,7 @@
         ],
         "parameters": [
           {
-            "description": "- JWT del usuario final.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1353,7 +1403,7 @@
             }
           },
           {
-            "description": "- Id alfanumérico asociado.",
+            "description": "- (Opcional) ID del método de pago.",
             "in": "query",
             "name": "id",
             "required": false,
@@ -1410,8 +1460,7 @@
             }
           }
         },
-        "description": "\nIncorpora un enlace hacia un número de cuenta UBN o bancaria a favor de la colección del usuario.",
-        "summary": "Registrar cuenta bancaria UBN",
+        "summary": "Agregar cuenta UBN ( méxico)",
         "tags": [
           "Funding"
         ],
@@ -1436,7 +1485,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Payload validado con los parámetros obligatorios.",
+          "description": "- Datos de la cuenta UBN.",
           "required": true,
           "content": {
             "application/json": {
@@ -1510,8 +1559,7 @@
             }
           }
         },
-        "description": "\nInspecciona en los registros unificados en qué cuentas destino (ajenas al usuario originado) se depositó.",
-        "summary": "Obtener métodos de fondeo por contacto",
+        "summary": "Obtener fuentes de fondos de contacto",
         "tags": [
           "Funding"
         ],
@@ -1525,7 +1573,7 @@
         ],
         "parameters": [
           {
-            "description": "- Usuario origen solicitante.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1534,7 +1582,7 @@
             }
           },
           {
-            "description": "- Fono del target que fue beneficiario.",
+            "description": "- Teléfono del destinatario.",
             "in": "query",
             "name": "destinationPhone",
             "required": true,
@@ -1596,8 +1644,7 @@
             }
           }
         },
-        "description": "\nInstancia moderna e interconector para operaciones Send utilizando ids de cotizaciones en firme amarradas al order.",
-        "summary": "Mandar dinero v1 ( full send)",
+        "summary": "Enviar fondos (vía cotización)",
         "tags": [
           "Operations"
         ],
@@ -1611,7 +1658,7 @@
         ],
         "parameters": [
           {
-            "description": "- Remitente.",
+            "description": "- Token del usuario remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1621,7 +1668,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Diccionario validacional que requiere quotation obligatoria.",
+          "description": "- ID de la cotización y datos adicionales (razón, correlationId).",
           "required": true,
           "content": {
             "application/json": {
@@ -1684,8 +1731,7 @@
             }
           }
         },
-        "description": "\nVariante más adaptada para flujos de caja y billeteras de destino final, admitiendo destinatarios ambiguos sin contacto precargado en la agenda tradicional.",
-        "summary": "Mandar dinero V2",
+        "summary": "Enviar fondos V2 ( m2 m)",
         "tags": [
           "Operations"
         ],
@@ -1699,7 +1745,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador o Token.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1709,7 +1755,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Envía a un destino arbitrario utilizando cotización y sin depender estrictamente del book local.",
+          "description": "- Datos de la cotización y destinatario.",
           "required": true,
           "content": {
             "application/json": {
@@ -1754,7 +1800,6 @@
             }
           }
         },
-        "description": "\nRecupera sincrónicamente un snapshot parcial pero reciente sobre el estatus de procesamiento o entrega de una operación transaccional.",
         "summary": "Consultar estado de operación",
         "tags": [
           "Operations"
@@ -1769,7 +1814,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del usuario envuelto en la transacción.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1778,7 +1823,7 @@
             }
           },
           {
-            "description": "- UUID de la transferencia.",
+            "description": "- Identificador de la operación.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -1822,8 +1867,7 @@
             }
           }
         },
-        "description": "\nPre-calcula montos transfronterizos emitiendo una foto de conversión con fees pre-asignados a un order inminente.",
-        "summary": "Solicitar cotización base",
+        "summary": "Obtener cotización de operación",
         "tags": [
           "Operations"
         ],
@@ -1837,7 +1881,7 @@
         ],
         "parameters": [
           {
-            "description": "- UUID solicitante.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1847,7 +1891,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Pares de divisas y monto origen/destino sugerido.",
+          "description": "- Datos de la transacción para cotizar.",
           "required": true,
           "content": {
             "application/json": {
@@ -1896,8 +1940,7 @@
             }
           }
         },
-        "description": "\nCotiza comisiones, tipo de cambio e impuestos para asentar un envío de fondos, reteniendo la tasa por seguridad temporal.",
-        "summary": "Crear cotización firme ( v1)",
+        "summary": "Obtener cotización ( partners)",
         "tags": [
           "Operations"
         ],
@@ -1911,7 +1954,7 @@
         ],
         "parameters": [
           {
-            "description": "- UUID del firmante.",
+            "description": "- Token del remitente.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1921,7 +1964,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Instrumento fondeador y métodos elegidos.",
+          "description": "- Datos detallados para la cotización.",
           "required": true,
           "content": {
             "application/json": {
@@ -1958,8 +2001,7 @@
             }
           }
         },
-        "description": "\nCotiza comisiones interbancarias basándose en parámetros más ambiguos omitiendo destino exacto requerido en V1.",
-        "summary": "Crear cotización firme ( V2)",
+        "summary": "Obtener cotización V2 ( m2 m)",
         "tags": [
           "Operations"
         ],
@@ -1973,7 +2015,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del evaluador activo.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1983,6 +2025,7 @@
           }
         ],
         "requestBody": {
+          "description": "- Datos para la cotización.",
           "required": true,
           "content": {
             "application/json": {
@@ -2019,8 +2062,7 @@
             }
           }
         },
-        "description": "\nSimula un escenario preliminar de tarifas según paridades y corredores sin requerimientos completos de identidad o cuenta de destino.",
-        "summary": "Simular cotización preliminar ( pre- quote)",
+        "summary": "Pre-cotización de operación",
         "tags": [
           "Operations"
         ],
@@ -2034,7 +2076,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del prospecto.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2044,7 +2086,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Instrumento origen, monto bruto.",
+          "description": "- Datos básicos para la estimación.",
           "required": true,
           "content": {
             "application/json": {
@@ -2081,8 +2123,7 @@
             }
           }
         },
-        "description": "\nExtrae la anatomía detallada, el pipeline audit y los métodos contables asociados a un hash UUID de operación transaccional.",
-        "summary": "Consultar detalle de operación",
+        "summary": "Obtener detalle de operación",
         "tags": [
           "Operations"
         ],
@@ -2097,7 +2138,7 @@
         ],
         "parameters": [
           {
-            "description": "- Código UUID unívoco de la operación transaccional.",
+            "description": "- Identificador de la operación.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -2146,8 +2187,7 @@
             }
           }
         },
-        "description": "\nEnumera el histórico de movimientos transaccionales de entrada y salida asociables al identificador del originador.",
-        "summary": "Listar operaciones históricas",
+        "summary": "Listar operaciones del usuario",
         "tags": [
           "Operations"
         ],
@@ -2162,7 +2202,7 @@
         ],
         "parameters": [
           {
-            "description": "- ID del usuario.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2171,7 +2211,7 @@
             }
           },
           {
-            "description": "- Parámetro de filtrado opcional.",
+            "description": "- (Opcional) Teléfono del contacto para filtrar.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -2220,8 +2260,7 @@
             }
           }
         },
-        "description": "\nCondensa tanto recepciones como envíos de fondos de este usuario filtrando aquellos ajenos a su control en la red.",
-        "summary": "Consultar entradas y salidas de saldo",
+        "summary": "Obtener operaciones entrada/salida",
         "tags": [
           "Operations"
         ],
@@ -2235,7 +2274,7 @@
         ],
         "parameters": [
           {
-            "description": "- Entidad a la cual computar transacciones.",
+            "description": "- Token del usuario origen.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2244,6 +2283,7 @@
             }
           },
           {
+            "description": "- (Opcional) Teléfono del contacto.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -2252,6 +2292,7 @@
             }
           },
           {
+            "description": "- (Opcional) Email del contacto.",
             "in": "query",
             "name": "toEmail",
             "required": false,
@@ -2300,8 +2341,7 @@
             }
           }
         },
-        "description": "\nExtrae la lista de las operaciones exitosas ya culminadas dirigidas o provenientes hacia un teléfono/email específico.",
-        "summary": "Consultar operaciones completadas ( contactos cruzados)",
+        "summary": "Obtener operaciones completadas entre usuarios",
         "tags": [
           "Operations"
         ],
@@ -2315,7 +2355,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador o Token autenticado.",
+            "description": "- Token del primer usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2324,7 +2364,7 @@
             }
           },
           {
-            "description": "- Teléfono del beneficiario/contacto.",
+            "description": "- (Opcional) Teléfono del segundo usuario.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -2333,7 +2373,7 @@
             }
           },
           {
-            "description": "- Email alternativo del beneficiario.",
+            "description": "- (Opcional) Email del segundo usuario.",
             "in": "query",
             "name": "toEmail",
             "required": false,
@@ -2384,8 +2424,7 @@
             }
           }
         },
-        "description": "\nProporciona la libreta de contactos con interacciones iterativas consolidadas para sugerencias smart rápidas.",
-        "summary": "Obtener contactos frecuentes ( top n)",
+        "summary": "Obtener contactos frecuentes",
         "tags": [
           "Operations"
         ],
@@ -2400,7 +2439,7 @@
         ],
         "parameters": [
           {
-            "description": "- Quien hace la consulta.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2409,7 +2448,7 @@
             }
           },
           {
-            "description": "- Número top N de contactos requeridos.",
+            "description": "- Cantidad máxima de contactos a retornar.",
             "in": "path",
             "name": "limit",
             "required": true,
@@ -2429,8 +2468,7 @@
             "description": "No content"
           }
         },
-        "description": "\nDesencadena una notificación de alerta backend hacia un operador de efectivo tras registrar la intención de depósito.",
-        "summary": "Notificar a cajero sucursal cash",
+        "summary": "Notificar operación en efectivo",
         "tags": [
           "Operations"
         ],
@@ -2444,7 +2482,7 @@
         ],
         "parameters": [
           {
-            "description": "- Usuario RaaS que opera en efectivo.",
+            "description": "- Token del usuario.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2453,7 +2491,7 @@
             }
           },
           {
-            "description": "- UUID de la petición que se intenta concretar con cash.",
+            "description": "- ID de la operación.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -2489,8 +2527,7 @@
             }
           }
         },
-        "description": "\nExtrae proyecciones y costos mínimos para simular un envío sin dependencias estrictas de identidad en el gateway.",
-        "summary": "Simulación de comisiones ( quote lite)",
+        "summary": "Cotización lite ( sin persistencia)",
         "tags": [
           "Operations"
         ],
@@ -2504,7 +2541,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Modelo reducido con tipo de paridad y montos.",
+          "description": "- Datos de la transacción (monedas, montos).",
           "required": true,
           "content": {
             "application/json": {
@@ -2552,7 +2589,6 @@
             }
           }
         },
-        "description": "\nRecupera el listado de tasas de cambio aplicables para el tenant o país correspondiente.",
         "summary": "Obtener tasas de cambio",
         "tags": [],
         "security": [
@@ -2564,7 +2600,7 @@
         ],
         "parameters": [
           {
-            "description": "- Moneda de origen.",
+            "description": "- (Opcional) Código ISO de la moneda origen (ej: USD).",
             "in": "query",
             "name": "currencyCodeSrc",
             "required": false,
@@ -2573,7 +2609,7 @@
             }
           },
           {
-            "description": "- Moneda de destino.",
+            "description": "- (Opcional) Código ISO de la moneda destino (ej: MXN).",
             "in": "query",
             "name": "currencyCodeDest",
             "required": false,
@@ -2904,13 +2940,32 @@
       },
       "RegisterUserParams": {
         "properties": {
-          "phoneNumber": {
+          "firstName": {
             "type": "string"
           },
           "lastName": {
             "type": "string"
           },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
           "lastName2": {
+            "type": "string"
+          },
+          "phoneNumber": {
             "type": "string"
           },
           "gender": {
@@ -2922,20 +2977,10 @@
               "None"
             ]
           },
-          "dob": {
-            "type": "string",
-            "format": "date-time"
-          },
           "email": {
             "type": "string"
           },
-          "firstName": {
-            "type": "string"
-          },
           "middleName": {
-            "type": "string"
-          },
-          "address1": {
             "type": "string"
           },
           "address2": {
@@ -2947,16 +2992,7 @@
           "streetNumber": {
             "type": "string"
           },
-          "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
-          },
-          "city": {
-            "type": "string"
-          },
           "zipCode": {
-            "type": "string"
-          },
-          "state": {
             "type": "string"
           },
           "birthState": {
@@ -2986,9 +3022,9 @@
           }
         },
         "required": [
+          "firstName",
           "lastName",
           "dob",
-          "firstName",
           "address1",
           "countryCode",
           "city",
@@ -3102,13 +3138,32 @@
       },
       "SessionLinkParams": {
         "properties": {
-          "phoneNumber": {
+          "firstName": {
             "type": "string"
           },
           "lastName": {
             "type": "string"
           },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
           "lastName2": {
+            "type": "string"
+          },
+          "phoneNumber": {
             "type": "string"
           },
           "gender": {
@@ -3120,20 +3175,10 @@
               "None"
             ]
           },
-          "dob": {
-            "type": "string",
-            "format": "date-time"
-          },
           "email": {
             "type": "string"
           },
-          "firstName": {
-            "type": "string"
-          },
           "middleName": {
-            "type": "string"
-          },
-          "address1": {
             "type": "string"
           },
           "address2": {
@@ -3145,16 +3190,7 @@
           "streetNumber": {
             "type": "string"
           },
-          "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
-          },
-          "city": {
-            "type": "string"
-          },
           "zipCode": {
-            "type": "string"
-          },
-          "state": {
             "type": "string"
           },
           "birthState": {
@@ -3194,9 +3230,9 @@
           }
         },
         "required": [
+          "firstName",
           "lastName",
           "dob",
-          "firstName",
           "address1",
           "countryCode",
           "city",
@@ -6982,6 +7018,97 @@
         "type": "object",
         "additionalProperties": false
       },
+      "RequestMoneyFullResponse": {
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userId",
+          "operationId",
+          "status"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RequestToParams": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "phoneNumber",
+          "firstName",
+          "lastName",
+          "countryCode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RequestMoneyFullParams": {
+        "properties": {
+          "requester": {
+            "$ref": "#/components/schemas/RegisterUserParams"
+          },
+          "request": {
+            "properties": {
+              "recipientCurrency": {
+                "type": "string"
+              },
+              "recipientAmount": {
+                "type": "number",
+                "format": "double"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "destinationPaymentMethod": {
+                "$ref": "#/components/schemas/RaaSPaymentMethod"
+              },
+              "correlationId": {
+                "type": "string"
+              },
+              "requestTo": {
+                "$ref": "#/components/schemas/RequestToParams"
+              }
+            },
+            "required": [
+              "recipientCurrency",
+              "recipientAmount",
+              "destinationPaymentMethod",
+              "correlationId",
+              "requestTo"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "requester",
+          "request"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "SendMoneyResponse": {
         "properties": {
           "operation": {
@@ -8551,6 +8678,435 @@
             "type": "object"
           }
         ]
+      },
+      "CreateAccountResponse": {
+        "properties": {
+          "AccountIdentifier": {
+            "type": "string"
+          },
+          "DisplayName": {
+            "type": "string",
+            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9]"
+          },
+          "Success": {
+            "type": "boolean"
+          },
+          "ResponseDescription": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "AccountIdentifier",
+          "Success",
+          "ResponseDescription"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "Address": {
+        "properties": {
+          "Address1": {
+            "type": "string"
+          },
+          "Address2": {
+            "type": "string"
+          },
+          "ZipCode": {
+            "type": "string"
+          },
+          "City": {
+            "type": "string"
+          },
+          "CountryCode": {
+            "type": "string",
+            "description": "ISO 3166-2",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "StateCode": {
+            "type": "string",
+            "description": "ISO 3166-2"
+          }
+        },
+        "required": [
+          "Address1",
+          "ZipCode",
+          "City",
+          "CountryCode",
+          "StateCode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PersonalData": {
+        "properties": {
+          "PhoneNumber": {
+            "type": "string"
+          },
+          "FirstName": {
+            "type": "string"
+          },
+          "MiddleName": {
+            "type": "string"
+          },
+          "LastName": {
+            "type": "string"
+          },
+          "LastName2": {
+            "type": "string"
+          },
+          "Gender": {
+            "type": "string"
+          },
+          "BirthDate": {
+            "type": "string",
+            "description": "Date formatted string, e.g. YYYY-MM-DD"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          }
+        },
+        "required": [
+          "PhoneNumber",
+          "FirstName",
+          "LastName",
+          "Gender",
+          "BirthDate",
+          "Address"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "DocumentType": {
+        "type": "string",
+        "enum": [
+          "None",
+          "Passport",
+          "StateId",
+          "ResidentCard",
+          "DriverLicense",
+          "SocialSecurityNumber",
+          "INE_IFE",
+          "ConsularId",
+          "ITIN"
+        ]
+      },
+      "PersonalDocument": {
+        "properties": {
+          "Number": {
+            "type": "string"
+          },
+          "DocumentType": {
+            "$ref": "#/components/schemas/DocumentType"
+          }
+        },
+        "required": [
+          "Number",
+          "DocumentType"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CreateAccountRequest": {
+        "properties": {
+          "PersonalData": {
+            "$ref": "#/components/schemas/PersonalData"
+          },
+          "PersonalDocuments": {
+            "items": {
+              "$ref": "#/components/schemas/PersonalDocument"
+            },
+            "type": "array"
+          },
+          "Amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "Currency": {
+            "type": "string",
+            "description": "3 chars"
+          },
+          "ExchangeRate": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "PersonalData",
+          "PersonalDocuments",
+          "Amount",
+          "Currency",
+          "ExchangeRate"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "GetCreateAccountUrlResponse": {
+        "properties": {
+          "RegistrationUrl": {
+            "type": "string"
+          },
+          "Success": {
+            "type": "boolean"
+          },
+          "ResponseDescription": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "RegistrationUrl",
+          "Success",
+          "ResponseDescription"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "GetCreateAccountUrlRequest": {
+        "properties": {
+          "PersonalData": {
+            "$ref": "#/components/schemas/PersonalData"
+          },
+          "PersonalDocuments": {
+            "items": {
+              "$ref": "#/components/schemas/PersonalDocument"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "PersonalData",
+          "PersonalDocuments"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "NonAuthorizedReason": {
+        "type": "string",
+        "enum": [
+          "None",
+          "AccountBlocked",
+          "AccountBlockedByLaw",
+          "AccountBlockedByGovernment",
+          "ByVelocity",
+          "ByAmountLimit",
+          "ByAccumulateAmountLimit",
+          "InvalidAccount",
+          "InvalidParameter",
+          "InvalidCurrency",
+          "InvalidSenderData",
+          "InvalidDestinationData",
+          "InvalidExchangeRate",
+          "InvalidAmount"
+        ]
+      },
+      "TxAuthorizationResponse": {
+        "properties": {
+          "AccountIdentifier": {
+            "type": "string",
+            "description": "Null if is not found"
+          },
+          "DisplayName": {
+            "type": "string",
+            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9]"
+          },
+          "Authorized": {
+            "type": "boolean"
+          },
+          "NonAuthorizedReason": {
+            "$ref": "#/components/schemas/NonAuthorizedReason"
+          },
+          "TrackingIdentifier": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Authorized",
+          "NonAuthorizedReason",
+          "TrackingIdentifier"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "TxAuthorizationRequest": {
+        "properties": {
+          "SenderPersonalData": {
+            "$ref": "#/components/schemas/PersonalData"
+          },
+          "ReceiverPersonalData": {
+            "$ref": "#/components/schemas/PersonalData"
+          },
+          "AccountIdentifier": {
+            "type": "string"
+          },
+          "Amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "Currency": {
+            "type": "string",
+            "description": "3 chars"
+          },
+          "ExchangeRate": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "SenderPersonalData",
+          "ReceiverPersonalData",
+          "AccountIdentifier",
+          "Amount",
+          "Currency",
+          "ExchangeRate"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "NonCreditReason": {
+        "type": "string",
+        "enum": [
+          "None",
+          "AccountBlocked",
+          "AccountBlockedByLaw",
+          "AccountBlockedByGovernment",
+          "ByVelocity",
+          "ByAmountLimit",
+          "ByAccumulateAmountLimit",
+          "InvalidAccount",
+          "InvalidParameter",
+          "InvalidCurrency",
+          "InvalidSenderData",
+          "InvalidDestinationData",
+          "InvalidExchangeRate",
+          "NotPreviouslyValidated",
+          "InvalidReferenceId",
+          "InvalidAmount"
+        ]
+      },
+      "CreditFundsResponse": {
+        "properties": {
+          "Success": {
+            "type": "boolean"
+          },
+          "TrackingIdentifier": {
+            "type": "string"
+          },
+          "NonCreditReason": {
+            "$ref": "#/components/schemas/NonCreditReason"
+          }
+        },
+        "required": [
+          "Success",
+          "TrackingIdentifier",
+          "NonCreditReason"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CreditFundsRequest": {
+        "properties": {
+          "AuthTrackingIdentifier": {
+            "type": "string"
+          },
+          "AccountIdentifier": {
+            "type": "string"
+          },
+          "Amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "Currency": {
+            "type": "string",
+            "description": "3 chars"
+          },
+          "ExchangeRate": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "AccountIdentifier",
+          "Amount",
+          "Currency",
+          "ExchangeRate"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CreditStatus": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "number"
+      },
+      "GetCreditStatusResponse": {
+        "properties": {
+          "CreditStatus": {
+            "$ref": "#/components/schemas/CreditStatus"
+          },
+          "ResponseDescription": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "CreditStatus"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "GetCreditStatusRequest": {
+        "properties": {
+          "AccountIdentifier": {
+            "type": "string"
+          },
+          "CreditTrackingNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "AccountIdentifier",
+          "CreditTrackingNumber"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ReverseCreditFundsResponse": {
+        "properties": {
+          "Success": {
+            "type": "boolean"
+          },
+          "TrackingIdentifier": {
+            "type": "string"
+          },
+          "ResponseDescription": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Success",
+          "TrackingIdentifier"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ReverseCreditFundsRequest": {
+        "properties": {
+          "AccountIdentifier": {
+            "type": "string"
+          },
+          "CreditTrackingNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "AccountIdentifier",
+          "CreditTrackingNumber"
+        ],
+        "type": "object",
+        "additionalProperties": false
       }
     },
     "securitySchemes": {

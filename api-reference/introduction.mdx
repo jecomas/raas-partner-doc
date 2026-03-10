@@ -10,32 +10,7 @@ Welcome to the RaaS Partner API Reference. Our platform provides a robust set of
 - **Funding & Accounts**: Support for multiple funding sources, including bank accounts and cards.
 - **Operations & Network**: Real-time money transfers, currency exchange, and network corridor management.
 
-## mTLS Connection
-
-It is also possible to connect to the RaaS Partner services through mutual TLS (mTLS). For mTLS connections, the base URL changes from:
-
-`https://raas-partner-cv.nomas.cash/v1`
-
-to:
-
-`https://mtls-partner-cv.nomas.cash/v1`
-
-When making calls to the mTLS base URL, you must include the certificate data in the header of the service call.
-
-### Practical Example
-
-Below is an example demonstrating an API call using the mTLS endpoint and providing the certificate data in the request headers:
-
-```bash
-curl -X GET "https://mtls-partner-cv.nomas.cash/v1/some-endpoint" \
-  -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
-  --cert-type P12 \
-  --cert ./raas-partner.p12 \
-  --data '<ENDPOINT_BODY>'
-```
-
 ## Happy Path Integration
-
 
 This section outlines the standard workflow for a successful integration.
 
