@@ -59,16 +59,11 @@
             ]
           },
           {
-            "group": "PMO Interface",
-            "pages": [
-               "client-interfaces/pmo-create-account",
-               "client-interfaces/pmo-get-create-account-url",
-               "client-interfaces/pmo-tx-authorization"
-            ]
-          },
-          {
             "group": "VNA Interface",
             "pages": [
+              "client-interfaces/pmo-create-account",
+               "client-interfaces/pmo-get-create-account-url",
+               "client-interfaces/pmo-tx-authorization",
                "client-interfaces/vna-credit-funds",
                "client-interfaces/vna-get-credit-status",
                "client-interfaces/vna-reverse-credit-funds"

@@ -6211,7 +6211,6 @@
 				},
 				"required": [
 					"PersonalData",
-					"PersonalDocuments",
 					"Amount",
 					"Currency",
 					"ExchangeRate"
@@ -6252,8 +6251,7 @@
 					}
 				},
 				"required": [
-					"PersonalData",
-					"PersonalDocuments"
+					"PersonalData"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -6299,7 +6297,6 @@
 				},
 				"required": [
 					"Authorized",
-					"NonAuthorizedReason",
 					"TrackingIdentifier"
 				],
 				"type": "object",
@@ -6332,7 +6329,6 @@
 				"required": [
 					"SenderPersonalData",
 					"ReceiverPersonalData",
-					"AccountIdentifier",
 					"Amount",
 					"Currency",
 					"ExchangeRate"
@@ -6375,8 +6371,7 @@
 				},
 				"required": [
 					"Success",
-					"TrackingIdentifier",
-					"NonCreditReason"
+					"TrackingIdentifier"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -6391,22 +6386,21 @@
 					},
 					"Amount": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Required only if AuthTrackingIdentifier is empty."
 					},
 					"Currency": {
 						"type": "string",
-						"description": "3 chars"
+						"description": "3 chars. Required only if AuthTrackingIdentifier is empty."
 					},
 					"ExchangeRate": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Required only if AuthTrackingIdentifier is empty."
 					}
 				},
 				"required": [
-					"AccountIdentifier",
-					"Amount",
-					"Currency",
-					"ExchangeRate"
+					"AccountIdentifier"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -15797,7 +15791,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nEste endpoint se invoca cuando en nuestros sistemas se requiere la creación formal \nde una cuenta asociada a los datos y documentos personales de un usuario (Payment Method Owner). \nEl partner debe registrar la cuenta y responder con un identificador unívoco de la nueva cuenta (`AccountIdentifier`).",
+				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Partner.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nEste endpoint se invoca cuando en nuestros sistemas se requiere la creación formal \nde una cuenta asociada a los datos y documentos personales de un usuario. \nEl partner debe registrar la cuenta y responder con un identificador unívoco de la nueva cuenta (`AccountIdentifier`).",
 				"summary": "Create Account",
 				"tags": [
 					"Partner Implemented APIs",
@@ -15832,7 +15826,7 @@
 						}
 					}
 				},
-				"description": "**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nInvoca la obtención de una URL temporal de registro delegada. \nEn casos donde el Partner orquesta el alta de cuenta de usuario, este endpoint debe\ngenerar y retornar una `RegistrationUrl` segura donde el usuario pueda completar o iniciar su empadronamiento.",
+				"description": "**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Partner.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nInvoca la obtención de una URL temporal de registro delegada. \nEn casos donde el Partner orquesta el alta de cuenta de usuario, este endpoint debe\ngenerar y retornar una `RegistrationUrl` segura donde el usuario pueda completar o iniciar su empadronamiento.",
 				"summary": "Get Create Account URL",
 				"tags": [
 					"Partner Implemented APIs",
@@ -15867,7 +15861,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nSolicitud de autorización para procesar una transacción de fondos entre dos partes (Remitente y Destinatario). \nEl partner validará internamente el saldo, los límites, y reglas de compliance (por ejemplo *AML*, *Velocity*)\nrespondiendo si la operación queda **Autorizada** (acompañada de un `TrackingIdentifier`) o denegada \npor alguna razón específica en `NonAuthorizedReason`.",
+				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Partner.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nSolicitud de autorización para procesar una transacción de fondos entre dos partes (Remitente y Destinatario). \nEl partner validará internamente el saldo, los límites, y reglas de compliance (por ejemplo *AML*, *Velocity*)\nrespondiendo si la operación queda **Autorizada** (acompañada de un `TrackingIdentifier`) o denegada \npor alguna razón específica en `NonAuthorizedReason`.",
 				"summary": "Tx Authorization",
 				"tags": [
 					"Partner Implemented APIs",
@@ -15902,7 +15896,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nOrden de abono (crédito) hacia una cuenta de red virtual.\nNosotros enviaremos una notificación para indicar que se deben asentar fondos \na favor de un `AccountIdentifier` por el monto estipulado. \nEl sistema destino debe responder si la acción fue exitosa (`Success`), retornando \nun rastreo y/o el motivo por el cual falló (`NonCreditReason`).",
+				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Partner.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nOrden de pago (crédito) hacia una cuenta de red virtual.\nNosotros enviaremos una notificación para indicar que se deben asentar fondos \na favor de un `AccountIdentifier` por el monto estipulado. \nEl sistema destino debe responder si la acción fue exitosa (`Success`), retornando \nun rastreo y/o el motivo por el cual falló (`NonCreditReason`).",
 				"summary": "Credit Funds",
 				"tags": [
 					"Partner Implemented APIs",
@@ -15937,7 +15931,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nConsulta asíncrona del estado en el que reside una orden de crédito de fondos previa. \nCon el número de seguimiento (`CreditTrackingNumber`), el partner informará si el crédito \nestá en progreso (`InProgress`), aprobado (`Approved`), o si finalizó en error (`Failed`).",
+				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Partner.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nConsulta asíncrona del estado en el que reside una orden de crédito de fondos previa. \nCon el número de seguimiento (`CreditTrackingNumber`), el partner informará si el crédito \nestá en progreso (`InProgress`), aprobado (`Approved`), o si finalizó en error (`Failed`).",
 				"summary": "Get Credit Status",
 				"tags": [
 					"Partner Implemented APIs",
@@ -15972,7 +15966,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Cliente.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nOrden de reversión total de un movimiento de crédito previo asociado a un `CreditTrackingNumber`. \nEsto ocurre generalmente ante cancelaciones, fallas en la cadena de operación o re-ajustes financieros.\nEl Partner debe devolver los fondos de la cuenta dictada y confirmar el éxito retonando `Success` en `true`.",
+				"description": "\n**⚠️ ATENCIÓN: Esta API DEBE ser implementada por el Partner.**\n\nNuestro backend consumirá este servicio realizando una petición `POST` a la URL configurada\npor el partner enviando este _body.\n\n**Comportamiento esperado:** \nOrden de reversión total de un movimiento de crédito previo asociado a un `CreditTrackingNumber`. \nEsto ocurre generalmente ante cancelaciones, fallas en la cadena de operación o re-ajustes financieros.\nEl Partner debe devolver los fondos de la cuenta dictada y confirmar el éxito retonando `Success` en `true`.",
 				"summary": "Reverse Credit Funds",
 				"tags": [
 					"Partner Implemented APIs",

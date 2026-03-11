@@ -10431,7 +10431,6 @@
         },
         "required": [
           "PersonalData",
-          "PersonalDocuments",
           "Amount",
           "Currency",
           "ExchangeRate"
@@ -10472,8 +10471,7 @@
           }
         },
         "required": [
-          "PersonalData",
-          "PersonalDocuments"
+          "PersonalData"
         ],
         "type": "object",
         "additionalProperties": false
@@ -10519,7 +10517,6 @@
         },
         "required": [
           "Authorized",
-          "NonAuthorizedReason",
           "TrackingIdentifier"
         ],
         "type": "object",
@@ -10552,7 +10549,6 @@
         "required": [
           "SenderPersonalData",
           "ReceiverPersonalData",
-          "AccountIdentifier",
           "Amount",
           "Currency",
           "ExchangeRate"
@@ -10595,8 +10591,7 @@
         },
         "required": [
           "Success",
-          "TrackingIdentifier",
-          "NonCreditReason"
+          "TrackingIdentifier"
         ],
         "type": "object",
         "additionalProperties": false
@@ -10611,22 +10606,21 @@
           },
           "Amount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Required only if AuthTrackingIdentifier is empty."
           },
           "Currency": {
             "type": "string",
-            "description": "3 chars"
+            "description": "3 chars. Required only if AuthTrackingIdentifier is empty."
           },
           "ExchangeRate": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Required only if AuthTrackingIdentifier is empty."
           }
         },
         "required": [
-          "AccountIdentifier",
-          "Amount",
-          "Currency",
-          "ExchangeRate"
+          "AccountIdentifier"
         ],
         "type": "object",
         "additionalProperties": false
