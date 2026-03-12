@@ -10499,11 +10499,11 @@
         "properties": {
           "AccountIdentifier": {
             "type": "string",
-            "description": "Null if is not found"
+            "description": "Null or empty if is not found. If Null or empty, `Authorized` will be ignored."
           },
           "DisplayName": {
             "type": "string",
-            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9]"
+            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9. \nIf Null or empty, it will be Parner Prefix + last four Account numbers (e.g. `PRTN-0141`)."
           },
           "Authorized": {
             "type": "boolean"
