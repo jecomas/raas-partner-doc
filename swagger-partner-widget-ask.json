@@ -9,6 +9,83 @@
     }
   ],
   "paths": {
+    "/auth/register-user-v2": {
+      "post": {
+        "operationId": "registerUserV2",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "description": "Triggers iterative async registration for full prospects, enqueueing validation tasks.",
+        "summary": "Register user",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "api_key": [
+              "partner"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "- DTO with extended PII (address, dates) for validators.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserParams"
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/sessionlink-v2": {
       "post": {
         "operationId": "getSessionLinkV2",
@@ -63,7 +140,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión ( V2)",
+        "description": "Orchestrates pre-creation of remote users to instantiate pre-authenticated checkout links for webviews.",
+        "summary": "Get session link",
         "tags": [
           "Users"
         ],
@@ -78,88 +156,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Configuración y datos del usuario.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SessionLinkParams"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/sessionlink-v3": {
-      "post": {
-        "operationId": "getSessionLinkV3",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionLinkResponse"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener enlace de sesión ( V3)",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "- Configuración de la sesión y datos del usuario.",
+          "description": "- Payload with payment data, amounts, fees and base KYC.",
           "required": true,
           "content": {
             "application/json": {
@@ -225,7 +222,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión ( V4)",
+        "description": "Returns the transactional UI link using only the already enrolled and validated UUID (client pre-existing).",
+        "summary": "Get session link (enrolled)",
         "tags": [
           "Users"
         ],
@@ -240,7 +238,7 @@
         ],
         "parameters": [
           {
-            "description": "- Identificador del socio/usuario.",
+            "description": "- Authenticated user identifier or token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -305,7 +303,8 @@
             }
           }
         },
-        "summary": "Obtener enlace de sesión anónimo ( V2)",
+        "description": "Produces a checkout URL without identity binding, tied to a correlation; for webviews with optional later registration.",
+        "summary": "Get session link (anonymous)",
         "tags": [
           "Users"
         ],
@@ -318,7 +317,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Parámetros que incluyen el identificador de operación.",
+          "description": "- Optionally contains the cross-reference identifier of the base operation.",
           "required": true,
           "content": {
             "application/json": {
@@ -329,87 +328,6 @@
                   }
                 },
                 "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/sessionlink": {
-      "post": {
-        "operationId": "getSessionLink",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionLinkResponse"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Obtener enlace de sesión estándar",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner",
-              "partner_full",
-              "partner_send"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "- Datos del usuario y configuración de pago.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SessionLinkParams"
               }
             }
           }
@@ -736,32 +654,13 @@
       },
       "RegisterUserParams": {
         "properties": {
-          "firstName": {
+          "phoneNumber": {
             "type": "string"
           },
           "lastName": {
             "type": "string"
           },
-          "dob": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "address1": {
-            "type": "string"
-          },
-          "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
-          },
-          "city": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
           "lastName2": {
-            "type": "string"
-          },
-          "phoneNumber": {
             "type": "string"
           },
           "gender": {
@@ -773,10 +672,20 @@
               "None"
             ]
           },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
           "email": {
             "type": "string"
           },
+          "firstName": {
+            "type": "string"
+          },
           "middleName": {
+            "type": "string"
+          },
+          "address1": {
             "type": "string"
           },
           "address2": {
@@ -788,7 +697,16 @@
           "streetNumber": {
             "type": "string"
           },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
           "zipCode": {
+            "type": "string"
+          },
+          "state": {
             "type": "string"
           },
           "birthState": {
@@ -818,9 +736,9 @@
           }
         },
         "required": [
-          "firstName",
           "lastName",
           "dob",
+          "firstName",
           "address1",
           "countryCode",
           "city",
@@ -934,32 +852,13 @@
       },
       "SessionLinkParams": {
         "properties": {
-          "firstName": {
+          "phoneNumber": {
             "type": "string"
           },
           "lastName": {
             "type": "string"
           },
-          "dob": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "address1": {
-            "type": "string"
-          },
-          "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
-          },
-          "city": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
           "lastName2": {
-            "type": "string"
-          },
-          "phoneNumber": {
             "type": "string"
           },
           "gender": {
@@ -971,10 +870,20 @@
               "None"
             ]
           },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
           "email": {
             "type": "string"
           },
+          "firstName": {
+            "type": "string"
+          },
           "middleName": {
+            "type": "string"
+          },
+          "address1": {
             "type": "string"
           },
           "address2": {
@@ -986,7 +895,16 @@
           "streetNumber": {
             "type": "string"
           },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
           "zipCode": {
+            "type": "string"
+          },
+          "state": {
             "type": "string"
           },
           "birthState": {
@@ -1026,9 +944,9 @@
           }
         },
         "required": [
-          "firstName",
           "lastName",
           "dob",
+          "firstName",
           "address1",
           "countryCode",
           "city",
@@ -1058,6 +976,9 @@
             "type": "string"
           },
           "paymentMethodStatus": {
+            "type": "string"
+          },
+          "userId": {
             "type": "string"
           }
         },
@@ -4339,6 +4260,10 @@
           },
           "flow": {
             "type": "string"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "required": [
@@ -4761,6 +4686,10 @@
           },
           "flow": {
             "type": "string"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "required": [
@@ -4810,97 +4739,6 @@
           "correlationId",
           "recipientAmount",
           "recipientCurrency"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "RequestMoneyFullResponse": {
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "operationId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "userId",
-          "operationId",
-          "status"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "RequestToParams": {
-        "properties": {
-          "phoneNumber": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "phoneNumber",
-          "firstName",
-          "lastName",
-          "countryCode"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "RequestMoneyFullParams": {
-        "properties": {
-          "requester": {
-            "$ref": "#/components/schemas/RegisterUserParams"
-          },
-          "request": {
-            "properties": {
-              "recipientCurrency": {
-                "type": "string"
-              },
-              "recipientAmount": {
-                "type": "number",
-                "format": "double"
-              },
-              "reason": {
-                "type": "string"
-              },
-              "destinationPaymentMethod": {
-                "$ref": "#/components/schemas/RaaSPaymentMethod"
-              },
-              "correlationId": {
-                "type": "string"
-              },
-              "requestTo": {
-                "$ref": "#/components/schemas/RequestToParams"
-              }
-            },
-            "required": [
-              "recipientCurrency",
-              "recipientAmount",
-              "destinationPaymentMethod",
-              "correlationId",
-              "requestTo"
-            ],
-            "type": "object"
-          }
-        },
-        "required": [
-          "requester",
-          "request"
         ],
         "type": "object",
         "additionalProperties": false
@@ -5605,6 +5443,10 @@
           },
           "flow": {
             "type": "string"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "required": [
@@ -5628,6 +5470,10 @@
       },
       "OperationDetailResponse": {
         "properties": {
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
+          },
           "flow": {
             "type": "string"
           },
@@ -6345,6 +6191,108 @@
         "type": "object",
         "additionalProperties": false
       },
+      "Contact": {
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "urlProfile": {
+            "type": "string",
+            "description": "This field is to return the profile photo in runtime. It is not saving in db."
+          },
+          "userId": {
+            "type": "string",
+            "description": "This field is to return the userId photo in runtime. It is not saving in db."
+          },
+          "alias": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "Male",
+              "Female",
+              "Other",
+              "None"
+            ]
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UserExtendDataInfo": {
+        "properties": {
+          "userToken": {
+            "type": "string"
+          },
+          "lastKey": {
+            "type": "string"
+          },
+          "contacts": {
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "userToken"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "TestHelperResponse": {
+        "properties": {
+          "userExDataSender": {
+            "$ref": "#/components/schemas/UserExtendDataInfo"
+          },
+          "userExDataDestination": {
+            "$ref": "#/components/schemas/UserExtendDataInfo"
+          },
+          "contactCreated": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "TestHelperParams": {
+        "properties": {
+          "senderPhone": {
+            "type": "string"
+          },
+          "destinationPhone": {
+            "type": "string"
+          },
+          "autoCreateContact": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
       "UserUpdateParams": {
         "properties": {
           "email": {
@@ -6474,429 +6422,6 @@
             "type": "object"
           }
         ]
-      },
-      "CreateAccountResponse": {
-        "properties": {
-          "AccountIdentifier": {
-            "type": "string"
-          },
-          "DisplayName": {
-            "type": "string",
-            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9]"
-          },
-          "Success": {
-            "type": "boolean"
-          },
-          "ResponseDescription": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "AccountIdentifier",
-          "Success",
-          "ResponseDescription"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "Address": {
-        "properties": {
-          "Address1": {
-            "type": "string"
-          },
-          "Address2": {
-            "type": "string"
-          },
-          "ZipCode": {
-            "type": "string"
-          },
-          "City": {
-            "type": "string"
-          },
-          "CountryCode": {
-            "type": "string",
-            "description": "ISO 3166-2",
-            "minLength": 2,
-            "maxLength": 2
-          },
-          "StateCode": {
-            "type": "string",
-            "description": "ISO 3166-2"
-          }
-        },
-        "required": [
-          "Address1",
-          "ZipCode",
-          "City",
-          "CountryCode",
-          "StateCode"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "PersonalData": {
-        "properties": {
-          "PhoneNumber": {
-            "type": "string"
-          },
-          "FirstName": {
-            "type": "string"
-          },
-          "MiddleName": {
-            "type": "string"
-          },
-          "LastName": {
-            "type": "string"
-          },
-          "LastName2": {
-            "type": "string"
-          },
-          "Gender": {
-            "type": "string"
-          },
-          "BirthDate": {
-            "type": "string",
-            "description": "Date formatted string, e.g. YYYY-MM-DD"
-          },
-          "Address": {
-            "$ref": "#/components/schemas/Address"
-          }
-        },
-        "required": [
-          "PhoneNumber",
-          "FirstName",
-          "LastName",
-          "Gender",
-          "BirthDate",
-          "Address"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "DocumentType": {
-        "type": "string",
-        "enum": [
-          "None",
-          "Passport",
-          "StateId",
-          "ResidentCard",
-          "DriverLicense",
-          "SocialSecurityNumber",
-          "INE_IFE",
-          "ConsularId",
-          "ITIN"
-        ]
-      },
-      "PersonalDocument": {
-        "properties": {
-          "Number": {
-            "type": "string"
-          },
-          "DocumentType": {
-            "$ref": "#/components/schemas/DocumentType"
-          }
-        },
-        "required": [
-          "Number",
-          "DocumentType"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "CreateAccountRequest": {
-        "properties": {
-          "PersonalData": {
-            "$ref": "#/components/schemas/PersonalData"
-          },
-          "PersonalDocuments": {
-            "items": {
-              "$ref": "#/components/schemas/PersonalDocument"
-            },
-            "type": "array"
-          },
-          "Amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "Currency": {
-            "type": "string",
-            "description": "3 chars"
-          },
-          "ExchangeRate": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "required": [
-          "PersonalData",
-          "Amount",
-          "Currency",
-          "ExchangeRate"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "GetCreateAccountUrlResponse": {
-        "properties": {
-          "RegistrationUrl": {
-            "type": "string"
-          },
-          "Success": {
-            "type": "boolean"
-          },
-          "ResponseDescription": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "RegistrationUrl",
-          "Success",
-          "ResponseDescription"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "GetCreateAccountUrlRequest": {
-        "properties": {
-          "PersonalData": {
-            "$ref": "#/components/schemas/PersonalData"
-          },
-          "PersonalDocuments": {
-            "items": {
-              "$ref": "#/components/schemas/PersonalDocument"
-            },
-            "type": "array"
-          }
-        },
-        "required": [
-          "PersonalData"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "NonAuthorizedReason": {
-        "type": "string",
-        "enum": [
-          "None",
-          "AccountBlocked",
-          "AccountBlockedByLaw",
-          "AccountBlockedByGovernment",
-          "ByVelocity",
-          "ByAmountLimit",
-          "ByAccumulateAmountLimit",
-          "InvalidAccount",
-          "InvalidParameter",
-          "InvalidCurrency",
-          "InvalidSenderData",
-          "InvalidDestinationData",
-          "InvalidExchangeRate",
-          "InvalidAmount"
-        ]
-      },
-      "TxAuthorizationResponse": {
-        "properties": {
-          "AccountIdentifier": {
-            "type": "string",
-            "description": "Null or empty if is not found. If Null or empty, `Authorized` will be ignored."
-          },
-          "DisplayName": {
-            "type": "string",
-            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9. \nIf Null or empty, it will be Parner Prefix + last four Account numbers (e.g. `PRTN-0141`)."
-          },
-          "Authorized": {
-            "type": "boolean"
-          },
-          "NonAuthorizedReason": {
-            "$ref": "#/components/schemas/NonAuthorizedReason"
-          },
-          "TrackingIdentifier": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "Authorized",
-          "TrackingIdentifier"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "TxAuthorizationRequest": {
-        "properties": {
-          "SenderPersonalData": {
-            "$ref": "#/components/schemas/PersonalData"
-          },
-          "ReceiverPersonalData": {
-            "$ref": "#/components/schemas/PersonalData"
-          },
-          "AccountIdentifier": {
-            "type": "string"
-          },
-          "Amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "Currency": {
-            "type": "string",
-            "description": "3 chars"
-          },
-          "ExchangeRate": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "required": [
-          "SenderPersonalData",
-          "ReceiverPersonalData",
-          "Amount",
-          "Currency",
-          "ExchangeRate"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "NonCreditReason": {
-        "type": "string",
-        "enum": [
-          "None",
-          "AccountBlocked",
-          "AccountBlockedByLaw",
-          "AccountBlockedByGovernment",
-          "ByVelocity",
-          "ByAmountLimit",
-          "ByAccumulateAmountLimit",
-          "InvalidAccount",
-          "InvalidParameter",
-          "InvalidCurrency",
-          "InvalidSenderData",
-          "InvalidDestinationData",
-          "InvalidExchangeRate",
-          "NotPreviouslyValidated",
-          "InvalidReferenceId",
-          "InvalidAmount"
-        ]
-      },
-      "CreditFundsResponse": {
-        "properties": {
-          "Success": {
-            "type": "boolean"
-          },
-          "TrackingIdentifier": {
-            "type": "string"
-          },
-          "NonCreditReason": {
-            "$ref": "#/components/schemas/NonCreditReason"
-          }
-        },
-        "required": [
-          "Success",
-          "TrackingIdentifier"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "CreditFundsRequest": {
-        "properties": {
-          "AuthTrackingIdentifier": {
-            "type": "string"
-          },
-          "AccountIdentifier": {
-            "type": "string"
-          },
-          "Amount": {
-            "type": "number",
-            "format": "double",
-            "description": "Required only if AuthTrackingIdentifier is empty."
-          },
-          "Currency": {
-            "type": "string",
-            "description": "3 chars. Required only if AuthTrackingIdentifier is empty."
-          },
-          "ExchangeRate": {
-            "type": "number",
-            "format": "double",
-            "description": "Required only if AuthTrackingIdentifier is empty."
-          }
-        },
-        "required": [
-          "AccountIdentifier"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "CreditStatus": {
-        "enum": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "type": "number"
-      },
-      "GetCreditStatusResponse": {
-        "properties": {
-          "CreditStatus": {
-            "$ref": "#/components/schemas/CreditStatus"
-          },
-          "ResponseDescription": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "CreditStatus"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "GetCreditStatusRequest": {
-        "properties": {
-          "AccountIdentifier": {
-            "type": "string"
-          },
-          "CreditTrackingNumber": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "AccountIdentifier",
-          "CreditTrackingNumber"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "ReverseCreditFundsResponse": {
-        "properties": {
-          "Success": {
-            "type": "boolean"
-          },
-          "TrackingIdentifier": {
-            "type": "string"
-          },
-          "ResponseDescription": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "Success",
-          "TrackingIdentifier"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "ReverseCreditFundsRequest": {
-        "properties": {
-          "AccountIdentifier": {
-            "type": "string"
-          },
-          "CreditTrackingNumber": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "AccountIdentifier",
-          "CreditTrackingNumber"
-        ],
-        "type": "object",
-        "additionalProperties": false
       }
     },
     "securitySchemes": {

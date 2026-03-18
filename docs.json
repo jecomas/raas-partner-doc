@@ -16,7 +16,8 @@
           {
             "group": "Introduction",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "partner-api-architecture"
             ]
           }
         ]
@@ -48,28 +49,6 @@
           "source": "/swagger-partner-widget-ask.json",
           "directory": "partner-widget-ask"
         }
-      },
-      {
-        "tab": "Partner Implemented APIs",
-        "groups": [
-          {
-            "group": "General",
-            "pages": [
-               "client-interfaces/introduction"
-            ]
-          },
-          {
-            "group": "VNA Interface",
-            "pages": [
-              "client-interfaces/pmo-create-account",
-               "client-interfaces/pmo-get-create-account-url",
-               "client-interfaces/pmo-tx-authorization",
-               "client-interfaces/vna-credit-funds",
-               "client-interfaces/vna-get-credit-status",
-               "client-interfaces/vna-reverse-credit-funds"
-            ]
-          }
-        ]
       }
     ]
   },
