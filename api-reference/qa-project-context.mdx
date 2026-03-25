@@ -1,106 +1,108 @@
 ---
 title: "QA project context"
-description: "Marco para equipos QA que prueban la Partner API publicada (caja negra)."
+description: "Framing for QA teams testing the published Partner API (black-box)."
 ---
 
-This page supports **QA and integration testing** against the **published Partner API** (black-box). It does not cover other product APIs. The body below matches the internal QA framing and is provided in **Spanish** for alignment with organizational test planning.
+This page supports **QA and integration testing** against the **published Partner API** (black-box). It does not cover other product APIs.
 
-**Alcance:** la **API de partners** tal como está **expuesta en línea** (integraciones B2B y widgets). Este documento no cubre otras APIs del producto.
+**Scope:** The **Partner API** as **exposed online** (B2B integrations and widgets). This document does not cover other product APIs.
 
-**Audiencia:** equipo de QA.  
-**Propósito:** primer entregable de una serie; marco de **negocio y contrato** para diseñar el **plan de pruebas** contra el servicio publicado.
+**Audience:** QA team.  
+**Purpose:** First deliverable in a series; **business and contract** framing to design the **test plan** against the published service.
 
-**Premisa:** QA **no** necesita acceder al código fuente, preparar infraestructura ni desplegar. Las **URLs base**, **credenciales de prueba** y **documentación contractual** (OpenAPI, guías, webhooks) las facilita el equipo de plataforma o producto.
+**Assumption:** QA does **not** need access to source code, infrastructure setup, or deployments. **Base URLs**, **test credentials**, and **contract documentation** (OpenAPI, guides, webhooks) are provided by the platform or product team.
 
-## 1. Qué se prueba
+## 1. What you are testing
 
-La **Partner API** permite a cada **partner** (tenant) ejecutar operaciones financieras transfronterizas: solicitud y envío de fondos, cotizaciones, métodos de pago tokenizados y flujos de identidad (KYC), según **corredores** (rutas, límites, comisiones) y reglas propias de cada integración.
+The **Partner API** lets each **partner** (tenant) run cross-border financial operations: requesting and sending funds, quotes, tokenized payment methods, and identity (KYC) flows, according to **corridors** (routes, limits, fees) and each integration’s rules.
 
-Muchos flujos dan una **respuesta HTTP inmediata** y completan o notifican el resultado **después** (procesamiento diferido y **webhooks**). El plan de pruebas debe incluir tanto la respuesta de la llamada como el estado final observable (consultas posteriores, webhooks o criterios acordados con negocio).
+Many flows return an **immediate HTTP response** and complete or report the outcome **later** (async processing and **webhooks**). The test plan should cover both the call response and the final observable state (follow-up queries, webhooks, or criteria agreed with the business).
 
-## 2. Cómo se ejecutan las pruebas
+## 2. How to run tests
 
-- Trabajar contra la **URL base** y el **ambiente** (sandbox, preproducción, producción) que indique el equipo responsable.
-- Usar herramientas habituales de prueba de APIs (Postman, Insomnia, scripts, etc.) y las **colecciones o ejemplos** que se compartan oficialmente, si existen.
-- Registrar hallazgos con suficiente contexto para reproducirlos (endpoint, método, ambiente, hora aproximada, identificadores de correlación si la API los devuelve).
+- Work against the **base URL** and **environment** (sandbox, pre-production, production) specified by the owning team.
+- Use standard API testing tools (Postman, Insomnia, scripts, etc.) and any **collections or examples** officially shared, if available.
+- Log findings with enough context to reproduce them (endpoint, method, environment, approximate time, correlation IDs if the API returns them).
 
-No se asume clonación de repositorios ni ejecución de builds locales.
+Repository clones and local builds are not assumed.
 
-## 3. Dominio que debe reflejar el plan de pruebas
+## 3. Domain areas the test plan should reflect
 
-| Área | Qué validar (alto nivel) |
-|------|---------------------------|
-| **Operaciones / transacciones** | Ciclo de vida (p. ej. pendiente, enviada, liquidada, fallida); coherencia de montos y monedas con el corredor acordado. |
-| **Cotizaciones** | Ventana de validez; alineación con la operación que se confirma después. |
-| **Métodos de pago** | Uso de tokens o referencias según documentación; evitar datos reales de tarjeta en ambientes compartidos (requisitos PCI). |
-| **KYC / CIP** | Flujos de alta y verificación; el comportamiento puede depender de **sandboxes** de proveedores externos. |
-| **Corredores** | Límites mínimo/máximo; monedas permitidas; restricciones por nivel de usuario o configuración del tenant. |
-| **Webhooks y eventos** | Entrega, reintentos y coherencia con lo observado por la API; detalle en la **especificación de webhooks** que entregue el proyecto. |
-| **Multi-tenant** | Aislamiento: datos y reglas de un partner no deben ser accesibles para otro tenant usando otra clave; cada partner usa sus propias credenciales. |
+| Area | What to validate (high level) |
+|------|-------------------------------|
+| **Operations / transactions** | Lifecycle (e.g. pending, sent, settled, failed); amounts and currencies consistent with the agreed corridor. |
+| **Quotes** | Validity window; alignment with the operation confirmed afterward. |
+| **Payment methods** | Tokens or references per documentation; avoid real card data in shared environments (PCI requirements). |
+| **KYC / CIP** | Onboarding and verification flows; behavior may depend on external provider **sandboxes**. |
+| **Corridors** | Min/max limits; allowed currencies; restrictions by user level or tenant configuration. |
+| **Webhooks and events** | Delivery, retries, and consistency with what the API shows; details in the **webhook specification** provided by the project. |
+| **Multi-tenant** | Isolation: one partner’s data and rules must not be accessible to another tenant using a different key; each partner uses its own credentials. |
 
-## 4. Autenticación y autorización
+## 4. Authentication and authorization
 
-- La mayoría de las operaciones requieren un header **`api_key`** (o el mecanismo documentado para vuestro ambiente).
-- Los permisos suelen agruparse en **scopes** (p. ej. `partner`, `partner_send`, `partner_full`). Un mismo escenario puede ser correcto con una clave y rechazado con otra si el scope no aplica al endpoint.
-- **mTLS** puede estar habilitado para integraciones que usan una **URL base distinta** y certificados de cliente. Si aplica a vuestro plan, coordinar certificados y ambiente con plataforma; no compartir credenciales en canales inseguros.
+- Most operations require an **`api_key`** header (or the mechanism documented for your environment).
+- Permissions are grouped into **scopes** (e.g. `partner`, `partner_send`, `partner_full`). The same scenario may pass with one key and fail with another if the scope does not match the endpoint.
+- **mTLS** may be enabled for integrations that use a **different base URL** and client certificates. If it applies to your plan, coordinate certificates and environment with the platform team; do not share credentials over insecure channels.
 
-La descripción exacta de scopes por operación debe figurar en la **documentación oficial** (OpenAPI o guía Partner) que reciba el equipo de QA.
+**Exact scope definitions** (strings, hierarchy, OR rule, and sample tests): **[Partner API scopes](/api-reference/partner-api-scopes)**. **Per-route** detail remains in your environment’s **OpenAPI**.
 
-## 5. Ambientes y datos
+## 5. Environments and data
 
-| Tipo de ambiente | Uso típico |
-|------------------|------------|
-| **Sandbox / pruebas** | Exploración, casos nuevos, datos sintéticos o de prueba provistos por el proyecto. |
-| **Preproducción / staging** | Regresión antes de cambios en producción. |
-| **Producción** | Solo con autorización explícita y políticas de datos acordadas; no usar personas reales ni datos sensibles sin cumplimiento normativo. |
+| Environment type | Typical use |
+|------------------|-------------|
+| **Sandbox / test** | Exploration, new cases, synthetic or project-provided test data. |
+| **Pre-production / staging** | Regression before production changes. |
+| **Production** | Only with explicit authorization and agreed data policies; do not use real individuals or sensitive data without compliance sign-off. |
 
-**Buenas prácticas:** no publicar **API keys**, tokens ni datos personales en tickets, chats o documentos compartidos de forma indebida; rotar credenciales si hubo exposición.
+**Best practices:** Do not post **API keys**, tokens, or personal data in tickets, chat, or shared documents inappropriately; rotate credentials after any exposure.
 
-## 6. Documentación y contrato
+## 6. Documentation and contract
 
-El equipo de plataforma debe entregar (o enlazar) al menos:
+The platform team should provide (or link to) at least:
 
-- **Especificación OpenAPI** (o equivalente) de la Partner API del ambiente que probáis.
-- **Guías de integración** (flujos recomendados, códigos de error, límites).
-- **Contrato de webhooks** (eventos, payloads, firma o verificación si aplica).
+- **OpenAPI specification** (or equivalent) for the Partner API in the environment you test.
+- **Integration guides** (recommended flows, error codes, limits).
+- **Webhook contract** (events, payloads, signing or verification if applicable).
 
-Un flujo de referencia frecuente para **solicitud de fondos** es: obtener token de usuario → registro de usuario (si aplica) → contacto → método de pago → solicitud de dinero. Los nombres exactos de operaciones y el orden lo confirma la documentación vigente (incluida la página [API Reference](/api-reference/introduction) — sección **Happy Path Integration**).
+A common **request funds** reference flow is: obtain user token → user registration (if needed) → contact → payment method → money request. Exact operation names and order are defined in the current documentation (including the [API Reference](/api-reference/introduction) page — **Happy Path Integration**).
 
-## 7. Comportamiento asíncrono y dependencias externas
+## 7. Async behavior and external dependencies
 
-- Tras una respuesta **202 Accepted** (u otra indicación de “aceptado para procesar”), el resultado final puede llegar por **webhook** o consultando el estado según la guía.
-- Definir en el plan **tiempos máximos de espera** y qué se considera éxito o fallo (incluidos reintentos de webhook).
-- Los servicios externos (identidad, medios de pago, notificaciones) pueden introducir **latencia variable** o indisponibilidad en sandbox: distinguir defectos de producto de limitaciones del proveedor.
+- After a **202 Accepted** response (or another “accepted for processing” signal), the final outcome may arrive via **webhook** or by polling state per the guide.
+- Define **maximum wait times** in the plan and what counts as pass/fail (including webhook retries).
+- External services (identity, payments, notifications) can add **variable latency** or sandbox downtime: distinguish product defects from provider limitations.
 
-## 8. Cuando algo falla (información útil al escalar)
+## 8. When something fails (information to escalate)
 
-Recopilar de forma **anonimizada** cuando sea posible:
+Collect **anonymized** information when possible:
 
-- Fecha y hora (con zona horaria), **ambiente** y **URL base** usados.
-- Método HTTP, ruta o operación, **código de respuesta** y cuerpo de error (sin datos personales).
-- Cualquier **identificador de correlación** que devuelva la API (p. ej. en cabeceras o cuerpo), si está documentado.
+- Date and time (with time zone), **environment**, and **base URL** used.
+- HTTP method, path or operation, **response code**, and error body (no personal data).
+- Any **correlation ID** returned by the API (e.g. in headers or body), if documented.
 
-Esto permite al equipo de plataforma localizar el incidente en sus herramientas de operación.
+This helps the platform team locate the incident in their operations tooling.
 
-## 9. Material complementario
+## 9. Supplemental materials
 
-Además de este contexto, el proyecto puede entregar **anexos** específicos (por ejemplo planes de casos por endpoint, matrices de permisos o catálogo de webhooks). Pedirlos al responsable de la entrega QA.
+Beyond this context, the project may provide specific **appendices** (e.g. per-endpoint test plans, permission matrices, webhook catalogs). Request them from the QA delivery owner.
 
-## 10. Próximos documentos sugeridos (serie QA)
+## 10. Suggested follow-on documents (QA series)
 
-- **Matriz de ambientes:** URLs base, propósito y reglas de uso.
-- **Inventario de flujos críticos** enlazado a la documentación oficial.
-- **Criterios de regresión** y de salida de pruebas.
-- **Privacidad y seguridad en pruebas** (datos permitidos, retención de evidencias).
+- **Environment matrix:** base URLs, purpose, and usage rules.
+- **Critical flow inventory** linked to official documentation.
+- **Regression and exit** criteria for testing.
+- **Privacy and security in testing** (allowed data, evidence retention).
 
-## 11. Glosario breve
+## 11. Short glossary
 
-| Término | Significado |
-|---------|-------------|
-| **RaaS** | Remittance as a Service; en este documento, expuesto vía Partner API. |
-| **Tenant / Partner** | Organización integrada con configuración y credenciales propias. |
-| **Corredor** | Ruta y reglas entre origen y destino (monedas, límites, comisiones). |
-| **KYC / CIP** | Identificación del cliente y controles de fraude / cumplimiento. |
-| **Webhook** | Notificación HTTP del servidor hacia un endpoint del partner ante un evento. |
+| Term | Meaning |
+|------|---------|
+| **RaaS** | Remittance as a Service; in this document, exposed via the Partner API. |
+| **Tenant / Partner** | Integrated organization with its own configuration and credentials. |
+| **Corridor** | Route and rules between origin and destination (currencies, limits, fees). |
+| **KYC / CIP** | Customer identification and fraud / compliance controls. |
+| **Webhook** | HTTP notification from the server to a partner endpoint when an event occurs. |
 
-*Documento orientado a pruebas **de caja negra** contra la API Partner publicada. Las definiciones técnicas definitivas son las que entregue el equipo de plataforma para cada versión y ambiente.*
+---
+
+*Document focused on **black-box** testing of the published Partner API. The authoritative technical definitions are those provided by the platform team for each release and environment. Repository copy: `docs/qa/PROJECT_CONTEXT.md` — keep both aligned when editing.*
