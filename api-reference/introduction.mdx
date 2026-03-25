@@ -43,7 +43,7 @@ This section outlines the standard workflow for a successful integration.
 2. **User Registration (Optional)**: If the user does not exist, use `registerUserV2` to create a new profile.
 3. **Create Contact**: Establish a recipient or contact using `createContact`.
 4. **Add Funding Source**: Securely link a card or bank account via `addCard`.
-5. **Execute Request**: Initiate the final transaction or request using `requestV2`.
+5. **Execute Request**: Initiate the final transaction using `requestMoneyV2` (`POST /user/operations/request-money-v2/{userToken}`).
 
 ## Integration Sequence Diagram
 
@@ -69,7 +69,11 @@ sequenceDiagram
     Partner->>API: addCard (userToken, Card Data)
     API-->>Partner: cardLinked
 
-    Partner->>API: requestV2 (userToken, Operation Data)
+    Partner->>API: requestMoneyV2 (userToken, Operation Data)
     API-->>Partner: operationSuccess
 ```
+
+## QA project context
+
+Guidance for **QA and integration testing** against the live Partner API lives on a dedicated page (Spanish body): **[QA project context](/api-reference/qa-project-context)**. It is also available from the **Documentation** sidebar under **Introduction**.
 

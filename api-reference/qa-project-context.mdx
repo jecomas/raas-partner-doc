@@ -1,0 +1,106 @@
+---
+title: "QA project context"
+description: "Marco para equipos QA que prueban la Partner API publicada (caja negra)."
+---
+
+This page supports **QA and integration testing** against the **published Partner API** (black-box). It does not cover other product APIs. The body below matches the internal QA framing and is provided in **Spanish** for alignment with organizational test planning.
+
+**Alcance:** la **API de partners** tal como está **expuesta en línea** (integraciones B2B y widgets). Este documento no cubre otras APIs del producto.
+
+**Audiencia:** equipo de QA.  
+**Propósito:** primer entregable de una serie; marco de **negocio y contrato** para diseñar el **plan de pruebas** contra el servicio publicado.
+
+**Premisa:** QA **no** necesita acceder al código fuente, preparar infraestructura ni desplegar. Las **URLs base**, **credenciales de prueba** y **documentación contractual** (OpenAPI, guías, webhooks) las facilita el equipo de plataforma o producto.
+
+## 1. Qué se prueba
+
+La **Partner API** permite a cada **partner** (tenant) ejecutar operaciones financieras transfronterizas: solicitud y envío de fondos, cotizaciones, métodos de pago tokenizados y flujos de identidad (KYC), según **corredores** (rutas, límites, comisiones) y reglas propias de cada integración.
+
+Muchos flujos dan una **respuesta HTTP inmediata** y completan o notifican el resultado **después** (procesamiento diferido y **webhooks**). El plan de pruebas debe incluir tanto la respuesta de la llamada como el estado final observable (consultas posteriores, webhooks o criterios acordados con negocio).
+
+## 2. Cómo se ejecutan las pruebas
+
+- Trabajar contra la **URL base** y el **ambiente** (sandbox, preproducción, producción) que indique el equipo responsable.
+- Usar herramientas habituales de prueba de APIs (Postman, Insomnia, scripts, etc.) y las **colecciones o ejemplos** que se compartan oficialmente, si existen.
+- Registrar hallazgos con suficiente contexto para reproducirlos (endpoint, método, ambiente, hora aproximada, identificadores de correlación si la API los devuelve).
+
+No se asume clonación de repositorios ni ejecución de builds locales.
+
+## 3. Dominio que debe reflejar el plan de pruebas
+
+| Área | Qué validar (alto nivel) |
+|------|---------------------------|
+| **Operaciones / transacciones** | Ciclo de vida (p. ej. pendiente, enviada, liquidada, fallida); coherencia de montos y monedas con el corredor acordado. |
+| **Cotizaciones** | Ventana de validez; alineación con la operación que se confirma después. |
+| **Métodos de pago** | Uso de tokens o referencias según documentación; evitar datos reales de tarjeta en ambientes compartidos (requisitos PCI). |
+| **KYC / CIP** | Flujos de alta y verificación; el comportamiento puede depender de **sandboxes** de proveedores externos. |
+| **Corredores** | Límites mínimo/máximo; monedas permitidas; restricciones por nivel de usuario o configuración del tenant. |
+| **Webhooks y eventos** | Entrega, reintentos y coherencia con lo observado por la API; detalle en la **especificación de webhooks** que entregue el proyecto. |
+| **Multi-tenant** | Aislamiento: datos y reglas de un partner no deben ser accesibles para otro tenant usando otra clave; cada partner usa sus propias credenciales. |
+
+## 4. Autenticación y autorización
+
+- La mayoría de las operaciones requieren un header **`api_key`** (o el mecanismo documentado para vuestro ambiente).
+- Los permisos suelen agruparse en **scopes** (p. ej. `partner`, `partner_send`, `partner_full`). Un mismo escenario puede ser correcto con una clave y rechazado con otra si el scope no aplica al endpoint.
+- **mTLS** puede estar habilitado para integraciones que usan una **URL base distinta** y certificados de cliente. Si aplica a vuestro plan, coordinar certificados y ambiente con plataforma; no compartir credenciales en canales inseguros.
+
+La descripción exacta de scopes por operación debe figurar en la **documentación oficial** (OpenAPI o guía Partner) que reciba el equipo de QA.
+
+## 5. Ambientes y datos
+
+| Tipo de ambiente | Uso típico |
+|------------------|------------|
+| **Sandbox / pruebas** | Exploración, casos nuevos, datos sintéticos o de prueba provistos por el proyecto. |
+| **Preproducción / staging** | Regresión antes de cambios en producción. |
+| **Producción** | Solo con autorización explícita y políticas de datos acordadas; no usar personas reales ni datos sensibles sin cumplimiento normativo. |
+
+**Buenas prácticas:** no publicar **API keys**, tokens ni datos personales en tickets, chats o documentos compartidos de forma indebida; rotar credenciales si hubo exposición.
+
+## 6. Documentación y contrato
+
+El equipo de plataforma debe entregar (o enlazar) al menos:
+
+- **Especificación OpenAPI** (o equivalente) de la Partner API del ambiente que probáis.
+- **Guías de integración** (flujos recomendados, códigos de error, límites).
+- **Contrato de webhooks** (eventos, payloads, firma o verificación si aplica).
+
+Un flujo de referencia frecuente para **solicitud de fondos** es: obtener token de usuario → registro de usuario (si aplica) → contacto → método de pago → solicitud de dinero. Los nombres exactos de operaciones y el orden lo confirma la documentación vigente (incluida la página [API Reference](/api-reference/introduction) — sección **Happy Path Integration**).
+
+## 7. Comportamiento asíncrono y dependencias externas
+
+- Tras una respuesta **202 Accepted** (u otra indicación de “aceptado para procesar”), el resultado final puede llegar por **webhook** o consultando el estado según la guía.
+- Definir en el plan **tiempos máximos de espera** y qué se considera éxito o fallo (incluidos reintentos de webhook).
+- Los servicios externos (identidad, medios de pago, notificaciones) pueden introducir **latencia variable** o indisponibilidad en sandbox: distinguir defectos de producto de limitaciones del proveedor.
+
+## 8. Cuando algo falla (información útil al escalar)
+
+Recopilar de forma **anonimizada** cuando sea posible:
+
+- Fecha y hora (con zona horaria), **ambiente** y **URL base** usados.
+- Método HTTP, ruta o operación, **código de respuesta** y cuerpo de error (sin datos personales).
+- Cualquier **identificador de correlación** que devuelva la API (p. ej. en cabeceras o cuerpo), si está documentado.
+
+Esto permite al equipo de plataforma localizar el incidente en sus herramientas de operación.
+
+## 9. Material complementario
+
+Además de este contexto, el proyecto puede entregar **anexos** específicos (por ejemplo planes de casos por endpoint, matrices de permisos o catálogo de webhooks). Pedirlos al responsable de la entrega QA.
+
+## 10. Próximos documentos sugeridos (serie QA)
+
+- **Matriz de ambientes:** URLs base, propósito y reglas de uso.
+- **Inventario de flujos críticos** enlazado a la documentación oficial.
+- **Criterios de regresión** y de salida de pruebas.
+- **Privacidad y seguridad en pruebas** (datos permitidos, retención de evidencias).
+
+## 11. Glosario breve
+
+| Término | Significado |
+|---------|-------------|
+| **RaaS** | Remittance as a Service; en este documento, expuesto vía Partner API. |
+| **Tenant / Partner** | Organización integrada con configuración y credenciales propias. |
+| **Corredor** | Ruta y reglas entre origen y destino (monedas, límites, comisiones). |
+| **KYC / CIP** | Identificación del cliente y controles de fraude / cumplimiento. |
+| **Webhook** | Notificación HTTP del servidor hacia un endpoint del partner ante un evento. |
+
+*Documento orientado a pruebas **de caja negra** contra la API Partner publicada. Las definiciones técnicas definitivas son las que entregue el equipo de plataforma para cada versión y ambiente.*

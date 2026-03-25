@@ -318,13 +318,32 @@
 			},
 			"RegisterUserParams": {
 				"properties": {
-					"phoneNumber": {
+					"firstName": {
 						"type": "string"
 					},
 					"lastName": {
 						"type": "string"
 					},
+					"dob": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"address1": {
+						"type": "string"
+					},
+					"countryCode": {
+						"$ref": "#/components/schemas/CountryAlpha2Code"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
 					"lastName2": {
+						"type": "string"
+					},
+					"phoneNumber": {
 						"type": "string"
 					},
 					"gender": {
@@ -336,20 +355,10 @@
 							"None"
 						]
 					},
-					"dob": {
-						"type": "string",
-						"format": "date-time"
-					},
 					"email": {
 						"type": "string"
 					},
-					"firstName": {
-						"type": "string"
-					},
 					"middleName": {
-						"type": "string"
-					},
-					"address1": {
 						"type": "string"
 					},
 					"address2": {
@@ -361,16 +370,7 @@
 					"streetNumber": {
 						"type": "string"
 					},
-					"countryCode": {
-						"$ref": "#/components/schemas/CountryAlpha2Code"
-					},
-					"city": {
-						"type": "string"
-					},
 					"zipCode": {
-						"type": "string"
-					},
-					"state": {
 						"type": "string"
 					},
 					"birthState": {
@@ -400,9 +400,9 @@
 					}
 				},
 				"required": [
+					"firstName",
 					"lastName",
 					"dob",
-					"firstName",
 					"address1",
 					"countryCode",
 					"city",
@@ -516,13 +516,32 @@
 			},
 			"SessionLinkParams": {
 				"properties": {
-					"phoneNumber": {
+					"firstName": {
 						"type": "string"
 					},
 					"lastName": {
 						"type": "string"
 					},
+					"dob": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"address1": {
+						"type": "string"
+					},
+					"countryCode": {
+						"$ref": "#/components/schemas/CountryAlpha2Code"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
 					"lastName2": {
+						"type": "string"
+					},
+					"phoneNumber": {
 						"type": "string"
 					},
 					"gender": {
@@ -534,20 +553,10 @@
 							"None"
 						]
 					},
-					"dob": {
-						"type": "string",
-						"format": "date-time"
-					},
 					"email": {
 						"type": "string"
 					},
-					"firstName": {
-						"type": "string"
-					},
 					"middleName": {
-						"type": "string"
-					},
-					"address1": {
 						"type": "string"
 					},
 					"address2": {
@@ -559,16 +568,7 @@
 					"streetNumber": {
 						"type": "string"
 					},
-					"countryCode": {
-						"$ref": "#/components/schemas/CountryAlpha2Code"
-					},
-					"city": {
-						"type": "string"
-					},
 					"zipCode": {
-						"type": "string"
-					},
-					"state": {
 						"type": "string"
 					},
 					"birthState": {
@@ -608,9 +608,9 @@
 					}
 				},
 				"required": [
+					"firstName",
 					"lastName",
 					"dob",
-					"firstName",
 					"address1",
 					"countryCode",
 					"city",
@@ -1723,6 +1723,14 @@
 					},
 					"accountId": {
 						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
 					}
 				},
 				"required": [
@@ -2538,135 +2546,25 @@
 				],
 				"type": "object"
 			},
-			"RaaSPaymentMethod": {
+			"RaaSPaymentMethodDebitCard": {
+				"description": "Card payment method (request-money-full, add card, etc.). Required fields enforced at compile time.",
 				"properties": {
-					"paymentMethodOwner": {
+					"id": {
 						"type": "string"
 					},
-					"allowReviewAddress": {
+					"name": {
+						"type": "string"
+					},
+					"isPrimary": {
 						"type": "boolean"
 					},
-					"allowPushDomestic": {
-						"type": "boolean"
-					},
-					"allowPushCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPullDomestic": {
-						"type": "boolean"
-					},
-					"allowPullCrossBorder": {
-						"type": "boolean"
-					},
-					"accountPrefix": {
-						"type": "string"
-					},
-					"bin": {
-						"type": "string"
-					},
-					"paymentToken": {
-						"$ref": "#/components/schemas/PaymentToken",
-						"description": "The paymentToken field is only for capturing data from mobile, it won't send to numi plat"
-					},
-					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
-					},
-					"application": {
-						"type": "string"
-					},
-					"accountId": {
-						"type": "string"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"phoneNumber": {
-						"type": "string"
-					},
-					"country": {
-						"type": "string"
-					},
-					"zipCode": {
-						"type": "string"
-					},
-					"state": {
-						"type": "string"
-					},
-					"city": {
-						"type": "string"
-					},
-					"streetNumber": {
-						"type": "string"
-					},
-					"address3": {
-						"type": "string"
-					},
-					"address2": {
-						"type": "string"
-					},
-					"address1": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					},
-					"externalId": {
-						"type": "string"
-					},
-					"cardNetwork": {
-						"type": "string"
-					},
-					"cardtype": {
+					"createdAt": {
 						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
+						"format": "date-time"
 					},
-					"securityCode": {
-						"type": "string"
-					},
-					"expirationMonth": {
-						"type": "string"
-					},
-					"expirationYear": {
-						"type": "string"
-					},
-					"expirationDate": {
-						"type": "string"
-					},
-					"nameOnCard": {
-						"type": "string"
-					},
-					"number": {
-						"type": "string"
-					},
-					"beneficiaryAccountId": {
-						"type": "string"
-					},
-					"tokenData": {
-						"type": "string"
-					},
-					"cardType": {
+					"updatedAt": {
 						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
-					},
-					"accountNumber": {
-						"type": "string"
-					},
-					"bankEntityNumber": {
-						"type": "string"
-					},
-					"bankName": {
-						"type": "string"
+						"format": "date-time"
 					},
 					"bankAccountType": {
 						"type": "string",
@@ -2676,32 +2574,686 @@
 							"OtherAccount"
 						]
 					},
-					"updatedAt": {
+					"bankName": {
+						"type": "string"
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"accountNumber": {
+						"type": "string"
+					},
+					"cardType": {
 						"type": "string",
-						"format": "date-time"
+						"enum": [
+							"DebitCard"
+						],
+						"nullable": false
+					},
+					"tokenData": {
+						"type": "string"
+					},
+					"beneficiaryAccountId": {
+						"type": "string"
+					},
+					"expirationYear": {
+						"type": "string"
+					},
+					"expirationMonth": {
+						"type": "string"
+					},
+					"securityCode": {
+						"type": "string"
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"cardNetwork": {
+						"type": "string"
+					},
+					"externalId": {
+						"type": "string"
+					},
+					"address1": {
+						"type": "string"
+					},
+					"address2": {
+						"type": "string"
+					},
+					"address3": {
+						"type": "string"
+					},
+					"streetNumber": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"zipCode": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"longitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"accountId": {
+						"type": "string"
+					},
+					"application": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/PaymentMethodStatus"
+					},
+					"paymentToken": {
+						"$ref": "#/components/schemas/PaymentToken"
+					},
+					"bin": {
+						"type": "string"
+					},
+					"accountPrefix": {
+						"type": "string"
+					},
+					"allowPullCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPullDomestic": {
+						"type": "boolean"
+					},
+					"allowPushCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPushDomestic": {
+						"type": "boolean"
+					},
+					"allowReviewAddress": {
+						"type": "boolean"
+					},
+					"paymentMethodOwner": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"DebitCard"
+						],
+						"nullable": false
+					},
+					"number": {
+						"type": "string"
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"number",
+					"nameOnCard",
+					"expirationDate",
+					"country",
+					"currency"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethodCreditCard": {
+				"description": "Credit card payment method. Required fields enforced at compile time.",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"isPrimary": {
+						"type": "boolean"
 					},
 					"createdAt": {
 						"type": "string",
 						"format": "date-time"
 					},
-					"isPrimary": {
-						"type": "boolean"
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
-					"type": {
-						"$ref": "#/components/schemas/AvailablePaymentMethods"
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						]
 					},
-					"name": {
+					"bankName": {
 						"type": "string"
 					},
-					"id": {
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"accountNumber": {
+						"type": "string"
+					},
+					"cardType": {
+						"type": "string",
+						"enum": [
+							"CreditCard"
+						],
+						"nullable": false
+					},
+					"tokenData": {
+						"type": "string"
+					},
+					"beneficiaryAccountId": {
+						"type": "string"
+					},
+					"expirationYear": {
+						"type": "string"
+					},
+					"expirationMonth": {
+						"type": "string"
+					},
+					"securityCode": {
+						"type": "string"
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"cardNetwork": {
+						"type": "string"
+					},
+					"externalId": {
+						"type": "string"
+					},
+					"address1": {
+						"type": "string"
+					},
+					"address2": {
+						"type": "string"
+					},
+					"address3": {
+						"type": "string"
+					},
+					"streetNumber": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"zipCode": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"longitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"accountId": {
+						"type": "string"
+					},
+					"application": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/PaymentMethodStatus"
+					},
+					"paymentToken": {
+						"$ref": "#/components/schemas/PaymentToken"
+					},
+					"bin": {
+						"type": "string"
+					},
+					"accountPrefix": {
+						"type": "string"
+					},
+					"allowPullCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPullDomestic": {
+						"type": "boolean"
+					},
+					"allowPushCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPushDomestic": {
+						"type": "boolean"
+					},
+					"allowReviewAddress": {
+						"type": "boolean"
+					},
+					"paymentMethodOwner": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"CreditCard"
+						],
+						"nullable": false
+					},
+					"number": {
+						"type": "string"
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					},
+					"currency": {
 						"type": "string"
 					}
 				},
 				"required": [
+					"type",
+					"number",
+					"nameOnCard",
+					"expirationDate",
 					"country",
-					"type"
+					"currency"
 				],
-				"type": "object"
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethodUBN": {
+				"description": "UBN payment method. Required: number, currency, country (ISO 3166-1 alpha-2).",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"isPrimary": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						]
+					},
+					"bankName": {
+						"type": "string"
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"accountNumber": {
+						"type": "string"
+					},
+					"cardType": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"tokenData": {
+						"type": "string"
+					},
+					"beneficiaryAccountId": {
+						"type": "string"
+					},
+					"expirationYear": {
+						"type": "string"
+					},
+					"expirationMonth": {
+						"type": "string"
+					},
+					"securityCode": {
+						"type": "string"
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"cardNetwork": {
+						"type": "string"
+					},
+					"externalId": {
+						"type": "string"
+					},
+					"address1": {
+						"type": "string"
+					},
+					"address2": {
+						"type": "string"
+					},
+					"address3": {
+						"type": "string"
+					},
+					"streetNumber": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"zipCode": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"longitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"accountId": {
+						"type": "string"
+					},
+					"application": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/PaymentMethodStatus"
+					},
+					"paymentToken": {
+						"$ref": "#/components/schemas/PaymentToken"
+					},
+					"bin": {
+						"type": "string"
+					},
+					"accountPrefix": {
+						"type": "string"
+					},
+					"allowPullCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPullDomestic": {
+						"type": "boolean"
+					},
+					"allowPushCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPushDomestic": {
+						"type": "boolean"
+					},
+					"allowReviewAddress": {
+						"type": "boolean"
+					},
+					"paymentMethodOwner": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"UBN"
+						],
+						"nullable": false
+					},
+					"number": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"number",
+					"currency",
+					"country"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethodOtherType": {
+				"type": "string",
+				"enum": [
+					"MobileWallet",
+					"BankAccount",
+					"CashLoadLocation",
+					"AppleDigitalWallet",
+					"GoogleDigitalWallet",
+					"CLABE",
+					"VirtualNetworkAccount"
+				],
+				"description": "Other payment method types. Only type + country required; bank account not fully supported yet."
+			},
+			"RaaSPaymentMethodOther": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"isPrimary": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						]
+					},
+					"bankName": {
+						"type": "string"
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"accountNumber": {
+						"type": "string"
+					},
+					"cardType": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"tokenData": {
+						"type": "string"
+					},
+					"beneficiaryAccountId": {
+						"type": "string"
+					},
+					"expirationYear": {
+						"type": "string"
+					},
+					"expirationMonth": {
+						"type": "string"
+					},
+					"securityCode": {
+						"type": "string"
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"cardNetwork": {
+						"type": "string"
+					},
+					"externalId": {
+						"type": "string"
+					},
+					"address1": {
+						"type": "string"
+					},
+					"address2": {
+						"type": "string"
+					},
+					"address3": {
+						"type": "string"
+					},
+					"streetNumber": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"zipCode": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"longitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"accountId": {
+						"type": "string"
+					},
+					"application": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/PaymentMethodStatus"
+					},
+					"paymentToken": {
+						"$ref": "#/components/schemas/PaymentToken"
+					},
+					"bin": {
+						"type": "string"
+					},
+					"accountPrefix": {
+						"type": "string"
+					},
+					"allowPullCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPullDomestic": {
+						"type": "boolean"
+					},
+					"allowPushCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPushDomestic": {
+						"type": "boolean"
+					},
+					"allowReviewAddress": {
+						"type": "boolean"
+					},
+					"paymentMethodOwner": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/RaaSPaymentMethodOtherType"
+					},
+					"country": {
+						"type": "string"
+					},
+					"number": {
+						"type": "string"
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"country"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethod": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodDebitCard"
+					},
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodCreditCard"
+					},
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodUBN"
+					},
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodOther"
+					}
+				],
+				"description": "Payment method object used by API clients. Discriminated union by `type` for better DX and compile-time checks.\n- DebitCard / CreditCard: number, nameOnCard, expirationDate (MMYY), country, currency required.\n- UBN: number, currency, country required.\n- Other types: type + country required."
 			},
 			"AddCardParamsBase": {
 				"properties": {
@@ -3799,19 +4351,19 @@
 					"status": {
 						"type": "string"
 					},
-					"platId": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
 					"createdAt": {
 						"type": "string",
 						"format": "date-time"
 					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
+					"platId": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
 					},
 					"amount": {
 						"type": "number",
@@ -3933,8 +4485,8 @@
 				"required": [
 					"id",
 					"status",
-					"type",
 					"createdAt",
+					"type",
 					"amount",
 					"code"
 				],
@@ -4221,19 +4773,19 @@
 					"status": {
 						"type": "string"
 					},
-					"correlationId": {
-						"type": "string"
-					},
-					"platId": {
-						"type": "string"
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
 					"createdAt": {
 						"type": "string",
 						"format": "date-time"
 					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
+					"correlationId": {
+						"type": "string"
+					},
+					"platId": {
+						"type": "string"
 					},
 					"amount": {
 						"type": "number",
@@ -4403,6 +4955,206 @@
 					"correlationId",
 					"recipientAmount",
 					"recipientCurrency"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestMoneyFullResponse": {
+				"properties": {
+					"userId": {
+						"type": "string"
+					},
+					"operationId": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"Sent"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"userId",
+					"operationId",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestToParams": {
+				"properties": {
+					"phoneNumber": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"countryCode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"phoneNumber",
+					"firstName",
+					"lastName",
+					"countryCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestMoneyFullParams": {
+				"properties": {
+					"requester": {
+						"$ref": "#/components/schemas/RegisterUserParams"
+					},
+					"request": {
+						"properties": {
+							"recipientCurrency": {
+								"type": "string"
+							},
+							"recipientAmount": {
+								"type": "number",
+								"format": "double"
+							},
+							"reason": {
+								"type": "string"
+							},
+							"destinationPaymentMethod": {
+								"$ref": "#/components/schemas/RaaSPaymentMethod"
+							},
+							"correlationId": {
+								"type": "string"
+							},
+							"requestTo": {
+								"$ref": "#/components/schemas/RequestToParams"
+							}
+						},
+						"required": [
+							"recipientCurrency",
+							"recipientAmount",
+							"destinationPaymentMethod",
+							"correlationId",
+							"requestTo"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"requester",
+					"request"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestMoneyFullErrorCode": {
+				"description": "Códigos de error posibles en respuestas 4xx/5xx de POST /request-money-full\ny en el webhook request_money_full_outcome (campo errorCode).\nIncluido en OpenAPI para que los clientes generen tipos/enums.",
+				"enum": [
+					"ERROR_TENANT_NOT_FOUND",
+					"ERROR_CIP_NOT_FOUND",
+					"ERROR_CIP_NOT_COMPLETED",
+					"ERROR_MUST_PERFORM_LEVEL_ONE_FIRST",
+					"ERROR_SUBSCRIBER_NOT_FOUND",
+					"CARD_VERIFICATION_ERROR",
+					"ERROR_CARD_VERIFICATION",
+					"ERROR_PAYMENT_METHOD_NOT_FOUND",
+					"ERROR_ERROR_ADD_SOURCE_UBN_ERROR",
+					"ERROR_CONTACT_NOT_FOUND",
+					"ERROR_COUNTRY_NOT_SUPPORTED",
+					"ERROR_INVALID_COUNTRY_CODE",
+					"ERROR_PHONE_NUMBER_NOT_SUPPORTED",
+					"ERROR_INVALID_OPERATION",
+					"ERROR_OPERATION_NOT_FOUND",
+					"ERROR_OPERATION_ALREADY_COMPLETED",
+					"ERROR_INTERNAL_SERVER_ERROR",
+					"ERROR_REQUEST_MONEY_FULL",
+					"ERROR_INVALID_PARTNER_TOKEN",
+					"ERROR_INVALID_AMOUNT_ERROR",
+					"ERROR_INVALID_CURRENCY_CODE",
+					"ERROR_CORRELATION_ID_REQUIRED",
+					"ERROR_CORRELATION_ID_ALREADY_USED",
+					"ERROR_DESTINATION_COUNTRY_NOT_SUPPORTED",
+					"INVALID_PHONE_NUMBER",
+					"INVALID_NAME"
+				],
+				"type": "string"
+			},
+			"RequestMoneyFullErrorResponse": {
+				"description": "Respuesta de error 4xx/5xx de POST /request-money-full. OpenAPI expone el enum en code.",
+				"properties": {
+					"reason": {
+						"type": "string"
+					},
+					"code": {
+						"$ref": "#/components/schemas/RequestMoneyFullErrorCode"
+					}
+				},
+				"required": [
+					"reason",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestMoneyFullOutcomePhase": {
+				"description": "Fase del flujo donde falló request-money-full (webhook request_money_full_outcome).\nIncluido en OpenAPI para que los clientes generen tipos/enums.",
+				"enum": [
+					"cip",
+					"contact",
+					"payment_method",
+					"request_money",
+					"unknown"
+				],
+				"type": "string"
+			},
+			"RequestMoneyFullOutcomePayload": {
+				"description": "Payload enviado al webhook del tenant cuando el worker de request-money-full\ntermina (éxito o fallo). Permite a la integración reaccionar a fallos async (CIP, tarjeta, etc.).",
+				"properties": {
+					"eventType": {
+						"type": "string",
+						"enum": [
+							"request_money_full_outcome"
+						],
+						"nullable": false
+					},
+					"correlationId": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"completed",
+							"failed"
+						]
+					},
+					"date": {
+						"type": "string"
+					},
+					"errorCode": {
+						"$ref": "#/components/schemas/RequestMoneyFullErrorCode",
+						"description": "Solo cuando status === 'failed'. Código estable para la integración."
+					},
+					"reason": {
+						"type": "string",
+						"description": "Solo cuando status === 'failed'. Mensaje legible."
+					},
+					"phase": {
+						"$ref": "#/components/schemas/RequestMoneyFullOutcomePhase",
+						"description": "Fase donde falló. Solo cuando status === 'failed'."
+					}
+				},
+				"required": [
+					"eventType",
+					"correlationId",
+					"status",
+					"date"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -4978,19 +5730,19 @@
 					"status": {
 						"type": "string"
 					},
-					"platId": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
 					"createdAt": {
 						"type": "string",
 						"format": "date-time"
 					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
+					"platId": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
 					},
 					"amount": {
 						"type": "number",
@@ -5116,8 +5868,8 @@
 				"required": [
 					"id",
 					"status",
-					"type",
 					"createdAt",
+					"type",
 					"amount",
 					"code",
 					"recipientAmout"
@@ -12588,6 +13340,88 @@
 				}
 			}
 		},
+		"/user/operations/request-money-full": {
+			"post": {
+				"operationId": "requestMoneyFull",
+				"responses": {
+					"200": {
+						"description": "{ userId, operationId (correlationId), status: \"Sent\" }.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullResponse"
+								}
+							}
+						}
+					},
+					"202": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Request money (atomic flow)",
+				"tags": [
+					"Partner",
+					"Operations"
+				],
+				"security": [
+					{
+						"api_key": [
+							"partner",
+							"partner_full"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"description": "- Requester profile and request-money parameters.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RequestMoneyFullParams"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/user/operations/send-funds/{userToken}": {
 			"post": {
 				"operationId": "sendFunds",
@@ -14532,15 +15366,15 @@
 						}
 					}
 				},
-				"description": "Consulta el tenant y datos extendidos asociados a los números de teléfono proporcionados.\nOpcionalmente crea el contacto si no existe.",
-				"summary": "Helper de pruebas para usuarios y contactos",
+				"description": "Looks up tenant and extended user data for the given phone numbers; optionally creates a missing contact.",
+				"summary": "Test helper for users and contacts",
 				"tags": [
 					"TestHelper"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
-					"description": "- Parámetros de consulta y automatización.",
+					"description": "- Query flags and automation options.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -14981,6 +15815,8 @@
 						}
 					}
 				},
+				"description": "Publishes or syncs a widget record for the given user (custom external widget pipeline).",
+				"summary": "Publish widget record",
 				"security": [
 					{
 						"api_key": [
@@ -14990,6 +15826,7 @@
 				],
 				"parameters": [
 					{
+						"description": "- User identifier for the widget session.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,

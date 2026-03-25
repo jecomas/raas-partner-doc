@@ -17,6 +17,7 @@
             "group": "Introduction",
             "pages": [
               "api-reference/introduction",
+              "api-reference/qa-project-context",
               "partner-api-architecture"
             ]
           }
