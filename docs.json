@@ -18,6 +18,7 @@
             "pages": [
               "api-reference/introduction",
               "api-reference/qa-project-context",
+              "api-reference/partner-api-scopes",
               "partner-api-architecture"
             ]
           }
