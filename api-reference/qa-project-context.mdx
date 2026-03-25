@@ -3,14 +3,14 @@ title: "QA project context"
 description: "Framing for QA teams testing the published Partner API (black-box)."
 ---
 
-This page supports **QA and integration testing** against the **published Partner API** (black-box). It does not cover other product APIs.
-
 **Scope:** The **Partner API** as **exposed online** (B2B integrations and widgets). This document does not cover other product APIs.
 
 **Audience:** QA team.  
 **Purpose:** First deliverable in a series; **business and contract** framing to design the **test plan** against the published service.
 
 **Assumption:** QA does **not** need access to source code, infrastructure setup, or deployments. **Base URLs**, **test credentials**, and **contract documentation** (OpenAPI, guides, webhooks) are provided by the platform or product team.
+
+**Repository:** Canonical copy in `docs/qa/PROJECT_CONTEXT.md`. Linked from [API Reference](/api-reference/introduction). Keep the Markdown file and this page in sync when editing.
 
 ## 1. What you are testing
 
@@ -30,10 +30,10 @@ Repository clones and local builds are not assumed.
 
 | Area | What to validate (high level) |
 |------|-------------------------------|
-| **Operations / transactions** | Lifecycle (e.g. pending, sent, settled, failed); amounts and currencies consistent with the agreed corridor. |
+| **Operations / transactions** | Lifecycle (e.g. pending, sent, failed); amounts and currencies consistent with the agreed corridor. |
 | **Quotes** | Validity window; alignment with the operation confirmed afterward. |
 | **Payment methods** | Tokens or references per documentation; avoid real card data in shared environments (PCI requirements). |
-| **KYC / CIP** | Onboarding and verification flows; behavior may depend on external provider **sandboxes**. |
+| **KYC / CIP** | Onboarding and verification flows. |
 | **Corridors** | Min/max limits; allowed currencies; restrictions by user level or tenant configuration. |
 | **Webhooks and events** | Delivery, retries, and consistency with what the API shows; details in the **webhook specification** provided by the project. |
 | **Multi-tenant** | Isolation: one partner’s data and rules must not be accessible to another tenant using a different key; each partner uses its own credentials. |
@@ -44,15 +44,13 @@ Repository clones and local builds are not assumed.
 - Permissions are grouped into **scopes** (e.g. `partner`, `partner_send`, `partner_full`). The same scenario may pass with one key and fail with another if the scope does not match the endpoint.
 - **mTLS** may be enabled for integrations that use a **different base URL** and client certificates. If it applies to your plan, coordinate certificates and environment with the platform team; do not share credentials over insecure channels.
 
-**Exact scope definitions** (strings, hierarchy, OR rule, and sample tests): **[Partner API scopes](/api-reference/partner-api-scopes)**. **Per-route** detail remains in your environment’s **OpenAPI**.
+**Exact scope definitions** (values, inheritance, evaluation rules): **[Partner API scopes](/api-reference/partner-api-scopes)**. **Per-endpoint** detail remains in the environment’s OpenAPI and in Mintlify (**Partner API scopes**).
 
 ## 5. Environments and data
 
 | Environment type | Typical use |
 |------------------|-------------|
-| **Sandbox / test** | Exploration, new cases, synthetic or project-provided test data. |
-| **Pre-production / staging** | Regression before production changes. |
-| **Production** | Only with explicit authorization and agreed data policies; do not use real individuals or sensitive data without compliance sign-off. |
+| **QA** | Exploration, new cases, synthetic or project-provided test data. |
 
 **Best practices:** Do not post **API keys**, tokens, or personal data in tickets, chat, or shared documents inappropriately; rotate credentials after any exposure.
 
@@ -64,7 +62,7 @@ The platform team should provide (or link to) at least:
 - **Integration guides** (recommended flows, error codes, limits).
 - **Webhook contract** (events, payloads, signing or verification if applicable).
 
-A common **request funds** reference flow is: obtain user token → user registration (if needed) → contact → payment method → money request. Exact operation names and order are defined in the current documentation (including the [API Reference](/api-reference/introduction) page — **Happy Path Integration**).
+A common **request funds** reference flow is: obtain user token → user registration (if needed) → contact → payment method → money request. Exact operation names and order are defined in the current documentation.
 
 ## 7. Async behavior and external dependencies
 
@@ -105,4 +103,4 @@ Beyond this context, the project may provide specific **appendices** (e.g. per-e
 
 ---
 
-*Document focused on **black-box** testing of the published Partner API. The authoritative technical definitions are those provided by the platform team for each release and environment. Repository copy: `docs/qa/PROJECT_CONTEXT.md` — keep both aligned when editing.*
+*Document focused on **black-box** testing of the published Partner API. The authoritative technical definitions are those provided by the platform team for each release and environment.*

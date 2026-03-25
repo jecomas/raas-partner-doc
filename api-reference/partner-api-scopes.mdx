@@ -3,7 +3,7 @@ title: "Partner API scopes"
 description: "api_key scope definitions, hierarchy, and authorization rules for QA and integrators."
 ---
 
-This page is aligned with the repository (`docs/qa/PARTNER_API_SCOPES.md`). Keep both in sync when editing.
+Canonical copy: `docs/qa/PARTNER_API_SCOPES.md`. Keep this page in sync when editing.
 
 ## Partner API — Scopes (`api_key`)
 
@@ -12,57 +12,57 @@ This page is aligned with the repository (`docs/qa/PARTNER_API_SCOPES.md`). Keep
 
 **Authentication:** Most Partner operations require the integration token in the **`api_key`** header (or in the body per the endpoint contract). Without a valid `api_key`, the request does not reach the endpoint’s business logic.
 
-**Exhaustive per-route listing:** Security annotations on controllers are reflected in **OpenAPI**; use your environment’s spec for a detailed inventory by method and path.
+**Exhaustive per-route listing:** Each controller’s `@Security` annotations are reflected in **OpenAPI**; use your environment’s spec for a detailed inventory by method and path.
 
 ## 1. Evaluation rule (operational summary)
 
 1. The key (decoded `api_key`) carries an **array of scopes** assigned to the tenant/partner.
 2. The backend **expands** each scope using the **role hierarchy** (see §3). The resulting set is what the key “has” for this check.
-3. Each endpoint declares one or more **acceptable** scopes (e.g. `partner` and `partner_full` in the same rule).
-4. The request is **authorized** if **any** scope required by the endpoint matches **any** effective scope on the key (**OR** logic across the security annotation list—you do not need all of them).
+3. Each endpoint declares one or more **acceptable** scopes (e.g. `["partner", "partner_full"]`).
+4. The request is **authorized** if **any** scope required by the endpoint matches **any** effective scope on the key (**OR** logic across the `@Security` list—you do not need all of them).
 
-If there is no match → **401** with a message such as *Partner does not have the required scope* (verify exact text and code against your environment).
+If there is no match → **401** with a message such as *Partner does not have the required scope* (error code should match your environment’s contract, e.g. `ERROR_MISSING_SCOPE` in some user flows; for `api_key` the code may vary by version—verify against the live response).
 
 ## 2. Base scopes (exact strings)
+
+These values may appear on the key configuration and in product documentation:
 
 | Scope | Functional description |
 |-------|-------------------------|
 | **`partner`** | Typical **request funds** flow / user management and operations tied to that profile (registration, contacts, request money, etc., per route). |
 | **`partner_send`** | **Send funds** flow (debit source, quote/send operations, etc., per route). |
 | **`partner_full`** | **Expanded** access for “express” / certified integrations: atomic onboarding, advanced CIP, certain consolidated endpoints, and operations reserved for higher-privilege keys. By inheritance it includes **`partner`** and **`partner_send`** (see §3). |
-| **`partner_dual`** | **Composite** role: equivalent to having both `partner` and `partner_send` in the inheritance chain. May appear on a key’s scope list. |
-| **`Default`** | **Literal** scope used on **some** specific endpoints (listed alongside `partner` / `partner_send`). The key must include that string when applicable. Coordinate with the platform team which keys carry it. |
-| **`admin`** | Scope **separate** from the partner model; applies to **admin/system** routes on the Partner shard. Does **not** inherit from `partner` / `partner_send` / `partner_full`. |
+
+*(Scopes such as `mobile` exist elsewhere in the product; this guide focuses on the Partner API.)*
 
 ## 3. Exact hierarchy (inheritance)
 
+As defined in the service role configuration:
+
 - **`partner`** — no parent.
-- **`partner_send`** — no parent (independent of `partner`).
-- **`partner_dual`** — extends **`partner`** and **`partner_send`**.
-- **`partner_full`** — extends **`partner_dual`** (and therefore its expansion includes `partner`, `partner_send`, and `partner_dual`).
+- **`partner_send`** — no parent (**independent** of `partner`: `partner` alone does **not** imply `partner_send`, and vice versa).
+- **`partner_full`** — its expansion includes **`partner`**, **`partner_send`**.
 
 **Practical effect for QA**
 
-- **`partner` only** → insufficient for endpoints that require **`partner_send` only**.
-- **`partner_send` only** → insufficient for endpoints that require **`partner` only**.
-- **`partner_full`** → satisfies requirements that list `partner`, `partner_send`, `partner_dual`, or `partner_full` (per the OR rule in §1).
-- **`partner_dual`** → satisfies endpoints that accept `partner` or `partner_send` depending on the endpoint’s concrete list.
+- Key with **only** `partner` → valid for endpoints that require `partner`; **not** for those that require **only** `partner_send` (unless the endpoint also lists another scope the key satisfies).
+- Key with **only** `partner_send` → valid for endpoints that require `partner_send`; **not** for those that require **only** `partner`.
+- Key with **`partner_full`** → can call endpoints that require `partner`, `partner_send` or `partner_full`, per the OR rule in §1.
 
 ## 4. Quick reference matrix (does not replace OpenAPI)
 
 | If the endpoint accepts (any of)… | Typical minimum key (examples) |
 |-----------------------------------|--------------------------------|
-| `partner` | `partner`, or `partner_full`, or `partner_dual` |
-| `partner_send` | `partner_send`, or `partner_full`, or `partner_dual` |
-| `partner` and `partner_send` in the same annotation (OR) | `partner` **or** `partner_send` **or** `partner_dual` **or** `partner_full` |
-| `partner_full` | `partner_full` |
-| `Default` with `partner` / `partner_send` | **`Default`**, or `partner`, or `partner_send` per the endpoint’s exact list |
+| `partner` | `partner`, or `partner_full` |
+| `partner_send` | `partner_send`, or `partner_full` |
+| `partner` **and** `partner_send` in the same annotation (OR) | `partner` **or** `partner_send` **or** `partner_full` |
+| `partner_full` | `partner_full` (or a key that includes `partner_full` in its list) |
 
 ## 5. Suggested test cases (auth / scopes)
 
 | ID | Scenario | Expected result |
 |----|----------|-----------------|
-| S1 | No `api_key` header | Authentication failure. |
+| S1 | No `api_key` header | Authentication failure (unauthorized / api_key required). |
 | S2 | Invalid or corrupted `api_key` | 401 / invalid token error per contract. |
 | S3 | Key with `partner` on an endpoint that accepts only `partner_send` | 401 / insufficient scope. |
 | S4 | Key with `partner_send` on an endpoint that accepts only `partner` | 401 / insufficient scope. |
@@ -71,8 +71,10 @@ If there is no match → **401** with a message such as *Partner does not have t
 
 ## 6. mTLS
 
-**mTLS** changes base URL and certificates; it does **not** replace scope logic. See [API Reference](/api-reference/introduction) (mTLS section).
+**Mutual TLS** changes the base URL and certificate requirements; it does **not** replace scope logic: the `api_key` must still satisfy the endpoint’s scopes. URL details: [API Reference](/api-reference/introduction) and platform documentation.
 
-## 7. Maintenance
+## 7. Maintenance and traceability
 
-The hierarchy is defined in the repository (`src/config/roles.ts`, `src/authentication.ts`). When roles or controller security change, update this page and `docs/qa/PARTNER_API_SCOPES.md`.
+The §3 hierarchy is defined in code in `src/config/roles.ts` (`getScopeExtensions` / `getScopesStream`). Per-request checks are in `src/authentication.ts` (`api_key` branch). If roles or annotations change, update this guide and the scope regression plan.
+
+**Repository:** Update `docs/qa/PARTNER_API_SCOPES.md` and this page together.
