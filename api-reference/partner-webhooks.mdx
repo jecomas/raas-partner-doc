@@ -1,0 +1,83 @@
+---
+title: "Partner Webhooks"
+description: "Referencia de firma, eventos y errores para operationStatusHook"
+---
+
+# Partner webhooks (operationStatusHook)
+
+RaaS envia notificaciones HTTP a las URL configuradas en el tenant (`operationStatusHook`).
+El mismo mecanismo de firma se usa para todos los eventos enviados a esas URLs.
+
+## Request
+
+- **Method:** `POST`
+- **Content-Type:** `application/json`
+- **Body:** JSON del evento (ver payload por tipo de evento).
+
+## Headers enviados por RaaS
+
+| Header              | Descripcion |
+|---------------------|-------------|
+| `x-raas-signature`  | **Requerido.** Firma HMAC del body para que el partner verifique que el request proviene de RaaS. Ver [Verificacion de firma](#verificacion-de-firma). |
+| `x-raas-op-country` | Codigo de pais del tenant (ej. `MX`). Contexto opcional para el receptor. |
+
+## Verificacion de firma
+
+El partner debe verificar el header `x-raas-signature` usando el body crudo del request y el `sharedSecret` del tenant.
+
+### Algoritmo
+
+```text
+signature = Base64( HMAC-SHA256( rawRequestBody, sharedSecret ) )
+```
+
+- **rawRequestBody:** cuerpo de la peticion en bruto (string UTF-8), antes de parsear JSON.
+- **sharedSecret:** secreto compartido configurado en el tenant.
+- **HMAC-SHA256:** estandar RFC 2104.
+- **Base64:** encoding estandar del resultado HMAC.
+
+### Ejemplo (Node.js)
+
+```js
+const crypto = require('crypto');
+
+function verifyWebhookSignature(rawBody, signatureHeader, sharedSecret) {
+  const expected = crypto
+    .createHmac('sha256', sharedSecret)
+    .update(rawBody, 'utf8')
+    .digest('base64');
+
+  return crypto.timingSafeEqual(
+    Buffer.from(signatureHeader, 'base64'),
+    Buffer.from(expected, 'base64')
+  );
+}
+```
+
+## Evento request-money-full
+
+### `request_money_full_outcome`
+
+Se envia cuando termina el flujo de `request-money-full` (exito o fallo). El endpoint del partner debe ser idempotente por `correlationId`.
+
+Campos principales:
+
+- `eventType`: siempre `"request_money_full_outcome"`.
+- `correlationId`: ID de correlacion enviado en el POST.
+- `status`: `"completed"` o `"failed"`.
+- `date`: fecha ISO 8601.
+- `errorCode`, `reason`, `phase`: solo cuando `status === "failed"`.
+
+## Error codes del endpoint
+
+Las respuestas de error de `POST /user/operations/request-money-full` usan el formato:
+
+```json
+{ "reason": "string", "code": "string" }
+```
+
+El campo `code` es estable para logica de integracion.
+
+## Fuente
+
+Este contenido se basa en `docs/partner_webhooks.md` del repositorio.

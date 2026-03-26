@@ -74,7 +74,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- DTO with extended PII (address, dates) for validators.",
+          "description": "DTO with extended PII (address, dates) for validators. You can use either email or phone number. One of them must be provided.",
           "required": true,
           "content": {
             "application/json": {

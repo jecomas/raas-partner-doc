@@ -21,6 +21,12 @@
               "api-reference/partner-api-scopes",
               "partner-api-architecture"
             ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "api-reference/partner-webhooks"
+            ]
           }
         ]
       },

@@ -267,7 +267,7 @@
         ],
         "parameters": [
           {
-            "description": "- User identifier token.",
+            "description": "User identifier token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -353,7 +353,7 @@
         ],
         "parameters": [
           {
-            "description": "- Owner user token.",
+            "description": "Owner user token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -363,7 +363,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Contact data to register.",
+          "description": "Contact data to register.",
           "required": true,
           "content": {
             "application/json": {
@@ -450,7 +450,7 @@
         ],
         "parameters": [
           {
-            "description": "- User token (contact owner).",
+            "description": "User token (contact owner). You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -460,7 +460,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Updated contact attributes.",
+          "description": "Updated contact attributes.",
           "required": true,
           "content": {
             "application/json": {
@@ -538,7 +538,7 @@
         ],
         "parameters": [
           {
-            "description": "- Sender user token.",
+            "description": "Sender user token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -547,7 +547,7 @@
             }
           },
           {
-            "description": "- Contact phone or email.",
+            "description": "Contact phone or email. You can use either email or phone number. One of them must be provided.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -691,7 +691,7 @@
         ],
         "parameters": [
           {
-            "description": "- User identifier or token.",
+            "description": "User identifier or token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -700,7 +700,7 @@
             }
           },
           {
-            "description": "- Destination country code.",
+            "description": "Destination country code.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -709,7 +709,7 @@
             }
           },
           {
-            "description": "- Transaction type.",
+            "description": "Transaction type.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -773,7 +773,7 @@
         ],
         "parameters": [
           {
-            "description": "- User token.",
+            "description": "User token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -782,7 +782,7 @@
             }
           },
           {
-            "description": "- Destination country for evaluation.",
+            "description": "Destination country for evaluation. You can use the country code of the destination country.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -992,7 +992,7 @@
         ],
         "parameters": [
           {
-            "description": "- Sender user token.",
+            "description": "Sender user token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1001,7 +1001,7 @@
             }
           },
           {
-            "description": "- Source country code.",
+            "description": "Source country code.",
             "in": "query",
             "name": "sourceCountry",
             "required": false,
@@ -1010,7 +1010,7 @@
             }
           },
           {
-            "description": "- Destination country code.",
+            "description": "Destination country code.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1300,7 +1300,7 @@
         ],
         "parameters": [
           {
-            "description": "- User token.",
+            "description": "User token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1310,7 +1310,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Card data (encrypted/raw) to add.",
+          "description": "Card data (encrypted/raw) to add.",
           "required": true,
           "content": {
             "application/json": {
@@ -1371,7 +1371,7 @@
         ],
         "parameters": [
           {
-            "description": "- End user token.",
+            "description": "End user token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1380,7 +1380,7 @@
             }
           },
           {
-            "description": "- Associated payment method ID.",
+            "description": "Associated payment method ID.",
             "in": "query",
             "name": "id",
             "required": false,
@@ -1453,7 +1453,7 @@
         ],
         "parameters": [
           {
-            "description": "- User token.",
+            "description": "User token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1463,7 +1463,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Validated payload with required parameters.",
+          "description": "Validated payload with required parameters.",
           "required": true,
           "content": {
             "application/json": {
@@ -1796,7 +1796,7 @@
         ],
         "parameters": [
           {
-            "description": "- User involved in the transaction.",
+            "description": "User involved in the transaction. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1805,7 +1805,7 @@
             }
           },
           {
-            "description": "- Operation UUID.",
+            "description": "Operation UUID.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -2125,7 +2125,7 @@
         ],
         "parameters": [
           {
-            "description": "- Unique operation UUID.",
+            "description": "Unique operation UUID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -2190,7 +2190,7 @@
         ],
         "parameters": [
           {
-            "description": "- User ID.",
+            "description": "User ID. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2199,7 +2199,7 @@
             }
           },
           {
-            "description": "- Optional filter by destination phone.",
+            "description": "Optional filter by destination phone.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -2430,7 +2430,7 @@
         ],
         "parameters": [
           {
-            "description": "- Requester user token.",
+            "description": "Requester user token. You can get it using the get-user-token endpoint.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2439,7 +2439,7 @@
             }
           },
           {
-            "description": "- Top N contacts to return.",
+            "description": "Top N contacts to return.",
             "in": "path",
             "name": "limit",
             "required": true,
