@@ -1,42 +1,42 @@
 ---
 title: "Partner Webhooks"
-description: "Referencia de firma, eventos y errores para operationStatusHook"
+description: "Signature, events, and error reference for operationStatusHook"
 ---
 
 # Partner webhooks (operationStatusHook)
 
-RaaS envia notificaciones HTTP a las URL configuradas en el tenant (`operationStatusHook`).
-El mismo mecanismo de firma se usa para todos los eventos enviados a esas URLs.
+RaaS sends HTTP notifications to the URLs configured in the tenant (`operationStatusHook`).
+The same signature mechanism is used for all events sent to those URLs.
 
 ## Request
 
 - **Method:** `POST`
 - **Content-Type:** `application/json`
-- **Body:** JSON del evento (ver payload por tipo de evento).
+- **Body:** Event JSON payload (see payload details by event type).
 
-## Headers enviados por RaaS
+## Headers sent by RaaS
 
-| Header              | Descripcion |
+| Header              | Description |
 |---------------------|-------------|
-| `x-raas-signature`  | **Requerido.** Firma HMAC del body para que el partner verifique que el request proviene de RaaS. Ver [Verificacion de firma](#verificacion-de-firma). |
-| `x-raas-op-country` | Codigo de pais del tenant (ej. `MX`). Contexto opcional para el receptor. |
+| `x-raas-signature`  | **Required.** HMAC signature of the request body so the partner can verify the request comes from RaaS. See [Signature verification](#signature-verification). |
+| `x-raas-op-country` | Tenant country code (for example, `MX`). Optional context for the receiver. |
 
-## Verificacion de firma
+## Signature verification
 
-El partner debe verificar el header `x-raas-signature` usando el body crudo del request y el `sharedSecret` del tenant.
+The partner must verify the `x-raas-signature` header using the raw request body and the tenant `sharedSecret`.
 
-### Algoritmo
+### Algorithm
 
 ```text
 signature = Base64( HMAC-SHA256( rawRequestBody, sharedSecret ) )
 ```
 
-- **rawRequestBody:** cuerpo de la peticion en bruto (string UTF-8), antes de parsear JSON.
-- **sharedSecret:** secreto compartido configurado en el tenant.
-- **HMAC-SHA256:** estandar RFC 2104.
-- **Base64:** encoding estandar del resultado HMAC.
+- **rawRequestBody:** raw request body (UTF-8 string), before parsing JSON.
+- **sharedSecret:** shared secret configured for the tenant.
+- **HMAC-SHA256:** RFC 2104 standard.
+- **Base64:** standard encoding of the HMAC output.
 
-### Ejemplo (Node.js)
+### Example (Node.js)
 
 ```js
 const crypto = require('crypto');
@@ -54,30 +54,30 @@ function verifyWebhookSignature(rawBody, signatureHeader, sharedSecret) {
 }
 ```
 
-## Evento request-money-full
+## request-money-full event
 
 ### `request_money_full_outcome`
 
-Se envia cuando termina el flujo de `request-money-full` (exito o fallo). El endpoint del partner debe ser idempotente por `correlationId`.
+Sent when the `request-money-full` flow finishes (success or failure). The partner endpoint must be idempotent by `correlationId`.
 
-Campos principales:
+Main fields:
 
-- `eventType`: siempre `"request_money_full_outcome"`.
-- `correlationId`: ID de correlacion enviado en el POST.
-- `status`: `"completed"` o `"failed"`.
-- `date`: fecha ISO 8601.
-- `errorCode`, `reason`, `phase`: solo cuando `status === "failed"`.
+- `eventType`: always `"request_money_full_outcome"`.
+- `correlationId`: correlation ID sent in the POST request.
+- `status`: `"completed"` or `"failed"`.
+- `date`: ISO 8601 timestamp.
+- `errorCode`, `reason`, `phase`: only when `status === "failed"`.
 
-## Error codes del endpoint
+## Endpoint error codes
 
-Las respuestas de error de `POST /user/operations/request-money-full` usan el formato:
+Error responses from `POST /user/operations/request-money-full` use this format:
 
 ```json
 { "reason": "string", "code": "string" }
 ```
 
-El campo `code` es estable para logica de integracion.
+The `code` field is stable and should be used for integration logic.
 
-## Fuente
+## Source
 
-Este contenido se basa en `docs/partner_webhooks.md` del repositorio.
+This content is based on `docs/partner_webhooks.md` in the repository.

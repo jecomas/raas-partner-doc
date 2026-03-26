@@ -1,0 +1,93 @@
+---
+title: "Environment matrix"
+description: "Operational matrix for QA environments, base URLs, credentials, and support."
+---
+
+Canonical copy: `docs/qa/ENVIRONMENT_MATRIX.md`. Keep this page in sync with the repository file.
+
+## Partner API — Environment matrix (QA)
+
+**Audience:** QA, release managers, and partner-integration support.  
+**Goal:** Define where to test, which credentials to use, environment limits, and escalation paths.
+
+**Scope:** Partner API tested online (black-box). No source-code access or local deployment required.
+
+## 1. How to use this matrix
+
+- Keep one row per environment currently enabled for QA (for example: QA, UAT, pre-production).
+- Use environment-specific credentials only; never reuse production credentials in lower environments.
+- Treat this matrix as an operational runbook: QA should be able to start testing with no additional back-and-forth.
+
+## 2. Environment matrix (template)
+
+| Environment | Purpose | Base URL | OpenAPI URL/Link | Auth method | Credentials owner | Test tenant(s) | Allowed data | Rate limits / throttling | Known gaps | Support channel | On-call window | Status |
+|-------------|---------|----------|------------------|-------------|-------------------|----------------|--------------|--------------------------|------------|-----------------|----------------|--------|
+| **QA** | Functional testing, new test cases | `https://<qa-base-url>/v1` | `<openapi-link-qa>` | `api_key` (+ mTLS if applicable) | `<team-or-person>` | `<tenant-codes>` | Synthetic only | `<limits>` | `<known-limitations>` | `<slack-channel/jira-project>` | `<timezone + hours>` | Active |
+| **UAT** | Partner sign-off / business validation | `https://<uat-base-url>/v1` | `<openapi-link-uat>` | `api_key` (+ mTLS if applicable) | `<team-or-person>` | `<tenant-codes>` | Synthetic / masked | `<limits>` | `<known-limitations>` | `<slack-channel/jira-project>` | `<timezone + hours>` | Active |
+| **Pre-production** | Final regression before release | `https://<preprod-base-url>/v1` | `<openapi-link-preprod>` | `api_key` (+ mTLS if applicable) | `<team-or-person>` | `<tenant-codes>` | Strict policy | `<limits>` | `<known-limitations>` | `<slack-channel/jira-project>` | `<timezone + hours>` | Active |
+
+> Remove rows you do not use. Add rows for any additional environments.
+
+## 3. Required credential package per environment
+
+For each environment in the matrix, provide:
+
+- Base URL and, if enabled, mTLS base URL.
+- At least one `api_key` per required scope profile (`partner`, `partner_send`, `partner_full`).
+- Test tenant identifiers and test user bootstrap rules.
+- Credential expiration/rotation policy and replacement process.
+
+Do not publish secrets in public docs. Store actual secrets in your approved secret manager and link only to retrieval instructions.
+
+## 4. Environment readiness checklist (before QA execution)
+
+| Check | Owner | Evidence |
+|-------|-------|----------|
+| OpenAPI points to current deployment | Platform | Version/date in OpenAPI |
+| Test tenants are active | Platform / Ops | Tenant IDs + health check |
+| Scope keys are provisioned | Security / Platform | Key list by scope |
+| Webhook callback endpoint reachable | QA / Partner | Successful callback log |
+| Monitoring/correlation IDs available | Platform | Sample request with correlation ID |
+| Known limitations documented | Product / Platform | “Known gaps” column updated |
+
+## 5. Known limitations register
+
+Track environment-specific constraints that can affect test outcomes:
+
+- Disabled third-party sandboxes.
+- Temporary feature flags.
+- Lower throughput quotas.
+- Delayed webhook retries.
+- Scheduled maintenance windows.
+
+If a failure maps to a known limitation, tag it as **environment constraint** instead of **product defect**.
+
+## 6. Escalation protocol
+
+For each environment, define:
+
+- Primary support channel (Slack/Jira/Email).
+- Required incident payload (timestamp, endpoint, response code, correlation ID, tenant, sanitized payload).
+- Expected first-response SLA and escalation chain.
+
+## 7. Change management
+
+Update this matrix whenever one of the following changes:
+
+- Base URL or network policy.
+- Authentication model (headers, mTLS requirements).
+- Scope assignments for QA keys.
+- Tenant availability.
+- External dependency behavior impacting QA.
+
+Version each update with date, owner, and short changelog entry.
+
+## 8. Suggested governance fields
+
+At the top of this file (or in your ticketing system), track:
+
+- **Document owner**
+- **Last updated**
+- **Next review date**
+- **Approved by** (QA lead / Platform lead)
+

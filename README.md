@@ -10,7 +10,8 @@ Sitio de documentación pública del Partner API. La navegación y el tema se de
 | [`api-reference/introduction.mdx`](./api-reference/introduction.mdx) | Intro, mTLS, happy path; link to QA project context |
 | [`api-reference/qa-project-context.mdx`](./api-reference/qa-project-context.mdx) | **QA project context** (Introduction nav); keep in sync with `docs/qa/PROJECT_CONTEXT.md` |
 | [`api-reference/partner-api-scopes.mdx`](./api-reference/partner-api-scopes.mdx) | **Partner API scopes**; keep in sync with `docs/qa/PARTNER_API_SCOPES.md` |
-| [`partner-api-architecture.mdx`](./partner-api-architecture.mdx) | Diagrama Mermaid controllers/servicios/connectors |
+| [`api-reference/environment-matrix.mdx`](./api-reference/environment-matrix.mdx) | **Environment matrix**; keep in sync with `docs/qa/ENVIRONMENT_MATRIX.md` |
+| [`api-reference/credentials-test-identities-pack.mdx`](./api-reference/credentials-test-identities-pack.mdx) | **Credentials & test identities pack**; keep in sync with `docs/qa/CREDENTIALS_TEST_IDENTITIES_PACK.md` |
 | `swagger-partner.json`, `swagger-partner-send.json`, `swagger-partner-full.json`, `swagger-partner-widget-ask.json` | Especificaciones consumidas por Mintlify |
 | [`partner-api-test-plan.md`](./partner-api-test-plan.md) | Plan de pruebas / riesgos (referencia QA) |
 
