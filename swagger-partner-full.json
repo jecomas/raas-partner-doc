@@ -5547,6 +5547,9 @@
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "subscriberId": {
+            "type": "string"
           }
         },
         "required": [

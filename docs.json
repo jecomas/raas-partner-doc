@@ -16,11 +16,7 @@
           {
             "group": "Introduction",
             "pages": [
-              "api-reference/introduction",
-              "api-reference/partner-api-scopes",
-              "api-reference/qa-project-context",
-              "api-reference/environment-matrix",
-              "api-reference/credentials-test-identities-pack"
+              "api-reference/introduction"
             ]
           },
           {
