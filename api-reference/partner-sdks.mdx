@@ -1,0 +1,44 @@
+---
+title: "Partner SDKs"
+description: "Generated clients from the same OpenAPI as the Partner REST reference; how to regenerate and where outputs land."
+---
+
+The Partner **REST** documentation in this site (OpenAPI tabs) and the **language SDKs** are generated from the same contract: `partner/build/swagger.json` in the RaaS monorepo. After a release, regenerate the spec and the clients together so versions stay aligned.
+
+Mintlify consumes sliced specs produced by `yarn docs:update-openapi` (for example `swagger-partner.json`, `swagger-partner-widget-ask.json` under `mintlify-docs/`). The SDK generators read the **full** Partner build artifact above.
+
+## operationId and client methods
+
+In the OpenAPI document, each operation’s **`operationId`** is the stable name to correlate HTTP calls with generated client APIs. For the **typescript-node** generator (`make gen.partner`), method names typically match that `operationId` (for example `requestMoneyV2` for `POST /user/operations/request-money-v2/{userToken}`), which matches the naming used in [API Reference](/api-reference/introduction) examples. Other generators follow their own conventions; always confirm in the generated source for your language.
+
+## How to generate (monorepo root)
+
+The shared `gen` target in the root `Makefile` runs **`npm run build:partner`** before invoking OpenAPI Generator, so a normal `make gen.partner` (and the targets below) refreshes the spec from source unless you skip that step.
+
+From the **RaaS repository root**:
+
+| Target | Purpose |
+|--------|---------|
+| `make gen.partner` | TypeScript **Node** SDK → `../raas_partner_sdk_node` (generator `typescript-node`, OpenAPI Generator **v6.0.0**), then HTML docs via `make gen.doc`. |
+| `make gen.partner.py` | Python SDK → `../raas_partner_sdk_py` (`packageName=raassdkpyv2`, **v7.13.0**). |
+| `make gen.partner.java` | Java SDK → `../raas_partner_sdk_java` (**v7.2.0**), then `make gen.doc`. |
+| `make gen.partner.doc` or `make gen.doc` | **html2** static documentation → `./docs/partner_sdk` (self-contained generated client docs; useful locally or if you publish that folder as static assets elsewhere). **This HTML is not embedded in Mintlify** unless you host it separately and link out. |
+
+Aliases: `make gen.py` → `gen.partner.py`; `make gen.java` → `gen.partner.java`; `make gen.doc` → `gen.partner.doc`.
+
+Prerequisite for an up-to-date contract when not using `make gen.*`: `yarn build:partner`, then refresh Mintlify slices with `yarn docs:update-openapi` from the monorepo root (documented in `mintlify-docs/README.md` in the repository).
+
+## Output locations (internal)
+
+Paths are relative to the **RaaS** root (`Makefile` `CURDIR`):
+
+- `../raas_partner_sdk_node`
+- `../raas_partner_sdk_py`
+- `../raas_partner_sdk_java`
+- `./docs/partner_sdk` (html2)
+
+These are sibling repos or in-repo folders used by internal workflows. **Public package coordinates** (npm, PyPI, Maven) are not documented here—distribution is **per your internal agreement**; add published URLs to this page when they exist.
+
+## Where to browse the REST reference
+
+Use the site’s top tabs **Partner** and **Partner Widget Ask** for interactive OpenAPI endpoints and schemas. The **Documentation** tab groups narrative guides such as [API Reference](/api-reference/introduction), scopes, and webhooks.

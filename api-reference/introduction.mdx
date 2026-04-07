@@ -1,11 +1,11 @@
 ---
-title: "API Reference"
+title: "Introduction"
 description: "Explore our API endpoints"
 ---
 
 Welcome to the RaaS Partner API Reference. Our platform provides a robust set of tools for integrating financial services, including:
 
-- **Authentication & Security**: Secure access via API keys and user-specific tokens. Scope model (`partner`, `partner_send`, `partner_full`, etc.): [Partner API scopes](/api-reference/partner-api-scopes).
+- **Authentication & Security**: Secure access via API keys and user-specific tokens.
 - **User & Identity Management**: Comprehensive CIP/KYC workflows and profile management.
 - **Funding & Accounts**: Support for multiple funding sources, including bank accounts and cards.
 - **Operations & Network**: Real-time money transfers, currency exchange, and network corridor management.
@@ -43,7 +43,7 @@ This section outlines the standard workflow for a successful integration.
 2. **User Registration (Optional)**: If the user does not exist, use `registerUserV2` to create a new profile.
 3. **Create Contact**: Establish a recipient or contact using `createContact`.
 4. **Add Funding Source**: Securely link a card or bank account via `addCard`.
-5. **Execute Request**: Initiate the final transaction using `requestMoneyV2` (`POST /user/operations/request-money-v2/{userToken}`).
+5. **Execute Request**: Initiate the final transaction or request using `requestV2`.
 
 ## Integration Sequence Diagram
 
@@ -69,11 +69,7 @@ sequenceDiagram
     Partner->>API: addCard (userToken, Card Data)
     API-->>Partner: cardLinked
 
-    Partner->>API: requestMoneyV2 (userToken, Operation Data)
+    Partner->>API: requestV2 (userToken, Operation Data)
     API-->>Partner: operationSuccess
 ```
-
-## QA project context
-
-Guidance for **QA and integration testing** against the live Partner API is on **[QA project context](/api-reference/qa-project-context)**. You can also open it from the **Documentation** sidebar under **Introduction**.
 

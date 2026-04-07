@@ -318,32 +318,13 @@
 			},
 			"RegisterUserParams": {
 				"properties": {
-					"firstName": {
+					"phoneNumber": {
 						"type": "string"
 					},
 					"lastName": {
 						"type": "string"
 					},
-					"dob": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"address1": {
-						"type": "string"
-					},
-					"countryCode": {
-						"$ref": "#/components/schemas/CountryAlpha2Code"
-					},
-					"city": {
-						"type": "string"
-					},
-					"state": {
-						"type": "string"
-					},
 					"lastName2": {
-						"type": "string"
-					},
-					"phoneNumber": {
 						"type": "string"
 					},
 					"gender": {
@@ -355,10 +336,20 @@
 							"None"
 						]
 					},
+					"dob": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"email": {
 						"type": "string"
 					},
+					"firstName": {
+						"type": "string"
+					},
 					"middleName": {
+						"type": "string"
+					},
+					"address1": {
 						"type": "string"
 					},
 					"address2": {
@@ -370,7 +361,16 @@
 					"streetNumber": {
 						"type": "string"
 					},
+					"countryCode": {
+						"$ref": "#/components/schemas/CountryAlpha2Code"
+					},
+					"city": {
+						"type": "string"
+					},
 					"zipCode": {
+						"type": "string"
+					},
+					"state": {
 						"type": "string"
 					},
 					"birthState": {
@@ -400,9 +400,9 @@
 					}
 				},
 				"required": [
-					"firstName",
 					"lastName",
 					"dob",
+					"firstName",
 					"address1",
 					"countryCode",
 					"city",
@@ -516,32 +516,13 @@
 			},
 			"SessionLinkParams": {
 				"properties": {
-					"firstName": {
+					"phoneNumber": {
 						"type": "string"
 					},
 					"lastName": {
 						"type": "string"
 					},
-					"dob": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"address1": {
-						"type": "string"
-					},
-					"countryCode": {
-						"$ref": "#/components/schemas/CountryAlpha2Code"
-					},
-					"city": {
-						"type": "string"
-					},
-					"state": {
-						"type": "string"
-					},
 					"lastName2": {
-						"type": "string"
-					},
-					"phoneNumber": {
 						"type": "string"
 					},
 					"gender": {
@@ -553,10 +534,20 @@
 							"None"
 						]
 					},
+					"dob": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"email": {
 						"type": "string"
 					},
+					"firstName": {
+						"type": "string"
+					},
 					"middleName": {
+						"type": "string"
+					},
+					"address1": {
 						"type": "string"
 					},
 					"address2": {
@@ -568,7 +559,16 @@
 					"streetNumber": {
 						"type": "string"
 					},
+					"countryCode": {
+						"$ref": "#/components/schemas/CountryAlpha2Code"
+					},
+					"city": {
+						"type": "string"
+					},
 					"zipCode": {
+						"type": "string"
+					},
+					"state": {
 						"type": "string"
 					},
 					"birthState": {
@@ -608,9 +608,9 @@
 					}
 				},
 				"required": [
-					"firstName",
 					"lastName",
 					"dob",
+					"firstName",
 					"address1",
 					"countryCode",
 					"city",
@@ -1726,14 +1726,6 @@
 					},
 					"accountId": {
 						"type": "string"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
 					}
 				},
 				"required": [
@@ -2350,31 +2342,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"RaasCanOperateRequest": {
-				"properties": {
-					"srcContry": {
-						"type": "string"
-					},
-					"destContry": {
-						"type": "string"
-					},
-					"operation": {
-						"type": "string"
-					},
-					"role": {
-						"type": "string",
-						"description": "User Role\nSender | Requester"
-					}
-				},
-				"required": [
-					"srcContry",
-					"destContry",
-					"operation",
-					"role"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"EventSystem": {
 				"properties": {
 					"payload": {
@@ -2511,1056 +2478,6 @@
 					"cardType",
 					"number",
 					"tokenData"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"PaymentMethodType": {
-				"enum": [
-					0,
-					1,
-					2,
-					3,
-					4,
-					5
-				],
-				"type": "number"
-			},
-			"PaymentToken": {
-				"properties": {
-					"paymentType": {
-						"$ref": "#/components/schemas/PaymentMethodType"
-					},
-					"displayName": {
-						"type": "string"
-					},
-					"transactionIdentifier": {
-						"type": "string"
-					},
-					"paymentNetwork": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"data"
-				],
-				"type": "object"
-			},
-			"RaaSPaymentMethodDebitCard": {
-				"description": "Card payment method (request-money-full, add card, etc.). Required fields enforced at compile time.",
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"isPrimary": {
-						"type": "boolean"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"bankAccountType": {
-						"type": "string",
-						"enum": [
-							"CheckingAccount",
-							"SavingsAccount",
-							"OtherAccount"
-						]
-					},
-					"bankName": {
-						"type": "string"
-					},
-					"bankEntityNumber": {
-						"type": "string"
-					},
-					"accountNumber": {
-						"type": "string"
-					},
-					"cardType": {
-						"type": "string",
-						"enum": [
-							"DebitCard"
-						],
-						"nullable": false
-					},
-					"tokenData": {
-						"type": "string"
-					},
-					"beneficiaryAccountId": {
-						"type": "string"
-					},
-					"expirationYear": {
-						"type": "string"
-					},
-					"expirationMonth": {
-						"type": "string"
-					},
-					"securityCode": {
-						"type": "string"
-					},
-					"cardtype": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
-					},
-					"cardNetwork": {
-						"type": "string"
-					},
-					"externalId": {
-						"type": "string"
-					},
-					"address1": {
-						"type": "string"
-					},
-					"address2": {
-						"type": "string"
-					},
-					"address3": {
-						"type": "string"
-					},
-					"streetNumber": {
-						"type": "string"
-					},
-					"city": {
-						"type": "string"
-					},
-					"state": {
-						"type": "string"
-					},
-					"zipCode": {
-						"type": "string"
-					},
-					"phoneNumber": {
-						"type": "string"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"accountId": {
-						"type": "string"
-					},
-					"application": {
-						"type": "string"
-					},
-					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
-					},
-					"paymentToken": {
-						"$ref": "#/components/schemas/PaymentToken"
-					},
-					"bin": {
-						"type": "string"
-					},
-					"accountPrefix": {
-						"type": "string"
-					},
-					"allowPullCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPullDomestic": {
-						"type": "boolean"
-					},
-					"allowPushCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPushDomestic": {
-						"type": "boolean"
-					},
-					"allowReviewAddress": {
-						"type": "boolean"
-					},
-					"paymentMethodOwner": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string",
-						"enum": [
-							"DebitCard"
-						],
-						"nullable": false
-					},
-					"number": {
-						"type": "string"
-					},
-					"nameOnCard": {
-						"type": "string"
-					},
-					"expirationDate": {
-						"type": "string"
-					},
-					"country": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"type",
-					"number",
-					"nameOnCard",
-					"expirationDate",
-					"country",
-					"currency"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RaaSPaymentMethodCreditCard": {
-				"description": "Credit card payment method. Required fields enforced at compile time.",
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"isPrimary": {
-						"type": "boolean"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"bankAccountType": {
-						"type": "string",
-						"enum": [
-							"CheckingAccount",
-							"SavingsAccount",
-							"OtherAccount"
-						]
-					},
-					"bankName": {
-						"type": "string"
-					},
-					"bankEntityNumber": {
-						"type": "string"
-					},
-					"accountNumber": {
-						"type": "string"
-					},
-					"cardType": {
-						"type": "string",
-						"enum": [
-							"CreditCard"
-						],
-						"nullable": false
-					},
-					"tokenData": {
-						"type": "string"
-					},
-					"beneficiaryAccountId": {
-						"type": "string"
-					},
-					"expirationYear": {
-						"type": "string"
-					},
-					"expirationMonth": {
-						"type": "string"
-					},
-					"securityCode": {
-						"type": "string"
-					},
-					"cardtype": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
-					},
-					"cardNetwork": {
-						"type": "string"
-					},
-					"externalId": {
-						"type": "string"
-					},
-					"address1": {
-						"type": "string"
-					},
-					"address2": {
-						"type": "string"
-					},
-					"address3": {
-						"type": "string"
-					},
-					"streetNumber": {
-						"type": "string"
-					},
-					"city": {
-						"type": "string"
-					},
-					"state": {
-						"type": "string"
-					},
-					"zipCode": {
-						"type": "string"
-					},
-					"phoneNumber": {
-						"type": "string"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"accountId": {
-						"type": "string"
-					},
-					"application": {
-						"type": "string"
-					},
-					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
-					},
-					"paymentToken": {
-						"$ref": "#/components/schemas/PaymentToken"
-					},
-					"bin": {
-						"type": "string"
-					},
-					"accountPrefix": {
-						"type": "string"
-					},
-					"allowPullCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPullDomestic": {
-						"type": "boolean"
-					},
-					"allowPushCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPushDomestic": {
-						"type": "boolean"
-					},
-					"allowReviewAddress": {
-						"type": "boolean"
-					},
-					"paymentMethodOwner": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string",
-						"enum": [
-							"CreditCard"
-						],
-						"nullable": false
-					},
-					"number": {
-						"type": "string"
-					},
-					"nameOnCard": {
-						"type": "string"
-					},
-					"expirationDate": {
-						"type": "string"
-					},
-					"country": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"type",
-					"number",
-					"nameOnCard",
-					"expirationDate",
-					"country",
-					"currency"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RaaSPaymentMethodUBN": {
-				"description": "UBN payment method. Required: number, currency, country (ISO 3166-1 alpha-2).",
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"isPrimary": {
-						"type": "boolean"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"bankAccountType": {
-						"type": "string",
-						"enum": [
-							"CheckingAccount",
-							"SavingsAccount",
-							"OtherAccount"
-						]
-					},
-					"bankName": {
-						"type": "string"
-					},
-					"bankEntityNumber": {
-						"type": "string"
-					},
-					"accountNumber": {
-						"type": "string"
-					},
-					"cardType": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
-					},
-					"tokenData": {
-						"type": "string"
-					},
-					"beneficiaryAccountId": {
-						"type": "string"
-					},
-					"expirationYear": {
-						"type": "string"
-					},
-					"expirationMonth": {
-						"type": "string"
-					},
-					"securityCode": {
-						"type": "string"
-					},
-					"cardtype": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
-					},
-					"cardNetwork": {
-						"type": "string"
-					},
-					"externalId": {
-						"type": "string"
-					},
-					"address1": {
-						"type": "string"
-					},
-					"address2": {
-						"type": "string"
-					},
-					"address3": {
-						"type": "string"
-					},
-					"streetNumber": {
-						"type": "string"
-					},
-					"city": {
-						"type": "string"
-					},
-					"state": {
-						"type": "string"
-					},
-					"zipCode": {
-						"type": "string"
-					},
-					"phoneNumber": {
-						"type": "string"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"accountId": {
-						"type": "string"
-					},
-					"application": {
-						"type": "string"
-					},
-					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
-					},
-					"paymentToken": {
-						"$ref": "#/components/schemas/PaymentToken"
-					},
-					"bin": {
-						"type": "string"
-					},
-					"accountPrefix": {
-						"type": "string"
-					},
-					"allowPullCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPullDomestic": {
-						"type": "boolean"
-					},
-					"allowPushCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPushDomestic": {
-						"type": "boolean"
-					},
-					"allowReviewAddress": {
-						"type": "boolean"
-					},
-					"paymentMethodOwner": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string",
-						"enum": [
-							"UBN"
-						],
-						"nullable": false
-					},
-					"number": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					},
-					"country": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"type",
-					"number",
-					"currency",
-					"country"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RaaSPaymentMethodOtherType": {
-				"type": "string",
-				"enum": [
-					"MobileWallet",
-					"BankAccount",
-					"CashLoadLocation",
-					"AppleDigitalWallet",
-					"GoogleDigitalWallet",
-					"CLABE",
-					"VirtualNetworkAccount"
-				],
-				"description": "Other payment method types. Only type + country required; bank account not fully supported yet."
-			},
-			"RaaSPaymentMethodOther": {
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"isPrimary": {
-						"type": "boolean"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"bankAccountType": {
-						"type": "string",
-						"enum": [
-							"CheckingAccount",
-							"SavingsAccount",
-							"OtherAccount"
-						]
-					},
-					"bankName": {
-						"type": "string"
-					},
-					"bankEntityNumber": {
-						"type": "string"
-					},
-					"accountNumber": {
-						"type": "string"
-					},
-					"cardType": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
-					},
-					"tokenData": {
-						"type": "string"
-					},
-					"beneficiaryAccountId": {
-						"type": "string"
-					},
-					"expirationYear": {
-						"type": "string"
-					},
-					"expirationMonth": {
-						"type": "string"
-					},
-					"securityCode": {
-						"type": "string"
-					},
-					"cardtype": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						]
-					},
-					"cardNetwork": {
-						"type": "string"
-					},
-					"externalId": {
-						"type": "string"
-					},
-					"address1": {
-						"type": "string"
-					},
-					"address2": {
-						"type": "string"
-					},
-					"address3": {
-						"type": "string"
-					},
-					"streetNumber": {
-						"type": "string"
-					},
-					"city": {
-						"type": "string"
-					},
-					"state": {
-						"type": "string"
-					},
-					"zipCode": {
-						"type": "string"
-					},
-					"phoneNumber": {
-						"type": "string"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"accountId": {
-						"type": "string"
-					},
-					"application": {
-						"type": "string"
-					},
-					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
-					},
-					"paymentToken": {
-						"$ref": "#/components/schemas/PaymentToken"
-					},
-					"bin": {
-						"type": "string"
-					},
-					"accountPrefix": {
-						"type": "string"
-					},
-					"allowPullCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPullDomestic": {
-						"type": "boolean"
-					},
-					"allowPushCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPushDomestic": {
-						"type": "boolean"
-					},
-					"allowReviewAddress": {
-						"type": "boolean"
-					},
-					"paymentMethodOwner": {
-						"type": "string"
-					},
-					"type": {
-						"$ref": "#/components/schemas/RaaSPaymentMethodOtherType"
-					},
-					"country": {
-						"type": "string"
-					},
-					"number": {
-						"type": "string"
-					},
-					"nameOnCard": {
-						"type": "string"
-					},
-					"expirationDate": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"type",
-					"country"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RaaSPaymentMethod": {
-				"anyOf": [
-					{
-						"$ref": "#/components/schemas/RaaSPaymentMethodDebitCard"
-					},
-					{
-						"$ref": "#/components/schemas/RaaSPaymentMethodCreditCard"
-					},
-					{
-						"$ref": "#/components/schemas/RaaSPaymentMethodUBN"
-					},
-					{
-						"$ref": "#/components/schemas/RaaSPaymentMethodOther"
-					}
-				],
-				"description": "Payment method object used by API clients. Discriminated union by `type` for better DX and compile-time checks.\n- DebitCard / CreditCard: number, nameOnCard, expirationDate (MMYY), country, currency required.\n- UBN: number, currency, country required.\n- Other types: type + country required."
-			},
-			"AddCardParamsBase": {
-				"properties": {
-					"name": {
-						"type": "string",
-						"description": "payment method name:\np.e. VISA-1111"
-					},
-					"type": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						],
-						"description": "Payment method type\nDebitCard\" | \"CreditCard\""
-					},
-					"isPrimary": {
-						"type": "boolean",
-						"description": "Main payment method?"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"cardtype": {
-						"type": "string",
-						"enum": [
-							"DebitCard",
-							"CreditCard"
-						],
-						"description": "Card type\nDebitCard\" | \"CreditCard\""
-					},
-					"number": {
-						"type": "string",
-						"description": "Card number"
-					},
-					"nameOnCard": {
-						"type": "string"
-					},
-					"expirationDate": {
-						"type": "string"
-					},
-					"expirationYear": {
-						"type": "string"
-					},
-					"expirationMonth": {
-						"type": "string"
-					},
-					"securityCode": {
-						"type": "string"
-					},
-					"tokenData": {
-						"type": "string",
-						"description": "Card full token json string"
-					},
-					"application": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					},
-					"country": {
-						"type": "string"
-					},
-					"opPlatId": {
-						"type": "string"
-					},
-					"cardNetwork": {
-						"type": "string",
-						"enum": [
-							"NotApplicable",
-							"UATP",
-							"Visa",
-							"ChinaUnionPay",
-							"InterPayment",
-							"DiscoverCard",
-							"Dankort",
-							"Cardguard",
-							"MIR",
-							"MasterCard",
-							"Verve",
-							"InstaPayment",
-							"Maestro",
-							"DinersClubInternational",
-							"AmericanExpress",
-							"JCB",
-							"TROY"
-						]
-					},
-					"operationId": {
-						"type": "string"
-					},
-					"cardPorpuse": {
-						"type": "string",
-						"enum": [
-							"Source",
-							"Destination"
-						]
-					}
-				},
-				"required": [
-					"name",
-					"cardtype",
-					"number",
-					"nameOnCard",
-					"expirationDate",
-					"expirationYear",
-					"expirationMonth",
-					"cardNetwork"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"PlaidBankValidationResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"accessToken": {
-						"type": "string"
-					},
-					"itemId": {
-						"type": "string"
-					},
-					"accountType": {
-						"type": "string"
-					},
-					"accountSubType": {
-						"type": "string"
-					},
-					"accountName": {
-						"type": "string"
-					},
-					"accountNumber": {
-						"type": "string"
-					},
-					"accountRouting": {
-						"type": "string"
-					},
-					"bankName": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"success"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AddBankAccountParamsBase": {
-				"properties": {
-					"name": {
-						"type": "string",
-						"description": "payment method name:\np.e. HSBC-1111"
-					},
-					"accountNumber": {
-						"type": "string"
-					},
-					"bankAccountType": {
-						"type": "string",
-						"enum": [
-							"CheckingAccount",
-							"SavingsAccount",
-							"OtherAccount"
-						],
-						"description": "Bank account type"
-					},
-					"bankEntityNumber": {
-						"type": "string"
-					},
-					"isPrimary": {
-						"type": "boolean",
-						"description": "Main payment method?"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"application": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"accountNumber",
-					"bankAccountType",
-					"bankEntityNumber",
-					"isPrimary",
-					"application"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AddPaymentMethodResponse": {
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
-					},
-					"userId": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					},
-					"isPrimary": {
-						"type": "boolean"
-					},
-					"createdAt": {
-						"type": "string"
-					},
-					"updatedAt": {
-						"type": "string"
-					},
-					"country": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					},
-					"latitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"longitude": {
-						"type": "number",
-						"format": "double"
-					},
-					"cardType": {
-						"type": "string"
-					},
-					"number": {
-						"type": "string"
-					},
-					"nameOnCard": {
-						"type": "string"
-					},
-					"expirationDate": {
-						"type": "string"
-					},
-					"expirationYear": {
-						"type": "string"
-					},
-					"expirationMonth": {
-						"type": "string"
-					},
-					"securityCode": {
-						"type": "string"
-					},
-					"tokenData": {
-						"type": "string"
-					},
-					"cardNetwork": {
-						"type": "string"
-					},
-					"allowPullCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPullDomestic": {
-						"type": "boolean"
-					},
-					"allowPushCrossBorder": {
-						"type": "boolean"
-					},
-					"allowPushDomestic": {
-						"type": "boolean"
-					},
-					"allowReviewAddress": {
-						"type": "boolean"
-					},
-					"requiresBalanceValidation": {
-						"type": "boolean"
-					},
-					"accountId": {
-						"type": "string"
-					},
-					"bankEntityNumber": {
-						"type": "string"
-					},
-					"externalId": {
-						"type": "string"
-					},
-					"errorValidation": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"id",
-					"status"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -3873,85 +2790,202 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"RaasBillingAddress": {
+			"PaymentMethodType": {
+				"enum": [
+					0,
+					1,
+					2,
+					3,
+					4,
+					5
+				],
+				"type": "number"
+			},
+			"PaymentToken": {
 				"properties": {
-					"address1": {
+					"paymentType": {
+						"$ref": "#/components/schemas/PaymentMethodType"
+					},
+					"displayName": {
 						"type": "string"
 					},
-					"address2": {
+					"transactionIdentifier": {
 						"type": "string"
 					},
-					"address3": {
+					"paymentNetwork": {
 						"type": "string"
 					},
-					"city": {
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object"
+			},
+			"RaaSPaymentMethod": {
+				"properties": {
+					"paymentMethodOwner": {
 						"type": "string"
 					},
-					"countryCode": {
+					"allowReviewAddress": {
+						"type": "boolean"
+					},
+					"allowPushDomestic": {
+						"type": "boolean"
+					},
+					"allowPushCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPullDomestic": {
+						"type": "boolean"
+					},
+					"allowPullCrossBorder": {
+						"type": "boolean"
+					},
+					"accountPrefix": {
 						"type": "string"
 					},
-					"latitude": {
+					"bin": {
+						"type": "string"
+					},
+					"paymentToken": {
+						"$ref": "#/components/schemas/PaymentToken",
+						"description": "The paymentToken field is only for capturing data from mobile, it won't send to numi plat"
+					},
+					"status": {
+						"$ref": "#/components/schemas/PaymentMethodStatus"
+					},
+					"application": {
+						"type": "string"
+					},
+					"accountId": {
 						"type": "string"
 					},
 					"longitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"latitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"phoneNumber": {
 						"type": "string"
 					},
-					"placeDetail": {
+					"country": {
+						"type": "string"
+					},
+					"zipCode": {
 						"type": "string"
 					},
 					"state": {
 						"type": "string"
 					},
+					"city": {
+						"type": "string"
+					},
 					"streetNumber": {
 						"type": "string"
 					},
-					"zipCode": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"address1",
-					"address2",
-					"address3",
-					"city",
-					"countryCode",
-					"placeDetail",
-					"state",
-					"streetNumber",
-					"zipCode"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"UpdateAndValidateBillingAddress": {
-				"properties": {
-					"PaymentMethodId": {
+					"address3": {
 						"type": "string"
 					},
-					"Address": {
-						"$ref": "#/components/schemas/RaasBillingAddress"
-					}
-				},
-				"required": [
-					"PaymentMethodId",
-					"Address"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"VerifyMicroTrxParams": {
-				"properties": {
-					"amount": {
-						"type": "number",
-						"format": "double"
+					"address2": {
+						"type": "string"
 					},
-					"cardId": {
+					"address1": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					},
+					"externalId": {
+						"type": "string"
+					},
+					"cardNetwork": {
+						"type": "string"
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"securityCode": {
+						"type": "string"
+					},
+					"expirationMonth": {
+						"type": "string"
+					},
+					"expirationYear": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"number": {
+						"type": "string"
+					},
+					"beneficiaryAccountId": {
+						"type": "string"
+					},
+					"tokenData": {
+						"type": "string"
+					},
+					"cardType": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						]
+					},
+					"accountNumber": {
+						"type": "string"
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"bankName": {
+						"type": "string"
+					},
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						]
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"isPrimary": {
+						"type": "boolean"
+					},
+					"type": {
+						"$ref": "#/components/schemas/AvailablePaymentMethods"
+					},
+					"name": {
+						"type": "string"
+					},
+					"id": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"amount",
-					"cardId"
+					"country",
+					"type"
 				],
 				"type": "object"
 			},
@@ -4043,6 +3077,121 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"AddCardParamsBase": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "payment method name:\np.e. VISA-1111"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						],
+						"description": "Payment method type\nDebitCard\" | \"CreditCard\""
+					},
+					"isPrimary": {
+						"type": "boolean",
+						"description": "Main payment method?"
+					},
+					"latitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"longitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						],
+						"description": "Card type\nDebitCard\" | \"CreditCard\""
+					},
+					"number": {
+						"type": "string",
+						"description": "Card number"
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"expirationYear": {
+						"type": "string"
+					},
+					"expirationMonth": {
+						"type": "string"
+					},
+					"securityCode": {
+						"type": "string"
+					},
+					"tokenData": {
+						"type": "string",
+						"description": "Card full token json string"
+					},
+					"application": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					},
+					"opPlatId": {
+						"type": "string"
+					},
+					"cardNetwork": {
+						"type": "string",
+						"enum": [
+							"NotApplicable",
+							"UATP",
+							"Visa",
+							"ChinaUnionPay",
+							"InterPayment",
+							"DiscoverCard",
+							"Dankort",
+							"Cardguard",
+							"MIR",
+							"MasterCard",
+							"Verve",
+							"InstaPayment",
+							"Maestro",
+							"DinersClubInternational",
+							"AmericanExpress",
+							"JCB",
+							"TROY"
+						]
+					},
+					"operationId": {
+						"type": "string"
+					},
+					"cardPorpuse": {
+						"type": "string",
+						"enum": [
+							"Source",
+							"Destination"
+						]
+					}
+				},
+				"required": [
+					"name",
+					"cardtype",
+					"number",
+					"nameOnCard",
+					"expirationDate",
+					"expirationYear",
+					"expirationMonth",
+					"cardNetwork"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"RaaSPartnerPaymentMethod": {
 				"properties": {
 					"currency": {
@@ -4087,6 +3236,111 @@
 				},
 				"type": "object"
 			},
+			"AddPaymentMethodResponse": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/PaymentMethodStatus"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"isPrimary": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"longitude": {
+						"type": "number",
+						"format": "double"
+					},
+					"cardType": {
+						"type": "string"
+					},
+					"number": {
+						"type": "string"
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"expirationYear": {
+						"type": "string"
+					},
+					"expirationMonth": {
+						"type": "string"
+					},
+					"securityCode": {
+						"type": "string"
+					},
+					"tokenData": {
+						"type": "string"
+					},
+					"cardNetwork": {
+						"type": "string"
+					},
+					"allowPullCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPullDomestic": {
+						"type": "boolean"
+					},
+					"allowPushCrossBorder": {
+						"type": "boolean"
+					},
+					"allowPushDomestic": {
+						"type": "boolean"
+					},
+					"allowReviewAddress": {
+						"type": "boolean"
+					},
+					"requiresBalanceValidation": {
+						"type": "boolean"
+					},
+					"accountId": {
+						"type": "string"
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"externalId": {
+						"type": "string"
+					},
+					"errorValidation": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Account": {
 				"properties": {
 					"Id": {
@@ -4103,6 +3357,74 @@
 					"Id",
 					"UserId",
 					"Status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaasBillingAddress": {
+				"properties": {
+					"address1": {
+						"type": "string"
+					},
+					"address2": {
+						"type": "string"
+					},
+					"address3": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"countryCode": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "string"
+					},
+					"longitude": {
+						"type": "string"
+					},
+					"placeDetail": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"streetNumber": {
+						"type": "string"
+					},
+					"zipCode": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address1",
+					"address2",
+					"address3",
+					"city",
+					"countryCode",
+					"latitude",
+					"longitude",
+					"placeDetail",
+					"state",
+					"streetNumber",
+					"zipCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateAndValidateBillingAddress": {
+				"properties": {
+					"PaymentMethodId": {
+						"type": "string"
+					},
+					"Address": {
+						"$ref": "#/components/schemas/RaasBillingAddress"
+					}
+				},
+				"required": [
+					"PaymentMethodId",
+					"Address"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -4354,19 +3676,19 @@
 					"status": {
 						"type": "string"
 					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
 					"platId": {
 						"type": "string"
 					},
 					"type": {
 						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
 					"amount": {
 						"type": "number",
@@ -4488,8 +3810,8 @@
 				"required": [
 					"id",
 					"status",
-					"createdAt",
 					"type",
+					"createdAt",
 					"amount",
 					"code"
 				],
@@ -4776,19 +4098,19 @@
 					"status": {
 						"type": "string"
 					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
 					"correlationId": {
 						"type": "string"
 					},
 					"platId": {
 						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
 					"amount": {
 						"type": "number",
@@ -4958,206 +4280,6 @@
 					"correlationId",
 					"recipientAmount",
 					"recipientCurrency"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RequestMoneyFullResponse": {
-				"properties": {
-					"userId": {
-						"type": "string"
-					},
-					"operationId": {
-						"type": "string"
-					},
-					"status": {
-						"type": "string",
-						"enum": [
-							"Sent"
-						],
-						"nullable": false
-					}
-				},
-				"required": [
-					"userId",
-					"operationId",
-					"status"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RequestToParams": {
-				"properties": {
-					"phoneNumber": {
-						"type": "string"
-					},
-					"firstName": {
-						"type": "string"
-					},
-					"lastName": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"countryCode": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"phoneNumber",
-					"firstName",
-					"lastName",
-					"countryCode"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RequestMoneyFullParams": {
-				"properties": {
-					"requester": {
-						"$ref": "#/components/schemas/RegisterUserParams"
-					},
-					"request": {
-						"properties": {
-							"recipientCurrency": {
-								"type": "string"
-							},
-							"recipientAmount": {
-								"type": "number",
-								"format": "double"
-							},
-							"reason": {
-								"type": "string"
-							},
-							"destinationPaymentMethod": {
-								"$ref": "#/components/schemas/RaaSPaymentMethod"
-							},
-							"correlationId": {
-								"type": "string"
-							},
-							"requestTo": {
-								"$ref": "#/components/schemas/RequestToParams"
-							}
-						},
-						"required": [
-							"recipientCurrency",
-							"recipientAmount",
-							"destinationPaymentMethod",
-							"correlationId",
-							"requestTo"
-						],
-						"type": "object"
-					}
-				},
-				"required": [
-					"requester",
-					"request"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RequestMoneyFullErrorCode": {
-				"description": "Códigos de error posibles en respuestas 4xx/5xx de POST /request-money-full\ny en el webhook request_money_full_outcome (campo errorCode).\nIncluido en OpenAPI para que los clientes generen tipos/enums.",
-				"enum": [
-					"ERROR_TENANT_NOT_FOUND",
-					"ERROR_CIP_NOT_FOUND",
-					"ERROR_CIP_NOT_COMPLETED",
-					"ERROR_MUST_PERFORM_LEVEL_ONE_FIRST",
-					"ERROR_SUBSCRIBER_NOT_FOUND",
-					"CARD_VERIFICATION_ERROR",
-					"ERROR_CARD_VERIFICATION",
-					"ERROR_PAYMENT_METHOD_NOT_FOUND",
-					"ERROR_ERROR_ADD_SOURCE_UBN_ERROR",
-					"ERROR_CONTACT_NOT_FOUND",
-					"ERROR_COUNTRY_NOT_SUPPORTED",
-					"ERROR_INVALID_COUNTRY_CODE",
-					"ERROR_PHONE_NUMBER_NOT_SUPPORTED",
-					"ERROR_INVALID_OPERATION",
-					"ERROR_OPERATION_NOT_FOUND",
-					"ERROR_OPERATION_ALREADY_COMPLETED",
-					"ERROR_INTERNAL_SERVER_ERROR",
-					"ERROR_REQUEST_MONEY_FULL",
-					"ERROR_INVALID_PARTNER_TOKEN",
-					"ERROR_INVALID_AMOUNT_ERROR",
-					"ERROR_INVALID_CURRENCY_CODE",
-					"ERROR_CORRELATION_ID_REQUIRED",
-					"ERROR_CORRELATION_ID_ALREADY_USED",
-					"ERROR_DESTINATION_COUNTRY_NOT_SUPPORTED",
-					"INVALID_PHONE_NUMBER",
-					"INVALID_NAME"
-				],
-				"type": "string"
-			},
-			"RequestMoneyFullErrorResponse": {
-				"description": "Respuesta de error 4xx/5xx de POST /request-money-full. OpenAPI expone el enum en code.",
-				"properties": {
-					"reason": {
-						"type": "string"
-					},
-					"code": {
-						"$ref": "#/components/schemas/RequestMoneyFullErrorCode"
-					}
-				},
-				"required": [
-					"reason",
-					"code"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RequestMoneyFullOutcomePhase": {
-				"description": "Fase del flujo donde falló request-money-full (webhook request_money_full_outcome).\nIncluido en OpenAPI para que los clientes generen tipos/enums.",
-				"enum": [
-					"cip",
-					"contact",
-					"payment_method",
-					"request_money",
-					"unknown"
-				],
-				"type": "string"
-			},
-			"RequestMoneyFullOutcomePayload": {
-				"description": "Payload enviado al webhook del tenant cuando el worker de request-money-full\ntermina (éxito o fallo). Permite a la integración reaccionar a fallos async (CIP, tarjeta, etc.).",
-				"properties": {
-					"eventType": {
-						"type": "string",
-						"enum": [
-							"request_money_full_outcome"
-						],
-						"nullable": false
-					},
-					"correlationId": {
-						"type": "string"
-					},
-					"status": {
-						"type": "string",
-						"enum": [
-							"completed",
-							"failed"
-						]
-					},
-					"date": {
-						"type": "string"
-					},
-					"errorCode": {
-						"$ref": "#/components/schemas/RequestMoneyFullErrorCode",
-						"description": "Solo cuando status === 'failed'. Código estable para la integración."
-					},
-					"reason": {
-						"type": "string",
-						"description": "Solo cuando status === 'failed'. Mensaje legible."
-					},
-					"phase": {
-						"$ref": "#/components/schemas/RequestMoneyFullOutcomePhase",
-						"description": "Fase donde falló. Solo cuando status === 'failed'."
-					}
-				},
-				"required": [
-					"eventType",
-					"correlationId",
-					"status",
-					"date"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -5601,6 +4723,9 @@
 					},
 					"boardId": {
 						"type": "string"
+					},
+					"sendTo": {
+						"$ref": "#/components/schemas/PerformLevelOneParams"
 					}
 				},
 				"required": [
@@ -5733,19 +4858,19 @@
 					"status": {
 						"type": "string"
 					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
 					"platId": {
 						"type": "string"
 					},
 					"type": {
 						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
 					"amount": {
 						"type": "number",
@@ -5871,8 +4996,8 @@
 				"required": [
 					"id",
 					"status",
-					"createdAt",
 					"type",
+					"createdAt",
 					"amount",
 					"code",
 					"recipientAmout"
@@ -6610,6 +5735,10 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"DefaultPMType": {
+				"properties": {},
+				"type": "object"
+			},
 			"Contact": {
 				"properties": {
 					"phone": {
@@ -6841,6 +5970,431 @@
 						"type": "object"
 					}
 				]
+			},
+			"CreateAccountResponse": {
+				"properties": {
+					"AccountIdentifier": {
+						"type": "string"
+					},
+					"DisplayName": {
+						"type": "string",
+						"description": "Max 10, Only these chars -> [-_a-zA-Z0-9]"
+					},
+					"Success": {
+						"type": "boolean"
+					},
+					"ResponseDescription": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"AccountIdentifier",
+					"Success",
+					"ResponseDescription"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Address": {
+				"properties": {
+					"Address1": {
+						"type": "string"
+					},
+					"Address2": {
+						"type": "string"
+					},
+					"ZipCode": {
+						"type": "string"
+					},
+					"City": {
+						"type": "string"
+					},
+					"CountryCode": {
+						"type": "string",
+						"description": "ISO 3166-2",
+						"minLength": 2,
+						"maxLength": 2
+					},
+					"StateCode": {
+						"type": "string",
+						"description": "ISO 3166-2"
+					}
+				},
+				"required": [
+					"Address1",
+					"ZipCode",
+					"City",
+					"CountryCode",
+					"StateCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PersonalData": {
+				"properties": {
+					"PhoneNumber": {
+						"type": "string"
+					},
+					"FirstName": {
+						"type": "string"
+					},
+					"MiddleName": {
+						"type": "string"
+					},
+					"LastName": {
+						"type": "string"
+					},
+					"LastName2": {
+						"type": "string"
+					},
+					"Gender": {
+						"type": "string"
+					},
+					"BirthDate": {
+						"type": "string",
+						"description": "Date formatted string, e.g. YYYY-MM-DD"
+					},
+					"Address": {
+						"$ref": "#/components/schemas/Address"
+					}
+				},
+				"required": [
+					"PhoneNumber",
+					"FirstName",
+					"LastName",
+					"Gender",
+					"BirthDate",
+					"Address"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DocumentType": {
+				"type": "string",
+				"enum": [
+					"None",
+					"Passport",
+					"StateId",
+					"ResidentCard",
+					"DriverLicense",
+					"SocialSecurityNumber",
+					"INE_IFE",
+					"ConsularId",
+					"ITIN"
+				]
+			},
+			"PersonalDocument": {
+				"properties": {
+					"Number": {
+						"type": "string"
+					},
+					"DocumentType": {
+						"$ref": "#/components/schemas/DocumentType"
+					}
+				},
+				"required": [
+					"Number",
+					"DocumentType"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateAccountRequest": {
+				"properties": {
+					"PersonalData": {
+						"$ref": "#/components/schemas/PersonalData"
+					},
+					"PersonalDocuments": {
+						"items": {
+							"$ref": "#/components/schemas/PersonalDocument"
+						},
+						"type": "array"
+					},
+					"Amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"Currency": {
+						"type": "string",
+						"description": "3 chars"
+					},
+					"ExchangeRate": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"PersonalData",
+					"Amount",
+					"Currency",
+					"ExchangeRate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetCreateAccountUrlResponse": {
+				"properties": {
+					"RegistrationUrl": {
+						"type": "string"
+					},
+					"Success": {
+						"type": "boolean"
+					},
+					"ResponseDescription": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"RegistrationUrl",
+					"Success",
+					"ResponseDescription"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetCreateAccountUrlRequest": {
+				"properties": {
+					"PersonalData": {
+						"$ref": "#/components/schemas/PersonalData"
+					},
+					"PersonalDocuments": {
+						"items": {
+							"$ref": "#/components/schemas/PersonalDocument"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"PersonalData"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NonAuthorizedReason": {
+				"type": "string",
+				"enum": [
+					"None",
+					"AccountBlocked",
+					"AccountBlockedByLaw",
+					"AccountBlockedByGovernment",
+					"ByVelocity",
+					"ByAmountLimit",
+					"ByAccumulateAmountLimit",
+					"InvalidAccount",
+					"InvalidParameter",
+					"InvalidCurrency",
+					"InvalidSenderData",
+					"InvalidDestinationData",
+					"InvalidExchangeRate",
+					"NonMatchingCurrencyAccount",
+					"InvalidAmount"
+				]
+			},
+			"TxAuthorizationResponse": {
+				"properties": {
+					"AccountIdentifier": {
+						"type": "string",
+						"description": "Null or empty if is not found. If Null or empty, `Authorized` will be ignored."
+					},
+					"DisplayName": {
+						"type": "string",
+						"description": "Max 10, Only these chars -> [-_a-zA-Z0-9. \nIf Null or empty, it will be Parner Prefix + last four Account numbers (e.g. `PRTN-0141`)."
+					},
+					"Authorized": {
+						"type": "boolean"
+					},
+					"NonAuthorizedReason": {
+						"$ref": "#/components/schemas/NonAuthorizedReason"
+					},
+					"TrackingIdentifier": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"Authorized",
+					"TrackingIdentifier"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TxAuthorizationRequest": {
+				"properties": {
+					"SenderPersonalData": {
+						"$ref": "#/components/schemas/PersonalData"
+					},
+					"ReceiverPersonalData": {
+						"$ref": "#/components/schemas/PersonalData"
+					},
+					"AccountIdentifier": {
+						"type": "string"
+					},
+					"Amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"Currency": {
+						"type": "string",
+						"description": "3 chars"
+					},
+					"ExchangeRate": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"SenderPersonalData",
+					"ReceiverPersonalData",
+					"Amount",
+					"Currency",
+					"ExchangeRate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NonCreditReason": {
+				"type": "string",
+				"enum": [
+					"None",
+					"AccountBlocked",
+					"AccountBlockedByLaw",
+					"AccountBlockedByGovernment",
+					"ByVelocity",
+					"ByAmountLimit",
+					"ByAccumulateAmountLimit",
+					"InvalidAccount",
+					"InvalidParameter",
+					"InvalidCurrency",
+					"InvalidSenderData",
+					"InvalidDestinationData",
+					"InvalidExchangeRate",
+					"NotPreviouslyValidated",
+					"InvalidReferenceId",
+					"NonMatchingCurrencyAccount",
+					"InvalidAmount"
+				]
+			},
+			"CreditFundsResponse": {
+				"properties": {
+					"Success": {
+						"type": "boolean"
+					},
+					"TrackingIdentifier": {
+						"type": "string"
+					},
+					"NonCreditReason": {
+						"$ref": "#/components/schemas/NonCreditReason"
+					}
+				},
+				"required": [
+					"Success",
+					"TrackingIdentifier"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreditFundsRequest": {
+				"properties": {
+					"AuthTrackingIdentifier": {
+						"type": "string"
+					},
+					"AccountIdentifier": {
+						"type": "string"
+					},
+					"Amount": {
+						"type": "number",
+						"format": "double",
+						"description": "Required only if AuthTrackingIdentifier is empty."
+					},
+					"Currency": {
+						"type": "string",
+						"description": "3 chars. Required only if AuthTrackingIdentifier is empty."
+					},
+					"ExchangeRate": {
+						"type": "number",
+						"format": "double",
+						"description": "Required only if AuthTrackingIdentifier is empty."
+					}
+				},
+				"required": [
+					"AccountIdentifier"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreditStatus": {
+				"enum": [
+					0,
+					1,
+					2,
+					3
+				],
+				"type": "number"
+			},
+			"GetCreditStatusResponse": {
+				"properties": {
+					"CreditStatus": {
+						"$ref": "#/components/schemas/CreditStatus"
+					},
+					"ResponseDescription": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"CreditStatus"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetCreditStatusRequest": {
+				"properties": {
+					"AccountIdentifier": {
+						"type": "string"
+					},
+					"CreditTrackingNumber": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"AccountIdentifier",
+					"CreditTrackingNumber"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ReverseCreditFundsResponse": {
+				"properties": {
+					"Success": {
+						"type": "boolean"
+					},
+					"TrackingIdentifier": {
+						"type": "string"
+					},
+					"ResponseDescription": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"Success",
+					"TrackingIdentifier"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ReverseCreditFundsRequest": {
+				"properties": {
+					"AccountIdentifier": {
+						"type": "string"
+					},
+					"CreditTrackingNumber": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"AccountIdentifier",
+					"CreditTrackingNumber"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -6926,7 +6480,7 @@
 					}
 				},
 				"description": "Resolves and returns a RaaS user UUID from a raw phone number or email alias.",
-				"summary": "Get user token",
+				"summary": "Get user token (V2)",
 				"tags": [
 					"Partner",
 					"Users"
@@ -6940,7 +6494,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "User alias (email or phone with country code). You can use either email or phone number. One of them must be provided.",
+					"description": "- User alias (email or phone with country code).",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7019,7 +6573,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "DTO with extended PII (address, dates) for validators. You can use either email or phone number. One of them must be provided.",
+					"description": "- DTO with extended PII (address, dates) for validators.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -9067,7 +8621,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User identifier token. You can get it using the get-user-token endpoint.",
+						"description": "- User identifier token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -9155,7 +8709,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Owner user token. You can get it using the get-user-token endpoint.",
+						"description": "- Owner user token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -9165,7 +8719,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Contact data to register.",
+					"description": "- Contact data to register.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -9254,7 +8808,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token (contact owner). You can get it using the get-user-token endpoint.",
+						"description": "- User token (contact owner).",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -9264,7 +8818,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Updated contact attributes.",
+					"description": "- Updated contact attributes.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -9344,7 +8898,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Sender user token. You can get it using the get-user-token endpoint.",
+						"description": "- Sender user token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -9353,695 +8907,10 @@
 						}
 					},
 					{
-						"description": "Contact phone or email. You can use either email or phone number. One of them must be provided.",
+						"description": "- Contact phone or email.",
 						"in": "path",
 						"name": "phoneOrEmail",
 						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor/all": {
-			"get": {
-				"operationId": "GetAllCorridors",
-				"responses": {
-					"200": {
-						"description": "CorridorDTO[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/CorridorDTO"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets all corridors but local operation ones or wallet operation.\nA corridor is a way to configure available operation between two subscribers.",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor": {
-			"get": {
-				"operationId": "GetCorridors",
-				"responses": {
-					"200": {
-						"description": "CorridorDTO[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/CorridorDTO"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets corridors by source country, destination country and operation type.\nA corridor is a way to configure available operation between two subscribers.",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"description": "SendFunds | RequestFunds",
-						"in": "query",
-						"name": "operationType",
-						"required": false,
-						"schema": {
-							"default": "SendFunds",
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "toPhoneNumber",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "toEmail",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor/available-methods": {
-			"get": {
-				"operationId": "GetAvailablePaymentMethods",
-				"responses": {
-					"200": {
-						"description": "string[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/AvailablePaymentMethods"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets available payment method types by source country, destination country and operation type.\nA corridor is a way to configure available operation between two subscribers.\n\nTHE SOURCE COUNTRY IS THE USER'S COUNTRY",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"description": "SendFunds | RequestFunds",
-						"in": "query",
-						"name": "operationType",
-						"required": false,
-						"schema": {
-							"default": "SendFunds",
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sourcePaymentMethodType",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor/available-methods-free": {
-			"get": {
-				"operationId": "GetAvailablePaymentMethodsNoUser",
-				"responses": {
-					"200": {
-						"description": "string[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"type": "string"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets available payment method types by source country, destination country and operation type.\nA corridor is a way to configure available operation between two subscribers.\nNo auth needed.",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"description": "SendFunds | RequestFunds",
-						"in": "query",
-						"name": "operationType",
-						"required": false,
-						"schema": {
-							"default": "SendFunds",
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sourcePaymentMethodType",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor/available-operations": {
-			"get": {
-				"operationId": "GetAvailableOperationType",
-				"responses": {
-					"200": {
-						"description": "string[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"type": "string"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets available operation types by user country (as source country) and destination country.\nA corridor is a way to configure available operation between two subscribers.\n\nNOTICE: if an operation is RequestFunds from A to B, you may search for a SendFunds from B to A to determine if operation is available.\nProbabily you'll not find a RequestFunds option as such.",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor/available-operations-free": {
-			"get": {
-				"operationId": "GetAvailableOperationTypeNoUser",
-				"responses": {
-					"200": {
-						"description": "string[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"type": "string"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets available operation types by user country (as source country) and destination country.\nA corridor is a way to configure available operation between two subscribers.\nNo auth needed.\n\nNOTICE: if an operation is RequestFunds from A to B, you may search for a SendFunds from B to A to determine if operation is available.\nProbabily you'll not find a RequestFunds option as such.",
-				"security": [
-					{
-						"api_key": [
-							"mobile",
-							"partner"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor/available-operations-data-free": {
-			"get": {
-				"operationId": "GetAvailableOperationsNoUser",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/AvailableOperationsData"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						]
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "toPhoneNumber",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "toEmail",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/corridor/can-operate": {
-			"post": {
-				"operationId": "CanOperate",
-				"responses": {
-					"200": {
-						"description": "CorridorDTO[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "boolean"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "can subscriber perform this operation?",
-				"deprecated": true,
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/RaasCanOperateRequest"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/corridor/available-payout-methods": {
-			"get": {
-				"operationId": "GetAvailablePayoutMethods",
-				"responses": {
-					"200": {
-						"description": "string[]",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/AvailablePaymentMethods"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Gets available payment method types by source country, destination country and operation type.\nA corridor is a way to configure available operation between two subscribers.\n\nTHE SOURCE COUNTRY IS THE USER'S COUNTRY",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"description": "ISO 3166 2-alpha",
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"description": "SendFunds | RequestFunds",
-						"in": "query",
-						"name": "operationType",
-						"required": false,
-						"schema": {
-							"default": "SendFunds",
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sourcePaymentMethodType",
-						"required": false,
 						"schema": {
 							"type": "string"
 						}
@@ -10168,8 +9037,8 @@
 						}
 					}
 				},
-				"description": "Computes available payment methods for the corridor origin/destination for a given user.",
-				"summary": "Get available payment methods (source)",
+				"description": "Computes available receiving methods types for the corridor.",
+				"summary": "Get available receiving methods types",
 				"tags": [
 					"Partner Full",
 					"Partner Send",
@@ -10187,7 +9056,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User identifier or token. You can get it using the get-user-token endpoint.",
+						"description": "- User identifier or token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -10196,7 +9065,7 @@
 						}
 					},
 					{
-						"description": "Destination country code.",
+						"description": "- Destination country code.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -10205,7 +9074,7 @@
 						}
 					},
 					{
-						"description": "Transaction type.",
+						"description": "- Transaction type.",
 						"in": "query",
 						"name": "operationType",
 						"required": false,
@@ -10271,7 +9140,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token. You can get it using the get-user-token endpoint.",
+						"description": "- User token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -10280,7 +9149,7 @@
 						}
 					},
 					{
-						"description": "Destination country for evaluation. You can use the country code of the destination country.",
+						"description": "- Destination country for evaluation.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -10511,1416 +9380,6 @@
 				}
 			}
 		},
-		"/funding/source/request-money": {
-			"get": {
-				"operationId": "GetDestinationSOFForRequetMoneyOperation",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/SourceOfFunding"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "gets destination sources of funding for request funds",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/send-money": {
-			"get": {
-				"operationId": "GetSOFForSendMoneyOperation",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/SourceOfFunding"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "gets sources of funding for send funds",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "toPhoneNumber",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "toEmail",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/send-money-filtered": {
-			"get": {
-				"operationId": "GetSOFForSendMoneyOperationByDestinationSOF",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/SourceOfFunding"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "gets sources of funding for send funds by destination source of funding\ne.g.: US -> MX(BankAccount) will retrieve all sof of US that match with destination BankAccount",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "destinationMethod",
-						"required": false,
-						"schema": {
-							"default": "",
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source": {
-			"get": {
-				"operationId": "GetSourcesOfFundingForFundOperation",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/SourceOfFunding"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "to request money it is necessary to indicate:\n   - origin country of the request\n   - destination country of the request\n   - account/funding method in which the payment will be received\n\nto send money it is necessary to indicate:\n   - origin country of the shipment\n   - destination country of the shipment\n   - account/funding method in which the payment will be received\n   - account/funding method with which it will be paid",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "sourceCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "destinationCountry",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "operationType",
-						"required": false,
-						"schema": {
-							"default": "SendFunds",
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "destinationMethod",
-						"required": false,
-						"schema": {
-							"default": "",
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/bank/plaid-url": {
-			"get": {
-				"operationId": "GetPlaidUrl",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Retieves PLAID url for start adding bank account process",
-				"deprecated": true,
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "user-language",
-						"required": false,
-						"schema": {
-							"default": "EN",
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/card/add": {
-			"post": {
-				"operationId": "AddCard",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RaaSPaymentMethod"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {},
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "adds a card to subscriber's source of funding",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AddCardParamsBase"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/funding/source/bank/validate": {
-			"get": {
-				"operationId": "ValidateBankAccount",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PlaidBankValidationResponse"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Validates bank account data for adding bank account process",
-				"deprecated": true,
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "bankName",
-						"required": false,
-						"schema": {
-							"default": "Chase",
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "publicToken",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/bank/add": {
-			"post": {
-				"operationId": "AddBankAccount",
-				"responses": {
-					"200": {
-						"description": ""
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "adds bank account to subscriber's source of funding",
-				"deprecated": true,
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AddBankAccountParamsBase"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/funding/source/delete": {
-			"post": {
-				"operationId": "DeletePaymentMethod",
-				"responses": {
-					"200": {
-						"description": ""
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "removes a payment method",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "paymentMethodId",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/get-payment-method": {
-			"get": {
-				"operationId": "GetRequestorPaymentMethod",
-				"responses": {
-					"200": {
-						"description": "{@link PaymentMethod }",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RaaSPaymentMethod"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Retrieve a payment method from a third party user by method number and operationId\nThis method validates that operation is pointing to the user.\nThen it retrieves the payment method from the third party user who created it.",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "number",
-						"required": false,
-						"schema": {
-							"default": "",
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "operationId",
-						"required": false,
-						"schema": {
-							"default": "",
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/get": {
-			"get": {
-				"operationId": "GetPaymentMethod",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RaaSPaymentMethod"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "number",
-						"required": false,
-						"schema": {
-							"default": "",
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/{id}": {
-			"get": {
-				"operationId": "GetPaymentMethodById",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RaaSPaymentMethod"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorResponse"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorResponse"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/main": {
-			"post": {
-				"operationId": "MainPaymentMethod",
-				"responses": {
-					"200": {
-						"description": ""
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Sets paymentMethodId as main payment method",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"properties": {
-									"paymentMethodId": {
-										"type": "string"
-									}
-								},
-								"required": [
-									"paymentMethodId"
-								],
-								"type": "object"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/funding/source/ubn-account/add": {
-			"post": {
-				"operationId": "AddUBNAccount",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AddPaymentMethodResponse"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorResponse"
-								}
-							}
-						}
-					},
-					"403": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorResponse"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ErrorResponse"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AddUBNParams"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/funding/cash/operators": {
-			"post": {
-				"operationId": "GetCashOperators",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/CashOperators"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CashOperatorsParamsBase"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/funding/cash/reference-code": {
-			"post": {
-				"operationId": "SetReferenceCode",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/GetReferenceCodeResponse"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"description": "{@link GetReferenceCodeParamsBase }",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/SetReferenceCodeParamsBase"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/funding/cash/reference-code/all": {
-			"get": {
-				"operationId": "GetReferenceCodes",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/ReferenceCode"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": []
-			}
-		},
-		"/funding/cash/reference-code/{referenceCodeId}": {
-			"get": {
-				"operationId": "GetReferenceCodeById",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ReferenceCode"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "referenceCodeId",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/contact/source": {
-			"get": {
-				"operationId": "GetDestinationSOFForContactUsers",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/SourceOfFunding"
-									},
-									"type": "array"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "to request money it is necessary to indicate:\n   - origin country of the request\n   - destination country of the request\n   - account/funding method in which the payment will be received\n\nto send money it is necessary to indicate:\n   - origin country of the shipment\n   - destination country of the shipment\n   - account/funding method in which the payment will be received\n   - account/funding method with which it will be paid",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "destinationPhone",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "destinationEmail",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/funding/source/card/update-billing-address": {
-			"post": {
-				"operationId": "UpdateAndValidateBillingAddress",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RaaSPaymentMethod"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "adds a card to subscriber's source of funding",
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UpdateAndValidateBillingAddress"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/funding/source/card/verify-micro-trx": {
-			"post": {
-				"operationId": "VerifyMicroTrx",
-				"responses": {
-					"200": {
-						"description": ""
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"code": {
-											"type": "string"
-										},
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"code",
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"api_key": [
-							"mobile"
-						],
-						"user_auth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/VerifyMicroTrxParams"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/user/funding/source/request-money/{userToken}": {
 			"get": {
 				"operationId": "listFundingSourcesForRequest",
@@ -11957,8 +9416,8 @@
 						}
 					}
 				},
-				"description": "Retrieves approved funding methods for the user to receive money via Request Money.",
-				"summary": "Get funding sources (Request Funds)",
+				"description": "Retrieves the available receiving methods to get money via Request Money.",
+				"summary": "Get receiving methods",
 				"tags": [
 					"Partner",
 					"Funding"
@@ -11972,7 +9431,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token. You can get it using the get-user-token endpoint.",
+						"description": "- User token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -11981,7 +9440,7 @@
 						}
 					},
 					{
-						"description": "Source country code.",
+						"description": "- Source country code.",
 						"in": "query",
 						"name": "sourceCountry",
 						"required": false,
@@ -11990,7 +9449,7 @@
 						}
 					},
 					{
-						"description": "Destination country code.",
+						"description": "- Destination country code.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -12052,7 +9511,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Sender user token. You can get it using the get-user-token endpoint.",
+						"description": "- Sender user token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -12061,7 +9520,7 @@
 						}
 					},
 					{
-						"description": "Source country code.",
+						"description": "- Source country code.",
 						"in": "query",
 						"name": "sourceCountry",
 						"required": false,
@@ -12070,7 +9529,7 @@
 						}
 					},
 					{
-						"description": "Destination country code.",
+						"description": "- Destination country code.",
 						"in": "query",
 						"name": "destinationCountry",
 						"required": false,
@@ -12348,8 +9807,8 @@
 						}
 					}
 				},
-				"description": "Registers a card as a new funding instrument linked to corridors.",
-				"summary": "Register payment method (card)",
+				"description": "Registers a card as a new receiving method.",
+				"summary": "Register card",
 				"tags": [
 					"Partner Send",
 					"Partner",
@@ -12365,7 +9824,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token. You can get it using the get-user-token endpoint.",
+						"description": "- User token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -12375,7 +9834,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Card data (encrypted/raw) to add.",
+					"description": "- Card data (encrypted/raw) to add.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -12672,7 +10131,7 @@
 				],
 				"parameters": [
 					{
-						"description": "End user token. You can get it using the get-user-token endpoint.",
+						"description": "- End user token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -12681,7 +10140,7 @@
 						}
 					},
 					{
-						"description": "Associated payment method ID.",
+						"description": "- Associated payment method ID.",
 						"in": "query",
 						"name": "id",
 						"required": false,
@@ -12757,7 +10216,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User token. You can get it using the get-user-token endpoint.",
+						"description": "- User token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -12767,7 +10226,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "Validated payload with required parameters.",
+					"description": "- Validated payload with required parameters.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -13321,7 +10780,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User identifier or UUID. You can get it using the get-user-token endpoint.",
+						"description": "- User identifier or UUID.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13331,95 +10790,12 @@
 					}
 				],
 				"requestBody": {
-					"description": "Credentials and corridor id for the request.",
+					"description": "- Credentials and corridor id for the request.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/RequestMoneyPartnerParams"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/user/operations/request-money-full": {
-			"post": {
-				"operationId": "requestMoneyFull",
-				"responses": {
-					"200": {
-						"description": "{ userId, operationId (correlationId), status: \"Sent\" }.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RequestMoneyFullResponse"
-								}
-							}
-						}
-					},
-					"202": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RequestMoneyFullResponse"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
-								}
-							}
-						}
-					}
-				},
-				"description": "\nRegisters the requester (if missing), adds the recipient as a contact, and creates the money request in one step.\nResponds immediately with status `Sent` while CIP, contact, payment method, and platform work continue in the background.\nErrors before enqueue (e.g. invalid user) are returned in the HTTP response (4xx/5xx).\nBackground failures (CIP not completed, invalid card, etc.) are delivered to the tenant webhook (`operationStatusHook`)\nwith `eventType` `request_money_full_outcome`, `status` `failed`, plus `errorCode`, `reason`, and `phase`.\nWebhook signature: header `x-raas-signature` = Base64(HMAC-SHA256(rawRequestBody, sharedSecret)). See [partner webhooks reference](/api-reference/partner-webhooks).",
-				"summary": "Request money (atomic flow)",
-				"tags": [
-					"Partner",
-					"Operations"
-				],
-				"security": [
-					{
-						"api_key": [
-							"partner",
-							"partner_full"
-						]
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"description": "Requester profile and request-money parameters.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/RequestMoneyFullParams"
 							}
 						}
 					}
@@ -13740,7 +11116,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User involved in the transaction. You can get it using the get-user-token endpoint.",
+						"description": "- User involved in the transaction.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -13749,7 +11125,7 @@
 						}
 					},
 					{
-						"description": "Operation UUID.",
+						"description": "- Operation UUID.",
 						"in": "path",
 						"name": "operationId",
 						"required": true,
@@ -14080,7 +11456,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Unique operation UUID.",
+						"description": "- Unique operation UUID.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -14148,7 +11524,7 @@
 				],
 				"parameters": [
 					{
-						"description": "User ID. You can get it using the get-user-token endpoint.",
+						"description": "- User ID.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14157,7 +11533,7 @@
 						}
 					},
 					{
-						"description": "Optional filter by destination phone.",
+						"description": "- Optional filter by destination phone.",
 						"in": "query",
 						"name": "toPhoneNumber",
 						"required": false,
@@ -14531,7 +11907,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Requester user token. You can get it using the get-user-token endpoint.",
+						"description": "- Requester user token.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -14540,7 +11916,7 @@
 						}
 					},
 					{
-						"description": "Top N contacts to return.",
+						"description": "- Top N contacts to return.",
 						"in": "path",
 						"name": "limit",
 						"required": true,
@@ -15277,7 +12653,7 @@
 											"type": "boolean"
 										},
 										"defaultPMType": {
-											"type": "string"
+											"$ref": "#/components/schemas/DefaultPMType"
 										},
 										"forceLevel2forAsk": {
 											"type": "boolean"
@@ -15370,15 +12746,15 @@
 						}
 					}
 				},
-				"description": "Looks up tenant and extended user data for the given phone numbers; optionally creates a missing contact.",
-				"summary": "Test helper for users and contacts",
+				"description": "Consulta el tenant y datos extendidos asociados a los números de teléfono proporcionados.\nOpcionalmente crea el contacto si no existe.",
+				"summary": "Helper de pruebas para usuarios y contactos",
 				"tags": [
 					"TestHelper"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
-					"description": "- Query flags and automation options.",
+					"description": "- Parámetros de consulta y automatización.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -15819,8 +13195,6 @@
 						}
 					}
 				},
-				"description": "Publishes or syncs a widget record for the given user (custom external widget pipeline).",
-				"summary": "Publish widget record",
 				"security": [
 					{
 						"api_key": [
@@ -15830,7 +13204,6 @@
 				],
 				"parameters": [
 					{
-						"description": "- User identifier for the widget session.",
 						"in": "path",
 						"name": "userToken",
 						"required": true,
@@ -15920,6 +13293,216 @@
 					"content": {
 						"application/json": {
 							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/client-interfaces/pmo/create-account": {
+			"post": {
+				"operationId": "createAccountClientApi",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateAccountResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nThis endpoint will only be used when the Partner has account creation configured as `Dynamic`.\n\n**Expected behavior:** \nThis endpoint is invoked when our systems require the formal creation \nof an account associated with a user's personal data and documents. \nThe partner must register the account and respond with a unique identifier for the new account (`AccountIdentifier`).",
+				"summary": "Create Account",
+				"tags": [
+					"Partner Implemented APIs",
+					"Client Interfaces"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateAccountRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/client-interfaces/pmo/get-create-account-url": {
+			"post": {
+				"operationId": "getCreateAccountUrlClientApi",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetCreateAccountUrlResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nThis endpoint will only be used when the Partner has account creation configured as `OnDemand`.\n\n**Expected behavior:** \nInvokes the retrieval of a temporary delegated registration URL. \nIn cases where the Partner orchestrates the user account registration, this endpoint must\ngenerate and return a secure `RegistrationUrl` where the user can complete or initiate their enrollment.",
+				"summary": "Get Create Account URL",
+				"tags": [
+					"Partner Implemented APIs",
+					"Client Interfaces"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GetCreateAccountUrlRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/client-interfaces/pmo/tx-authorization": {
+			"post": {
+				"operationId": "txAuthorizationClientApi",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TxAuthorizationResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\n**Expected behavior:** \nAuthorization request to process a funds transaction between two parties (Sender and Recipient). \nThe partner will internally validate the balance, limits, and compliance rules (e.g., *AML*, *Velocity*),\nresponding whether the operation is **Authorized** (accompanied by a `TrackingIdentifier`) or denied \nfor a specific reason in `NonAuthorizedReason`.",
+				"summary": "Tx Authorization",
+				"tags": [
+					"Partner Implemented APIs",
+					"Client Interfaces"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TxAuthorizationRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/client-interfaces/vna/credit-funds": {
+			"post": {
+				"operationId": "creditFundsClientApi",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreditFundsResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nOur service will check `CreditResponseType` configuration. \nIf `Sync`, the response will be immediate.\nIf `Async`, status will be checked by `Get Credit Status` endpoint.\n\n**Expected behavior:** \nPayment order (credit) to a virtual network account.\nWe will send a notification to indicate that funds should be settled \nin favor of an `AccountIdentifier` for the stipulated amount. \nThe destination system must respond whether the action was successful (`Success`), returning \na trace and/or the reason why it failed (`NonCreditReason`).",
+				"summary": "Credit Funds",
+				"tags": [
+					"Partner Implemented APIs",
+					"Client Interfaces"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreditFundsRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/client-interfaces/vna/get-credit-status": {
+			"post": {
+				"operationId": "getCreditStatusClientApi",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetCreditStatusResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nOur backend will perform this request every `CreditStatusQueryRepetitionsInMinutes` minutes.\n\n**Expected behavior:** \nAsynchronous query of the status of a previous funds credit order. \nWith the tracking number (`CreditTrackingNumber`), the partner will report if the credit \nis in progress (`InProgress`), approved (`Approved`), or if it ended in an error (`Failed`).",
+				"summary": "Get Credit Status",
+				"tags": [
+					"Partner Implemented APIs",
+					"Client Interfaces"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GetCreditStatusRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/client-interfaces/vna/reverse-credit-funds": {
+			"post": {
+				"operationId": "reverseCreditFundsClientApi",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReverseCreditFundsResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nIf reversal is not supported, response must be `Success: false` and `NonReverseReason: NonReverseReason.NotSupported`.\n\n**Expected behavior:** \nOrder for total reversal of a previous credit movement associated with a `CreditTrackingNumber`. \nThis usually occurs in case of cancellations, failures in the operation chain, or financial readjustments.\nThe Partner must return the funds from the specified account and confirm success by returning `Success` as `true`.",
+				"summary": "Reverse Credit Funds",
+				"tags": [
+					"Partner Implemented APIs",
+					"Client Interfaces"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ReverseCreditFundsRequest"
+							}
 						}
 					}
 				}

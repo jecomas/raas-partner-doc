@@ -7,39 +7,59 @@
     "light": "#07C983",
     "dark": "#0D9373"
   },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "logo/dark.svg"
+  },
   "favicon": "favicon.png",
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Guides",
         "groups": [
           {
             "group": "Introduction",
             "pages": [
               "api-reference/introduction"
             ]
-          },
-          {
-            "group": "Webhooks",
-            "pages": [
-              "api-reference/partner-webhooks"
-            ]
           }
         ]
       },
       {
-        "tab": "Partner",
+        "tab": "Partner API Reference",
         "openapi": {
           "source": "/swagger-partner.json",
           "directory": "partner"
         }
       },
       {
-        "tab": "Partner Widget Ask",
+        "tab": "Partner Widget Ask API Reference",
         "openapi": {
           "source": "/swagger-partner-widget-ask.json",
           "directory": "partner-widget-ask"
         }
+      },
+      {
+        "tab": "Partner Implemented API Reference",
+        "groups": [
+          {
+            "group": "General",
+            "pages": [
+              "client-interfaces/introduction"
+            ]
+          },
+          {
+            "group": "VNA Interface",
+            "pages": [
+              "client-interfaces/pmo-create-account",
+               "client-interfaces/pmo-get-create-account-url",
+               "client-interfaces/pmo-tx-authorization",
+               "client-interfaces/vna-credit-funds",
+               "client-interfaces/vna-get-credit-status",
+               "client-interfaces/vna-reverse-credit-funds"
+            ]
+          }
+        ]
       }
     ]
   },

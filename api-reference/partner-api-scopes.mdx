@@ -58,7 +58,137 @@ As defined in the service role configuration:
 | `partner` **and** `partner_send` in the same annotation (OR) | `partner` **or** `partner_send` **or** `partner_full` |
 | `partner_full` | `partner_full` (or a key that includes `partner_full` in its list) |
 
-## 5. Suggested test cases (auth / scopes)
+## 4a. Examples: visible with one scope, blocked with another
+
+These routes live under the Partner API base path (prefix `user/operations` in the service code). Exact paths in your OpenAPI may include a leading `/` and a version prefix (e.g. `/v1/...`); always confirm in the spec for the environment you test.
+
+### Example A — Request funds (`partner` only)
+
+- **Operation (illustrative):** `POST …/user/operations/request-money/{userToken}`
+- **`@Security` scopes:** `partner` only.
+- **Key with only `partner`:** allowed (subject to the rest of the request).
+- **Key with only `partner_send`:** **not** allowed — the endpoint does not list `partner_send`, and `partner_send` does not inherit `partner`. Expect **401** / insufficient scope.
+- **Key with `partner_full`:** allowed (expansion includes `partner`).
+
+### Example B — Send funds (`partner_send` or `partner_full`, not `partner` alone)
+
+- **Operation (illustrative):** `POST …/user/operations/send-money/{userToken}`
+- **`@Security` scopes:** `partner_send` **or** `partner_full` (OR).
+- **Key with only `partner_send`:** allowed.
+- **Key with only `partner`:** **not** allowed — `partner` is not in the accepted list for this route. Expect **401** / insufficient scope.
+- **Key with `partner_full`:** allowed (expansion includes `partner_send`).
+
+Together, these two examples show why QA must provision **separate keys** (or a `partner_full` key) when testing both request- and send-money flows.
+
+## 5. Endpoint scope matrix (from OpenAPI)
+
+The table below is derived from **`mintlify-docs/swagger.json`** (Partner API OpenAPI bundle produced for documentation). It lists each **published** path/method and the **`api_key` scopes** declared on that operation (**OR** semantics: any listed scope on the key satisfies the requirement after expansion — see §1 and §3).
+
+- **Base path:** prepend your environment **base URL** and API version prefix (for example `/v1`) exactly as in your OpenAPI server URL.
+- **Exclusions:** operations whose **only** scope is `mobile` are omitted here (Mobile API); rows that include both `mobile` and a Partner scope are kept.
+- **`—` in Scopes:** the bundled operation has no `api_key` scope array in the spec (different security, empty array, or spec gap). Confirm behavior in the live OpenAPI for your environment before testing.
+- **Completeness:** a route may exist in `src/controllers/partner/` but be omitted from `mintlify-docs/swagger.json` (e.g. different shard export). For parity with runtime, compare `partner/build/swagger.json` or the Mintlify **Partner / Partner Send / Partner Full** OpenAPI tabs.
+- **Regeneration:** after `yarn build:partner && yarn docs:update-openapi`, run `yarn docs:qa:partner-scope-matrix` (or `node scripts/generate-partner-scope-matrix-md.mjs`), then replace the table in this section and in `docs/qa/PARTNER_API_SCOPES.md` §5.
+
+| Method | Path | operationId | Scopes accepted (OR) |
+|--------|------|-------------|------------------------|
+| POST | `/auth/auth-by-token-link` | authByTokenLink | — |
+| POST | `/auth/get-user-token-v2` | getUserTokenV2 | partner |
+| POST | `/auth/is-phone-available` | isPhoneAvailable | partner_full |
+| POST | `/auth/register-receiver/{userToken}` | registerReceiver | partner_send |
+| POST | `/auth/register-sender` | registerSender | partner_send |
+| POST | `/auth/register-trusted-user` | registerTrustedUser | partner_full |
+| POST | `/auth/register-user-v2` | registerUserV2 | partner |
+| POST | `/auth/request-otp` | requestOtp | partner_full |
+| POST | `/auth/sessionlink-v2` | getSessionLinkV2 | partner, partner_full, partner_send |
+| POST | `/auth/sessionlink-v2-anonimous` | getSessionLinkV2Anonymous | partner_full |
+| GET | `/auth/sessionlink-v4/{userToken}` | getSessionLinkV4 | partner, partner_full, partner_send |
+| POST | `/auth/validate-otp` | validateOtp | partner_full |
+| POST | `/cip/alternate/{phoneNumber}` | setAlternateCIP | partner_full |
+| POST | `/cip/can-operate/{userToken}` | canOperate | partner_full |
+| GET | `/cip/docs-types-by-user/{userToken}` | getDocsTypesByUser | partner_full |
+| POST | `/cip/documents/{phoneNumber}` | uploadIdentityDocuments | partner_full |
+| POST | `/cip/level/one/v2/{userToken}` | performLevelOneV2 | partner_full |
+| POST | `/cip/level/resubmit-upgrade` | performResubmitUpgradeLevel | partner_full |
+| POST | `/cip/level/two/{phoneNumber}/trusted` | setTrustedLevelTwo | partner_full |
+| POST | `/cip/level/two/{userToken}` | startLevelTwo | partner_full |
+| POST | `/cip/level/two/trusted/v2/{userToken}` | setTrustedLevelTwoV2 | partner_full |
+| GET | `/cip/lola/link/{userToken}` | getLolaCIPLink | partner_full |
+| GET | `/cip/poltoken/{userToken}` | getPolToken | partner_full |
+| GET | `/cip/process/{phoneNumber}` | getCIPInfo | partner_full, partner_send |
+| GET | `/cip/process/v2/{userToken}` | getIdentityStatus | partner_full |
+| POST | `/cip/proof-of-life/{phoneNumber}` | uploadProofOfLife | partner_full |
+| POST | `/cip/set-level/two/{phoneNumber}` | setLevelTwo | partner_full |
+| POST | `/cip/uploadFiles/{userToken}` | uploadFiles | partner_full |
+| POST | `/cip/validatePoltoken/{userToken}` | validatePolToken | partner_full |
+| GET | `/corridor/available-operations-free` | GetAvailableOperationTypeNoUser | mobile, partner |
+| POST | `/custom/record/publish/{userToken}` | PublishRecord | partner |
+| POST | `/custom/source/account/add/{userToken}` | AddUBNAccount | partner |
+| POST | `/hooks` | eventsHook | — |
+| POST | `/partner/test-helper` | TestHelperPost | — |
+| GET | `/service/allowed_countries` | allowedCountries | — |
+| POST | `/service/get-cip-web-link` | getCIPWebLink | — |
+| POST | `/service/place_details` | getPlaceDetails | — |
+| POST | `/service/short-link` | shortLink | — |
+| GET | `/tenant/tenant-info` | getTenantInformation | partner_full |
+| GET | `/user/contacts/{userToken}` | listContacts | partner, partner_send |
+| POST | `/user/contacts/{userToken}` | createContact | partner, partner_send |
+| PUT | `/user/contacts/{userToken}` | updateContact | partner, partner_send |
+| GET | `/user/contacts/user/{userToken}/{phoneOrEmail}` | getContactUserDetail | partner, partner_send |
+| GET | `/user/corridors` | getCorridors | partner_full, partner_send |
+| GET | `/user/corridors/available-methods/{userToken}` | getAvailablePaymentMethods | partner, partner_full, partner_send |
+| GET | `/user/corridors/available-operations-data-free` | getAvailableOperationsNoUser | partner, partner_full, partner_send |
+| GET | `/user/corridors/available-operations/{userToken}` | getAvailableOperationType | partner, partner_full, partner_send |
+| GET | `/user/corridors/available-payout-methods/{userToken}` | getAvailablePayoutMethods | partner, partner_full, partner_send |
+| GET | `/user/exchange-rates/exchange-rates` | getExchangeRates | partner_send |
+| POST | `/user/funding/card/check-validity-pull` | checkCardValidityPull | partner_full |
+| POST | `/user/funding/card/check-validity-push` | checkCardValidityPush | partner_full |
+| POST | `/user/funding/cash/operators/{userToken}` | getCashOperators | partner_send |
+| POST | `/user/funding/cash/reference-code/{userToken}` | setReferenceCode | partner_send |
+| GET | `/user/funding/cash/reference-code/{userToken}/{referenceCodeId}` | getReferenceCodeById | partner_send |
+| GET | `/user/funding/contact/source/{userToken}` | getDestinationSOFForContactUsers | partner_full, partner_send |
+| POST | `/user/funding/m2m/source/card/add/{userToken}` | AddCardM2M | — |
+| GET | `/user/funding/source/account/{raasUserId}` | getUserAccount | partner_full |
+| POST | `/user/funding/source/card/add/{userToken}` | createFundingCard | partner, partner_send |
+| POST | `/user/funding/source/card/generate-micro-trx/{userToken}` | generateMicroTrx | partner_full |
+| POST | `/user/funding/source/card/update-billing-address/{userToken}` | updateAndValidateBillingAddress | partner_full |
+| POST | `/user/funding/source/delete/{userToken}` | deletePaymentMethod | partner_full |
+| GET | `/user/funding/source/get-payment-method-v2/{userToken}` | getPaymentMethodV2 | Default, partner, partner_send |
+| GET | `/user/funding/source/request-money/{userToken}` | listFundingSourcesForRequest | partner |
+| GET | `/user/funding/source/send-money/{userToken}` | listFundingSourcesForSend | partner_send |
+| POST | `/user/funding/source/ubn-account/add/{userToken}` | addUBNAccount | partner, partner_full, partner_send |
+| GET | `/user/landing-port/status/{operationId}` | getLandingPortStatusEvent | partner_full |
+| GET | `/user/operations/{userToken}` | getOperations | partner, partner_full, partner_send |
+| POST | `/user/operations/accept-reject-funds/{userToken}` | acceptoOrRejectFunds | partner_full |
+| POST | `/user/operations/cancel-operation/{userToken}` | cancelOperaton | partner_full |
+| GET | `/user/operations/completed/{userToken}` | getCompletedOperationsBetweenUsers | partner_full, partner_send |
+| POST | `/user/operations/create-support-ticket/{id}` | createSupportTicket | partner_full |
+| GET | `/user/operations/detail/{id}` | getOperation | partner, partner_full, partner_send |
+| POST | `/user/operations/draft-money-request` | draftRequest | partner_full |
+| GET | `/user/operations/frequent/{userToken}/{limit}` | getFrequentContacts | partner, partner_full, partner_send |
+| GET | `/user/operations/in-out/{userToken}` | getInAndOutOperations | partner_full, partner_send |
+| GET | `/user/operations/notify-cash-operation/{userToken}/{operationId}` | notifyCashOperation | partner_full, partner_send |
+| GET | `/user/operations/notify-validate-card/{userToken}/{paymentMethodId}` | notifyValidateCard | partner_full |
+| POST | `/user/operations/operation-quote-lite` | operationQuoteLite | partner_full, partner_send |
+| POST | `/user/operations/operation-quote-v2/{userToken}` | operationQuoteV2 | partner_full, partner_send |
+| POST | `/user/operations/operation-quote/{userToken}` | operationQuote | partner_full, partner_send |
+| POST | `/user/operations/pre-quote/{userToken}` | preQuote | partner_full, partner_send |
+| POST | `/user/operations/quotation/{userToken}` | getOperationQuote | partner_full, partner_send |
+| POST | `/user/operations/receive-money/{userToken}` | receive | partner_full |
+| POST | `/user/operations/replace-payment-method/{userId}` | replacePaymentMethod | partner_full |
+| POST | `/user/operations/request-money-full` | requestMoneyFull | partner, partner_full |
+| POST | `/user/operations/request-money-v2/{userToken}` | requestMoneyV2 | partner, partner_full |
+| POST | `/user/operations/send-funds-v2/{userToken}` | sendFundsV2 | partner_full, partner_send |
+| POST | `/user/operations/send-funds/{userToken}` | sendFunds | partner_full, partner_send |
+| POST | `/user/operations/set-payment-method/{userId}` | setPaymentMethod | partner_full |
+| GET | `/user/operations/status/{userToken}/{operationId}` | getOperationStatus | partner, partner_send |
+| GET | `/user/operations/validate-link-operation/{id}` | validateDeepLinkOperation | partner_full |
+| POST | `/user/pin` | createPin | partner, partner_full |
+| GET | `/user/profile/{phoneOrEmail}` | getProfile | partner, partner_full |
+| PUT | `/user/profile/{phoneOrEmail}` | updateProfile | partner, partner_full |
+| POST | `/user/validate-pincode` | validatePINCode | partner, partner_full |
+
+## 6. Suggested test cases (auth / scopes)
 
 | ID | Scenario | Expected result |
 |----|----------|-----------------|
@@ -69,12 +199,14 @@ As defined in the service role configuration:
 | S5 | Key with `partner_full` on an endpoint that accepts `partner` or `partner_full` | Success (if the rest of the request is valid). |
 | S6 | Key with `partner_full` on an endpoint that requires only `partner_send` | Success (inheritance includes `partner_send`). |
 
-## 6. mTLS
+## 7. mTLS
 
-**Mutual TLS** changes the base URL and certificate requirements; it does **not** replace scope logic: the `api_key` must still satisfy the endpoint’s scopes. URL details: [API Reference](/api-reference/introduction) and platform documentation.
+**Mutual TLS** changes the base URL and certificate requirements; it does **not** replace scope logic: the `api_key` must still satisfy the endpoint’s scopes. URL details: introduction / platform documentation.
 
-## 7. Maintenance and traceability
+## 8. Maintenance and traceability
 
 The §3 hierarchy is defined in code in `src/config/roles.ts` (`getScopeExtensions` / `getScopesStream`). Per-request checks are in `src/authentication.ts` (`api_key` branch). If roles or annotations change, update this guide and the scope regression plan.
 
-**Repository:** Update `docs/qa/PARTNER_API_SCOPES.md` and this page together.
+**§5 matrix:** regenerate with `yarn docs:qa:partner-scope-matrix` after refreshing `mintlify-docs/swagger.json` (`yarn build:partner && yarn docs:update-openapi`).
+
+**Mintlify:** This page is the published copy under **Documentation → Introduction**. **Canonical:** `docs/qa/PARTNER_API_SCOPES.md`. Keep both files in sync when editing.

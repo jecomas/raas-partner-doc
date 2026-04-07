@@ -527,32 +527,13 @@
       },
       "RegisterUserParams": {
         "properties": {
-          "firstName": {
+          "phoneNumber": {
             "type": "string"
           },
           "lastName": {
             "type": "string"
           },
-          "dob": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "address1": {
-            "type": "string"
-          },
-          "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
-          },
-          "city": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
           "lastName2": {
-            "type": "string"
-          },
-          "phoneNumber": {
             "type": "string"
           },
           "gender": {
@@ -564,10 +545,20 @@
               "None"
             ]
           },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
           "email": {
             "type": "string"
           },
+          "firstName": {
+            "type": "string"
+          },
           "middleName": {
+            "type": "string"
+          },
+          "address1": {
             "type": "string"
           },
           "address2": {
@@ -579,7 +570,16 @@
           "streetNumber": {
             "type": "string"
           },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
           "zipCode": {
+            "type": "string"
+          },
+          "state": {
             "type": "string"
           },
           "birthState": {
@@ -609,9 +609,9 @@
           }
         },
         "required": [
-          "firstName",
           "lastName",
           "dob",
+          "firstName",
           "address1",
           "countryCode",
           "city",
@@ -725,32 +725,13 @@
       },
       "SessionLinkParams": {
         "properties": {
-          "firstName": {
+          "phoneNumber": {
             "type": "string"
           },
           "lastName": {
             "type": "string"
           },
-          "dob": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "address1": {
-            "type": "string"
-          },
-          "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
-          },
-          "city": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
           "lastName2": {
-            "type": "string"
-          },
-          "phoneNumber": {
             "type": "string"
           },
           "gender": {
@@ -762,10 +743,20 @@
               "None"
             ]
           },
+          "dob": {
+            "type": "string",
+            "format": "date-time"
+          },
           "email": {
             "type": "string"
           },
+          "firstName": {
+            "type": "string"
+          },
           "middleName": {
+            "type": "string"
+          },
+          "address1": {
             "type": "string"
           },
           "address2": {
@@ -777,7 +768,16 @@
           "streetNumber": {
             "type": "string"
           },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code"
+          },
+          "city": {
+            "type": "string"
+          },
           "zipCode": {
+            "type": "string"
+          },
+          "state": {
             "type": "string"
           },
           "birthState": {
@@ -817,9 +817,9 @@
           }
         },
         "required": [
-          "firstName",
           "lastName",
           "dob",
+          "firstName",
           "address1",
           "countryCode",
           "city",
@@ -849,6 +849,9 @@
             "type": "string"
           },
           "paymentMethodStatus": {
+            "type": "string"
+          },
+          "userId": {
             "type": "string"
           }
         },
@@ -1221,6 +1224,9 @@
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "subscriberId": {
+            "type": "string"
           }
         },
         "required": [
@@ -2545,31 +2551,6 @@
         "type": "object",
         "additionalProperties": false
       },
-      "RaasCanOperateRequest": {
-        "properties": {
-          "srcContry": {
-            "type": "string"
-          },
-          "destContry": {
-            "type": "string"
-          },
-          "operation": {
-            "type": "string"
-          },
-          "role": {
-            "type": "string",
-            "description": "User Role\nSender | Requester"
-          }
-        },
-        "required": [
-          "srcContry",
-          "destContry",
-          "operation",
-          "role"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
       "EventSystem": {
         "properties": {
           "payload": {
@@ -2706,512 +2687,6 @@
           "cardType",
           "number",
           "tokenData"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "PaymentMethodType": {
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "type": "number"
-      },
-      "PaymentToken": {
-        "properties": {
-          "paymentType": {
-            "$ref": "#/components/schemas/PaymentMethodType"
-          },
-          "displayName": {
-            "type": "string"
-          },
-          "transactionIdentifier": {
-            "type": "string"
-          },
-          "paymentNetwork": {
-            "type": "string"
-          },
-          "data": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "data"
-        ],
-        "type": "object"
-      },
-      "RaaSPaymentMethod": {
-        "properties": {
-          "paymentMethodOwner": {
-            "type": "string"
-          },
-          "allowReviewAddress": {
-            "type": "boolean"
-          },
-          "allowPushDomestic": {
-            "type": "boolean"
-          },
-          "allowPushCrossBorder": {
-            "type": "boolean"
-          },
-          "allowPullDomestic": {
-            "type": "boolean"
-          },
-          "allowPullCrossBorder": {
-            "type": "boolean"
-          },
-          "accountPrefix": {
-            "type": "string"
-          },
-          "bin": {
-            "type": "string"
-          },
-          "paymentToken": {
-            "$ref": "#/components/schemas/PaymentToken",
-            "description": "The paymentToken field is only for capturing data from mobile, it won't send to numi plat"
-          },
-          "status": {
-            "$ref": "#/components/schemas/PaymentMethodStatus"
-          },
-          "application": {
-            "type": "string"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "phoneNumber": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "zipCode": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "streetNumber": {
-            "type": "string"
-          },
-          "address3": {
-            "type": "string"
-          },
-          "address2": {
-            "type": "string"
-          },
-          "address1": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "cardNetwork": {
-            "type": "string"
-          },
-          "cardtype": {
-            "type": "string",
-            "enum": [
-              "DebitCard",
-              "CreditCard"
-            ]
-          },
-          "securityCode": {
-            "type": "string"
-          },
-          "expirationMonth": {
-            "type": "string"
-          },
-          "expirationYear": {
-            "type": "string"
-          },
-          "expirationDate": {
-            "type": "string"
-          },
-          "nameOnCard": {
-            "type": "string"
-          },
-          "number": {
-            "type": "string"
-          },
-          "beneficiaryAccountId": {
-            "type": "string"
-          },
-          "tokenData": {
-            "type": "string"
-          },
-          "cardType": {
-            "type": "string",
-            "enum": [
-              "DebitCard",
-              "CreditCard"
-            ]
-          },
-          "accountNumber": {
-            "type": "string"
-          },
-          "bankEntityNumber": {
-            "type": "string"
-          },
-          "bankName": {
-            "type": "string"
-          },
-          "bankAccountType": {
-            "type": "string",
-            "enum": [
-              "CheckingAccount",
-              "SavingsAccount",
-              "OtherAccount"
-            ]
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isPrimary": {
-            "type": "boolean"
-          },
-          "type": {
-            "$ref": "#/components/schemas/AvailablePaymentMethods"
-          },
-          "name": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "country",
-          "type"
-        ],
-        "type": "object"
-      },
-      "AddCardParamsBase": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "payment method name:\np.e. VISA-1111"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "DebitCard",
-              "CreditCard"
-            ],
-            "description": "Payment method type\nDebitCard\" | \"CreditCard\""
-          },
-          "isPrimary": {
-            "type": "boolean",
-            "description": "Main payment method?"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "cardtype": {
-            "type": "string",
-            "enum": [
-              "DebitCard",
-              "CreditCard"
-            ],
-            "description": "Card type\nDebitCard\" | \"CreditCard\""
-          },
-          "number": {
-            "type": "string",
-            "description": "Card number"
-          },
-          "nameOnCard": {
-            "type": "string"
-          },
-          "expirationDate": {
-            "type": "string"
-          },
-          "expirationYear": {
-            "type": "string"
-          },
-          "expirationMonth": {
-            "type": "string"
-          },
-          "securityCode": {
-            "type": "string"
-          },
-          "tokenData": {
-            "type": "string",
-            "description": "Card full token json string"
-          },
-          "application": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "opPlatId": {
-            "type": "string"
-          },
-          "cardNetwork": {
-            "type": "string",
-            "enum": [
-              "NotApplicable",
-              "UATP",
-              "Visa",
-              "ChinaUnionPay",
-              "InterPayment",
-              "DiscoverCard",
-              "Dankort",
-              "Cardguard",
-              "MIR",
-              "MasterCard",
-              "Verve",
-              "InstaPayment",
-              "Maestro",
-              "DinersClubInternational",
-              "AmericanExpress",
-              "JCB",
-              "TROY"
-            ]
-          },
-          "operationId": {
-            "type": "string"
-          },
-          "cardPorpuse": {
-            "type": "string",
-            "enum": [
-              "Source",
-              "Destination"
-            ]
-          }
-        },
-        "required": [
-          "name",
-          "cardtype",
-          "number",
-          "nameOnCard",
-          "expirationDate",
-          "expirationYear",
-          "expirationMonth",
-          "cardNetwork"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "PlaidBankValidationResponse": {
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "accessToken": {
-            "type": "string"
-          },
-          "itemId": {
-            "type": "string"
-          },
-          "accountType": {
-            "type": "string"
-          },
-          "accountSubType": {
-            "type": "string"
-          },
-          "accountName": {
-            "type": "string"
-          },
-          "accountNumber": {
-            "type": "string"
-          },
-          "accountRouting": {
-            "type": "string"
-          },
-          "bankName": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "success"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "AddBankAccountParamsBase": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "payment method name:\np.e. HSBC-1111"
-          },
-          "accountNumber": {
-            "type": "string"
-          },
-          "bankAccountType": {
-            "type": "string",
-            "enum": [
-              "CheckingAccount",
-              "SavingsAccount",
-              "OtherAccount"
-            ],
-            "description": "Bank account type"
-          },
-          "bankEntityNumber": {
-            "type": "string"
-          },
-          "isPrimary": {
-            "type": "boolean",
-            "description": "Main payment method?"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "application": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "accountNumber",
-          "bankAccountType",
-          "bankEntityNumber",
-          "isPrimary",
-          "application"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "AddPaymentMethodResponse": {
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/PaymentMethodStatus"
-          },
-          "userId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "isPrimary": {
-            "type": "boolean"
-          },
-          "createdAt": {
-            "type": "string"
-          },
-          "updatedAt": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "currency": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "cardType": {
-            "type": "string"
-          },
-          "number": {
-            "type": "string"
-          },
-          "nameOnCard": {
-            "type": "string"
-          },
-          "expirationDate": {
-            "type": "string"
-          },
-          "expirationYear": {
-            "type": "string"
-          },
-          "expirationMonth": {
-            "type": "string"
-          },
-          "securityCode": {
-            "type": "string"
-          },
-          "tokenData": {
-            "type": "string"
-          },
-          "cardNetwork": {
-            "type": "string"
-          },
-          "allowPullCrossBorder": {
-            "type": "boolean"
-          },
-          "allowPullDomestic": {
-            "type": "boolean"
-          },
-          "allowPushCrossBorder": {
-            "type": "boolean"
-          },
-          "allowPushDomestic": {
-            "type": "boolean"
-          },
-          "allowReviewAddress": {
-            "type": "boolean"
-          },
-          "requiresBalanceValidation": {
-            "type": "boolean"
-          },
-          "accountId": {
-            "type": "string"
-          },
-          "bankEntityNumber": {
-            "type": "string"
-          },
-          "externalId": {
-            "type": "string"
-          },
-          "errorValidation": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "status"
         ],
         "type": "object",
         "additionalProperties": false
@@ -3524,85 +2999,202 @@
         "type": "object",
         "additionalProperties": false
       },
-      "RaasBillingAddress": {
+      "PaymentMethodType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "type": "number"
+      },
+      "PaymentToken": {
         "properties": {
-          "address1": {
+          "paymentType": {
+            "$ref": "#/components/schemas/PaymentMethodType"
+          },
+          "displayName": {
             "type": "string"
           },
-          "address2": {
+          "transactionIdentifier": {
             "type": "string"
           },
-          "address3": {
+          "paymentNetwork": {
             "type": "string"
           },
-          "city": {
+          "data": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "RaaSPaymentMethod": {
+        "properties": {
+          "paymentMethodOwner": {
             "type": "string"
           },
-          "countryCode": {
+          "allowReviewAddress": {
+            "type": "boolean"
+          },
+          "allowPushDomestic": {
+            "type": "boolean"
+          },
+          "allowPushCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPullDomestic": {
+            "type": "boolean"
+          },
+          "allowPullCrossBorder": {
+            "type": "boolean"
+          },
+          "accountPrefix": {
             "type": "string"
           },
-          "latitude": {
+          "bin": {
+            "type": "string"
+          },
+          "paymentToken": {
+            "$ref": "#/components/schemas/PaymentToken",
+            "description": "The paymentToken field is only for capturing data from mobile, it won't send to numi plat"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentMethodStatus"
+          },
+          "application": {
+            "type": "string"
+          },
+          "accountId": {
             "type": "string"
           },
           "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "phoneNumber": {
             "type": "string"
           },
-          "placeDetail": {
+          "country": {
+            "type": "string"
+          },
+          "zipCode": {
             "type": "string"
           },
           "state": {
             "type": "string"
           },
+          "city": {
+            "type": "string"
+          },
           "streetNumber": {
             "type": "string"
           },
-          "zipCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "address1",
-          "address2",
-          "address3",
-          "city",
-          "countryCode",
-          "placeDetail",
-          "state",
-          "streetNumber",
-          "zipCode"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "UpdateAndValidateBillingAddress": {
-        "properties": {
-          "PaymentMethodId": {
+          "address3": {
             "type": "string"
           },
-          "Address": {
-            "$ref": "#/components/schemas/RaasBillingAddress"
-          }
-        },
-        "required": [
-          "PaymentMethodId",
-          "Address"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "VerifyMicroTrxParams": {
-        "properties": {
-          "amount": {
-            "type": "number",
-            "format": "double"
+          "address2": {
+            "type": "string"
           },
-          "cardId": {
+          "address1": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string"
+          },
+          "cardtype": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "securityCode": {
+            "type": "string"
+          },
+          "expirationMonth": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "beneficiaryAccountId": {
+            "type": "string"
+          },
+          "tokenData": {
+            "type": "string"
+          },
+          "cardType": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ]
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "bankEntityNumber": {
+            "type": "string"
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "bankAccountType": {
+            "type": "string",
+            "enum": [
+              "CheckingAccount",
+              "SavingsAccount",
+              "OtherAccount"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AvailablePaymentMethods"
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
             "type": "string"
           }
         },
         "required": [
-          "amount",
-          "cardId"
+          "country",
+          "type"
         ],
         "type": "object"
       },
@@ -3694,6 +3286,121 @@
         "type": "object",
         "additionalProperties": false
       },
+      "AddCardParamsBase": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "payment method name:\np.e. VISA-1111"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ],
+            "description": "Payment method type\nDebitCard\" | \"CreditCard\""
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Main payment method?"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "cardtype": {
+            "type": "string",
+            "enum": [
+              "DebitCard",
+              "CreditCard"
+            ],
+            "description": "Card type\nDebitCard\" | \"CreditCard\""
+          },
+          "number": {
+            "type": "string",
+            "description": "Card number"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "string"
+          },
+          "expirationMonth": {
+            "type": "string"
+          },
+          "securityCode": {
+            "type": "string"
+          },
+          "tokenData": {
+            "type": "string",
+            "description": "Card full token json string"
+          },
+          "application": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "opPlatId": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string",
+            "enum": [
+              "NotApplicable",
+              "UATP",
+              "Visa",
+              "ChinaUnionPay",
+              "InterPayment",
+              "DiscoverCard",
+              "Dankort",
+              "Cardguard",
+              "MIR",
+              "MasterCard",
+              "Verve",
+              "InstaPayment",
+              "Maestro",
+              "DinersClubInternational",
+              "AmericanExpress",
+              "JCB",
+              "TROY"
+            ]
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "cardPorpuse": {
+            "type": "string",
+            "enum": [
+              "Source",
+              "Destination"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "cardtype",
+          "number",
+          "nameOnCard",
+          "expirationDate",
+          "expirationYear",
+          "expirationMonth",
+          "cardNetwork"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "RaaSPartnerPaymentMethod": {
         "properties": {
           "currency": {
@@ -3738,6 +3445,111 @@
         },
         "type": "object"
       },
+      "AddPaymentMethodResponse": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentMethodStatus"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "isPrimary": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "cardType": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "nameOnCard": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "expirationYear": {
+            "type": "string"
+          },
+          "expirationMonth": {
+            "type": "string"
+          },
+          "securityCode": {
+            "type": "string"
+          },
+          "tokenData": {
+            "type": "string"
+          },
+          "cardNetwork": {
+            "type": "string"
+          },
+          "allowPullCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPullDomestic": {
+            "type": "boolean"
+          },
+          "allowPushCrossBorder": {
+            "type": "boolean"
+          },
+          "allowPushDomestic": {
+            "type": "boolean"
+          },
+          "allowReviewAddress": {
+            "type": "boolean"
+          },
+          "requiresBalanceValidation": {
+            "type": "boolean"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "bankEntityNumber": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "errorValidation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "Account": {
         "properties": {
           "Id": {
@@ -3754,6 +3566,74 @@
           "Id",
           "UserId",
           "Status"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RaasBillingAddress": {
+        "properties": {
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "address3": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "string"
+          },
+          "placeDetail": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address1",
+          "address2",
+          "address3",
+          "city",
+          "countryCode",
+          "latitude",
+          "longitude",
+          "placeDetail",
+          "state",
+          "streetNumber",
+          "zipCode"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UpdateAndValidateBillingAddress": {
+        "properties": {
+          "PaymentMethodId": {
+            "type": "string"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/RaasBillingAddress"
+          }
+        },
+        "required": [
+          "PaymentMethodId",
+          "Address"
         ],
         "type": "object",
         "additionalProperties": false
@@ -4130,6 +4010,10 @@
           },
           "flow": {
             "type": "string"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "required": [
@@ -4552,6 +4436,10 @@
           },
           "flow": {
             "type": "string"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "required": [
@@ -4601,97 +4489,6 @@
           "correlationId",
           "recipientAmount",
           "recipientCurrency"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "RequestMoneyFullResponse": {
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "operationId": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "userId",
-          "operationId",
-          "status"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "RequestToParams": {
-        "properties": {
-          "phoneNumber": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "phoneNumber",
-          "firstName",
-          "lastName",
-          "countryCode"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
-      "RequestMoneyFullParams": {
-        "properties": {
-          "requester": {
-            "$ref": "#/components/schemas/RegisterUserParams"
-          },
-          "request": {
-            "properties": {
-              "recipientCurrency": {
-                "type": "string"
-              },
-              "recipientAmount": {
-                "type": "number",
-                "format": "double"
-              },
-              "reason": {
-                "type": "string"
-              },
-              "destinationPaymentMethod": {
-                "$ref": "#/components/schemas/RaaSPaymentMethod"
-              },
-              "correlationId": {
-                "type": "string"
-              },
-              "requestTo": {
-                "$ref": "#/components/schemas/RequestToParams"
-              }
-            },
-            "required": [
-              "recipientCurrency",
-              "recipientAmount",
-              "destinationPaymentMethod",
-              "correlationId",
-              "requestTo"
-            ],
-            "type": "object"
-          }
-        },
-        "required": [
-          "requester",
-          "request"
         ],
         "type": "object",
         "additionalProperties": false
@@ -5135,6 +4932,9 @@
           },
           "boardId": {
             "type": "string"
+          },
+          "sendTo": {
+            "$ref": "#/components/schemas/PerformLevelOneParams"
           }
         },
         "required": [
@@ -5396,6 +5196,10 @@
           },
           "flow": {
             "type": "string"
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "required": [
@@ -5419,6 +5223,10 @@
       },
       "OperationDetailResponse": {
         "properties": {
+          "taxAmount": {
+            "type": "number",
+            "format": "double"
+          },
           "flow": {
             "type": "string"
           },
@@ -6136,6 +5944,112 @@
         "type": "object",
         "additionalProperties": false
       },
+      "DefaultPMType": {
+        "properties": {},
+        "type": "object"
+      },
+      "Contact": {
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "urlProfile": {
+            "type": "string",
+            "description": "This field is to return the profile photo in runtime. It is not saving in db."
+          },
+          "userId": {
+            "type": "string",
+            "description": "This field is to return the userId photo in runtime. It is not saving in db."
+          },
+          "alias": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "Male",
+              "Female",
+              "Other",
+              "None"
+            ]
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UserExtendDataInfo": {
+        "properties": {
+          "userToken": {
+            "type": "string"
+          },
+          "lastKey": {
+            "type": "string"
+          },
+          "contacts": {
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "userToken"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "TestHelperResponse": {
+        "properties": {
+          "userExDataSender": {
+            "$ref": "#/components/schemas/UserExtendDataInfo"
+          },
+          "userExDataDestination": {
+            "$ref": "#/components/schemas/UserExtendDataInfo"
+          },
+          "contactCreated": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
+      "TestHelperParams": {
+        "properties": {
+          "senderPhone": {
+            "type": "string"
+          },
+          "destinationPhone": {
+            "type": "string"
+          },
+          "autoCreateContact": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
       "UserUpdateParams": {
         "properties": {
           "email": {
@@ -6481,6 +6395,7 @@
           "InvalidSenderData",
           "InvalidDestinationData",
           "InvalidExchangeRate",
+          "NonMatchingCurrencyAccount",
           "InvalidAmount"
         ]
       },
@@ -6563,6 +6478,7 @@
           "InvalidExchangeRate",
           "NotPreviouslyValidated",
           "InvalidReferenceId",
+          "NonMatchingCurrencyAccount",
           "InvalidAmount"
         ]
       },
