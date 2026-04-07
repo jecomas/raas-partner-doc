@@ -78,8 +78,8 @@
             }
           }
         },
-        "description": "Resolves and returns a RaaS user UUID from a raw phone number or email alias.",
-        "summary": "Get user token ( V2)",
+        "description": "Resolves and returns a RaaS user ID from a raw phone number or email alias.",
+        "summary": "Get user token",
         "tags": [
           "Users"
         ],
@@ -199,7 +199,7 @@
             }
           }
         },
-        "description": "Retrieves all contacts stored for a user by their session token.",
+        "description": "Retrieves all contacts stored for a user by their ID.",
         "summary": "List user contacts",
         "tags": [
           "Contacts"
@@ -471,7 +471,7 @@
           }
         },
         "description": "Checks whether a contact (by phone or email) is a registered user and has transactions with the sender.",
-        "summary": "Get contact user detail and association",
+        "summary": "Get contact user detail",
         "tags": [
           "Contacts"
         ],
@@ -780,8 +780,8 @@
             }
           }
         },
-        "description": "Retrieves the V2 summary structure for a payment method by gateway or origin ID.",
-        "summary": "Get payment method V2 (by ID)",
+        "description": "Retrieves the summary structure for a receiving method by ID.",
+        "summary": "Get receiving method",
         "tags": [
           "Funding"
         ],
@@ -862,8 +862,8 @@
             }
           }
         },
-        "description": "Adds a UBN or bank account to the user's payment method collection.",
-        "summary": "Add UBN bank account",
+        "description": "Adds a UBN account as a new receiving method.",
+        "summary": "Add UBN account",
         "tags": [
           "Funding"
         ],
@@ -959,8 +959,8 @@
             }
           }
         },
-        "description": "Creates a request-money event from originator to beneficiary using V2 validations and live quote.",
-        "summary": "Request money ( V2)",
+        "description": "Creates a request-money event from originator to beneficiary.",
+        "summary": "Request money",
         "tags": [
           "Operations"
         ],
@@ -1154,7 +1154,7 @@
             }
           }
         },
-        "description": "Lists in/out transaction history for the given user identifier.",
+        "description": "Lists in/out transaction history for the given user ID.",
         "summary": "List operations (history)",
         "tags": [
           "Operations"

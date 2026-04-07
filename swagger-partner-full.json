@@ -2057,8 +2057,8 @@
             }
           }
         },
-        "description": "Adds a UBN or bank account to the user's payment method collection.",
-        "summary": "Add UBN bank account",
+        "description": "Adds a UBN account as a new receiving method.",
+        "summary": "Add UBN account",
         "tags": [
           "Funding"
         ],
@@ -2612,8 +2612,8 @@
             }
           }
         },
-        "description": "Creates a request-money event from originator to beneficiary using V2 validations and live quote.",
-        "summary": "Request money ( V2)",
+        "description": "Creates a request-money event from originator to beneficiary.",
+        "summary": "Request money",
         "tags": [
           "Operations"
         ],
@@ -3266,7 +3266,7 @@
             }
           }
         },
-        "description": "Lists in/out transaction history for the given user identifier.",
+        "description": "Lists in/out transaction history for the given user ID.",
         "summary": "List operations (history)",
         "tags": [
           "Operations"
