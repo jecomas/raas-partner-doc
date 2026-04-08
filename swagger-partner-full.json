@@ -6998,6 +6998,12 @@
           },
           "canOperate": {
             "type": "boolean"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "paymentMethodOwner": {
+            "type": "string"
           }
         },
         "required": [
@@ -10854,13 +10860,12 @@
         "additionalProperties": false
       },
       "CreditStatus": {
+        "type": "string",
         "enum": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "type": "number"
+          "InProgress",
+          "Approved",
+          "Failed"
+        ]
       },
       "GetCreditStatusResponse": {
         "properties": {
