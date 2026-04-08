@@ -12718,59 +12718,6 @@
 				"parameters": []
 			}
 		},
-		"/partner/test-helper": {
-			"post": {
-				"operationId": "TestHelperPost",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TestHelperResponse"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Consulta el tenant y datos extendidos asociados a los números de teléfono proporcionados.\nOpcionalmente crea el contacto si no existe.",
-				"summary": "Helper de pruebas para usuarios y contactos",
-				"tags": [
-					"TestHelper"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"description": "- Parámetros de consulta y automatización.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/TestHelperParams"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/user/profile/{phoneOrEmail}": {
 			"get": {
 				"operationId": "getProfile",
@@ -13318,7 +13265,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nThis endpoint will only be used when the Partner has account creation configured as `Dynamic`.\n\n**Expected behavior:** \nThis endpoint is invoked when our systems require the formal creation \nof an account associated with a user's personal data and documents. \nThe partner must register the account and respond with a unique identifier for the new account (`AccountIdentifier`).",
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to:\n\n`[Base-URL]/CreateAccount`.\n\nThis endpoint will only be used when the Partner has account creation configured as `Dynamic`.\n\n**Expected behavior:** \nThis endpoint is invoked when our systems require the formal creation \nof an account associated with a user's personal data and documents. \nThe partner must register the account and respond with a unique identifier for the new account (`AccountIdentifier`).",
 				"summary": "Create Account",
 				"tags": [
 					"Partner Implemented APIs",
@@ -13353,7 +13300,7 @@
 						}
 					}
 				},
-				"description": "**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nThis endpoint will only be used when the Partner has account creation configured as `OnDemand`.\n\n**Expected behavior:** \nInvokes the retrieval of a temporary delegated registration URL. \nIn cases where the Partner orchestrates the user account registration, this endpoint must\ngenerate and return a secure `RegistrationUrl` where the user can complete or initiate their enrollment.",
+				"description": "**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to:\n\n`[Base-URL]/GetCreateAccountUrl`.\n\nThis endpoint will only be used when the Partner has account creation configured as `OnDemand`.\n\n**Expected behavior:** \nInvokes the retrieval of a temporary delegated registration URL. \nIn cases where the Partner orchestrates the user account registration, this endpoint must\ngenerate and return a secure `RegistrationUrl` where the user can complete or initiate their enrollment.",
 				"summary": "Get Create Account URL",
 				"tags": [
 					"Partner Implemented APIs",
@@ -13388,7 +13335,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\n**Expected behavior:** \nAuthorization request to process a funds transaction between two parties (Sender and Recipient). \nThe partner will internally validate the balance, limits, and compliance rules (e.g., *AML*, *Velocity*),\nresponding whether the operation is **Authorized** (accompanied by a `TrackingIdentifier`) or denied \nfor a specific reason in `NonAuthorizedReason`.",
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to:\n\n`[Base-URL]/TxAuthorization`.\n\n**Expected behavior:** \nAuthorization request to process a funds transaction between two parties (Sender and Recipient). \nThe partner will internally validate the balance, limits, and compliance rules (e.g., *AML*, *Velocity*),\nresponding whether the operation is **Authorized** (accompanied by a `TrackingIdentifier`) or denied \nfor a specific reason in `NonAuthorizedReason`.",
 				"summary": "Tx Authorization",
 				"tags": [
 					"Partner Implemented APIs",
@@ -13423,7 +13370,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nOur service will check `CreditResponseType` configuration. \nIf `Sync`, the response will be immediate.\nIf `Async`, status will be checked by `Get Credit Status` endpoint.\n\n**Expected behavior:** \nPayment order (credit) to a virtual network account.\nWe will send a notification to indicate that funds should be settled \nin favor of an `AccountIdentifier` for the stipulated amount. \nThe destination system must respond whether the action was successful (`Success`), returning \na trace and/or the reason why it failed (`NonCreditReason`).",
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to:\n\n`[Base-URL]/CreditFunds`.\n\nOur service will check `CreditResponseType` configuration. \nIf `Sync`, the response will be immediate.\nIf `Async`, status will be checked by `Get Credit Status` endpoint.\n\n**Expected behavior:** \nPayment order (credit) to a virtual network account.\nWe will send a notification to indicate that funds should be settled \nin favor of an `AccountIdentifier` for the stipulated amount. \nThe destination system must respond whether the action was successful (`Success`), returning \na trace and/or the reason why it failed (`NonCreditReason`).",
 				"summary": "Credit Funds",
 				"tags": [
 					"Partner Implemented APIs",
@@ -13458,7 +13405,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nOur backend will perform this request every `CreditStatusQueryRepetitionsInMinutes` minutes.\n\n**Expected behavior:** \nAsynchronous query of the status of a previous funds credit order. \nWith the tracking number (`CreditTrackingNumber`), the partner will report if the credit \nis in progress (`InProgress`), approved (`Approved`), or if it ended in an error (`Failed`).",
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to:\n\n`[Base-URL]/GetCreditStatus`.\n\nOur backend will perform this request every `CreditStatusQueryRepetitionsInMinutes` minutes.\n\n**Expected behavior:** \nAsynchronous query of the status of a previous funds credit order. \nWith the tracking number (`CreditTrackingNumber`), the partner will report if the credit \nis in progress (`InProgress`), approved (`Approved`), or if it ended in an error (`Failed`).",
 				"summary": "Get Credit Status",
 				"tags": [
 					"Partner Implemented APIs",
@@ -13493,7 +13440,7 @@
 						}
 					}
 				},
-				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to the URL configured\nby the partner, sending this `request`.\n\nIf reversal is not supported, response must be `Success: false` and `NonReverseReason: NonReverseReason.NotSupported`.\n\n**Expected behavior:** \nOrder for total reversal of a previous credit movement associated with a `CreditTrackingNumber`. \nThis usually occurs in case of cancellations, failures in the operation chain, or financial readjustments.\nThe Partner must return the funds from the specified account and confirm success by returning `Success` as `true`.",
+				"description": "\n**⚠️ ATTENTION: This API MUST be implemented by the Partner.**\n\nOur backend will consume this service by performing a `POST` request to:\n\n`[Base-URL]/ReverseCreditFunds`.\n\nIf reversal is not supported, response must be `Success: false` and `NonReverseReason: NonReverseReason.NotSupported`.\n\n**Expected behavior:** \nOrder for total reversal of a previous credit movement associated with a `CreditTrackingNumber`. \nThis usually occurs in case of cancellations, failures in the operation chain, or financial readjustments.\nThe Partner must return the funds from the specified account and confirm success by returning `Success` as `true`.",
 				"summary": "Reverse Credit Funds",
 				"tags": [
 					"Partner Implemented APIs",
