@@ -1612,7 +1612,7 @@
             }
           },
           {
-            "description": "- Destination country code.",
+            "description": "Destination country code.\nISO 3166-1 alpha-2.\nExample: `MX` for Mexico, `US` for United States.\n- Destination country code.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -1621,7 +1621,7 @@
             }
           },
           {
-            "description": "- Transaction type.",
+            "description": "Transaction type.\nExample: `SendFunds` for sending funds, `RequestFunds` for requesting funds.\n- Transaction type.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -4572,21 +4572,6 @@
         "type": "object",
         "additionalProperties": false
       },
-      "GetUserTokenParams": {
-        "properties": {
-          "phoneNumber": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "countryCode": {
-            "type": "string"
-          }
-        },
-        "type": "object",
-        "additionalProperties": false
-      },
       "CountryAlpha2Code": {
         "type": "string",
         "enum": [
@@ -4841,6 +4826,24 @@
           "ZW"
         ]
       },
+      "GetUserTokenParams": {
+        "properties": {
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number with country code.\nExample: `+19166020018`."
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address."
+          },
+          "countryCode": {
+            "$ref": "#/components/schemas/CountryAlpha2Code",
+            "description": "Country code.\nISO 3166-1 alpha-2."
+          }
+        },
+        "type": "object",
+        "additionalProperties": false
+      },
       "Language": {
         "enum": [
           "en",
@@ -4851,7 +4854,8 @@
       "RegisterUserParams": {
         "properties": {
           "phoneNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Phone number with country code.\nExample: `+19166020018`.\n\nIt doesn't allow duplicates."
           },
           "lastName": {
             "type": "string"
@@ -4870,10 +4874,12 @@
           },
           "dob": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Date of birth in ISO 8601 format. `AAAA-MM-DD`."
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address.\nIt doesn't allow duplicates.\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
           },
           "firstName": {
             "type": "string"
@@ -4882,7 +4888,8 @@
             "type": "string"
           },
           "address1": {
-            "type": "string"
+            "type": "string",
+            "description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`."
           },
           "address2": {
             "type": "string"
@@ -4903,32 +4910,39 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "birthState": {
-            "type": "string"
+            "type": "string",
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "lang": {
             "$ref": "#/components/schemas/Language"
           },
           "placeDetail": {
-            "type": "string"
+            "type": "string",
+            "description": "Place detail from address if available.\nFrom google maps place details."
           },
           "latitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Latitude from address"
           },
           "longitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Longitude from address"
           },
           "callLocationLatitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Latitude from user location"
           },
           "callLocationLongitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Longitude from user location"
           }
         },
         "required": [
@@ -5049,7 +5063,8 @@
       "SessionLinkParams": {
         "properties": {
           "phoneNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Phone number with country code.\nExample: `+19166020018`.\n\nIt doesn't allow duplicates."
           },
           "lastName": {
             "type": "string"
@@ -5068,10 +5083,12 @@
           },
           "dob": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Date of birth in ISO 8601 format. `AAAA-MM-DD`."
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address.\nIt doesn't allow duplicates.\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
           },
           "firstName": {
             "type": "string"
@@ -5080,7 +5097,8 @@
             "type": "string"
           },
           "address1": {
-            "type": "string"
+            "type": "string",
+            "description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`."
           },
           "address2": {
             "type": "string"
@@ -5101,32 +5119,39 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "birthState": {
-            "type": "string"
+            "type": "string",
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "lang": {
             "$ref": "#/components/schemas/Language"
           },
           "placeDetail": {
-            "type": "string"
+            "type": "string",
+            "description": "Place detail from address if available.\nFrom google maps place details."
           },
           "latitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Latitude from address"
           },
           "longitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Longitude from address"
           },
           "callLocationLatitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Latitude from user location"
           },
           "callLocationLongitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Longitude from user location"
           },
           "paymentMethodType": {
             "$ref": "#/components/schemas/SessionLinkPaymentMethodType"
@@ -6731,22 +6756,22 @@
             "type": "string"
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
+            "$ref": "#/components/schemas/CountryAlpha2Code",
+            "description": "Country code.\nISO 3166-1 alpha-2."
           },
           "phone": {
             "type": "string",
-            "minLength": 1
+            "description": "Phone number with country code.\nExample: `+19166020018`."
           },
           "lastName": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address."
           }
         },
         "required": [
@@ -6763,7 +6788,8 @@
             "type": "string"
           },
           "countryCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Country code.\nISO 3166-1 alpha-2."
           },
           "lastName": {
             "type": "string"
@@ -6772,10 +6798,12 @@
             "type": "string"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address."
           },
           "phone": {
-            "type": "string"
+            "type": "string",
+            "description": "Phone number with country code.\nExample: `+19166020018`."
           }
         },
         "required": [
@@ -7530,54 +7558,64 @@
       "AddCardPartnerParams": {
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Card name.\nExample: `VISA-1234`."
           },
           "cardtype": {
             "type": "string",
             "enum": [
               "DebitCard",
               "CreditCard"
-            ]
+            ],
+            "description": "Card type."
           },
           "type": {
             "type": "string",
             "enum": [
               "DebitCard",
               "CreditCard"
-            ]
+            ],
+            "description": "Payment method type."
           },
           "number": {
             "type": "string",
-            "minLength": 1
+            "description": "Tokenized card number by VGS.\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
           },
           "isPrimary": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Is primary payment method?"
           },
           "nameOnCard": {
-            "type": "string"
+            "type": "string",
+            "description": "Card holder name.\nExample: `John Doe`."
           },
           "expirationDate": {
             "type": "string",
-            "minLength": 1
+            "description": "Card expiration date.\nExample: `0631`."
           },
           "expirationYear": {
-            "type": "string"
+            "type": "string",
+            "description": "Card expiration year.\nExample: `31`."
           },
           "expirationMonth": {
-            "type": "string"
+            "type": "string",
+            "description": "Card expiration month.\nExample: `06`."
           },
           "securityCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Tokenized CVV/CVC security code by VGS.\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "description": "Currency code. `ISO-4217 format`.\nExample: `USD`."
           },
           "country": {
             "type": "string",
-            "minLength": 1
+            "description": "Country code. `ISO-3166-1 alpha-2 format`.\nExample: `US` for United States, `MX` for Mexico."
           },
           "operationId": {
-            "type": "string"
+            "type": "string",
+            "description": "Associated Operation ID (if applicable).\nExample: `guid-1234567890`."
           },
           "cardNetwork": {
             "type": "string",
@@ -7599,7 +7637,8 @@
               "AmericanExpress",
               "JCB",
               "TROY"
-            ]
+            ],
+            "description": "Card network."
           }
         },
         "required": [
