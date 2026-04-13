@@ -2480,40 +2480,51 @@
 						"type": "string"
 					},
 					"country": {
-						"type": "string"
+						"type": "string",
+						"description": "Country code.\n\nISO 3166-1 alpha-2 format.\nExample: `US` for United States, `MX` for Mexico."
 					},
 					"cardNetwork": {
-						"type": "string"
+						"type": "string",
+						"description": "Card network\n\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
 					},
 					"currency": {
-						"type": "string"
+						"type": "string",
+						"description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
+						"$ref": "#/components/schemas/PaymentMethodStatus",
+						"description": "Payment method status\n\nExample: `Created`, `Validated`, `Blocked`, `Validating`, `Removed`, `Disconnected`, `ValidationNotApproved`, `ValidatedPull`, `ValidatedPush`, `ValidatedPullAndPush`."
 					},
 					"allowPullCrossBorder": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows pull cross border."
 					},
 					"allowPullDomestic": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows pull domestic."
 					},
 					"allowPushCrossBorder": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows push cross border."
 					},
 					"allowPushDomestic": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows push domestic."
 					},
 					"allowReviewAddress": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows review address."
 					},
 					"canOperate": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card can operate."
 					},
 					"externalId": {
 						"type": "string"
 					},
 					"paymentMethodOwner": {
-						"type": "string"
+						"type": "string",
+						"description": "VNA method owner\n\nExample: `BCP`."
 					}
 				},
 				"required": [
@@ -2880,22 +2891,28 @@
 			"RaaSPaymentMethod": {
 				"properties": {
 					"paymentMethodOwner": {
-						"type": "string"
+						"type": "string",
+						"description": "VNA method owner\n\nExample: `BCP`."
 					},
 					"allowReviewAddress": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows review address."
 					},
 					"allowPushDomestic": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows push domestic."
 					},
 					"allowPushCrossBorder": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows push cross border."
 					},
 					"allowPullDomestic": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows pull domestic."
 					},
 					"allowPullCrossBorder": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows pull cross border."
 					},
 					"accountPrefix": {
 						"type": "string"
@@ -2911,24 +2928,30 @@
 						"$ref": "#/components/schemas/PaymentMethodStatus"
 					},
 					"application": {
-						"type": "string"
+						"type": "string",
+						"description": "Application associated with the payment method."
 					},
 					"accountId": {
-						"type": "string"
+						"type": "string",
+						"description": "Account ID associated with the payment method."
 					},
 					"longitude": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Address longitude of the payment method."
 					},
 					"latitude": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Address latitude of the payment method."
 					},
 					"phoneNumber": {
-						"type": "string"
+						"type": "string",
+						"description": "Phone number associated with the payment method.\n\nExample: `+19166020018`."
 					},
 					"country": {
-						"type": "string"
+						"type": "string",
+						"description": "Country code.\n\nISO 3166-1 alpha-2 format.\nExample: `US` for United States, `MX` for Mexico."
 					},
 					"zipCode": {
 						"type": "string"
@@ -2958,32 +2981,40 @@
 						"type": "string"
 					},
 					"cardNetwork": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit card network\n\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
 					},
 					"cardtype": {
 						"type": "string",
 						"enum": [
 							"DebitCard",
 							"CreditCard"
-						]
+						],
+						"description": "Credit/Debit card type"
 					},
 					"securityCode": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit tokenized card CVV/CVC security code by VGS.\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
 					},
 					"expirationMonth": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit card expiration month"
 					},
 					"expirationYear": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit card expiration year"
 					},
 					"expirationDate": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit card expiration date"
 					},
 					"nameOnCard": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit card holder name."
 					},
 					"number": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit tokenized card number by VGS.\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
 					},
 					"beneficiaryAccountId": {
 						"type": "string"
@@ -3264,7 +3295,8 @@
 			"RaaSPartnerPaymentMethod": {
 				"properties": {
 					"currency": {
-						"type": "string"
+						"type": "string",
+						"description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"bankAccountType": {
 						"type": "string",
@@ -3272,35 +3304,43 @@
 							"CheckingAccount",
 							"SavingsAccount",
 							"OtherAccount"
-						]
+						],
+						"description": "Bank account type\n\nExample: `CheckingAccount`, `SavingsAccount`, `OtherAccount`."
 					},
 					"cardtype": {
 						"type": "string",
 						"enum": [
 							"DebitCard",
 							"CreditCard"
-						]
+						],
+						"description": "Credit/Debit card type\n\nExample: `DebitCard`, `CreditCard`."
 					},
 					"number": {
-						"type": "string"
+						"type": "string",
+						"description": "Credit/Debit/UBN/VNA/CLABE number\n\nExample: `1234567890`."
 					},
 					"accountNumber": {
-						"type": "string"
+						"type": "string",
+						"description": "\nAccount number of the payment method. Example `1234567890`."
 					},
 					"bankEntityNumber": {
 						"type": "string"
 					},
 					"bankName": {
-						"type": "string"
+						"type": "string",
+						"description": "Name of the bank. Example `BCP`."
 					},
 					"isPrimary": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
 					},
 					"name": {
-						"type": "string"
+						"type": "string",
+						"description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
 					},
 					"id": {
-						"type": "string"
+						"type": "string",
+						"description": "Payment method ID"
 					}
 				},
 				"type": "object"
@@ -3308,96 +3348,122 @@
 			"AddPaymentMethodResponse": {
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"description": "Payment method ID\n\nExample: `pm_1234567890`."
 					},
 					"status": {
-						"$ref": "#/components/schemas/PaymentMethodStatus"
+						"$ref": "#/components/schemas/PaymentMethodStatus",
+						"description": "Payment method status"
 					},
 					"userId": {
 						"type": "string"
 					},
 					"name": {
-						"type": "string"
+						"type": "string",
+						"description": "Payment method name\n\nExample: `VISA-1234`."
 					},
 					"type": {
-						"type": "string"
+						"type": "string",
+						"description": "Payment method type\n\nExample: `DebitCard`, `CreditCard`."
 					},
 					"isPrimary": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
 					},
 					"createdAt": {
-						"type": "string"
+						"type": "string",
+						"description": "Created at\n\nExample: `2021-01-01T00:00:00Z`."
 					},
 					"updatedAt": {
-						"type": "string"
+						"type": "string",
+						"description": "Updated at\n\nExample: `2021-01-01T00:00:00Z`."
 					},
 					"country": {
-						"type": "string"
+						"type": "string",
+						"description": "Country code\n\nISO 3166-1 alpha-2 format.\nExample: `US` for United States, `MX` for Mexico."
 					},
 					"currency": {
-						"type": "string"
+						"type": "string",
+						"description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"latitude": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Address latitude\n\nExample: `37.774929`."
 					},
 					"longitude": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Address longitude\n\nExample: `-122.419416`."
 					},
 					"cardType": {
-						"type": "string"
+						"type": "string",
+						"description": "Card type\n\nExample: `DebitCard`, `CreditCard`."
 					},
 					"number": {
 						"type": "string"
 					},
 					"nameOnCard": {
-						"type": "string"
+						"type": "string",
+						"description": "Card holder name\n\nExample: `John Doe`."
 					},
 					"expirationDate": {
-						"type": "string"
+						"type": "string",
+						"description": "Card expiration date\n\nExample: `0631`."
 					},
 					"expirationYear": {
-						"type": "string"
+						"type": "string",
+						"description": "Card expiration year\n\nExample: `31`."
 					},
 					"expirationMonth": {
-						"type": "string"
+						"type": "string",
+						"description": "Card expiration month\n\nExample: `06`."
 					},
 					"securityCode": {
-						"type": "string"
+						"type": "string",
+						"description": "Tokenized Card CVV/CVC code by VGS.\n\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
 					},
 					"tokenData": {
 						"type": "string"
 					},
 					"cardNetwork": {
-						"type": "string"
+						"type": "string",
+						"description": "Card network\n\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
 					},
 					"allowPullCrossBorder": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows pull cross border."
 					},
 					"allowPullDomestic": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows pull domestic."
 					},
 					"allowPushCrossBorder": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows push cross border."
 					},
 					"allowPushDomestic": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows push domestic."
 					},
 					"allowReviewAddress": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "If Credit/Debit Card allows review address."
 					},
 					"requiresBalanceValidation": {
 						"type": "boolean"
 					},
 					"accountId": {
-						"type": "string"
+						"type": "string",
+						"description": "Account ID associated with the payment method."
 					},
 					"bankEntityNumber": {
-						"type": "string"
+						"type": "string",
+						"description": "Bank entity number"
 					},
 					"externalId": {
-						"type": "string"
+						"type": "string",
+						"description": "External ID associated with the payment method."
 					},
 					"errorValidation": {
 						"type": "string"
@@ -3740,16 +3806,20 @@
 			"Pick_OperationDetail.Exclude_keyofOperationDetail.recipientAmout__": {
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation UUID ID"
 					},
 					"status": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
 					},
 					"platId": {
-						"type": "string"
+						"type": "string",
+						"description": "Platform UUID"
 					},
 					"type": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation type\n\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
 					},
 					"createdAt": {
 						"type": "string",
@@ -3764,35 +3834,45 @@
 						"format": "double"
 					},
 					"statusDetails": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation status details"
 					},
 					"mobileStatus": {
-						"type": "string"
+						"type": "string",
+						"description": "Mobile status\n\nExample: `Mobile status`."
 					},
 					"reason": {
-						"type": "string"
+						"type": "string",
+						"description": "Reason. Free text.\n\nExample: `Hi! I need money`."
 					},
 					"code": {
-						"type": "string"
+						"type": "string",
+						"description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
 					},
 					"senderAmount": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Sender amount\n\nExample: `100.00`."
 					},
 					"currency": {
-						"type": "string"
+						"type": "string",
+						"description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"senderCurrency": {
-						"type": "string"
+						"type": "string",
+						"description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"recipientCurrency": {
-						"type": "string"
+						"type": "string",
+						"description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"sourcePaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Source payment method"
 					},
 					"destinationPaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Destination payment method"
 					},
 					"sourceFee": {
 						"type": "number",
@@ -3818,16 +3898,19 @@
 						"type": "boolean"
 					},
 					"fromUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Sender user information"
 					},
 					"toUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Recipient user information"
 					},
 					"fromTo": {
 						"items": {
 							"type": "string"
 						},
-						"type": "array"
+						"type": "array",
+						"description": "From/to users IDs"
 					},
 					"attributionLink": {
 						"type": "string"
@@ -4165,13 +4248,16 @@
 			"Pick_OperationDetailResponse.Exclude_keyofOperationDetailResponse.id-or-type-or-showWarningScreen__": {
 				"properties": {
 					"status": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
 					},
 					"correlationId": {
-						"type": "string"
+						"type": "string",
+						"description": "Correlation UUID"
 					},
 					"platId": {
-						"type": "string"
+						"type": "string",
+						"description": "Platform UUID"
 					},
 					"createdAt": {
 						"type": "string",
@@ -4186,16 +4272,20 @@
 						"format": "double"
 					},
 					"statusDetails": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation status details"
 					},
 					"mobileStatus": {
-						"type": "string"
+						"type": "string",
+						"description": "Mobile status\n\nExample: `Mobile status`."
 					},
 					"reason": {
-						"type": "string"
+						"type": "string",
+						"description": "Reason. Free text.\n\nExample: `Hi! I need money`."
 					},
 					"code": {
-						"type": "string"
+						"type": "string",
+						"description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
 					},
 					"recipientAmout": {
 						"type": "number",
@@ -4203,22 +4293,28 @@
 					},
 					"senderAmount": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Sender amount\n\nExample: `100.00`."
 					},
 					"currency": {
-						"type": "string"
+						"type": "string",
+						"description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"senderCurrency": {
-						"type": "string"
+						"type": "string",
+						"description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"recipientCurrency": {
-						"type": "string"
+						"type": "string",
+						"description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"sourcePaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Source payment method"
 					},
 					"destinationPaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Destination payment method"
 					},
 					"sourceFee": {
 						"type": "number",
@@ -4244,16 +4340,19 @@
 						"type": "boolean"
 					},
 					"fromUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Sender user information"
 					},
 					"toUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Recipient user information"
 					},
 					"fromTo": {
 						"items": {
 							"type": "string"
 						},
-						"type": "array"
+						"type": "array",
+						"description": "From/to users IDs"
 					},
 					"attributionLink": {
 						"type": "string"
@@ -4926,19 +5025,201 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"OperationDetailResponse": {
+				"properties": {
+					"taxAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"flow": {
+						"type": "string"
+					},
+					"cancelable": {
+						"type": "boolean"
+					},
+					"sameTenant": {
+						"type": "boolean"
+					},
+					"destinationAppId": {
+						"type": "string"
+					},
+					"landingPortUrl": {
+						"type": "string"
+					},
+					"isLandingPortFlow": {
+						"type": "boolean"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"tax": {
+						"type": "number",
+						"format": "double"
+					},
+					"totalAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"tenantfee": {
+						"type": "number",
+						"format": "double"
+					},
+					"ignoredData": {
+						"$ref": "#/components/schemas/IgnoredOperationData"
+					},
+					"isIgnored": {
+						"type": "boolean"
+					},
+					"attributionLink": {
+						"type": "string"
+					},
+					"fromTo": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "From/to users IDs"
+					},
+					"toUser": {
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Recipient user information"
+					},
+					"fromUser": {
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Sender user information"
+					},
+					"hasReferenceCode": {
+						"type": "boolean"
+					},
+					"estimatedExchangeRate": {
+						"type": "number",
+						"format": "double"
+					},
+					"exchangeRate": {
+						"type": "number",
+						"format": "double"
+					},
+					"destinationFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"transactionFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"sourceFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"destinationPaymentMethod": {
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Destination payment method"
+					},
+					"sourcePaymentMethod": {
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Source payment method"
+					},
+					"recipientCurrency": {
+						"type": "string",
+						"description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+					},
+					"senderCurrency": {
+						"type": "string",
+						"description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+					},
+					"currency": {
+						"type": "string",
+						"description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+					},
+					"showWarningScreen": {
+						"type": "boolean"
+					},
+					"senderAmount": {
+						"type": "number",
+						"format": "double",
+						"description": "Sender amount\n\nExample: `100.00`."
+					},
+					"recipientAmout": {
+						"type": "number",
+						"format": "double"
+					},
+					"code": {
+						"type": "string",
+						"description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
+					},
+					"reason": {
+						"type": "string",
+						"description": "Reason. Free text.\n\nExample: `Hi! I need money`."
+					},
+					"mobileStatus": {
+						"type": "string",
+						"description": "Mobile status\n\nExample: `Mobile status`."
+					},
+					"statusDetails": {
+						"type": "string",
+						"description": "Operation status details"
+					},
+					"status": {
+						"type": "string",
+						"description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"type": {
+						"type": "string",
+						"description": "Operation type\n\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
+					},
+					"correlationId": {
+						"type": "string",
+						"description": "Correlation UUID"
+					},
+					"platId": {
+						"type": "string",
+						"description": "Platform UUID"
+					},
+					"id": {
+						"type": "string",
+						"description": "Operation UUID ID"
+					}
+				},
+				"required": [
+					"recipientAmout",
+					"code",
+					"status",
+					"amount",
+					"createdAt",
+					"type",
+					"id"
+				],
+				"type": "object"
+			},
 			"Pick_OperationDetailResponse.Exclude_keyofOperationDetailResponse.-or-correlationId-or-showWarningScreen__": {
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation UUID ID"
 					},
 					"status": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
 					},
 					"platId": {
-						"type": "string"
+						"type": "string",
+						"description": "Platform UUID"
 					},
 					"type": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation type\n\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
 					},
 					"createdAt": {
 						"type": "string",
@@ -4953,16 +5234,20 @@
 						"format": "double"
 					},
 					"statusDetails": {
-						"type": "string"
+						"type": "string",
+						"description": "Operation status details"
 					},
 					"mobileStatus": {
-						"type": "string"
+						"type": "string",
+						"description": "Mobile status\n\nExample: `Mobile status`."
 					},
 					"reason": {
-						"type": "string"
+						"type": "string",
+						"description": "Reason. Free text.\n\nExample: `Hi! I need money`."
 					},
 					"code": {
-						"type": "string"
+						"type": "string",
+						"description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
 					},
 					"recipientAmout": {
 						"type": "number",
@@ -4970,22 +5255,28 @@
 					},
 					"senderAmount": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"description": "Sender amount\n\nExample: `100.00`."
 					},
 					"currency": {
-						"type": "string"
+						"type": "string",
+						"description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"senderCurrency": {
-						"type": "string"
+						"type": "string",
+						"description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"recipientCurrency": {
-						"type": "string"
+						"type": "string",
+						"description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
 					},
 					"sourcePaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Source payment method"
 					},
 					"destinationPaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
+						"$ref": "#/components/schemas/PaymentMethodResponse",
+						"description": "Destination payment method"
 					},
 					"sourceFee": {
 						"type": "number",
@@ -5011,16 +5302,19 @@
 						"type": "boolean"
 					},
 					"fromUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Sender user information"
 					},
 					"toUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
+						"$ref": "#/components/schemas/OperationUserDetail",
+						"description": "Recipient user information"
 					},
 					"fromTo": {
 						"items": {
 							"type": "string"
 						},
-						"type": "array"
+						"type": "array",
+						"description": "From/to users IDs"
 					},
 					"attributionLink": {
 						"type": "string"
@@ -5087,166 +5381,6 @@
 			},
 			"OperationDetail": {
 				"$ref": "#/components/schemas/Omit_OperationDetailResponse.-or-correlationId-or-showWarningScreen_"
-			},
-			"OperationDetailResponse": {
-				"properties": {
-					"taxAmount": {
-						"type": "number",
-						"format": "double"
-					},
-					"flow": {
-						"type": "string"
-					},
-					"cancelable": {
-						"type": "boolean"
-					},
-					"sameTenant": {
-						"type": "boolean"
-					},
-					"destinationAppId": {
-						"type": "string"
-					},
-					"landingPortUrl": {
-						"type": "string"
-					},
-					"isLandingPortFlow": {
-						"type": "boolean"
-					},
-					"userId": {
-						"type": "string"
-					},
-					"tax": {
-						"type": "number",
-						"format": "double"
-					},
-					"totalAmount": {
-						"type": "number",
-						"format": "double"
-					},
-					"tenantfee": {
-						"type": "number",
-						"format": "double"
-					},
-					"ignoredData": {
-						"$ref": "#/components/schemas/IgnoredOperationData"
-					},
-					"isIgnored": {
-						"type": "boolean"
-					},
-					"attributionLink": {
-						"type": "string"
-					},
-					"fromTo": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
-					"toUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
-					},
-					"fromUser": {
-						"$ref": "#/components/schemas/OperationUserDetail"
-					},
-					"hasReferenceCode": {
-						"type": "boolean"
-					},
-					"estimatedExchangeRate": {
-						"type": "number",
-						"format": "double"
-					},
-					"exchangeRate": {
-						"type": "number",
-						"format": "double"
-					},
-					"destinationFee": {
-						"type": "number",
-						"format": "double"
-					},
-					"transactionFee": {
-						"type": "number",
-						"format": "double"
-					},
-					"sourceFee": {
-						"type": "number",
-						"format": "double"
-					},
-					"destinationPaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
-					},
-					"sourcePaymentMethod": {
-						"$ref": "#/components/schemas/PaymentMethodResponse"
-					},
-					"recipientCurrency": {
-						"type": "string"
-					},
-					"senderCurrency": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					},
-					"showWarningScreen": {
-						"type": "boolean"
-					},
-					"senderAmount": {
-						"type": "number",
-						"format": "double"
-					},
-					"recipientAmout": {
-						"type": "number",
-						"format": "double"
-					},
-					"code": {
-						"type": "string"
-					},
-					"reason": {
-						"type": "string"
-					},
-					"mobileStatus": {
-						"type": "string"
-					},
-					"statusDetails": {
-						"type": "string"
-					},
-					"status": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "number",
-						"format": "double"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"type": {
-						"type": "string"
-					},
-					"correlationId": {
-						"type": "string"
-					},
-					"platId": {
-						"type": "string"
-					},
-					"id": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"recipientAmout",
-					"code",
-					"status",
-					"amount",
-					"createdAt",
-					"type",
-					"id"
-				],
-				"type": "object"
 			},
 			"ReplaceCardParams": {
 				"properties": {
@@ -8666,7 +8800,7 @@
 				"operationId": "listContacts",
 				"responses": {
 					"200": {
-						"description": "Array of contact info.",
+						"description": "",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -11499,7 +11633,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/OperationDetail"
+									"$ref": "#/components/schemas/OperationDetailResponse"
 								}
 							}
 						}
