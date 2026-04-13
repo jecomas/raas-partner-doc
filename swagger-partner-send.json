@@ -267,7 +267,7 @@
         ],
         "parameters": [
           {
-            "description": "- User identifier token.",
+            "description": "User identifier token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -353,7 +353,7 @@
         ],
         "parameters": [
           {
-            "description": "- Owner user token.",
+            "description": "Owner user token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -363,7 +363,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Contact data to register.",
+          "description": "Contact data to register.",
           "required": true,
           "content": {
             "application/json": {
@@ -450,7 +450,7 @@
         ],
         "parameters": [
           {
-            "description": "- User token (contact owner).",
+            "description": "User token (contact owner).",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -460,7 +460,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Updated contact attributes.",
+          "description": "Updated contact attributes.",
           "required": true,
           "content": {
             "application/json": {
@@ -483,13 +483,16 @@
                 "schema": {
                   "properties": {
                     "hasCompletedOperations": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Has completed operations with the contact"
                     },
                     "hasOperations": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Has operations with the contacts"
                     },
                     "userExists": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Ontacta exists as RaaS user"
                     }
                   },
                   "required": [
@@ -538,7 +541,7 @@
         ],
         "parameters": [
           {
-            "description": "- Sender user token.",
+            "description": "Sender user token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -547,7 +550,7 @@
             }
           },
           {
-            "description": "Contact phone or email.\n\nExample: `+19166020018` or `test@example.com`.\n- Contact phone or email.",
+            "description": "Contact phone or email.\nExample: `+19166020018` or `test@example.com`.",
             "in": "path",
             "name": "phoneOrEmail",
             "required": true,
@@ -691,7 +694,7 @@
         ],
         "parameters": [
           {
-            "description": "- User identifier or token.",
+            "description": "User identifier or token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -700,7 +703,7 @@
             }
           },
           {
-            "description": "Destination country code.\nISO 3166-1 alpha-2.\nExample: `MX` for Mexico, `US` for United States.\n- Destination country code.",
+            "description": "Destination country code.\nISO 3166-1 alpha-2.\nExample: `MX` for Mexico, `US` for United States.",
             "in": "query",
             "name": "destinationCountry",
             "required": false,
@@ -709,7 +712,7 @@
             }
           },
           {
-            "description": "Transaction type.\nExample: `SendFunds` for sending funds, `RequestFunds` for requesting funds.\n- Transaction type.",
+            "description": "Operation type.\nExample: `SendFunds` for sending funds, `RequestFunds` for requesting funds.",
             "in": "query",
             "name": "operationType",
             "required": false,
@@ -1300,7 +1303,7 @@
         ],
         "parameters": [
           {
-            "description": "- User token.",
+            "description": "User token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1310,7 +1313,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Card data (encrypted/raw) to add.",
+          "description": "Card data (encrypted/raw) to add.",
           "required": true,
           "content": {
             "application/json": {
@@ -1371,7 +1374,7 @@
         ],
         "parameters": [
           {
-            "description": "- End user token.",
+            "description": "End user token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1380,7 +1383,7 @@
             }
           },
           {
-            "description": "- Associated payment method ID.",
+            "description": "Associated payment method ID.",
             "in": "query",
             "name": "id",
             "required": false,
@@ -1453,7 +1456,7 @@
         ],
         "parameters": [
           {
-            "description": "- User token.",
+            "description": "User token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1463,7 +1466,7 @@
           }
         ],
         "requestBody": {
-          "description": "- Validated payload with required parameters.",
+          "description": "Validated payload with required parameters.",
           "required": true,
           "content": {
             "application/json": {
@@ -1796,7 +1799,7 @@
         ],
         "parameters": [
           {
-            "description": "- User involved in the transaction.",
+            "description": "User involved in the transaction.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -1805,7 +1808,7 @@
             }
           },
           {
-            "description": "- Operation UUID.",
+            "description": "Operation UUID.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -2125,7 +2128,7 @@
         ],
         "parameters": [
           {
-            "description": "- Unique operation UUID.",
+            "description": "Unique operation UUID.",
             "in": "path",
             "name": "id",
             "required": true,
@@ -2174,7 +2177,7 @@
             }
           }
         },
-        "description": "Lists in/out transaction history for the given user ID.",
+        "description": "Lists transaction history for the given user ID.",
         "summary": "List operations (history)",
         "tags": [
           "Operations"
@@ -2190,7 +2193,7 @@
         ],
         "parameters": [
           {
-            "description": "- User ID.",
+            "description": "User ID.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2199,7 +2202,7 @@
             }
           },
           {
-            "description": "- Optional filter by destination phone.",
+            "description": "Optional filter by destination phone.\nExample: `+19166020018`.",
             "in": "query",
             "name": "toPhoneNumber",
             "required": false,
@@ -2430,7 +2433,7 @@
         ],
         "parameters": [
           {
-            "description": "- Requester user token.",
+            "description": "Requester user token.",
             "in": "path",
             "name": "userToken",
             "required": true,
@@ -2439,7 +2442,7 @@
             }
           },
           {
-            "description": "- Top N contacts to return.",
+            "description": "Top N contacts to return.",
             "in": "path",
             "name": "limit",
             "required": true,
@@ -2641,13 +2644,16 @@
       "UserTokenResponse": {
         "properties": {
           "userId": {
-            "type": "string"
+            "type": "string",
+            "description": "User UUID"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "description": "Status"
           },
           "statusDetail": {
-            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+            "$ref": "#/components/schemas/PlatLevelStatusDetail",
+            "description": "Status detail"
           }
         },
         "required": [
@@ -3062,16 +3068,20 @@
       "AddUBNParams": {
         "properties": {
           "number": {
-            "type": "string"
+            "type": "string",
+            "description": "UBN number"
           },
           "isPrimary": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Is primary UBN?"
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "description": "Currency\nISO 4217 format"
           },
           "country": {
-            "type": "string"
+            "type": "string",
+            "description": "Country\nISO 3166-1 alpha-2 format"
           }
         },
         "required": [
@@ -4763,25 +4773,32 @@
       "ContactInfo": {
         "properties": {
           "phone": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact phone number with country code\n\nExample: `+19166020018`."
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact first name"
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact last name"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact email"
           },
           "countryCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact country code\n\nISO 3166-1 alpha-2."
           },
           "alias": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact alias"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact ID"
           }
         },
         "required": [
@@ -5454,19 +5471,24 @@
       "PaymentToken": {
         "properties": {
           "paymentType": {
-            "$ref": "#/components/schemas/PaymentMethodType"
+            "$ref": "#/components/schemas/PaymentMethodType",
+            "description": "\nType of the payment method.\n\nExample: `DebitCard`, `CreditCard`, `BankAccount`, `MobileWallet`, `CashLoadLocation`, `AppleDigitalWallet`, `GoogleDigitalWallet`, `CLABE`, `UBN`, `VirtualNetworkAccount`."
           },
           "displayName": {
-            "type": "string"
+            "type": "string",
+            "description": "Display name"
           },
           "transactionIdentifier": {
-            "type": "string"
+            "type": "string",
+            "description": "Transaction identifier"
           },
           "paymentNetwork": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment network"
           },
           "data": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment token data"
           }
         },
         "required": [
@@ -5618,19 +5640,24 @@
           },
           "createdAt": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Created at"
           },
           "isPrimary": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Is primary payment method?"
           },
           "type": {
-            "$ref": "#/components/schemas/AvailablePaymentMethods"
+            "$ref": "#/components/schemas/AvailablePaymentMethods",
+            "description": "Payment method type\n\nType of the payment method."
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment method ID"
           }
         },
         "required": [
@@ -6914,26 +6941,33 @@
       "RequestMoneyPartnerParams": {
         "properties": {
           "requestTo": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact phone number to request money"
           },
           "correlationId": {
-            "type": "string"
+            "type": "string",
+            "description": "Correlation ID\n\nGUID to identify the operation"
           },
           "destinationPaymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination payment method ID\n\nID of the payment method to receive the money\n\nYou can use the payment method ID or the payment method object (by using the destinationPaymentMethod parameter) that you get from the API."
           },
           "recipientAmount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Recipient amount\n\nAmount to receive"
           },
           "recipientCurrency": {
-            "type": "string"
+            "type": "string",
+            "description": "Recipient currency\n\nISO 4217 format"
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "description": "Reason\n\nReason for the request"
           },
           "destinationPaymentMethod": {
-            "$ref": "#/components/schemas/RaaSPaymentMethod"
+            "$ref": "#/components/schemas/RaaSPaymentMethod",
+            "description": "Destination payment method to receive the money.\n\nYou can use the payment method ID (by using the destinationPaymentMethodId parameter) or the payment method object that you get from the API."
           }
         },
         "required": [
