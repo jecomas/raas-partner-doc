@@ -19,6 +19,10 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserTokenResponse"
+                },
+                "example": {
+                  "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2",
+                  "status": "Created"
                 }
               }
             }
@@ -80,6 +84,16 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RegisterUserParams"
+              },
+              "example": {
+                "phoneNumber": "+5215521206703",
+                "firstName": "Maria del Carmen",
+                "lastName": "Arenas Mendoza",
+                "dob": "1987-06-24T07:00:00.000Z",
+                "address1": "Cancún International Airport, Carretera a Aeropuerto Cancún, Cancún, Quintana Roo, Mexico",
+                "countryCode": "MX",
+                "city": "Cancún",
+                "state": "Q.R."
               }
             }
           }

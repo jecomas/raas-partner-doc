@@ -1564,7 +1564,12 @@
                     "type": "string"
                   },
                   "type": "array"
-                }
+                },
+                "example": [
+                  "CreditCard",
+                  "DebitCard",
+                  "UBN"
+                ]
               }
             }
           },
@@ -2089,6 +2094,11 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddUBNParams"
+              },
+              "example": {
+                "number": "002320275621938815",
+                "currency": "MXN",
+                "country": "MX"
               }
             }
           }
@@ -2563,6 +2573,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/OperationResponsePartner"
+                },
+                "example": {
+                  "code": "REQ789",
+                  "status": "Pending",
+                  "amount": 150,
+                  "currency": "USD",
+                  "createdAt": "2023-10-27T10:00:00.000Z",
+                  "recipientAmout": 2700,
+                  "recipientCurrency": "MXN",
+                  "senderAmount": 150,
+                  "senderCurrency": "USD",
+                  "exchangeRate": 18,
+                  "transactionFee": 0,
+                  "totalAmount": 150
                 }
               }
             }
@@ -2643,6 +2667,14 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RequestMoneyPartnerParams"
+              },
+              "example": {
+                "requestTo": "+19166014999",
+                "correlationId": "7011cefb-0c0b-48c1-a68a-7134d32e61e4",
+                "destinationPaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
+                "reason": "Request CrossBorder to ...",
+                "recipientAmount": 25,
+                "recipientCurrency": "USD"
               }
             }
           }

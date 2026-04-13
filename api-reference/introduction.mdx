@@ -37,12 +37,12 @@ curl -X GET "https://mtls-partner-cv.nomas.cash/v1/some-endpoint" \
 ## Happy Path Integration
 
 
-This section outlines the standard workflow for a successful integration.
+This section outlines the standard ASK workflow for a successful integration.
 
 1. **Obtain User Token**: Use `getUserToken` to retrieve a session token for an existing user.
 2. **User Registration (Optional)**: If the user does not exist, use `registerUserV2` to create a new profile.
-3. **Create Contact**: Establish a recipient or contact using `createContact`.
-4. **Add Funding Source**: Securely link a card or bank account via `addCard`.
+3. **Create Contact**: Establish a funder contact using `createContact`.
+4. **Add Receiving Method**: Securely link a card via `addCard` or UBN via `addUBN`.
 5. **Execute Request**: Initiate the final transaction or request using `requestV2`.
 
 ## Integration Sequence Diagram

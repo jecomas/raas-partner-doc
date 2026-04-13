@@ -1,0 +1,137 @@
+{
+  "_comment": "Curated OpenAPI examples merged by scripts/reorder-swagger.js (key = operationId). Use request / response; optional responses map for non-200.",
+  "getUserTokenV2": {
+    "request": {
+      "email": "+5215521206703",
+      "countryCode": "MX"
+    },
+    "response": {
+      "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2"
+    }
+  },
+  "registerUserV2": {
+    "request": {
+      "phoneNumber": "+5215521206703",
+      "firstName": "Maria del Carmen",
+      "lastName": "Arenas Mendoza",
+      "dob": "1987-06-24T07:00:00.000Z",
+      "address1": "Cancún International Airport, Carretera a Aeropuerto Cancún, Cancún, Quintana Roo, Mexico",
+      "countryCode": "MX",
+      "city": "Cancún",
+      "state": "Q.R."
+    },
+    "response": {
+      "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2",
+      "status": "Created"
+    }
+  },
+  "requestMoneyV2": {
+    "request": {
+      "requestTo": "+19166014999",
+      "correlationId":"7011cefb-0c0b-48c1-a68a-7134d32e61e4",
+      "destinationPaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
+      "reason":"Request CrossBorder to ...",
+      "recipientAmount": 25,
+      "recipientCurrency": "USD"
+    },
+    "response": {
+      "code": "REQ789",
+      "status": "Pending",
+      "amount": 150,
+      "currency": "USD",
+      "createdAt": "2023-10-27T10:00:00.000Z",
+      "recipientAmout": 2700,
+      "recipientCurrency": "MXN",
+      "senderAmount": 150,
+      "senderCurrency": "USD",
+      "exchangeRate": 18,
+      "transactionFee": 0,
+      "totalAmount": 150
+    }
+  },
+  "createContact": {
+    "request": {
+      "firstName": "Hugo",
+      "lastName": "Tru",
+      "phone": "+19166014999",
+      "email": "javier+1@leapfinancial.com",
+      "countryCode": "US"
+    }
+  },
+  "updateContact": {
+    "request": {
+      "firstName": "Hugo",
+      "lastName": "Tru",
+      "phone": "+19166014999",
+      "email": "javier+1@leapfinancial.com",
+      "countryCode": "US"
+    }
+  },
+  "listContacts": {
+    "response": [
+      {
+        "firstName": "Hugo",
+        "lastName": "Tru",
+        "phone": "+19166014999",
+        "email": "javier+1@leapfinancial.com",
+        "countryCode": "US",
+        "alias": "Hugo"
+      }
+    ]
+  },
+  "getAvailablePaymentMethods": {
+    "response": [
+      "CreditCard",
+      "DebitCard",
+      "UBN"
+    ]
+  },
+  "listFundingSourcesForRequest": {
+    "response": [
+      {
+        "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
+        "name": "VISA-1234",
+        "type": "CreditCard",
+        "isPrimary": true,
+        "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234",
+        "nameOnCard": "John Doe",
+        "expirationDate": "12/2025",
+        "cardNetwork": "Visa",
+        "country": "US",
+        "currency": "USD"
+      }
+    ]
+  },
+  "createFundingCard": {
+    "request": {
+      "cardtype": "CreditCard",
+      "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234",
+      "isPrimary": true,
+      "expirationDate": "0629",
+      "country": "US",
+      "nameOnCard": "PEDRO ALFONSO MOCK ITSOK",
+      "cardNetwork": "Visa",
+      "securityCode": "",
+      "name": "Visa-1111"
+    }
+  },
+  "getPaymentMethodV2": {
+    "response": {
+      "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
+      "name": "VISA-1234",
+      "type": "CreditCard",
+      "isPrimary": true,
+      "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234"
+    }
+  },
+  "addUBNAccount": {
+    "request": {
+      "number": "002320275621938815",
+      "currency": "MXN",
+      "country": "MX"
+    }
+  },
+  "getOperationStatus": {
+    "response": "Completed"
+  }
+}

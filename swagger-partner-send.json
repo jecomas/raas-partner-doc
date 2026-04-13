@@ -247,7 +247,17 @@
                     "$ref": "#/components/schemas/ContactInfo"
                   },
                   "type": "array"
-                }
+                },
+                "example": [
+                  {
+                    "firstName": "Hugo",
+                    "lastName": "Tru",
+                    "phone": "+19166014999",
+                    "email": "javier+1@leapfinancial.com",
+                    "countryCode": "US",
+                    "alias": "Hugo"
+                  }
+                ]
               }
             }
           }
@@ -369,6 +379,13 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/createContactRequestParamsPartner"
+              },
+              "example": {
+                "firstName": "Hugo",
+                "lastName": "Tru",
+                "phone": "+19166014999",
+                "email": "javier+1@leapfinancial.com",
+                "countryCode": "US"
               }
             }
           }
@@ -466,6 +483,13 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/updateContactRequestParams"
+              },
+              "example": {
+                "firstName": "Hugo",
+                "lastName": "Tru",
+                "phone": "+19166014999",
+                "email": "javier+1@leapfinancial.com",
+                "countryCode": "US"
               }
             }
           }
@@ -655,7 +679,12 @@
                     "type": "string"
                   },
                   "type": "array"
-                }
+                },
+                "example": [
+                  "CreditCard",
+                  "DebitCard",
+                  "UBN"
+                ]
               }
             }
           },
@@ -1319,6 +1348,17 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddCardPartnerParams"
+              },
+              "example": {
+                "cardtype": "CreditCard",
+                "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234",
+                "isPrimary": true,
+                "expirationDate": "0629",
+                "country": "US",
+                "nameOnCard": "PEDRO ALFONSO MOCK ITSOK",
+                "cardNetwork": "Visa",
+                "securityCode": "",
+                "name": "Visa-1111"
               }
             }
           }
@@ -1335,6 +1375,13 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/RaaSPartnerPaymentMethod"
+                },
+                "example": {
+                  "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
+                  "name": "VISA-1234",
+                  "type": "CreditCard",
+                  "isPrimary": true,
+                  "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234"
                 }
               }
             }
@@ -1472,6 +1519,11 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddUBNParams"
+              },
+              "example": {
+                "number": "002320275621938815",
+                "currency": "MXN",
+                "country": "MX"
               }
             }
           }
@@ -1761,7 +1813,8 @@
               "application/json": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "example": "Completed"
               }
             }
           },
