@@ -7,7 +7,13 @@
     },
     "response": {
       "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2"
-    }
+    },
+    "responses": {
+      "400": { "code": "BAD_REQUEST", "reason": "Invalid phone" },
+      "401": { "code": "UNAUTHORIZED", "reason": "Invalid api_key" },
+      "404": { "code": "NOT_FOUND", "reason": "User not found" },
+      "500": { "code": "INVALID_PHONE_NUMBER", "reason": "Invalid phone number format" }
+    }    
   },
   "registerUserV2": {
     "request": {

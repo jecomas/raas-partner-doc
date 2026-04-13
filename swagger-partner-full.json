@@ -5038,7 +5038,7 @@
           "dob": {
             "type": "string",
             "format": "date-time",
-            "description": "Date of birth in ISO 8601 format. `AAAA-MM-DD`."
+            "description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old."
           },
           "email": {
             "type": "string",
@@ -5110,7 +5110,6 @@
         },
         "required": [
           "lastName",
-          "dob",
           "firstName",
           "address1",
           "countryCode",
@@ -5251,7 +5250,7 @@
           "dob": {
             "type": "string",
             "format": "date-time",
-            "description": "Date of birth in ISO 8601 format. `AAAA-MM-DD`."
+            "description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old."
           },
           "email": {
             "type": "string",
@@ -5333,7 +5332,6 @@
         },
         "required": [
           "lastName",
-          "dob",
           "firstName",
           "address1",
           "countryCode",
