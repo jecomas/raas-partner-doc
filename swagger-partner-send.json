@@ -1283,6 +1283,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/RaaSPaymentMethod"
+                },
+                "example": {
+                  "id": "b28cd13a-df67-46db-9f2d-c48e634789d6",
+                  "name": "VISA-1111",
+                  "isPrimary": true,
+                  "latitude": 0,
+                  "longitude": 0,
+                  "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+                  "nameOnCard": "PEDRO ALFONSO MOCK ITSOK",
+                  "expirationDate": "1228",
+                  "expirationYear": "28",
+                  "expirationMonth": "12",
+                  "securityCode": "",
+                  "cardNetwork": "Visa",
+                  "allowPushCrossBorder": true,
+                  "allowPushDomestic": true,
+                  "allowReviewAddress": false,
+                  "accountId": "",
+                  "externalId": "E1678D6DA1284CF39FD241E6509F4518000000",
+                  "type": "DebitCard",
+                  "status": "ValidatedPush",
+                  "country": "MX",
+                  "createdAt": null,
+                  "updatedAt": null
                 }
               }
             }
@@ -1452,6 +1476,13 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AddPaymentMethodResponse"
+                },
+                "example": {
+                  "id": "6d41ada5-4ecd-4bc4-a561-9a0577a39da7",
+                  "status": "Created",
+                  "name": "UBN-7890",
+                  "isPrimary": false,
+                  "createdAt": "2026-04-13T17:47:35.667Z"
                 }
               }
             }
