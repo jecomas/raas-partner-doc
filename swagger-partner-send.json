@@ -290,6 +290,28 @@
       "post": {
         "operationId": "createContact",
         "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
           "201": {
             "description": "Created"
           },
@@ -395,7 +417,26 @@
         "operationId": "updateContact",
         "responses": {
           "200": {
-            "description": "Updated"
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
           },
           "400": {
             "description": "",
@@ -2181,6 +2222,50 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/OperationDetailResponse"
+                },
+                "example": {
+                  "id": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
+                  "type": "request",
+                  "createdAt": "2026-04-13T17:54:15.180Z",
+                  "updatedAt": "2026-04-13T17:54:16.022Z",
+                  "amount": 500,
+                  "status": "Sent",
+                  "statusDetails": "RequestSent",
+                  "reason": "Pago de servicio",
+                  "code": "Ze2i4o",
+                  "recipientAmout": 500,
+                  "senderAmount": 0,
+                  "fromUser": {
+                    "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+                    "firstName": "Maria",
+                    "lastName": "Garcia",
+                    "phoneNumber": "+5215521206706",
+                    "email": "",
+                    "country": "MX"
+                  },
+                  "toUser": {
+                    "phoneNumber": "+19163015400",
+                    "country": "US"
+                  },
+                  "currency": "MXN",
+                  "recipientCurrency": "MXN",
+                  "senderCurrency": "USD",
+                  "exchangeRate": 1,
+                  "destinationPaymentMethod": {
+                    "type": "DebitCard",
+                    "country": "MX",
+                    "id": "f9b8131f-404a-41e0-9312-927cf81f97fe",
+                    "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+                    "currency": "MXN"
+                  },
+                  "attributionLink": "https://links-dev.nomas.cash/EFUb8",
+                  "isIgnored": false,
+                  "tenantfee": 0,
+                  "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+                  "cancelable": false,
+                  "fromTo": [
+                    "5bMwDyW4ZDVgu58HKzocpZcZ7fz1"
+                  ]
                 }
               }
             }
@@ -2236,7 +2321,54 @@
                     "$ref": "#/components/schemas/OperationDetail"
                   },
                   "type": "array"
-                }
+                },
+                "example": [
+                  {
+                    "id": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
+                    "type": "request",
+                    "createdAt": "2026-04-13T17:54:15.180Z",
+                    "updatedAt": "2026-04-13T17:54:16.022Z",
+                    "amount": 500,
+                    "status": "Sent",
+                    "statusDetails": "RequestSent",
+                    "reason": "Pago de servicio",
+                    "code": "Ze2i4o",
+                    "recipientAmout": 500,
+                    "senderAmount": 0,
+                    "fromUser": {
+                      "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+                      "firstName": "Maria",
+                      "lastName": "Garcia",
+                      "phoneNumber": "+5215521206706",
+                      "email": "",
+                      "country": "MX"
+                    },
+                    "toUser": {
+                      "phoneNumber": "+19163015400",
+                      "country": "US"
+                    },
+                    "currency": "MXN",
+                    "recipientCurrency": "MXN",
+                    "senderCurrency": "USD",
+                    "exchangeRate": 1,
+                    "destinationPaymentMethod": {
+                      "type": "DebitCard",
+                      "country": "MX",
+                      "id": "f9b8131f-404a-41e0-9312-927cf81f97fe",
+                      "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+                      "currency": "MXN"
+                    },
+                    "attributionLink": "https://links-dev.nomas.cash/EFUb8",
+                    "isIgnored": false,
+                    "tenantfee": 0,
+                    "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+                    "cancelable": false,
+                    "fromTo": [
+                      "5bMwDyW4ZDVgu58HKzocpZcZ7fz1"
+                    ],
+                    "platId": "22038600-846a-47fd-8733-3b0fa886d894"
+                  }
+                ]
               }
             }
           },
@@ -2474,7 +2606,15 @@
                     "$ref": "#/components/schemas/ContactInfo"
                   },
                   "type": "array"
-                }
+                },
+                "example": [
+                  {
+                    "phone": "+19163015400",
+                    "firstName": "Jose",
+                    "lastName": "Llontop",
+                    "countryCode": "US"
+                  }
+                ]
               }
             }
           },
