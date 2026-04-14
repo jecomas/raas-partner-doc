@@ -41,6 +41,9 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "reason": "Invalid tenant, country mismatch, invalid schema, or invalid date of birth."
                 }
               }
             }
@@ -59,6 +62,9 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "reason": "Registration could not be completed; see server message."
                 }
               }
             }
@@ -110,6 +116,12 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SessionLinkResponse"
+                },
+                "example": {
+                  "paymentMethodStatus": "ValidCard",
+                  "link": "https://links-dev.nomas.cash/Q1nO3",
+                  "status": "Completed",
+                  "statusDetail": "None"
                 }
               }
             }
@@ -170,12 +182,39 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "- Payload with payment data, amounts, fees and base KYC.",
+          "description": "Payload with payment data, amounts, fees and base KYC.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SessionLinkParams"
+              },
+              "example": {
+                "phoneNumber": "+5215521206706",
+                "firstName": "Maria",
+                "lastName": "Garcia",
+                "dob": "1987-06-24",
+                "city": "San Pedro de los Pinos",
+                "zipCode": "03800",
+                "state": "CDMX",
+                "address3": "Ciudad de México",
+                "countryCode": "MX",
+                "address1": "Avenida Calle Dos 296",
+                "latitude": 19.3953755,
+                "longitude": -99.1384059,
+                "gender": "Male",
+                "email": "ariel+fielContigo@leapfinancial.com",
+                "lang": "en",
+                "birthState": "MX-CMX",
+                "paymentMethodType": "Card",
+                "addCardParams": {
+                  "nameOnCard": "Juan Perez Gomez",
+                  "cardtype": "DebitCard",
+                  "expirationDate": "1128",
+                  "cardNetwork": "Visa",
+                  "name": "VISA-1111",
+                  "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111"
+                }
               }
             }
           }
@@ -192,6 +231,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SessionLinkResponse"
+                },
+                "example": {
+                  "link": "https://links-dev.nomas.cash/pBFWL",
+                  "status": "Completed",
+                  "statusDetail": "None"
                 }
               }
             }
@@ -261,91 +305,6 @@
             }
           }
         ]
-      }
-    },
-    "/auth/sessionlink-v2-anonimous": {
-      "post": {
-        "operationId": "getSessionLinkV2Anonymous",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionLinkResponse"
-                }
-              }
-            }
-          },
-          "204": {
-            "description": "No content"
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "reason": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "reason"
-                  ],
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "description": "Produces a checkout URL without identity binding, tied to a correlation; for webviews with optional later registration.",
-        "summary": "Get session link (anonymous)",
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "api_key": [
-              "partner_full"
-            ]
-          }
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "- Optionally contains the cross-reference identifier of the base operation.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "operationId": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              }
-            }
-          }
-        }
       }
     }
   },

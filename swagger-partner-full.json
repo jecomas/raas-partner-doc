@@ -2638,6 +2638,10 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "code": "COUNTRY_NOT_SUPPORTED",
+                  "reason": "Destination or corridor not allowed for this user."
                 }
               }
             }
@@ -2660,6 +2664,10 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "code": "INTERNAL_SERVER_ERROR",
+                  "reason": "Unexpected error while creating the request-money operation."
                 }
               }
             }
@@ -3127,12 +3135,30 @@
               }
             }
           },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "code": "ERROR_INVALID_QUOTATION_REQUEST_DATA",
+                  "reason": "Invalid quotation request data"
+                }
+              }
+            }
+          },
           "500": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "code": "INTERNAL_SERVER_ERROR",
+                  "reason": "Quote could not be computed (tenant, user, corridor, or rate failure)."
                 }
               }
             }
@@ -3169,6 +3195,14 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/QuoteTransactionPartnersBase"
+              },
+              "example": {
+                "recipientUserId": "d8491cd95cae4fa0ad45d765021adbbb",
+                "currency": "USD",
+                "amount": 100,
+                "isSenderAmount": true,
+                "sourcePaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
+                "destinationPaymentMethodId": "f9b8131f-404a-41e0-9312-927cf81f97fe"
               }
             }
           }

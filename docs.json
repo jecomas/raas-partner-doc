@@ -22,6 +22,12 @@
             "pages": [
               "api-reference/introduction"
             ]
+          },
+          {
+            "group": "Testing & sandbox",
+            "pages": [
+              "guides/testing-sandbox"
+            ]
           }
         ]
       },

@@ -1,5 +1,5 @@
 {
-  "_comment": "Curated OpenAPI examples merged by scripts/reorder-swagger.js (key = operationId). Use request / response; optional responses map for non-200.",
+  "_comment": "Curated examples keyed by operationId. Fields: request, response, optional responses per HTTP status.",
   "getUserTokenV2": {
     "request": {
       "email": "+5215521206703",
@@ -9,11 +9,10 @@
       "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2"
     },
     "responses": {
-      "400": { "code": "BAD_REQUEST", "reason": "Invalid phone" },
-      "401": { "code": "UNAUTHORIZED", "reason": "Invalid api_key" },
-      "404": { "code": "NOT_FOUND", "reason": "User not found" },
-      "500": { "code": "INVALID_PHONE_NUMBER", "reason": "Invalid phone number format" }
-    }    
+      "400": { "reason": "Missing or invalid email/phone in request body." },
+      "404": { "reason": "User not found for the given alias." },
+      "500": { "reason": "Phone normalization or lookup failed." }
+    }
   },
   "registerUserV2": {
     "request": {
@@ -29,6 +28,10 @@
     "response": {
       "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2",
       "status": "Created"
+    },
+    "responses": {
+      "400": { "reason": "Invalid tenant, country mismatch, invalid schema, or invalid date of birth." },
+      "500": { "reason": "Registration could not be completed; see server message." }
     }
   },
   "requestMoneyV2": {
@@ -75,6 +78,30 @@
       "recipientCurrency": "MXN",
       "estimatedExchangeRate": 1,
       "platId": "22038600-846a-47fd-8733-3b0fa886d894"
+    },
+    "responses": {
+      "400": { "code": "COUNTRY_NOT_SUPPORTED", "reason": "Destination or corridor not allowed for this user." },
+      "500": { "code": "INTERNAL_SERVER_ERROR", "reason": "Unexpected error while creating the request-money operation." }
+    }
+  },
+  "operationQuoteV2": {
+    "request": {
+      "recipientUserId": "d8491cd95cae4fa0ad45d765021adbbb",
+      "currency": "USD",
+      "amount": 100,
+      "isSenderAmount": true,
+      "sourcePaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
+      "destinationPaymentMethodId": "f9b8131f-404a-41e0-9312-927cf81f97fe"
+    },
+    "responses": {
+      "400": {
+        "code": "ERROR_INVALID_QUOTATION_REQUEST_DATA",
+        "reason": "Invalid quotation request data"
+      },
+      "500": {
+        "code": "INTERNAL_SERVER_ERROR",
+        "reason": "Quote could not be computed (tenant, user, corridor, or rate failure)."
+      }
     }
   },
   "createContact": {
@@ -84,6 +111,19 @@
       "phone": "+19166014999",
       "email": "javier+1@leapfinancial.com",
       "countryCode": "US"
+    },
+    "responses": {
+      "200": { "code": "OK", "reason": "Contact created" },
+      "400": { "code": "INVALID_USER_ID", "reason": "User token is not a valid Firebase-style id." },
+      "422": {
+        "name": "ValidateError",
+        "message": "Validation failed",
+        "status": 422,
+        "fields": {
+          "body.phone": { "message": "Invalid value", "value": "" }
+        }
+      },
+      "500": { "code": "ERROR_UNKNOWN", "reason": "Error creating contact" }
     }
   },
   "updateContact": {
@@ -298,5 +338,50 @@
         "countryCode": "US"
       }
     ]
+  },
+  "getSessionLinkV2": {
+    "request": {
+      "phoneNumber": "+5215521206706", 
+      "firstName": "Maria",
+      "lastName": "Garcia",
+      "dob": "1987-06-24",
+      "city": "San Pedro de los Pinos",
+      "zipCode": "03800",
+      "state":"CDMX",
+      "address3": "Ciudad de México",
+      "countryCode":"MX",
+      "address1": "Avenida Calle Dos 296",
+      "latitude": 19.3953755,
+      "longitude": -99.1384059,
+      "gender" : "Male",
+      "email": "ariel+fielContigo@leapfinancial.com",
+      "lang": "en",
+      "birthState": "MX-CMX",
+      "paymentMethodType": "Card",
+      "addCardParams" : {
+          "nameOnCard" :"Juan Perez Gomez",
+          "cardtype": "DebitCard",
+          "expirationDate": "1128",
+          "cardNetwork": "Visa",
+          "name": "VISA-1111",
+          "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111"
+      }
+  },
+    "response": {
+      "paymentMethodStatus": "ValidCard",
+      "link": "https://links-dev.nomas.cash/Q1nO3",
+      "status": "Completed",
+      "statusDetail": "None"
+    }
+  },
+  "getSessionLinkV4": {
+    "request": {
+      "userToken": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1"
+    },
+    "response": {
+      "link": "https://links-dev.nomas.cash/pBFWL",
+      "status": "Completed",
+      "statusDetail": "None"
+    }
   }
 }

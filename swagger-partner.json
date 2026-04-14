@@ -42,8 +42,7 @@
                   "type": "object"
                 },
                 "example": {
-                  "code": "BAD_REQUEST",
-                  "reason": "Invalid phone"
+                  "reason": "Missing or invalid email/phone in request body."
                 }
               }
             }
@@ -64,8 +63,7 @@
                   "type": "object"
                 },
                 "example": {
-                  "code": "NOT_FOUND",
-                  "reason": "User not found"
+                  "reason": "User not found for the given alias."
                 }
               }
             }
@@ -86,8 +84,7 @@
                   "type": "object"
                 },
                 "example": {
-                  "code": "INVALID_PHONE_NUMBER",
-                  "reason": "Invalid phone number format"
+                  "reason": "Phone normalization or lookup failed."
                 }
               }
             }
@@ -155,6 +152,9 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "reason": "Invalid tenant, country mismatch, invalid schema, or invalid date of birth."
                 }
               }
             }
@@ -173,6 +173,9 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "reason": "Registration could not be completed; see server message."
                 }
               }
             }
@@ -288,6 +291,10 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "code": "OK",
+                  "reason": "Contact created"
                 }
               }
             }
@@ -313,6 +320,10 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "code": "INVALID_USER_ID",
+                  "reason": "User token is not a valid Firebase-style id."
                 }
               }
             }
@@ -323,6 +334,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidateError"
+                },
+                "example": {
+                  "name": "ValidateError",
+                  "message": "Validation failed",
+                  "status": 422,
+                  "fields": {
+                    "body.phone": {
+                      "message": "Invalid value",
+                      "value": ""
+                    }
+                  }
                 }
               }
             }
@@ -345,6 +367,10 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "code": "ERROR_UNKNOWN",
+                  "reason": "Error creating contact"
                 }
               }
             }
@@ -1142,6 +1168,10 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "code": "COUNTRY_NOT_SUPPORTED",
+                  "reason": "Destination or corridor not allowed for this user."
                 }
               }
             }
@@ -1164,6 +1194,10 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "code": "INTERNAL_SERVER_ERROR",
+                  "reason": "Unexpected error while creating the request-money operation."
                 }
               }
             }

@@ -7110,7 +7110,7 @@
 				],
 				"parameters": [],
 				"requestBody": {
-					"description": "- Payload with payment data, amounts, fees and base KYC.",
+					"description": "Payload with payment data, amounts, fees and base KYC.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -7202,92 +7202,6 @@
 						}
 					}
 				]
-			}
-		},
-		"/auth/sessionlink-v2-anonimous": {
-			"post": {
-				"operationId": "getSessionLinkV2Anonymous",
-				"responses": {
-					"200": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/SessionLinkResponse"
-								}
-							}
-						}
-					},
-					"204": {
-						"description": "No content"
-					},
-					"400": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "",
-						"content": {
-							"application/json": {
-								"schema": {
-									"properties": {
-										"reason": {
-											"type": "string"
-										}
-									},
-									"required": [
-										"reason"
-									],
-									"type": "object"
-								}
-							}
-						}
-					}
-				},
-				"description": "Produces a checkout URL without identity binding, tied to a correlation; for webviews with optional later registration.",
-				"summary": "Get session link (anonymous)",
-				"tags": [
-					"Partner Widget Ask",
-					"Users"
-				],
-				"security": [
-					{
-						"api_key": [
-							"partner_full"
-						]
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"description": "- Optionally contains the cross-reference identifier of the base operation.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"properties": {
-									"operationId": {
-										"type": "string"
-									}
-								},
-								"type": "object"
-							}
-						}
-					}
-				}
 			}
 		},
 		"/auth/auth-by-token-link": {
@@ -11545,6 +11459,16 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/RaasQuoteTransactionResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
 								}
 							}
 						}
