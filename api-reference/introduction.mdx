@@ -30,7 +30,7 @@ Below is an example demonstrating an API call using the mTLS endpoint and provid
 
 ```bash
 curl -X GET "https://mtls-partner-cv.nomas.cash/v1/some-endpoint" \
-  -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
+  -H "api_key: <API_KEY>" \
   --cert-type P12 \
   --cert ./raas-partner.p12 \
   --data '<ENDPOINT_BODY>'
