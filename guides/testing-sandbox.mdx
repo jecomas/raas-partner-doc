@@ -11,8 +11,8 @@ Sandbox tokens, card numbers, and API keys in this documentation are **examples 
 
 | Environment | Base URL (REST) | Notes |
 |---------------|-----------------|--------|
-| CV / integration (default in this doc) | `https://raas-partner-cv.nomas.cash/v1` | Example non-production host; your contract may use a different hostname. |
-| mTLS (same logical API) | `https://mtls-partner-cv.nomas.cash/v1` | See [Introduction](/api-reference/introduction) for certificate usage. |
+| CV / integration (default in this doc) | `https://raas-partner-dev.nomas.cash/v1` | Example non-production host; your contract may use a different hostname. |
+| mTLS (same logical API) | `https://mtls-partner-dev.nomas.cash/v1` | See [Introduction](/api-reference/introduction) for certificate usage. |
 
 Your tenant may also use **QA**, **dev**, or **prod** hosts; confirm the base URL with your Leap integration contact.
 
@@ -32,8 +32,6 @@ The platform stores **tokens** (not raw PANs). The values below are **illustrati
 | Purpose | Example `number` (token) | Example `securityCode` (token) | Notes |
 |---------|--------------------------|----------------------------------|--------|
 | Generic Visa sandbox card | `tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111` | e.g. `tok_sandbox_4G3wTXXpqCQVct3n2oZHH9` (varies by flow) | Typical shape returned after tokenizing a test Visa in sandbox. |
-| Alternate sandbox PAN token | `tok_sandbox_a4xTyDfx7uPfBU1CuSpaA5_1111` | — | Use when your integration tests multiple saved instruments. |
-| Alternate BIN (sandbox) | `tok_sandbox_cZPiBnoa2RA7V3kpDDstuV_9193` | e.g. `tok_sandbox_5LQ6efcWwuBqPupKR8ZhNq` | Optional second profile for BIN or CVV behavior tests. |
 
 Typical card fields in requests (names may vary by endpoint):
 

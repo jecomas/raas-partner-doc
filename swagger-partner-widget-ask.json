@@ -5,7 +5,7 @@
   },
   "servers": [
     {
-      "url": "https://raas-partner-cv.nomas.cash/v1"
+      "url": "https://raas-partner-dev.nomas.cash/v1"
     }
   ],
   "paths": {
@@ -610,7 +610,7 @@
         "properties": {
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`."
+            "description": "Phone number with country code.\r\nExample: `+19166020018`."
           },
           "email": {
             "type": "string",
@@ -618,7 +618,7 @@
           },
           "countryCode": {
             "$ref": "#/components/schemas/CountryAlpha2Code",
-            "description": "Country code.\nISO 3166-1 alpha-2."
+            "description": "Country code.\r\nISO 3166-1 alpha-2."
           }
         },
         "type": "object",
@@ -635,7 +635,7 @@
         "properties": {
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`.\n\nIt doesn't allow duplicates."
+            "description": "Phone number with country code.\r\nExample: `+19166020018`.\r\n\r\nIt doesn't allow duplicates."
           },
           "lastName": {
             "type": "string"
@@ -655,11 +655,11 @@
           "dob": {
             "type": "string",
             "format": "date-time",
-            "description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old."
+            "description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\r\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old."
           },
           "email": {
             "type": "string",
-            "description": "Email address.\nIt doesn't allow duplicates.\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
+            "description": "Email address.\r\nIt doesn't allow duplicates.\r\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
           },
           "firstName": {
             "type": "string"
@@ -669,7 +669,7 @@
           },
           "address1": {
             "type": "string",
-            "description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`."
+            "description": "User legal address, Street and number.\r\nExample: `Blvd. Kukulcan Km. 4.5`."
           },
           "address2": {
             "type": "string"
@@ -691,18 +691,18 @@
           },
           "state": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\r\nISO 3166-2:CC (CC: country code).\r\nOr the state short name.\r\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "birthState": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\r\nISO 3166-2:CC (CC: country code).\r\nOr the state short name.\r\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "lang": {
             "$ref": "#/components/schemas/Language"
           },
           "placeDetail": {
             "type": "string",
-            "description": "Place detail from address if available.\nFrom google maps place details."
+            "description": "Place detail from address if available.\r\nFrom google maps place details."
           },
           "latitude": {
             "type": "number",
@@ -766,11 +766,11 @@
           },
           "currency": {
             "type": "string",
-            "description": "Currency\nISO 4217 format"
+            "description": "Currency\r\nISO 4217 format"
           },
           "country": {
             "type": "string",
-            "description": "Country\nISO 3166-1 alpha-2 format"
+            "description": "Country\r\nISO 3166-1 alpha-2 format"
           }
         },
         "required": [
@@ -847,7 +847,7 @@
         "properties": {
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`.\n\nIt doesn't allow duplicates."
+            "description": "Phone number with country code.\r\nExample: `+19166020018`.\r\n\r\nIt doesn't allow duplicates."
           },
           "lastName": {
             "type": "string"
@@ -867,11 +867,11 @@
           "dob": {
             "type": "string",
             "format": "date-time",
-            "description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old."
+            "description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\r\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old."
           },
           "email": {
             "type": "string",
-            "description": "Email address.\nIt doesn't allow duplicates.\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
+            "description": "Email address.\r\nIt doesn't allow duplicates.\r\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
           },
           "firstName": {
             "type": "string"
@@ -881,7 +881,7 @@
           },
           "address1": {
             "type": "string",
-            "description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`."
+            "description": "User legal address, Street and number.\r\nExample: `Blvd. Kukulcan Km. 4.5`."
           },
           "address2": {
             "type": "string"
@@ -903,18 +903,18 @@
           },
           "state": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\r\nISO 3166-2:CC (CC: country code).\r\nOr the state short name.\r\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "birthState": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\r\nISO 3166-2:CC (CC: country code).\r\nOr the state short name.\r\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
           },
           "lang": {
             "$ref": "#/components/schemas/Language"
           },
           "placeDetail": {
             "type": "string",
-            "description": "Place detail from address if available.\nFrom google maps place details."
+            "description": "Place detail from address if available.\r\nFrom google maps place details."
           },
           "latitude": {
             "type": "number",
@@ -1097,7 +1097,7 @@
         "additionalProperties": false
       },
       "CIP": {
-        "description": "Customer Identification Process (CIP) Status and Info.\nChanged from Class to Interface for better serialization support.",
+        "description": "Customer Identification Process (CIP) Status and Info.\r\nChanged from Class to Interface for better serialization support.",
         "properties": {
           "sent": {
             "type": "boolean"
@@ -1259,7 +1259,7 @@
           },
           "password": {
             "type": "string",
-            "description": "Numi Plat pincode/password.\nNote: Not used to validate user in RaaS."
+            "description": "Numi Plat pincode/password.\r\nNote: Not used to validate user in RaaS."
           },
           "pincode": {
             "type": "string",
@@ -1279,7 +1279,7 @@
           },
           "phoneInfo": {
             "$ref": "#/components/schemas/IPhoneInfo",
-            "description": "Phone information set during registration.\nUsed to determine country code and select proper KYC provider."
+            "description": "Phone information set during registration.\r\nUsed to determine country code and select proper KYC provider."
           },
           "tenantId": {
             "type": "string"
@@ -1307,7 +1307,7 @@
           },
           "profilePictureUrl": {
             "type": "string",
-            "description": "Temporary URL for the user's profile picture.\nGenerated on demand, not persisted."
+            "description": "Temporary URL for the user's profile picture.\r\nGenerated on demand, not persisted."
           },
           "customCountryCode": {
             "type": "string"
@@ -1826,7 +1826,7 @@
         "type": "object"
       },
       "ScanIdentityResponse": {
-        "description": "After scan using an non sync engine, API will return this object\nA client has to pull the data from this object's pull_url \nuntil the status is a ScanIdentityResponse or \"error\"",
+        "description": "After scan using an non sync engine, API will return this object\r\nA client has to pull the data from this object's pull_url \r\nuntil the status is a ScanIdentityResponse or \"error\"",
         "properties": {
           "id": {
             "type": "string"
@@ -1850,7 +1850,7 @@
           },
           "pull_url": {
             "type": "string",
-            "description": "Url to pull the data. If the type=sync\nyou have perform interval pulls to this url\nin order to monitor the status"
+            "description": "Url to pull the data. If the type=sync\r\nyou have perform interval pulls to this url\r\nin order to monitor the status"
           },
           "data": {
             "$ref": "#/components/schemas/BaseIdentity",
@@ -2462,7 +2462,7 @@
         "properties": {
           "phone": {
             "type": "string",
-            "description": "Contact phone number with country code\n\nExample: `+19166020018`."
+            "description": "Contact phone number with country code\r\n\r\nExample: `+19166020018`."
           },
           "firstName": {
             "type": "string",
@@ -2478,7 +2478,7 @@
           },
           "countryCode": {
             "type": "string",
-            "description": "Contact country code\n\nISO 3166-1 alpha-2."
+            "description": "Contact country code\r\n\r\nISO 3166-1 alpha-2."
           },
           "alias": {
             "type": "string",
@@ -2546,11 +2546,11 @@
           },
           "countryCode": {
             "$ref": "#/components/schemas/CountryAlpha2Code",
-            "description": "Country code.\nISO 3166-1 alpha-2."
+            "description": "Country code.\r\nISO 3166-1 alpha-2."
           },
           "phone": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`."
+            "description": "Phone number with country code.\r\nExample: `+19166020018`."
           },
           "lastName": {
             "type": "string"
@@ -2578,7 +2578,7 @@
           },
           "countryCode": {
             "type": "string",
-            "description": "Country code.\nISO 3166-1 alpha-2."
+            "description": "Country code.\r\nISO 3166-1 alpha-2."
           },
           "lastName": {
             "type": "string"
@@ -2592,7 +2592,7 @@
           },
           "phone": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`."
+            "description": "Phone number with country code.\r\nExample: `+19166020018`."
           }
         },
         "required": [
@@ -2753,7 +2753,7 @@
           },
           "type": {
             "$ref": "#/components/schemas/AvailablePaymentMethods",
-            "description": "Source of funding type:\nMobileWallet|BankAccount|DebitCard|CreditCard|CashLoadLocaion|CashPayoutLocation|MTOLoad|None|StorePay\""
+            "description": "Source of funding type:\r\nMobileWallet|BankAccount|DebitCard|CreditCard|CashLoadLocaion|CashPayoutLocation|MTOLoad|None|StorePay\""
           },
           "expirationDate": {
             "type": "string",
@@ -2777,7 +2777,7 @@
           },
           "name": {
             "type": "string",
-            "description": "Credit/Debit card holder name.\nAccount name."
+            "description": "Credit/Debit card holder name.\r\nAccount name."
           },
           "tokenData": {
             "type": "string",
@@ -2788,19 +2788,19 @@
           },
           "country": {
             "type": "string",
-            "description": "Country code.\n\nISO 3166-1 alpha-2 format.\nExample: `US` for United States, `MX` for Mexico."
+            "description": "Country code.\r\n\r\nISO 3166-1 alpha-2 format.\r\nExample: `US` for United States, `MX` for Mexico."
           },
           "cardNetwork": {
             "type": "string",
-            "description": "Card network\n\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
+            "description": "Card network\r\n\r\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
           },
           "currency": {
             "type": "string",
-            "description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Currency code.\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "status": {
             "$ref": "#/components/schemas/PaymentMethodStatus",
-            "description": "Payment method status\n\nExample: `Created`, `Validated`, `Blocked`, `Validating`, `Removed`, `Disconnected`, `ValidationNotApproved`, `ValidatedPull`, `ValidatedPush`, `ValidatedPullAndPush`."
+            "description": "Payment method status\r\n\r\nExample: `Created`, `Validated`, `Blocked`, `Validating`, `Removed`, `Disconnected`, `ValidationNotApproved`, `ValidatedPull`, `ValidatedPush`, `ValidatedPullAndPush`."
           },
           "allowPullCrossBorder": {
             "type": "boolean",
@@ -2831,7 +2831,7 @@
           },
           "paymentMethodOwner": {
             "type": "string",
-            "description": "VNA method owner\n\nExample: `BCP`."
+            "description": "VNA method owner\r\n\r\nExample: `BCP`."
           }
         },
         "required": [
@@ -3171,7 +3171,7 @@
         "properties": {
           "paymentType": {
             "$ref": "#/components/schemas/PaymentMethodType",
-            "description": "\nType of the payment method.\n\nExample: `DebitCard`, `CreditCard`, `BankAccount`, `MobileWallet`, `CashLoadLocation`, `AppleDigitalWallet`, `GoogleDigitalWallet`, `CLABE`, `UBN`, `VirtualNetworkAccount`."
+            "description": "\r\nType of the payment method.\r\n\r\nExample: `DebitCard`, `CreditCard`, `BankAccount`, `MobileWallet`, `CashLoadLocation`, `AppleDigitalWallet`, `GoogleDigitalWallet`, `CLABE`, `UBN`, `VirtualNetworkAccount`."
           },
           "displayName": {
             "type": "string",
@@ -3199,7 +3199,7 @@
         "properties": {
           "paymentMethodOwner": {
             "type": "string",
-            "description": "VNA method owner\n\nExample: `BCP`."
+            "description": "VNA method owner\r\n\r\nExample: `BCP`."
           },
           "allowReviewAddress": {
             "type": "boolean",
@@ -3254,11 +3254,11 @@
           },
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number associated with the payment method.\n\nExample: `+19166020018`."
+            "description": "Phone number associated with the payment method.\r\n\r\nExample: `+19166020018`."
           },
           "country": {
             "type": "string",
-            "description": "Country code.\n\nISO 3166-1 alpha-2 format.\nExample: `US` for United States, `MX` for Mexico."
+            "description": "Country code.\r\n\r\nISO 3166-1 alpha-2 format.\r\nExample: `US` for United States, `MX` for Mexico."
           },
           "zipCode": {
             "type": "string"
@@ -3289,7 +3289,7 @@
           },
           "cardNetwork": {
             "type": "string",
-            "description": "Credit/Debit card network\n\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
+            "description": "Credit/Debit card network\r\n\r\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
           },
           "cardtype": {
             "type": "string",
@@ -3301,7 +3301,7 @@
           },
           "securityCode": {
             "type": "string",
-            "description": "Credit/Debit tokenized card CVV/CVC security code by VGS.\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
+            "description": "Credit/Debit tokenized card CVV/CVC security code by VGS.\r\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
           },
           "expirationMonth": {
             "type": "string",
@@ -3321,7 +3321,7 @@
           },
           "number": {
             "type": "string",
-            "description": "Credit/Debit tokenized card number by VGS.\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
+            "description": "Credit/Debit tokenized card number by VGS.\r\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
           },
           "beneficiaryAccountId": {
             "type": "string"
@@ -3368,11 +3368,11 @@
           },
           "type": {
             "$ref": "#/components/schemas/AvailablePaymentMethods",
-            "description": "Payment method type\n\nType of the payment method."
+            "description": "Payment method type\r\n\r\nType of the payment method."
           },
           "name": {
             "type": "string",
-            "description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
+            "description": "Payment method name\r\n\r\nName of the payment method. Example `VISA-1234`."
           },
           "id": {
             "type": "string",
@@ -3389,7 +3389,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Card name.\nExample: `VISA-1234`."
+            "description": "Card name.\r\nExample: `VISA-1234`."
           },
           "cardtype": {
             "type": "string",
@@ -3409,7 +3409,7 @@
           },
           "number": {
             "type": "string",
-            "description": "Tokenized card number by VGS.\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
+            "description": "Tokenized card number by VGS.\r\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
           },
           "isPrimary": {
             "type": "boolean",
@@ -3417,35 +3417,35 @@
           },
           "nameOnCard": {
             "type": "string",
-            "description": "Card holder name.\nExample: `John Doe`."
+            "description": "Card holder name.\r\nExample: `John Doe`."
           },
           "expirationDate": {
             "type": "string",
-            "description": "Card expiration date.\nExample: `0631`."
+            "description": "Card expiration date.\r\nExample: `0631`."
           },
           "expirationYear": {
             "type": "string",
-            "description": "Card expiration year.\nExample: `31`."
+            "description": "Card expiration year.\r\nExample: `31`."
           },
           "expirationMonth": {
             "type": "string",
-            "description": "Card expiration month.\nExample: `06`."
+            "description": "Card expiration month.\r\nExample: `06`."
           },
           "securityCode": {
             "type": "string",
-            "description": "Tokenized CVV/CVC security code by VGS.\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
+            "description": "Tokenized CVV/CVC security code by VGS.\r\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
           },
           "currency": {
             "type": "string",
-            "description": "Currency code. `ISO-4217 format`.\nExample: `USD`."
+            "description": "Currency code. `ISO-4217 format`.\r\nExample: `USD`."
           },
           "country": {
             "type": "string",
-            "description": "Country code. `ISO-3166-1 alpha-2 format`.\nExample: `US` for United States, `MX` for Mexico."
+            "description": "Country code. `ISO-3166-1 alpha-2 format`.\r\nExample: `US` for United States, `MX` for Mexico."
           },
           "operationId": {
             "type": "string",
-            "description": "Associated Operation ID (if applicable).\nExample: `guid-1234567890`."
+            "description": "Associated Operation ID (if applicable).\r\nExample: `guid-1234567890`."
           },
           "cardNetwork": {
             "type": "string",
@@ -3488,7 +3488,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "payment method name:\np.e. VISA-1111"
+            "description": "payment method name:\r\np.e. VISA-1111"
           },
           "type": {
             "type": "string",
@@ -3496,7 +3496,7 @@
               "DebitCard",
               "CreditCard"
             ],
-            "description": "Payment method type\nDebitCard\" | \"CreditCard\""
+            "description": "Payment method type\r\nDebitCard\" | \"CreditCard\""
           },
           "isPrimary": {
             "type": "boolean",
@@ -3516,7 +3516,7 @@
               "DebitCard",
               "CreditCard"
             ],
-            "description": "Card type\nDebitCard\" | \"CreditCard\""
+            "description": "Card type\r\nDebitCard\" | \"CreditCard\""
           },
           "number": {
             "type": "string",
@@ -3603,7 +3603,7 @@
         "properties": {
           "currency": {
             "type": "string",
-            "description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Currency code.\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "bankAccountType": {
             "type": "string",
@@ -3612,7 +3612,7 @@
               "SavingsAccount",
               "OtherAccount"
             ],
-            "description": "Bank account type\n\nExample: `CheckingAccount`, `SavingsAccount`, `OtherAccount`."
+            "description": "Bank account type\r\n\r\nExample: `CheckingAccount`, `SavingsAccount`, `OtherAccount`."
           },
           "cardtype": {
             "type": "string",
@@ -3620,15 +3620,15 @@
               "DebitCard",
               "CreditCard"
             ],
-            "description": "Credit/Debit card type\n\nExample: `DebitCard`, `CreditCard`."
+            "description": "Credit/Debit card type\r\n\r\nExample: `DebitCard`, `CreditCard`."
           },
           "number": {
             "type": "string",
-            "description": "Credit/Debit/UBN/VNA/CLABE number\n\nExample: `1234567890`."
+            "description": "Credit/Debit/UBN/VNA/CLABE number\r\n\r\nExample: `1234567890`."
           },
           "accountNumber": {
             "type": "string",
-            "description": "\nAccount number of the payment method. Example `1234567890`."
+            "description": "\r\nAccount number of the payment method. Example `1234567890`."
           },
           "bankEntityNumber": {
             "type": "string"
@@ -3639,11 +3639,11 @@
           },
           "isPrimary": {
             "type": "boolean",
-            "description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
+            "description": "Is primary payment method?\r\n\r\nExample: `true` for primary payment method, `false` for secondary payment method."
           },
           "name": {
             "type": "string",
-            "description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
+            "description": "Payment method name\r\n\r\nName of the payment method. Example `VISA-1234`."
           },
           "id": {
             "type": "string",
@@ -3656,7 +3656,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Payment method ID\n\nExample: `pm_1234567890`."
+            "description": "Payment method ID\r\n\r\nExample: `pm_1234567890`."
           },
           "status": {
             "$ref": "#/components/schemas/PaymentMethodStatus",
@@ -3667,75 +3667,75 @@
           },
           "name": {
             "type": "string",
-            "description": "Payment method name\n\nExample: `VISA-1234`."
+            "description": "Payment method name\r\n\r\nExample: `VISA-1234`."
           },
           "type": {
             "type": "string",
-            "description": "Payment method type\n\nExample: `DebitCard`, `CreditCard`."
+            "description": "Payment method type\r\n\r\nExample: `DebitCard`, `CreditCard`."
           },
           "isPrimary": {
             "type": "boolean",
-            "description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
+            "description": "Is primary payment method?\r\n\r\nExample: `true` for primary payment method, `false` for secondary payment method."
           },
           "createdAt": {
             "type": "string",
-            "description": "Created at\n\nExample: `2021-01-01T00:00:00Z`."
+            "description": "Created at\r\n\r\nExample: `2021-01-01T00:00:00Z`."
           },
           "updatedAt": {
             "type": "string",
-            "description": "Updated at\n\nExample: `2021-01-01T00:00:00Z`."
+            "description": "Updated at\r\n\r\nExample: `2021-01-01T00:00:00Z`."
           },
           "country": {
             "type": "string",
-            "description": "Country code\n\nISO 3166-1 alpha-2 format.\nExample: `US` for United States, `MX` for Mexico."
+            "description": "Country code\r\n\r\nISO 3166-1 alpha-2 format.\r\nExample: `US` for United States, `MX` for Mexico."
           },
           "currency": {
             "type": "string",
-            "description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "latitude": {
             "type": "number",
             "format": "double",
-            "description": "Address latitude\n\nExample: `37.774929`."
+            "description": "Address latitude\r\n\r\nExample: `37.774929`."
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "description": "Address longitude\n\nExample: `-122.419416`."
+            "description": "Address longitude\r\n\r\nExample: `-122.419416`."
           },
           "cardType": {
             "type": "string",
-            "description": "Card type\n\nExample: `DebitCard`, `CreditCard`."
+            "description": "Card type\r\n\r\nExample: `DebitCard`, `CreditCard`."
           },
           "number": {
             "type": "string"
           },
           "nameOnCard": {
             "type": "string",
-            "description": "Card holder name\n\nExample: `John Doe`."
+            "description": "Card holder name\r\n\r\nExample: `John Doe`."
           },
           "expirationDate": {
             "type": "string",
-            "description": "Card expiration date\n\nExample: `0631`."
+            "description": "Card expiration date\r\n\r\nExample: `0631`."
           },
           "expirationYear": {
             "type": "string",
-            "description": "Card expiration year\n\nExample: `31`."
+            "description": "Card expiration year\r\n\r\nExample: `31`."
           },
           "expirationMonth": {
             "type": "string",
-            "description": "Card expiration month\n\nExample: `06`."
+            "description": "Card expiration month\r\n\r\nExample: `06`."
           },
           "securityCode": {
             "type": "string",
-            "description": "Tokenized Card CVV/CVC code by VGS.\n\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
+            "description": "Tokenized Card CVV/CVC code by VGS.\r\n\r\nExample: `tok_sandbox_brucMoj9eTJR3xhqdmM4AQ`."
           },
           "tokenData": {
             "type": "string"
           },
           "cardNetwork": {
             "type": "string",
-            "description": "Card network\n\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
+            "description": "Card network\r\n\r\nExample: `Visa`, `MasterCard`, `American Express`, `Discover`, `Diners Club`, `JCB`, `UnionPay`, `Maestro`, `Mir`, `Verve`, `Troy`, `UATP`."
           },
           "allowPullCrossBorder": {
             "type": "boolean",
@@ -4118,7 +4118,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
+            "description": "Operation status\r\n\r\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
           },
           "platId": {
             "type": "string",
@@ -4126,7 +4126,7 @@
           },
           "type": {
             "type": "string",
-            "description": "Operation type\n\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
+            "description": "Operation type\r\n\r\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
           },
           "createdAt": {
             "type": "string",
@@ -4146,32 +4146,32 @@
           },
           "mobileStatus": {
             "type": "string",
-            "description": "Mobile status\n\nExample: `Mobile status`."
+            "description": "Mobile status\r\n\r\nExample: `Mobile status`."
           },
           "reason": {
             "type": "string",
-            "description": "Reason. Free text.\n\nExample: `Hi! I need money`."
+            "description": "Reason. Free text.\r\n\r\nExample: `Hi! I need money`."
           },
           "code": {
             "type": "string",
-            "description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
+            "description": "User frendly operation code for support purposes\r\n\r\nExample: `ABC123`."
           },
           "senderAmount": {
             "type": "number",
             "format": "double",
-            "description": "Sender amount\n\nExample: `100.00`."
+            "description": "Sender amount\r\n\r\nExample: `100.00`."
           },
           "currency": {
             "type": "string",
-            "description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "senderCurrency": {
             "type": "string",
-            "description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Sender currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "recipientCurrency": {
             "type": "string",
-            "description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Recipient currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "sourcePaymentMethod": {
             "$ref": "#/components/schemas/PaymentMethodResponse",
@@ -4556,7 +4556,7 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
+            "description": "Operation status\r\n\r\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
           },
           "correlationId": {
             "type": "string",
@@ -4584,15 +4584,15 @@
           },
           "mobileStatus": {
             "type": "string",
-            "description": "Mobile status\n\nExample: `Mobile status`."
+            "description": "Mobile status\r\n\r\nExample: `Mobile status`."
           },
           "reason": {
             "type": "string",
-            "description": "Reason. Free text.\n\nExample: `Hi! I need money`."
+            "description": "Reason. Free text.\r\n\r\nExample: `Hi! I need money`."
           },
           "code": {
             "type": "string",
-            "description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
+            "description": "User frendly operation code for support purposes\r\n\r\nExample: `ABC123`."
           },
           "recipientAmout": {
             "type": "number",
@@ -4601,19 +4601,19 @@
           "senderAmount": {
             "type": "number",
             "format": "double",
-            "description": "Sender amount\n\nExample: `100.00`."
+            "description": "Sender amount\r\n\r\nExample: `100.00`."
           },
           "currency": {
             "type": "string",
-            "description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "senderCurrency": {
             "type": "string",
-            "description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Sender currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "recipientCurrency": {
             "type": "string",
-            "description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Recipient currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "sourcePaymentMethod": {
             "$ref": "#/components/schemas/PaymentMethodResponse",
@@ -4733,28 +4733,28 @@
           },
           "correlationId": {
             "type": "string",
-            "description": "Correlation ID\n\nGUID to identify the operation"
+            "description": "Correlation ID\r\n\r\nGUID to identify the operation"
           },
           "destinationPaymentMethodId": {
             "type": "string",
-            "description": "Destination payment method ID\n\nID of the payment method to receive the money\n\nYou can use the payment method ID or the payment method object (by using the destinationPaymentMethod parameter) that you get from the API."
+            "description": "Destination payment method ID\r\n\r\nID of the payment method that will receive the money.\r\n\r\nYou can provide either the payment method ID using this parameter, or the full payment method object using the destinationPaymentMethod parameter.\r\n\r\nIf both parameters are provided, destinationPaymentMethodId will take precedence and destinationPaymentMethod will be ignored."
           },
           "recipientAmount": {
             "type": "number",
             "format": "double",
-            "description": "Recipient amount\n\nAmount to receive"
+            "description": "Recipient amount\r\n\r\nAmount to receive"
           },
           "recipientCurrency": {
             "type": "string",
-            "description": "Recipient currency\n\nISO 4217 format"
+            "description": "Recipient currency\r\n\r\nISO 4217 format"
           },
           "reason": {
             "type": "string",
-            "description": "Reason\n\nReason for the request"
+            "description": "Reason\r\n\r\nReason for the request"
           },
           "destinationPaymentMethod": {
             "$ref": "#/components/schemas/RaaSPaymentMethod",
-            "description": "Destination payment method to receive the money.\n\nYou can use the payment method ID (by using the destinationPaymentMethodId parameter) or the payment method object that you get from the API."
+            "description": "Destination payment method\r\n\r\nThe full payment method object that will receive the money.\r\n\r\nYou can provide either the full payment method object using this parameter, or just the payment method ID using the destinationPaymentMethodId parameter.\r\n\r\nIf both parameters are provided, this object will be ignored and destinationPaymentMethodId will take precedence."
           }
         },
         "required": [
@@ -5428,15 +5428,15 @@
           },
           "recipientCurrency": {
             "type": "string",
-            "description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Recipient currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "senderCurrency": {
             "type": "string",
-            "description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Sender currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "currency": {
             "type": "string",
-            "description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "showWarningScreen": {
             "type": "boolean"
@@ -5444,7 +5444,7 @@
           "senderAmount": {
             "type": "number",
             "format": "double",
-            "description": "Sender amount\n\nExample: `100.00`."
+            "description": "Sender amount\r\n\r\nExample: `100.00`."
           },
           "recipientAmout": {
             "type": "number",
@@ -5452,15 +5452,15 @@
           },
           "code": {
             "type": "string",
-            "description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
+            "description": "User frendly operation code for support purposes\r\n\r\nExample: `ABC123`."
           },
           "reason": {
             "type": "string",
-            "description": "Reason. Free text.\n\nExample: `Hi! I need money`."
+            "description": "Reason. Free text.\r\n\r\nExample: `Hi! I need money`."
           },
           "mobileStatus": {
             "type": "string",
-            "description": "Mobile status\n\nExample: `Mobile status`."
+            "description": "Mobile status\r\n\r\nExample: `Mobile status`."
           },
           "statusDetails": {
             "type": "string",
@@ -5468,7 +5468,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
+            "description": "Operation status\r\n\r\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
           },
           "amount": {
             "type": "number",
@@ -5484,7 +5484,7 @@
           },
           "type": {
             "type": "string",
-            "description": "Operation type\n\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
+            "description": "Operation type\r\n\r\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
           },
           "correlationId": {
             "type": "string",
@@ -5518,7 +5518,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
+            "description": "Operation status\r\n\r\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
           },
           "platId": {
             "type": "string",
@@ -5526,7 +5526,7 @@
           },
           "type": {
             "type": "string",
-            "description": "Operation type\n\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
+            "description": "Operation type\r\n\r\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
           },
           "createdAt": {
             "type": "string",
@@ -5546,15 +5546,15 @@
           },
           "mobileStatus": {
             "type": "string",
-            "description": "Mobile status\n\nExample: `Mobile status`."
+            "description": "Mobile status\r\n\r\nExample: `Mobile status`."
           },
           "reason": {
             "type": "string",
-            "description": "Reason. Free text.\n\nExample: `Hi! I need money`."
+            "description": "Reason. Free text.\r\n\r\nExample: `Hi! I need money`."
           },
           "code": {
             "type": "string",
-            "description": "User frendly operation code for support purposes\n\nExample: `ABC123`."
+            "description": "User frendly operation code for support purposes\r\n\r\nExample: `ABC123`."
           },
           "recipientAmout": {
             "type": "number",
@@ -5563,19 +5563,19 @@
           "senderAmount": {
             "type": "number",
             "format": "double",
-            "description": "Sender amount\n\nExample: `100.00`."
+            "description": "Sender amount\r\n\r\nExample: `100.00`."
           },
           "currency": {
             "type": "string",
-            "description": "Currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "senderCurrency": {
             "type": "string",
-            "description": "Sender currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Sender currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "recipientCurrency": {
             "type": "string",
-            "description": "Recipient currency code\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+            "description": "Recipient currency code\r\n\r\nISO 4217 format.\r\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "sourcePaymentMethod": {
             "$ref": "#/components/schemas/PaymentMethodResponse",
@@ -6715,7 +6715,7 @@
           },
           "DisplayName": {
             "type": "string",
-            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9. \nIf Null or empty, it will be Parner Prefix (configured in backend) + last four Account numbers (e.g. `PRTN-0141`)."
+            "description": "Max 10, Only these chars -> [-_a-zA-Z0-9. \r\nIf Null or empty, it will be Parner Prefix (configured in backend) + last four Account numbers (e.g. `PRTN-0141`)."
           },
           "Authorized": {
             "type": "boolean"

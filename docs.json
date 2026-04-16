@@ -20,12 +20,7 @@
           {
             "group": "Getting Started",
             "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Testing & sandbox",
-            "pages": [
+              "api-reference/introduction",
               "guides/testing-sandbox"
             ]
           }
@@ -70,10 +65,10 @@
     ]
   },
   "api": {
-    "baseUrl": "https://raas-partner-cv.nomas.cash/v1",
+    "baseUrl": "https://raas-partner-dev.nomas.cash/v1",
     "openapi": "swagger.json",
     "mdx": {
-      "server": "https://raas-partner-cv.nomas.cash/v1"
+      "server": "https://raas-partner-dev.nomas.cash/v1"
     }
   }
 }
