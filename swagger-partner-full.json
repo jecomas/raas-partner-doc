@@ -1632,16 +1632,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "description": "Operation type.\r\nExample: `SendFunds` for sending funds, `RequestFunds` for requesting funds.",
-            "in": "query",
-            "name": "operationType",
-            "required": false,
-            "schema": {
-              "default": "SendFunds",
-              "type": "string"
-            }
           }
         ]
       }
