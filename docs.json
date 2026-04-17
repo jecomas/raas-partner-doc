@@ -53,11 +53,11 @@
             "group": "VNA Interface",
             "pages": [
               "client-interfaces/pmo-create-account",
-               "client-interfaces/pmo-get-create-account-url",
-               "client-interfaces/pmo-tx-authorization",
-               "client-interfaces/vna-credit-funds",
-               "client-interfaces/vna-get-credit-status",
-               "client-interfaces/vna-reverse-credit-funds"
+              "client-interfaces/pmo-get-create-account-url",
+              "client-interfaces/pmo-tx-authorization",
+              "client-interfaces/vna-credit-funds",
+              "client-interfaces/vna-get-credit-status",
+              "client-interfaces/vna-reverse-credit-funds"
             ]
           }
         ]
@@ -65,10 +65,10 @@
     ]
   },
   "api": {
-    "baseUrl": "https://raas-partner-dev.nomas.cash/v1",
+    "baseUrl": "https://raas-partner-cv.nomas.cash/v1",
     "openapi": "swagger.json",
     "mdx": {
-      "server": "https://raas-partner-dev.nomas.cash/v1"
+      "server": "https://raas-partner-cv.nomas.cash/v1"
     }
   }
 }

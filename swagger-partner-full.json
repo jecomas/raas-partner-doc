@@ -5,7 +5,7 @@
   },
   "servers": [
     {
-      "url": "https://raas-partner-dev.nomas.cash/v1"
+      "url": "https://raas-partner-cv.nomas.cash/v1"
     }
   ],
   "paths": {
