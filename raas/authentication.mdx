@@ -1,0 +1,81 @@
+---
+title: "Authentication"
+description: "api_key headers, user tokens, typical errors, and safe practices for RaaS Partner API."
+---
+
+RaaS uses a tenant **api_key** on every server-side call. User-scoped operations also require a **userToken** from the auth routes. Never ship the api_key to mobile apps or public frontends.
+
+## Credentials at a glance
+
+| Credential | Where you send it | Purpose |
+|------------|-------------------|---------|
+| `api_key` | HTTP header `api_key` | Tenant authentication and scope enforcement |
+| `userToken` | Path or body per endpoint | End-user session for contacts, funding, operations |
+
+<CodeGroup>
+```bash cURL
+curl -sS -X POST "https://raas-partner-cv.nomas.cash/v1/auth/get-user-token-v2" \
+  -H "Content-Type: application/json" \
+  -H "api_key: YOUR_SANDBOX_API_KEY" \
+  -d '{"email":"sandbox.user@example.com"}'
+```
+
+```python Python
+import json
+import urllib.request
+
+req = urllib.request.Request(
+    "https://raas-partner-cv.nomas.cash/v1/auth/get-user-token-v2",
+    data=json.dumps({"email": "sandbox.user@example.com"}).encode("utf-8"),
+    headers={
+        "Content-Type": "application/json",
+        "api_key": "YOUR_SANDBOX_API_KEY",
+    },
+    method="POST",
+)
+with urllib.request.urlopen(req) as resp:
+    print(resp.read().decode("utf-8"))
+```
+
+```javascript Node.js
+const res = await fetch(
+  "https://raas-partner-cv.nomas.cash/v1/auth/get-user-token-v2",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      api_key: process.env.RAAS_SANDBOX_API_KEY,
+    },
+    body: JSON.stringify({ email: "sandbox.user@example.com" }),
+  }
+);
+console.log(await res.text());
+```
+</CodeGroup>
+
+## Typical error responses
+
+Auth routes usually return JSON with at least a `reason` string. Money routes often add `code`. Treat **400** as a client fix, **401** as a key problem, **404** as missing user, and **500** as retryable with backoff.
+
+```json Example error body
+{
+  "reason": "User not found",
+  "code": "USER_NOT_FOUND"
+}
+```
+
+<AccordionGroup>
+  <Accordion title="Rotate keys safely">
+    Store keys in a secret manager, rotate when staff leave or a key leaks, and update all services before disabling the old key.
+  </Accordion>
+  <Accordion title="Scope and OpenAPI tags">
+    Your key must include scopes for the surface you call (**Partner**, **Partner Send**, **Partner Full**, etc.). If you receive **403**, confirm the key’s scope with Leap.
+  </Accordion>
+  <Accordion title="mTLS">
+    Some integrations use mutual TLS and a different host. See [API overview](/raas/api-reference/introduction) for the mTLS base URL pattern and certificate usage.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Do not paste real **api_key** or **userToken** values into tickets, chat, or public repositories.
+</Warning>

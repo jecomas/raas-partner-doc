@@ -1,0 +1,23 @@
+---
+title: "Introduction"
+sidebarTitle: "Overview"
+description: "Client/Partner Interface Implementation Manual"
+---
+
+## Introduction
+
+This section details the APIs that **must be implemented by the Partner**. Platform's backend will act as a client consuming these services to coordinate the user lifecycle and transactions within the virtual network.
+
+### Partner Responsibilities
+
+*   **Hosting**: The Partner must expose these endpoints in their infrastructure.
+*   **Base Endpoint**: A base URL (e.g., `https://api.partner.com/v1`) must be provided where Platform will make the requests.
+*   **Security**: The authentication method and certificates (in case of mTLS) must be coordinated during the integration phase.
+*   **Contracts**: The JSON objects sent and received must strictly adhere to the schemas defined in this documentation.
+
+### General Flow
+
+1.  **Registration**: Platform requests the creation of an account or a registration URL.
+2.  **Authorization**: In case of an incoming transaction, Platform consults the Partner whether the operation is valid and authorized.
+3.  **Execution**: Platform notifies fund credits or requests reversals according to the final state of the operation.
+

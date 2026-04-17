@@ -1,0 +1,75 @@
+---
+title: "Testing & sandbox"
+description: "Integration test environments, sample tokens, and safe data for Partner API development."
+---
+
+<Warning>
+Sandbox tokens, card numbers, and API keys in this documentation are **examples only**. Values may differ per environment or tenant. Never use production credentials in shared sandboxes or commit secrets to source control.
+</Warning>
+
+## Environments and base URLs
+
+| Environment | Base URL (REST) | Notes |
+|---------------|-----------------|--------|
+| CV / integration (default in this doc) | `https://raas-partner-cv.nomas.cash/v1` | Example non-production host; your contract may use a different hostname. |
+| mTLS (same logical API) | `https://mtls-partner-cv.nomas.cash/v1` | See [Introduction](/raas/api-reference/introduction) for certificate usage. |
+
+Your tenant may also use **QA**, **dev**, or **prod** hosts; confirm the base URL with your Leap integration contact.
+
+## Authentication in tests
+
+- Send header **`api_key`** on every request (value issued for your tenant in that environment).
+- Scopes in the Partner API are grouped in the OpenAPI tags **`Partner`**, **`Partner Send`**, and **`Partner Full`**. Use an API key that includes the scope required by the endpoint you are calling.
+
+<Tip>
+Keep `api_key` on your **server** only. Do not embed it in mobile apps or public web clients.
+</Tip>
+
+## Tokenized test cards (sandbox)
+
+The platform stores **tokens** (not raw PANs). The values below are **illustrative** for sandbox-style integrations—always obtain current test tokens from your **card capture widget** or from **Leap** for your tenant and processor, since sandbox assets can rotate.
+
+| Purpose | Example `number` (token) | Example `securityCode` (token) | Notes |
+|---------|--------------------------|----------------------------------|--------|
+| Generic Visa sandbox card | `tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111` | e.g. `tok_sandbox_4G3wTXXpqCQVct3n2oZHH9` (varies by flow) | Typical shape returned after tokenizing a test Visa in sandbox. |
+
+Typical card fields in requests (names may vary by endpoint):
+
+- **`cardtype`**: `CreditCard` or `DebitCard`
+- **`cardNetwork`**: `Visa`, etc.
+- **`expirationDate`**: `MMYY` format as required by your integration guide
+- **`nameOnCard`**, **`country`**: must align with corridor / tenant rules
+
+<Note>
+If tokenization fails or the processor rotates test assets, you will get **4xx/5xx** with a `reason` (and often `code`) in the JSON body. Retry with a freshly tokenized card from your payment widget or test harness.
+</Note>
+
+## UBN and bank-style test data
+
+For `POST /user/funding/source/ubn-account/add/{userToken}` (and related flows), sandbox account numbers are often **numeric strings** in a fixed length for your country (for example a value shaped like `002320275621938815`). **Validate** the exact test account list for your tenant and country with Leap—do not assume one global test account across all partners.
+
+## Phones, users, and contacts
+
+- Use **E.164** phone numbers with the correct `countryCode` for `getUserTokenV2` and registration flows.
+- Prefer **synthetic** identities (e.g. `+52…`, `+1…` patterns) that your sandbox tenant is configured to accept.
+- For **duplicate contact** tests, reuse the same `phone` under the same `userToken` and expect a **400**-class error with a clear `reason` / `code` (see OpenAPI for `createContact`).
+
+## CIP / KYC and session links
+
+- Sandbox tenants may auto-promote certain CIP levels or require widget-based flows.
+- Session link endpoints (`sessionlink-v2`, `sessionlink-v4`, etc.) often return a **`link`** URL; open it in a browser or headless flow as documented for your product.
+
+## Webhooks and async events
+
+- Register a **reachable HTTPS** URL (or tunnel such as ngrok) for webhook callbacks in non-production.
+- Verify **signature / shared secret** handling if your integration consumes outbound events.
+- Use a unique **`correlationId`** on money operations so support can correlate logs across systems.
+
+## Idempotency and retries
+
+- Treat **POST** money and funding operations as **non-idempotent** unless you have an explicit idempotency contract.
+- On **500** or network errors, use **exponential backoff**; on **400**, fix the payload before retrying.
+
+## Related pages
+
+- [Introduction](/raas/api-reference/introduction) — mTLS, happy path, common HTTP errors.
