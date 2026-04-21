@@ -1,0 +1,79 @@
+---
+title: "Quickstart"
+description: "Call the Partner API with your api_key and obtain a userToken in a few minutes."
+---
+
+You need a sandbox **api_key** and the **base URL** for your tenant. If you do not have them yet, ask your Leap integration contact.
+
+<Steps>
+  <Step title="Send api_key on every request">
+    Add header `api_key: <your_key>`. Keep this value on your server only.
+  </Step>
+  <Step title="Resolve a user">
+    Call `POST /auth/get-user-token-v2` with `phoneNumber` or `email` (see OpenAPI for the exact schema). On success you receive a **userToken** for user-scoped routes.
+  </Step>
+  <Step title="Call a scoped endpoint">
+    Use the `userToken` in the path or body as documented (for example contacts or funding). Inspect the **API Reference** tab for request and response shapes.
+  </Step>
+</Steps>
+
+## Example: get user token
+
+<CodeGroup>
+```bash cURL
+curl -sS -X POST "https://raas-partner-cv.nomas.cash/v1/auth/get-user-token-v2" \
+  -H "Content-Type: application/json" \
+  -H "api_key: YOUR_SANDBOX_API_KEY" \
+  -d '{"phoneNumber":"+15555550100","countryCode":"US"}'
+```
+
+```python Python
+import json
+import urllib.request
+
+url = "https://raas-partner-cv.nomas.cash/v1/auth/get-user-token-v2"
+payload = {"phoneNumber": "+15555550100", "countryCode": "US"}
+req = urllib.request.Request(
+    url,
+    data=json.dumps(payload).encode("utf-8"),
+    headers={
+        "Content-Type": "application/json",
+        "api_key": "YOUR_SANDBOX_API_KEY",
+    },
+    method="POST",
+)
+with urllib.request.urlopen(req) as resp:
+    print(resp.status, resp.read().decode("utf-8"))
+```
+
+```javascript Node.js
+const url = "https://raas-partner-cv.nomas.cash/v1/auth/get-user-token-v2";
+const res = await fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    api_key: process.env.RAAS_SANDBOX_API_KEY,
+  },
+  body: JSON.stringify({
+    phoneNumber: "+15555550100",
+    countryCode: "US",
+  }),
+});
+console.log(res.status, await res.text());
+```
+</CodeGroup>
+
+### Expected outcome
+
+- **200**: JSON body includes identifiers you need for the next step (for example a **userToken** or user id depending on route version).
+- **400** / **404**: Fix the payload or run registration—see [Authentication](/raas/authentication) and [Introduction](/raas/api-reference/introduction).
+
+<Tip>
+  Log correlation ids and timestamps when something fails in sandbox; it speeds up support if you need help reading an error body.
+</Tip>
+
+## Where to go next
+
+- [Authentication](/raas/authentication) for errors, headers, and scope notes.
+- [Testing & sandbox](/raas/guides/testing-sandbox) for cards, UBN, and environment-specific tips.
+- Open the **API Reference** tab for generated Partner endpoint pages from OpenAPI.
