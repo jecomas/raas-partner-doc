@@ -9075,7 +9075,7 @@
 				]
 			}
 		},
-		"/user/corridors/available-methods/{userToken}": {
+		"/user/corridors/available-receiver-methodtypes/{userToken}": {
 			"get": {
 				"operationId": "getAvailablePaymentMethods",
 				"responses": {
@@ -9133,23 +9133,6 @@
 						"description": "User identifier or token.",
 						"in": "path",
 						"name": "userToken",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sourceCountry",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"description": "Destination country code.\r\nISO 3166-1 alpha-2.\r\nExample: `MX` for Mexico, `US` for United States.",
-						"in": "query",
-						"name": "destinationCountry",
 						"required": true,
 						"schema": {
 							"type": "string"
