@@ -1,100 +1,72 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "RaaS Documentation",
+  "name": "Partners API",
   "colors": {
-    "primary": "#0d9488",
-    "light": "#2dd4bf",
-    "dark": "#0f766e"
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
   },
-  "favicon": "/favicon.png",
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "logo/dark.svg"
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@leapfinancial.com"
-      }
-    ]
-  },
+  "favicon": "favicon.png",
   "navigation": {
-    "products": [
+    "tabs": [
       {
-        "product": "RaaS",
-        "description": "Partner APIs for remittance-as-a-service: users, funding, corridors, and operations.",
-        "icon": "money-bill-transfer",
-        "tabs": [
+        "tab": "Guides",
+        "groups": [
           {
-            "tab": "Guides",
-            "groups": [
-              {
-                "group": "Getting Started",
-                "pages": [
-                  "raas/index",
-                  "raas/quickstart",
-                  "raas/authentication"
-                ]
-              },
-              {
-                "group": "Guides",
-                "pages": [
-                  "raas/guides/testing-sandbox"
-                ]
-              }
+            "group": "Getting Started",
+            "pages": [
+              "api-reference/introduction",
+              "guides/testing-sandbox"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Partner Ask API Reference",
+        "openapi": {
+          "source": "/swagger-partner.json",
+          "directory": "partner"
+        }
+      },
+      {
+        "tab": "Partner Widget Ask API Reference",
+        "openapi": {
+          "source": "/swagger-partner-widget-ask.json",
+          "directory": "partner-widget-ask"
+        }
+      },
+      {
+        "tab": "Client Interfaces",
+        "groups": [
+          {
+            "group": "General",
+            "pages": [
+              "client-interfaces/introduction"
             ]
           },
           {
-            "tab": "Partner ASK API Reference",
-            "groups": [
-              {
-                "group": "Overview",
-                "pages": [
-                  "raas/api-reference/introduction"
-                ]
-              },
-              {
-                "group": "Endpoints",
-                "openapi": {
-                  "source": "raas/swagger-partner.json",
-                  "directory": "partner"
-                }
-              }
+            "group": "VNA Interface",
+            "pages": [
+              "client-interfaces/pmo-create-account",
+              "client-interfaces/pmo-get-create-account-url",
+              "client-interfaces/pmo-tx-authorization",
+              "client-interfaces/vna-credit-funds",
+              "client-interfaces/vna-get-credit-status",
+              "client-interfaces/vna-reverse-credit-funds"
             ]
-          },
-          {
-            "tab": "Partner Widget Ask API Reference",
-            "openapi": {
-              "source": "raas/swagger-partner-widget-ask.json",
-              "directory": "partner-widget-ask"
-            }
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Support",
-          "href": "mailto:support@leapfinancial.com",
-          "icon": "envelope"
-        }
-      ]
-    }
-  },
-  "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude", "cursor"]
-  },
-  "footer": {
-    "socials": {
-      "linkedin": "https://leapfinancial.com"
-    }
+    ]
   },
   "api": {
     "baseUrl": "https://raas-partner-cv.nomas.cash/v1",
-    "openapi": "raas/swagger.json",
+    "openapi": "swagger.json",
     "mdx": {
       "server": "https://raas-partner-cv.nomas.cash/v1"
     }
