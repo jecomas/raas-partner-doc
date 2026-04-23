@@ -11261,7 +11261,7 @@
 						}
 					}
 				},
-				"description": "Retrieves a recent partial snapshot of processing or delivery status for a transaction.",
+				"description": "Retrieves a recent partial snapshot of processing or delivery status for a transaction.\n\nThe initial status is `Sent`. While the operation is still in progress, before it settles as `Completed` or `Failed`, the status may move through intermediate values that belong to the enumeration below (for example `Funding`, `Funded`, `OnHold`, or `InTransit`).\n\nPossible statuses: `Sent`, `Funding`, `Funded`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`.",
 				"summary": "Get operation status",
 				"tags": [
 					"Partner",

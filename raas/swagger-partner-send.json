@@ -2059,7 +2059,7 @@
         "operationId": "getOperationStatus",
         "responses": {
           "200": {
-            "description": "**200 — OK.** Status string for the operation.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Status read | Resolved `userToken` + valid `operationId`. | Plain string (e.g. `Completed`, `Pending`) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-status-scenario-matrix).",
+            "description": "**200 — OK.** Status string for the operation.\n\nThe initial status is `Sent`. While the operation is still in progress, before it settles as `Completed` or `Failed`, the status may move through intermediate values that belong to the enumeration below (for example `Funding`, `Funded`, `OnHold`, or `InTransit`).\n\nPossible statuses: `Sent`, `Funding`, `Funded`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Status read | Resolved `userToken` + valid `operationId`. | Plain string, one of the statuses above |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-status-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -2130,7 +2130,7 @@
             }
           }
         },
-        "description": "Retrieves a recent partial snapshot of processing or delivery status for a transaction.",
+        "description": "Retrieves a recent partial snapshot of processing or delivery status for a transaction.\n\nThe initial status is `Sent`. While the operation is still in progress, before it settles as `Completed` or `Failed`, the status may move through intermediate values that belong to the enumeration below (for example `Funding`, `Funded`, `OnHold`, or `InTransit`).\n\nPossible statuses: `Sent`, `Funding`, `Funded`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`.",
         "summary": "Get operation status",
         "tags": [
           "Operations"
