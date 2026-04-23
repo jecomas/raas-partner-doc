@@ -3716,10 +3716,12 @@
 						"type": "string"
 					},
 					"isIgnored": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation was ignored by the funder user."
 					},
 					"ignoredData": {
-						"$ref": "#/components/schemas/IgnoredOperationData"
+						"$ref": "#/components/schemas/IgnoredOperationData",
+						"description": "Data about the reason why the operation was ignored by the funder user."
 					},
 					"tenantfee": {
 						"type": "number",
@@ -3749,10 +3751,12 @@
 						"type": "boolean"
 					},
 					"cancelable": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation can be cancelled by the funder user."
 					},
 					"flow": {
-						"type": "string"
+						"type": "string",
+						"description": "Flow of the operation"
 					},
 					"taxAmount": {
 						"type": "number",
@@ -4162,10 +4166,12 @@
 						"type": "string"
 					},
 					"isIgnored": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation was ignored by the funder user."
 					},
 					"ignoredData": {
-						"$ref": "#/components/schemas/IgnoredOperationData"
+						"$ref": "#/components/schemas/IgnoredOperationData",
+						"description": "Data about the reason why the operation was ignored by the funder user."
 					},
 					"tenantfee": {
 						"type": "number",
@@ -4195,10 +4201,12 @@
 						"type": "boolean"
 					},
 					"cancelable": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation can be cancelled by the funder user."
 					},
 					"flow": {
-						"type": "string"
+						"type": "string",
+						"description": "Flow of the operation"
 					},
 					"taxAmount": {
 						"type": "number",
@@ -4857,10 +4865,12 @@
 						"format": "double"
 					},
 					"flow": {
-						"type": "string"
+						"type": "string",
+						"description": "Flow of the operation"
 					},
 					"cancelable": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation can be cancelled by the funder user."
 					},
 					"sameTenant": {
 						"type": "boolean"
@@ -4890,10 +4900,12 @@
 						"format": "double"
 					},
 					"ignoredData": {
-						"$ref": "#/components/schemas/IgnoredOperationData"
+						"$ref": "#/components/schemas/IgnoredOperationData",
+						"description": "Data about the reason why the operation was ignored by the funder user."
 					},
 					"isIgnored": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation was ignored by the funder user."
 					},
 					"attributionLink": {
 						"type": "string"
@@ -5145,10 +5157,12 @@
 						"type": "string"
 					},
 					"isIgnored": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation was ignored by the funder user."
 					},
 					"ignoredData": {
-						"$ref": "#/components/schemas/IgnoredOperationData"
+						"$ref": "#/components/schemas/IgnoredOperationData",
+						"description": "Data about the reason why the operation was ignored by the funder user."
 					},
 					"tenantfee": {
 						"type": "number",
@@ -5178,10 +5192,12 @@
 						"type": "boolean"
 					},
 					"cancelable": {
-						"type": "boolean"
+						"type": "boolean",
+						"description": "Indicates if the operation can be cancelled by the funder user."
 					},
 					"flow": {
-						"type": "string"
+						"type": "string",
+						"description": "Flow of the operation"
 					},
 					"taxAmount": {
 						"type": "number",
@@ -11688,7 +11704,7 @@
 				],
 				"parameters": [
 					{
-						"description": "correlation ID.",
+						"description": "Correlation ID.",
 						"in": "path",
 						"name": "id",
 						"required": true,
