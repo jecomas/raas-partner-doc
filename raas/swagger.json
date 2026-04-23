@@ -11287,7 +11287,7 @@
 						}
 					},
 					{
-						"description": "Operation UUID.",
+						"description": "Correlation ID.",
 						"in": "path",
 						"name": "operationId",
 						"required": true,
@@ -11669,7 +11669,7 @@
 						}
 					}
 				},
-				"description": "Retrieves detailed anatomy, audit pipeline and accounting methods for an operation UUID.",
+				"description": "Retrieves detailed anatomy, audit pipeline and accounting methods for an correlation ID.",
 				"summary": "Get operation detail",
 				"tags": [
 					"Partner",
@@ -11688,7 +11688,7 @@
 				],
 				"parameters": [
 					{
-						"description": "Unique operation UUID.",
+						"description": "correlation ID.",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -12010,7 +12010,7 @@
 					}
 				],
 				"requestBody": {
-					"description": "- Source/destination tokens and operation UUID.",
+					"description": "- Source/destination tokens and operation id.",
 					"required": true,
 					"content": {
 						"application/json": {
@@ -12236,7 +12236,7 @@
 						}
 					},
 					{
-						"description": "- Operation UUID to complete with cash.",
+						"description": "- correlation id to complete with cash.",
 						"in": "path",
 						"name": "operationId",
 						"required": true,
@@ -12447,7 +12447,7 @@
 				],
 				"parameters": [
 					{
-						"description": "- Operation UUID to report.",
+						"description": "- correlation id to report.",
 						"in": "path",
 						"name": "id",
 						"required": true,
