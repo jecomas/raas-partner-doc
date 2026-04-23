@@ -6152,7 +6152,7 @@
           },
           "destinationPaymentMethodId": {
             "type": "string",
-            "description": "Destination payment method ID\n\n<span style=\"color:red\">required</span> if the destinationPaymentMethod parameter is not provided.\n\nID of the payment method that will receive the money.\n\nYou can provide either the payment method ID using this parameter, or the full payment method object using the destinationPaymentMethod parameter.\n\nIf both parameters are provided, destinationPaymentMethodId will take precedence and destinationPaymentMethod will be ignored."
+            "description": "Destination `payout` method ID\n\n<span style=\"color:red\">required</span> if the destinationPaymentMethod parameter is not provided.\n\nID of the payout method that will receive the money.\n\nYou can provide either the payout method ID using this parameter, or the full payout method object using the destinationPaymentMethod parameter.\n\nIf both parameters are provided, destinationPaymentMethodId will take precedence and destinationPaymentMethod will be ignored."
           },
           "recipientAmount": {
             "type": "number",
@@ -6169,7 +6169,7 @@
           },
           "destinationPaymentMethod": {
             "$ref": "#/components/schemas/RaaSPaymentMethod",
-            "description": "Destination payment method\n\n<span style=\"color:red\">required</span> if the destinationPaymentMethodId parameter is not provided.\n\nThe full payment method object that will receive the money.\n\nYou can provide either the full payment method object using this parameter, or just the payment method ID using the destinationPaymentMethodId parameter.\n\nIf both parameters are provided, this object will be ignored and destinationPaymentMethodId will take precedence."
+            "description": "Destination `payout` method\n\n<span style=\"color:red\">required</span> if the destinationPaymentMethodId parameter is not provided.\n\nThe full payout method object that will receive the money.\n\nYou can provide either the full payout method object using this parameter, or just the payout method ID using the destinationPaymentMethodId parameter.\n\nIf both parameters are provided, this object will be ignored and destinationPaymentMethodId will take precedence."
           }
         },
         "required": [
