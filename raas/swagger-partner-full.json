@@ -1551,12 +1551,12 @@
         ]
       }
     },
-    "/user/corridors/available-methods/{userToken}": {
+    "/user/corridors/available-receiver-methodtypes/{userToken}": {
       "get": {
         "operationId": "getAvailablePaymentMethods",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Receiver method types for corridors.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Types resolved | Valid user + tenant + corridor config. | `string[]` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -1573,8 +1573,34 @@
               }
             }
           },
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key for corridor routes. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "Missing or invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**404 — Not found.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` does not resolve to a stored user. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "User not found for path userToken."
+                }
+              }
+            }
+          },
           "500": {
-            "description": "",
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Resolution failed | Tenant/corridor or unexpected error after user resolved. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` `reason` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -1587,6 +1613,9 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "reason": "An unhandled error has occurred"
                 }
               }
             }
@@ -1611,23 +1640,6 @@
             "description": "User identifier or token.",
             "in": "path",
             "name": "userToken",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "name": "sourceCountry",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Destination country code.\nISO 3166-1 alpha-2.\nExample: `MX` for Mexico, `US` for United States.",
-            "in": "query",
-            "name": "destinationCountry",
             "required": true,
             "schema": {
               "type": "string"
@@ -1788,6 +1800,16 @@
                     "type": "string"
                   },
                   "type": "array"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -1962,6 +1984,16 @@
           "204": {
             "description": "No content"
           },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
             "description": "",
             "content": {
@@ -2020,7 +2052,7 @@
         "operationId": "addUBNAccount",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** UBN added.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Valid UBN | Valid user + subscriber + accepted UBN. | `AddPaymentMethodResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -2037,17 +2069,33 @@
             }
           },
           "400": {
-            "description": "",
+            "description": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| UBN validation | `InvalidCard` / algorithm failure. | `UBN_VALIDATION_ERROR` |\n| Duplicate UBN | `PAYMENTMETHOD_ALREADY_EXISTS`. | `UBN_ALREADY_ADDED` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "UBN validation failed or duplicate account."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key for combined scopes on this route. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "Missing or invalid API key"
                 }
               }
             }
           },
           "403": {
-            "description": "",
+            "description": "**403 — Forbidden.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| User / tenant | Unknown user or missing tenant on record. | `USER_NOT_FOUND` / `INVALID_TENANT` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -2057,11 +2105,14 @@
             }
           },
           "500": {
-            "description": "",
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Platform failure | `NumiError` / add UBN errors. | Mapped `NumiError` or generic internal |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "An unhandled error has occurred"
                 }
               }
             }
@@ -2557,7 +2608,7 @@
         ],
         "parameters": [
           {
-            "description": "- Unique operation UUID.",
+            "description": "- Partner provided correlation ID.",
             "in": "path",
             "name": "operationId",
             "required": true,
@@ -2573,7 +2624,7 @@
         "operationId": "requestMoneyV2",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Request-money operation created.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Happy path | Valid `userToken`, corridor, destination PM, and payload. | `OperationResponsePartner` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -2619,7 +2670,7 @@
             }
           },
           "400": {
-            "description": "",
+            "description": "**400 — Bad request.** Corridor, contact, or payment-method validation.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Business validation | Unsupported corridor, missing PM, etc. | `ERROR_*` / whitelisted `reason`+`code` per handler |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -2638,14 +2689,39 @@
                   "type": "object"
                 },
                 "example": {
-                  "code": "COUNTRY_NOT_SUPPORTED",
                   "reason": "Destination or corridor not allowed for this user."
                 }
               }
             }
           },
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or key without `partner` / `partner_full`. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "Missing or invalid API key"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**404 — Not found.** Path user does not resolve.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` not found via `resolveUserIdFromPathUserToken`. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "User not found for path userToken."
+                }
+              }
+            }
+          },
           "500": {
-            "description": "",
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unexpected / NumiError | After `NumiBadRequestError` ruled out; `NumiError` returns mapped `errorCode`. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` payload (no raw exception message) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -2664,8 +2740,7 @@
                   "type": "object"
                 },
                 "example": {
-                  "code": "INTERNAL_SERVER_ERROR",
-                  "reason": "Unexpected error while creating the request-money operation."
+                  "reason": "An unhandled error has occurred"
                 }
               }
             }
@@ -2744,6 +2819,16 @@
                     "reason"
                   ],
                   "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -2832,6 +2917,16 @@
                     "reason"
                   ],
                   "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -2980,7 +3075,7 @@
         "operationId": "getOperationQuote",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Quotation preview.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Quote computed | Valid user, subscriber, tenant, payload. | `RaasQuoteTransactionResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -2989,8 +3084,38 @@
               }
             }
           },
+          "400": {
+            "description": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Bad quote input | `NumiBadRequestError` from quote path. | Mapped `ErrorCodes` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "**404 — Not found.** User not resolved.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` not in user store. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
-            "description": "",
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Quote failure | Invalid tenant, missing quote, `NumiError`, or unexpected error. | `ERROR_INTERNAL_SERVER_ERROR` or specific `errorCode` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3124,7 +3249,7 @@
         "operationId": "operationQuoteV2",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Firm quotation returned.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Quote OK | Valid sender, recipients, PMs, and amounts. | `RaasQuoteTransactionResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3134,29 +3259,40 @@
             }
           },
           "400": {
-            "description": "",
+            "description": "**400 — Bad request.** Invalid quotation payload.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Invalid data | Empty recipient id, zero amount, empty currency, etc. | `ERROR_INVALID_QUOTATION_REQUEST_DATA` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
                 "example": {
-                  "code": "ERROR_INVALID_QUOTATION_REQUEST_DATA",
                   "reason": "Invalid quotation request data"
                 }
               }
             }
           },
-          "500": {
-            "description": "",
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or key without `partner_send` / `partner_full`. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
                 "example": {
-                  "code": "INTERNAL_SERVER_ERROR",
-                  "reason": "Quote could not be computed (tenant, user, corridor, or rate failure)."
+                  "reason": "Missing or invalid API key"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Downstream failure | Tenant/user missing, rate/corridor errors, unexpected exception. | `ERROR_INTERNAL_SERVER_ERROR` or mapped codes |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "An unhandled error has occurred"
                 }
               }
             }
@@ -3212,7 +3348,7 @@
         "operationId": "preQuote",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Pre-quote simulation.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Scenarios returned | Valid tenant + `PartnerPreQuoteRequest`. | `RaasPreQuoteResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#pre-quote-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3221,8 +3357,18 @@
               }
             }
           },
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#pre-quote-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
           "500": {
-            "description": "",
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Market / internal | `NumiError` or unexpected after validation. | `ERROR_INTERNAL_SERVER_ERROR` or mapped `errorCode` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#pre-quote-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3274,7 +3420,7 @@
         "operationId": "getOperation",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Operation detail for partner.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Detail returned | Operation id exists and belongs to caller tenant. | `OperationDetailResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3327,12 +3473,28 @@
               }
             }
           },
-          "500": {
-            "description": "",
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid multi-scope key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "Missing or invalid API key"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Not found / mismatch | Operation missing or user tenant ≠ request tenant. | `ERROR_OPERATION_NOT_FOUND` or generic internal |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "An unhandled error has occurred"
                 }
               }
             }
@@ -3370,7 +3532,7 @@
         "operationId": "getOperations",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Operation history list.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| History | Valid `userToken` aligned with tenant. | `OperationDetail[]` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3430,21 +3592,40 @@
             }
           },
           "400": {
-            "description": "",
+            "description": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Tenant mismatch | `userToken` user not in requesting tenant. | `ErrorResponse` from handler |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "User tenant does not match request tenant."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "Missing or invalid API key"
                 }
               }
             }
           },
           "500": {
-            "description": "",
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| List failure | Unexpected datastore errors. | `ERROR_INTERNAL_SERVER_ERROR` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "An unhandled error has occurred"
                 }
               }
             }
@@ -3789,7 +3970,7 @@
         "operationId": "getFrequentContacts",
         "responses": {
           "200": {
-            "description": "",
+            "description": "**200 — OK.** Frequent contacts.\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Top N | Valid `userToken` and numeric `limit` within policy bounds. | `ContactInfo[]` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3810,7 +3991,7 @@
             }
           },
           "400": {
-            "description": "",
+            "description": "**400 — Bad request.**\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Bad limit / validation | Non-numeric `limit`, negative or zero limit, or `NumiBadRequestError` from `getLastOperationsContact`. | `ErrorResponse` (`reason` + `code`) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix).",
             "content": {
               "application/json": {
                 "schema": {
@@ -3827,6 +4008,47 @@
                     "reason"
                   ],
                   "type": "object"
+                },
+                "example": {
+                  "reason": "Invalid limit or request parameters."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "**401 — Unauthorized.**\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key / scope for `partner`, `partner_send`, or `partner_full`. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "reason": "Missing or invalid API key"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "**500 — Internal server error.**\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Indexed query / unexpected | `operationService.getLastOperationsContact` throws after `NumiBadRequestError` is ruled out, or datastore/index failure. | `ERROR_INTERNAL_SERVER_ERROR` (no raw exception text to client) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "reason"
+                  ],
+                  "type": "object"
+                },
+                "example": {
+                  "reason": "An unhandled error has occurred"
                 }
               }
             }
@@ -4668,18 +4890,19 @@
         "type": "string"
       },
       "UserTokenResponse": {
+        "description": "Successful user resolution for partner token endpoints (id + optional CIP snapshot).",
         "properties": {
           "userId": {
             "type": "string",
-            "description": "User UUID"
+            "description": "User ID"
           },
           "status": {
             "type": "string",
-            "description": "Status"
+            "description": "Status of the user's CIP process\n\nAvailable options: `Completed`, `UpgradePending`, `UpgradeInProgress`, `UpgradeFailed`, `UpgradeSoftFailed`, `AccountUpgradeInProgress`"
           },
           "statusDetail": {
             "$ref": "#/components/schemas/PlatLevelStatusDetail",
-            "description": "Status detail"
+            "description": "Status detail of the user's CIP process"
           }
         },
         "required": [
@@ -4688,272 +4911,37 @@
         "type": "object",
         "additionalProperties": false
       },
-      "CountryAlpha2Code": {
-        "type": "string",
-        "enum": [
-          "AF",
-          "AX",
-          "AL",
-          "DE",
-          "AD",
-          "AO",
-          "AI",
-          "AQ",
-          "AG",
-          "SA",
-          "DZ",
-          "AR",
-          "AM",
-          "AW",
-          "AU",
-          "AT",
-          "AZ",
-          "BS",
-          "BD",
-          "BB",
-          "BH",
-          "BE",
-          "BZ",
-          "BJ",
-          "BM",
-          "BY",
-          "BO",
-          "BQ",
-          "BA",
-          "BW",
-          "BR",
-          "BN",
-          "BG",
-          "BF",
-          "BI",
-          "BT",
-          "CV",
-          "KH",
-          "CM",
-          "CA",
-          "QA",
-          "TD",
-          "CL",
-          "CN",
-          "CY",
-          "CO",
-          "KM",
-          "KP",
-          "KR",
-          "CI",
-          "CR",
-          "HR",
-          "CU",
-          "CW",
-          "DK",
-          "DM",
-          "EC",
-          "EG",
-          "SV",
-          "AE",
-          "ER",
-          "SK",
-          "SI",
-          "ES",
-          "US",
-          "EE",
-          "ET",
-          "PH",
-          "FI",
-          "FJ",
-          "FR",
-          "GA",
-          "GM",
-          "GE",
-          "GH",
-          "GI",
-          "GD",
-          "GR",
-          "GL",
-          "GP",
-          "GU",
-          "GT",
-          "GF",
-          "GG",
-          "GN",
-          "GW",
-          "GQ",
-          "GY",
-          "HT",
-          "HN",
-          "HK",
-          "HU",
-          "IN",
-          "ID",
-          "IQ",
-          "IR",
-          "IE",
-          "BV",
-          "IM",
-          "CX",
-          "IS",
-          "KY",
-          "CC",
-          "CK",
-          "FO",
-          "GS",
-          "HM",
-          "FK",
-          "MP",
-          "MH",
-          "PN",
-          "SB",
-          "TC",
-          "UM",
-          "VG",
-          "VI",
-          "IL",
-          "IT",
-          "JM",
-          "JP",
-          "JE",
-          "JO",
-          "KZ",
-          "KE",
-          "KG",
-          "KI",
-          "KW",
-          "LA",
-          "LS",
-          "LV",
-          "LB",
-          "LR",
-          "LY",
-          "LI",
-          "LT",
-          "LU",
-          "MO",
-          "MK",
-          "MG",
-          "MY",
-          "MW",
-          "MV",
-          "ML",
-          "MT",
-          "MA",
-          "MQ",
-          "MU",
-          "MR",
-          "YT",
-          "MX",
-          "FM",
-          "MD",
-          "MC",
-          "MN",
-          "ME",
-          "MS",
-          "MZ",
-          "MM",
-          "NA",
-          "NR",
-          "NP",
-          "NI",
-          "NE",
-          "NG",
-          "NU",
-          "NF",
-          "NO",
-          "NC",
-          "NZ",
-          "OM",
-          "NL",
-          "PK",
-          "PW",
-          "PS",
-          "PA",
-          "PG",
-          "PY",
-          "PE",
-          "PF",
-          "PL",
-          "PT",
-          "PR",
-          "GB",
-          "EH",
-          "CF",
-          "CZ",
-          "CG",
-          "CD",
-          "DO",
-          "RE",
-          "RW",
-          "RO",
-          "RU",
-          "WS",
-          "AS",
-          "BL",
-          "KN",
-          "SM",
-          "MF",
-          "PM",
-          "VC",
-          "SH",
-          "LC",
-          "ST",
-          "SN",
-          "RS",
-          "SC",
-          "SL",
-          "SG",
-          "SX",
-          "SY",
-          "SO",
-          "LK",
-          "SZ",
-          "ZA",
-          "SD",
-          "SS",
-          "SE",
-          "CH",
-          "SR",
-          "SJ",
-          "TH",
-          "TW",
-          "TZ",
-          "TJ",
-          "IO",
-          "TF",
-          "TL",
-          "TG",
-          "TK",
-          "TO",
-          "TT",
-          "TN",
-          "TM",
-          "TR",
-          "TV",
-          "UA",
-          "UG",
-          "UY",
-          "UZ",
-          "VU",
-          "VA",
-          "VE",
-          "VN",
-          "WF",
-          "YE",
-          "DJ",
-          "ZM",
-          "ZW"
-        ]
+      "ErrorResponse": {
+        "properties": {
+          "detail": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "reason"
+        ],
+        "type": "object"
       },
       "GetUserTokenParams": {
+        "description": "Resolve an existing user by **phone** or **email** for partner “get user token” style calls.",
         "properties": {
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`."
+            "description": "<span style=\"color:red\">required</span> if `email` is not provided.\n\nMobile phone number with country code. Must be a valid mobile phone number.\nExample: `+5215521206703` for MX."
           },
           "email": {
             "type": "string",
-            "description": "Email address."
+            "description": "<span style=\"color:red\">required</span> if `phoneNumber` is not provided.\n\nEmail address."
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
+            "type": "string",
             "description": "Country code.\nISO 3166-1 alpha-2."
           }
         },
@@ -4968,16 +4956,19 @@
         "type": "string"
       },
       "RegisterUserParams": {
+        "description": "Core body for partner user registration (`register-user-v2` and related). At least one of `phoneNumber` or `email` is typically required by the route.",
         "properties": {
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`.\n\nIt doesn't allow duplicates."
+            "description": "<span style=\"color:red\">required</span>\n\nMobile phone number with country code. Must be a valid mobile phone number.\nExample: `+5215521206703` for MX.\n\nIt doesn't allow duplicates."
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Primary legal last name (e.g. paternal surname).\nExample: `Hernández`."
           },
           "lastName2": {
-            "type": "string"
+            "type": "string",
+            "description": "Optional second last name when used (e.g. maternal surname).\nExample: `Gómez`."
           },
           "gender": {
             "type": "string",
@@ -4986,7 +4977,8 @@
               "Female",
               "Other",
               "None"
-            ]
+            ],
+            "description": "Self-reported gender when the product collects it.\nExample: `Female`."
           },
           "dob": {
             "type": "string",
@@ -4998,10 +4990,12 @@
             "description": "Email address.\nIt doesn't allow duplicates.\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "description": "Legal first name(s).\nExample: `Ana`."
           },
           "middleName": {
-            "type": "string"
+            "type": "string",
+            "description": "Middle name when collected. Example: `María`."
           },
           "address1": {
             "type": "string",
@@ -5017,7 +5011,8 @@
             "type": "string"
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
+            "type": "string",
+            "description": "Country code.\nISO 3166-1 alpha-2."
           },
           "city": {
             "type": "string"
@@ -5027,14 +5022,15 @@
           },
           "state": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `DF` for Distrito Federal, `JA` for Jalisco."
           },
           "birthState": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `DF` for Distrito Federal, `JA` for Jalisco."
           },
           "lang": {
-            "$ref": "#/components/schemas/Language"
+            "$ref": "#/components/schemas/Language",
+            "description": "User Language.\nISO 639-1.\nExample: `es` for Spanish, `en` for English."
           },
           "placeDetail": {
             "type": "string",
@@ -5043,22 +5039,22 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "description": "Latitude from address"
+            "description": "Latitude from address if available."
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "description": "Longitude from address"
+            "description": "Longitude from address if available."
           },
           "callLocationLatitude": {
             "type": "number",
             "format": "double",
-            "description": "Latitude from user location"
+            "description": "Latitude from user location if available."
           },
           "callLocationLongitude": {
             "type": "number",
             "format": "double",
-            "description": "Longitude from user location"
+            "description": "Longitude from user location if available."
           }
         },
         "required": [
@@ -5073,9 +5069,11 @@
         "additionalProperties": false
       },
       "RegisterTrustedUserResponse": {
+        "description": "Minimal response after registering a **trusted** user in supported flows.",
         "properties": {
           "userId": {
-            "type": "string"
+            "type": "string",
+            "description": "Created or resolved user id."
           }
         },
         "type": "object",
@@ -5088,9 +5086,11 @@
           "DigitalWallet",
           "Card",
           "UBN"
-        ]
+        ],
+        "description": "Allowed instrument categories when opening a session link with funding capture."
       },
       "AddUBNParams": {
+        "description": "Add a **UBN** (Uniform Bank Number-style account) as a receiving method in partner funding flows.",
         "properties": {
           "number": {
             "type": "string",
@@ -5116,34 +5116,43 @@
         "additionalProperties": false
       },
       "AddCardSessionParams": {
+        "description": "Card fields collected in a **session link** flow (tokenized values from VGS or similar).",
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Display name for the saved instrument. Example: `VISA-4242`."
           },
           "cardtype": {
             "type": "string",
             "enum": [
               "DebitCard",
               "CreditCard"
-            ]
+            ],
+            "description": "<span style=\"color:red\">required</span> Instrument category for storage."
           },
           "number": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span>\nTokenized PAN from your card capture SDK.\nExample: `tok_sandbox_...`."
           },
           "nameOnCard": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span> Name embossed on the card. Example: `ANA M GARCIA`."
           },
           "expirationDate": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span>\nExpiry as `MMYY` or product-defined short format.\nExample: `0629`."
           },
           "securityCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Tokenized CVV when collected."
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "description": "**ISO 4217** billing or instrument currency when applicable. Example: `USD`."
           },
           "country": {
-            "type": "string"
+            "type": "string",
+            "description": "**ISO 3166-1 alpha-2** country for BIN or billing rules. Example: `MX`."
           },
           "cardNetwork": {
             "type": "string",
@@ -5165,7 +5174,8 @@
               "AmericanExpress",
               "JCB",
               "TROY"
-            ]
+            ],
+            "description": "<span style=\"color:red\">required</span> Card brand reported by the capture SDK."
           }
         },
         "required": [
@@ -5180,16 +5190,19 @@
         "additionalProperties": false
       },
       "SessionLinkParams": {
+        "description": "Extends {@link RegisterUserParams} for **session-link** flows that may collect a payment method type\nand optional UBN or card payloads in the same request.",
         "properties": {
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`.\n\nIt doesn't allow duplicates."
+            "description": "<span style=\"color:red\">required</span>\n\nMobile phone number with country code. Must be a valid mobile phone number.\nExample: `+5215521206703` for MX.\n\nIt doesn't allow duplicates."
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Primary legal last name (e.g. paternal surname).\nExample: `Hernández`."
           },
           "lastName2": {
-            "type": "string"
+            "type": "string",
+            "description": "Optional second last name when used (e.g. maternal surname).\nExample: `Gómez`."
           },
           "gender": {
             "type": "string",
@@ -5198,7 +5211,8 @@
               "Female",
               "Other",
               "None"
-            ]
+            ],
+            "description": "Self-reported gender when the product collects it.\nExample: `Female`."
           },
           "dob": {
             "type": "string",
@@ -5210,10 +5224,12 @@
             "description": "Email address.\nIt doesn't allow duplicates.\nDOB may be validated against age restrictions. The service is available for those 18 years or older."
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "description": "Legal first name(s).\nExample: `Ana`."
           },
           "middleName": {
-            "type": "string"
+            "type": "string",
+            "description": "Middle name when collected. Example: `María`."
           },
           "address1": {
             "type": "string",
@@ -5229,7 +5245,8 @@
             "type": "string"
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code"
+            "type": "string",
+            "description": "Country code.\nISO 3166-1 alpha-2."
           },
           "city": {
             "type": "string"
@@ -5239,14 +5256,15 @@
           },
           "state": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `DF` for Distrito Federal, `JA` for Jalisco."
           },
           "birthState": {
             "type": "string",
-            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `CA` for California, `NY` for New York, `TX` for Texas."
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `DF` for Distrito Federal, `JA` for Jalisco."
           },
           "lang": {
-            "$ref": "#/components/schemas/Language"
+            "$ref": "#/components/schemas/Language",
+            "description": "User Language.\nISO 639-1.\nExample: `es` for Spanish, `en` for English."
           },
           "placeDetail": {
             "type": "string",
@@ -5255,28 +5273,30 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "description": "Latitude from address"
+            "description": "Latitude from address if available."
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "description": "Longitude from address"
+            "description": "Longitude from address if available."
           },
           "callLocationLatitude": {
             "type": "number",
             "format": "double",
-            "description": "Latitude from user location"
+            "description": "Latitude from user location if available."
           },
           "callLocationLongitude": {
             "type": "number",
             "format": "double",
-            "description": "Longitude from user location"
+            "description": "Longitude from user location if available."
           },
           "paymentMethodType": {
-            "$ref": "#/components/schemas/SessionLinkPaymentMethodType"
+            "$ref": "#/components/schemas/SessionLinkPaymentMethodType",
+            "description": "How the user will add a funding instrument in the widget flow, when applicable."
           },
           "ubnParams": {
-            "$ref": "#/components/schemas/AddUBNParams"
+            "$ref": "#/components/schemas/AddUBNParams",
+            "description": "Optional UBN payload when `paymentMethodType` is `UBN`."
           },
           "addCardParams": {
             "$ref": "#/components/schemas/AddCardSessionParams",
@@ -5295,30 +5315,39 @@
         "additionalProperties": false
       },
       "SessionLinkResponse": {
+        "description": "Response when a session link is created for onboarding or upgrade (`sessionlink-*` routes).",
         "properties": {
           "link": {
-            "type": "string"
+            "type": "string",
+            "description": "HTTPS URL the end user should open to continue onboarding in the widget."
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "description": "High-level user or flow status string (product-specific)."
           },
           "statusDetail": {
-            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+            "$ref": "#/components/schemas/PlatLevelStatusDetail",
+            "description": "Structured status detail from the CIP / account platform when provided."
           },
           "cipStatus": {
-            "type": "string"
+            "type": "string",
+            "description": "CIP pipeline status label when applicable."
           },
           "cipStatusDetail": {
-            "$ref": "#/components/schemas/PlatLevelStatusDetail"
+            "$ref": "#/components/schemas/PlatLevelStatusDetail",
+            "description": "Structured CIP detail when provided."
           },
           "accountStatus": {
-            "type": "string"
+            "type": "string",
+            "description": "Account lifecycle status when returned by the platform."
           },
           "paymentMethodStatus": {
-            "type": "string"
+            "type": "string",
+            "description": "Funding instrument readiness when returned by the platform."
           },
           "userId": {
-            "type": "string"
+            "type": "string",
+            "description": "Internal user id once the user record exists."
           }
         },
         "required": [
@@ -5750,15 +5779,18 @@
       "TokenParams": {
         "properties": {
           "token": {
-            "type": "string"
+            "type": "string",
+            "description": "Bearer or session token issued by a prior auth step."
           }
         },
         "required": [
           "token"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Partner auth body: opaque **token** string to validate or exchange (e.g. refresh handoff)."
       },
       "LevelOneParamsRequst": {
+        "description": "Partner request to submit **level one** CIP data for an existing `userId`.",
         "properties": {
           "partnerCountryCode": {
             "type": "string"
@@ -5819,7 +5851,8 @@
             "type": "string"
           },
           "userId": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span> Target user id (Firebase-style id in most tenants)."
           }
         },
         "required": [
@@ -5872,7 +5905,8 @@
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "ValidateOTPParamsPartner": {
-        "$ref": "#/components/schemas/Omit_ValidateOTPParams.deviceId_"
+        "$ref": "#/components/schemas/Omit_ValidateOTPParams.deviceId_",
+        "description": "Partner validate-OTP body: omits `deviceId` (not required on partner-key flows)."
       },
       "IsPhoneAvailableResponse": {
         "properties": {
@@ -5911,6 +5945,7 @@
         "additionalProperties": false
       },
       "GetSessionTokenResponse": {
+        "description": "Response containing a short-lived **session** token string.",
         "properties": {
           "token": {
             "type": "string"
@@ -5923,15 +5958,19 @@
         "additionalProperties": false
       },
       "GetSessionTokenParams": {
+        "description": "Request body to mint a **session token** from phone or email (partner auth).",
         "properties": {
           "phoneNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Mobile phone number with country code. Must be a valid mobile phone number.\nExample: `+5215521206703` for MX."
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address."
           },
           "countryCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Country code.\nISO 3166-1 alpha-2."
           }
         },
         "type": "object",
@@ -6031,25 +6070,8 @@
           "lastName",
           "firstName"
         ],
-        "type": "object"
-      },
-      "ErrorResponse": {
-        "properties": {
-          "detail": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "reason": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "code",
-          "reason"
-        ],
-        "type": "object"
+        "type": "object",
+        "description": "Structured beneficiary / level-one profile (names, address, geo, language)."
       },
       "BaseIdentity": {
         "properties": {
@@ -6218,14 +6240,16 @@
             "format": "double"
           }
         },
-        "type": "object"
+        "type": "object",
+        "description": "**CIP level two** supplemental data (device location, SSN where legally allowed) for partner `cipController`."
       },
       "AlternateFlow": {
         "type": "string",
         "enum": [
           "ssn"
         ],
-        "nullable": false
+        "nullable": false,
+        "description": "**Scan ticket / identity capture** models for partner CIP flows that use alternate verification paths."
       },
       "ErrorsCIPProcess": {
         "properties": {
@@ -6708,6 +6732,7 @@
         "additionalProperties": false
       },
       "CanOperateResponse": {
+        "description": "**Can operate** pre-check response and params for partner `cipController` before high-risk operations.",
         "properties": {
           "level": {
             "type": "number",
@@ -6795,10 +6820,11 @@
         "additionalProperties": false
       },
       "ContactInfo": {
+        "description": "Row returned by `GET /user/contacts/{userToken}` (partner list).",
         "properties": {
           "phone": {
             "type": "string",
-            "description": "Contact phone number with country code\n\nExample: `+19166020018`."
+            "description": "Contact phone number in **E.164** form (leading `+`).\nExample: `+19166020018`."
           },
           "firstName": {
             "type": "string",
@@ -6831,72 +6857,31 @@
         "type": "object",
         "additionalProperties": false
       },
-      "FieldErrors": {
-        "properties": {},
-        "type": "object",
-        "additionalProperties": {
-          "properties": {
-            "value": {},
-            "message": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "message"
-          ],
-          "type": "object"
-        }
-      },
-      "ValidateError": {
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "stack": {
-            "type": "string"
-          },
-          "status": {
-            "type": "number",
-            "format": "double"
-          },
-          "fields": {
-            "$ref": "#/components/schemas/FieldErrors"
-          }
-        },
-        "required": [
-          "name",
-          "message",
-          "status",
-          "fields"
-        ],
-        "type": "object",
-        "additionalProperties": false
-      },
       "createContactRequestParamsPartner": {
         "properties": {
           "alias": {
-            "type": "string"
+            "type": "string",
+            "description": "Optional label shown in the address book."
           },
           "countryCode": {
-            "$ref": "#/components/schemas/CountryAlpha2Code",
-            "description": "Country code.\nISO 3166-1 alpha-2."
+            "type": "string",
+            "description": "Country code for phone normalization and display.\n**ISO 3166-1 alpha-2**. Example: `US`."
           },
           "phone": {
             "type": "string",
-            "description": "Phone number with country code.\nExample: `+19166020018`."
+            "description": "Phone number with country code (**E.164**).\nExample: `+19166020018`."
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact family name.\nExample: `Tru`."
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "description": "Contact given name(s).\nExample: `Hugo`."
           },
           "email": {
             "type": "string",
-            "description": "Email address."
+            "description": "Email address.\nExample: `name@domain.com`."
           }
         },
         "required": [
@@ -6905,7 +6890,8 @@
           "lastName",
           "firstName"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "`POST /user/contacts/{userToken}` body for partner **create contact** (owner resolved from path)."
       },
       "updateContactRequestParams": {
         "properties": {
@@ -6934,7 +6920,8 @@
         "required": [
           "phone"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "`PUT /user/contacts/{userToken}` body for partner **update contact** (match existing contact by `phone`)."
       },
       "AvailablePaymentMethods": {
         "type": "string",
@@ -6952,6 +6939,7 @@
         ]
       },
       "CorridorDTO": {
+        "description": "Single corridor row: countries, method types, limits, fees, and active flag.",
         "properties": {
           "Id": {
             "type": "string"
@@ -7050,7 +7038,8 @@
           "payload",
           "eventType"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Wrapper posted by the event bus; `payload` is a **JSON string** to parse per `eventType`."
       },
       "PaymentMethodStatus": {
         "type": "string",
@@ -7185,10 +7174,12 @@
         "additionalProperties": false
       },
       "CashOperatorsParamsBase": {
+        "description": "Partner **cash / reference code** payloads used by `fundingController` (`cash/operators`, `cash/reference-code`).",
         "properties": {
           "operationAmmount": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Optional filter amount when requesting operators for a specific load size.\nNote: field name reflects historical typo `operationAmmount`."
           }
         },
         "type": "object",
@@ -7334,32 +7325,35 @@
         "additionalProperties": false
       },
       "SetReferenceCodeParamsBase": {
+        "description": "Body to create a **cash reference code** (voucher) for the given user path token.",
         "properties": {
           "operationId": {
             "type": "string",
-            "description": "plat Id of operation"
+            "description": "Platform operation / correlation identifier for this cash intent."
           },
           "senderName": {
             "type": "string",
-            "description": "sender full name"
+            "description": "Sender display name for the voucher."
           },
           "receiverName": {
             "type": "string",
-            "description": "receiver full name"
+            "description": "Receiver display name for the voucher."
           },
           "networkId": {
             "type": "string",
-            "description": "ID of cash operator. This can be obtained from Cash Operator"
+            "description": "Cash operator / network id from the **get cash operators** response."
           },
           "operationType": {
-            "type": "string"
+            "type": "string",
+            "description": "Corridor operation type.\nExample values: `SendFunds`, `RequestFunds`, `WalletLoad`, … (see platform enum)."
           },
           "cashProvider": {
             "type": "string",
-            "description": "can be (Numi, Greendot, Inpamex, NumiCashDelivery, Incomm) and it's obtained from Cash Network."
+            "description": "Cash rail provider key (e.g. `Numi`, `Greendot`, `Inpamex`, `NumiCashDelivery`, `Incomm`) from the cash network catalog."
           },
           "ip": {
-            "type": "string"
+            "type": "string",
+            "description": "Client IP when forwarded for risk or audit (optional)."
           }
         },
         "required": [
@@ -7409,6 +7403,7 @@
         "additionalProperties": false
       },
       "ReferenceCode": {
+        "description": "**Cash reference code** (voucher) entity returned by partner funding `getReferenceCodeById` and related services.",
         "properties": {
           "id": {
             "type": "string"
@@ -7590,7 +7585,7 @@
           },
           "phoneNumber": {
             "type": "string",
-            "description": "Phone number associated with the payment method.\n\nExample: `+19166020018`."
+            "description": "Mobile phone number associated with the payment method. Must be a valid mobile phone number.\n\nExample: `+5215521206703` for MX."
           },
           "country": {
             "type": "string",
@@ -7600,7 +7595,8 @@
             "type": "string"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "Address state/province/department.\nISO 3166-2:CC (CC: country code).\nOr the state short name.\nExample: `DF` for Distrito Federal, `JA` for Jalisco."
           },
           "city": {
             "type": "string"
@@ -7618,7 +7614,8 @@
             "type": "string"
           },
           "currency": {
-            "type": "string"
+            "type": "string",
+            "description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
           },
           "externalId": {
             "type": "string"
@@ -7657,7 +7654,7 @@
           },
           "number": {
             "type": "string",
-            "description": "Credit/Debit tokenized card number by VGS.\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
+            "description": "If Credit/Debit, this is the tokenized card number by VGS.\nIf UBN/VNA/CLABE, this is the number on clear text.\n\nExample: `tok_sandbox_9PNgfqqpqwertnD1jYkdw1_1111`."
           },
           "beneficiaryAccountId": {
             "type": "string"
@@ -7719,7 +7716,8 @@
           "country",
           "type"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Base fields that can appear on any payment method.\nDiscriminated variants (DebitCard, CreditCard, UBN, etc.) extend this and add required fields per type."
       },
       "AddCardPartnerParams": {
         "properties": {
@@ -8140,9 +8138,11 @@
         "additionalProperties": false
       },
       "RaasBillingAddress": {
+        "description": "Billing address lines and geo hints for {@link UpdateAndValidateBillingAddress}.",
         "properties": {
           "address1": {
-            "type": "string"
+            "type": "string",
+            "description": "Street line 1."
           },
           "address2": {
             "type": "string"
@@ -8151,28 +8151,35 @@
             "type": "string"
           },
           "city": {
-            "type": "string"
+            "type": "string",
+            "description": "City or locality."
           },
           "countryCode": {
-            "type": "string"
+            "type": "string",
+            "description": "**ISO 3166-1 alpha-2** country."
           },
           "latitude": {
-            "type": "string"
+            "type": "string",
+            "description": "Latitude as string (processor wire format)."
           },
           "longitude": {
-            "type": "string"
+            "type": "string",
+            "description": "Longitude as string (processor wire format)."
           },
           "placeDetail": {
-            "type": "string"
+            "type": "string",
+            "description": "Free-form place description when available."
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "State / province (**ISO 3166-2** or short code per product rules)."
           },
           "streetNumber": {
             "type": "string"
           },
           "zipCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Postal code for the jurisdiction."
           }
         },
         "required": [
@@ -8192,12 +8199,15 @@
         "additionalProperties": false
       },
       "UpdateAndValidateBillingAddress": {
+        "description": "Partner body to **update and re-validate** billing address on an existing card payment method.",
         "properties": {
           "PaymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "Target payment method id (**UUID**)."
           },
           "Address": {
-            "$ref": "#/components/schemas/RaasBillingAddress"
+            "$ref": "#/components/schemas/RaasBillingAddress",
+            "description": "Structured billing / AVS address (strings match processor expectations)."
           }
         },
         "required": [
@@ -8253,26 +8263,33 @@
         "type": "object"
       },
       "CheckCardValidityPushParams": {
+        "description": "Push-based micro-charge or validation path.",
         "properties": {
           "country": {
-            "type": "string"
+            "type": "string",
+            "description": "**ISO 3166-1 alpha-2** country for the instrument."
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "State or province code per **ISO 3166-2** or tenant rules."
           },
           "accountNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Tokenized or masked account number depending on environment."
           },
           "holderName": {
-            "type": "string"
+            "type": "string",
+            "description": "Cardholder name as collected."
           },
           "expirationYear": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Four-digit expiry year (e.g. `2029`) or product-specific year value."
           },
           "expirationMonth": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Expiry month `1–12`."
           }
         },
         "required": [
@@ -8287,26 +8304,33 @@
         "additionalProperties": false
       },
       "CheckCardValidityPullParams": {
+        "description": "Pull-based card validity check (e.g. AVS-style pull).",
         "properties": {
           "country": {
-            "type": "string"
+            "type": "string",
+            "description": "**ISO 3166-1 alpha-2** country for the instrument."
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "State or province code per **ISO 3166-2** or tenant rules."
           },
           "accountNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Tokenized or masked account number depending on environment."
           },
           "holderName": {
-            "type": "string"
+            "type": "string",
+            "description": "Cardholder name as collected."
           },
           "expirationYear": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Four-digit expiry year (e.g. `2029`) or product-specific year value."
           },
           "expirationMonth": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Expiry month `1–12`."
           }
         },
         "required": [
@@ -8450,7 +8474,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Operation UUID ID"
+            "description": "Correlation ID\n\nPartner provided operation identifier."
           },
           "status": {
             "type": "string",
@@ -8458,7 +8482,7 @@
           },
           "platId": {
             "type": "string",
-            "description": "Platform UUID"
+            "description": "Internal Platform UUID"
           },
           "type": {
             "type": "string",
@@ -8814,9 +8838,11 @@
         "type": "object"
       },
       "RequestMoneyBase": {
+        "description": "Internal/base shape for “request money” before partner-specific trimming.",
         "properties": {
           "correlationId": {
-            "type": "string"
+            "type": "string",
+            "description": "Client-supplied **GUID** for idempotency and support correlation."
           },
           "destinationPaymentMethod": {
             "$ref": "#/components/schemas/RaaSPaymentMethod"
@@ -8881,12 +8907,14 @@
           {
             "properties": {
               "requestTo": {
-                "type": "string"
+                "type": "string",
+                "description": "Beneficiary phone or alias string when not using {@link RequestMoneyPartnerParams}."
               }
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Non-partner or legacy request-money payload (`requestTo` as raw phone string)."
       },
       "Pick_OperationDetailResponse.Exclude_keyofOperationDetailResponse.id-or-type-or-showWarningScreen__": {
         "properties": {
@@ -8896,11 +8924,11 @@
           },
           "correlationId": {
             "type": "string",
-            "description": "Correlation UUID"
+            "description": "Correlation ID\n\nPartner provided operation identifier."
           },
           "platId": {
             "type": "string",
-            "description": "Platform UUID"
+            "description": "Internal Platform UUID"
           },
           "createdAt": {
             "type": "string",
@@ -9062,18 +9090,19 @@
         "$ref": "#/components/schemas/Omit_OperationDetailResponse.id-or-type-or-showWarningScreen_"
       },
       "RequestMoneyPartnerParams": {
+        "description": "Partner **request money v2** body (`request-money-v2/{userToken}`): beneficiary, amounts, and destination PM.",
         "properties": {
           "requestTo": {
             "type": "string",
-            "description": "Contact phone number to request money"
+            "description": "Beneficiary phone (and optionally other aliases) the platform will normalize.\nExample: `+525512345678`."
           },
           "correlationId": {
             "type": "string",
-            "description": "Correlation ID\n\nGUID to identify the operation"
+            "description": "Correlation ID\n\nPartner provided operation identifier."
           },
           "destinationPaymentMethodId": {
             "type": "string",
-            "description": "Destination payment method ID\n\nID of the payment method that will receive the money.\n\nYou can provide either the payment method ID using this parameter, or the full payment method object using the destinationPaymentMethod parameter.\n\nIf both parameters are provided, destinationPaymentMethodId will take precedence and destinationPaymentMethod will be ignored."
+            "description": "Destination payment method ID\n\n<span style=\"color:red\">required</span> if the destinationPaymentMethod parameter is not provided.\n\nID of the payment method that will receive the money.\n\nYou can provide either the payment method ID using this parameter, or the full payment method object using the destinationPaymentMethod parameter.\n\nIf both parameters are provided, destinationPaymentMethodId will take precedence and destinationPaymentMethod will be ignored."
           },
           "recipientAmount": {
             "type": "number",
@@ -9090,7 +9119,7 @@
           },
           "destinationPaymentMethod": {
             "$ref": "#/components/schemas/RaaSPaymentMethod",
-            "description": "Destination payment method\n\nThe full payment method object that will receive the money.\n\nYou can provide either the full payment method object using this parameter, or just the payment method ID using the destinationPaymentMethodId parameter.\n\nIf both parameters are provided, this object will be ignored and destinationPaymentMethodId will take precedence."
+            "description": "Destination payment method\n\n<span style=\"color:red\">required</span> if the destinationPaymentMethodId parameter is not provided.\n\nThe full payment method object that will receive the money.\n\nYou can provide either the full payment method object using this parameter, or just the payment method ID using the destinationPaymentMethodId parameter.\n\nIf both parameters are provided, this object will be ignored and destinationPaymentMethodId will take precedence."
           }
         },
         "required": [
@@ -9136,9 +9165,11 @@
         "type": "object"
       },
       "SendMoneyBase": {
+        "description": "Internal/base shape for “send money” including fees and locked quotation.",
         "properties": {
           "correlationId": {
-            "type": "string"
+            "type": "string",
+            "description": "Client correlation **GUID**."
           },
           "sourcePaymentMethod": {
             "$ref": "#/components/schemas/RaaSPaymentMethod"
@@ -9261,7 +9292,8 @@
           {
             "properties": {
               "sendTo": {
-                "type": "string"
+                "type": "string",
+                "description": "Recipient phone (normalized by controller per tenant rules)."
               }
             },
             "required": [
@@ -9269,12 +9301,14 @@
             ],
             "type": "object"
           }
-        ]
+        ],
+        "description": "Send-money payload with `sendTo` as a normalized phone string."
       },
       "SendMoneyPartnerParams": {
         "properties": {
           "quotationId": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span> Executable quotation id from the quote endpoint."
           },
           "currency": {
             "type": "string"
@@ -9284,16 +9318,20 @@
             "format": "double"
           },
           "reason": {
-            "type": "string"
+            "type": "string",
+            "description": "Memo or description shown on the operation."
           },
           "destinationPaymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination PM id when not implied by the quote."
           },
           "sourcePaymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "Source PM id on file for the sender when not implied by the quote."
           },
           "correlationId": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span> Client correlation id (**GUID**)."
           },
           "sendTo": {
             "type": "string"
@@ -9303,7 +9341,8 @@
           "quotationId",
           "correlationId"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Partner **send funds** body (`send-funds/{userToken}`): executes a locked `quotationId` for the path user.\n`sendTo` may be omitted when the quotation embeds the destination."
       },
       "SendMoneyPartnerV2Params": {
         "properties": {
@@ -9340,11 +9379,14 @@
           "quotationId",
           "correlationId"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Partner **send funds v2** body: like {@link SendMoneyPartnerParams} but may include structured `sendTo` / destination PM."
       },
       "ReceiveMoneyParams": {
         "properties": {
-          "destinationPaymentMethod": {},
+          "destinationPaymentMethod": {
+            "description": "Destination payment method object or processor-specific shape."
+          },
           "correlationId": {
             "type": "string"
           }
@@ -9353,7 +9395,8 @@
           "destinationPaymentMethod",
           "correlationId"
         ],
-        "type": "object"
+        "type": "object",
+        "description": "Partner **receive / accept incoming funds** stub (destination instrument and correlation)."
       },
       "RaasQuoteTransactionResponse": {
         "properties": {
@@ -9500,6 +9543,7 @@
         "additionalProperties": false
       },
       "QuoteTransactionBase": {
+        "description": "Full quote request used by internal quote services (rich corridor + PM payload).",
         "properties": {
           "senderUserId": {
             "type": "string"
@@ -9565,6 +9609,7 @@
         "additionalProperties": false
       },
       "QuoteTransactionPartnersBase": {
+        "description": "Partner-focused quote request: recipient id, amounts, and optional PM ids/objects.\nUsed when building quotations from the partner API without the full internal shape.",
         "properties": {
           "recipientUserId": {
             "type": "string"
@@ -9654,6 +9699,7 @@
         "additionalProperties": false
       },
       "PartnerPreQuoteRequest": {
+        "description": "Minimal **pre-quote** body for some partner full flows (destination PM + amount).",
         "properties": {
           "DestinationPaymentMethod": {},
           "Amount": {
@@ -9827,15 +9873,15 @@
           },
           "correlationId": {
             "type": "string",
-            "description": "Correlation UUID"
+            "description": "Correlation ID\n\nPartner provided operation identifier."
           },
           "platId": {
             "type": "string",
-            "description": "Platform UUID"
+            "description": "Internal Platform UUID"
           },
           "id": {
             "type": "string",
-            "description": "Operation UUID ID"
+            "description": "Correlation ID\n\nPartner provided operation identifier."
           }
         },
         "required": [
@@ -9853,7 +9899,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Operation UUID ID"
+            "description": "Correlation ID\n\nPartner provided operation identifier."
           },
           "status": {
             "type": "string",
@@ -9861,7 +9907,7 @@
           },
           "platId": {
             "type": "string",
-            "description": "Platform UUID"
+            "description": "Internal Platform UUID"
           },
           "type": {
             "type": "string",
@@ -10029,12 +10075,15 @@
         "$ref": "#/components/schemas/Omit_OperationDetailResponse.-or-correlationId-or-showWarningScreen_"
       },
       "ReplaceCardParams": {
+        "description": "Partner body to **replace** an existing card PM with a new tokenized instrument.",
         "properties": {
           "paymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "Existing payment method id to replace."
           },
           "opPlatId": {
-            "type": "string"
+            "type": "string",
+            "description": "Platform operation id tying the replace to a quotation or order when required."
           }
         },
         "required": [
@@ -10045,12 +10094,15 @@
         "additionalProperties": false
       },
       "SetPaymentMethodParams": {
+        "description": "Partner body to set the **default** (primary) payment method for payouts or sends.",
         "properties": {
           "paymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment method id to promote as primary."
           },
           "opPlatId": {
-            "type": "string"
+            "type": "string",
+            "description": "Platform operation id when the change is scoped to an in-flight operation."
           }
         },
         "required": [
@@ -10061,6 +10113,7 @@
         "additionalProperties": false
       },
       "AcceptOrRejectFundsRequest": {
+        "description": "Partner accept/reject of a pending inbound transfer (phones or emails identify parties).",
         "properties": {
           "senderUserPhone": {
             "type": "string"
@@ -10125,6 +10178,7 @@
         "additionalProperties": false
       },
       "DraftRequestMoney": {
+        "description": "Draft “request money” payload used in partner draft-save flows before confirmation.",
         "properties": {
           "phoneNumber": {
             "type": "string"
@@ -10315,6 +10369,7 @@
         "additionalProperties": false
       },
       "QuoteLiteTransaction": {
+        "description": "**Lite** quote request for partner `quotation-lite`-style routes: countries, method types, and amounts only.",
         "properties": {
           "operationType": {
             "type": "string",
@@ -10406,6 +10461,7 @@
         "additionalProperties": false
       },
       "ExchangeRate": {
+        "description": "**Exchange rate** rows for partner rates endpoints and quotation services.",
         "properties": {
           "id": {
             "type": "string"
@@ -10471,10 +10527,56 @@
         "type": "object",
         "additionalProperties": false
       },
+      "FieldErrors": {
+        "properties": {},
+        "type": "object",
+        "additionalProperties": {
+          "properties": {
+            "value": {},
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message"
+          ],
+          "type": "object"
+        }
+      },
+      "ValidateError": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "stack": {
+            "type": "string"
+          },
+          "status": {
+            "type": "number",
+            "format": "double"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/FieldErrors"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status",
+          "fields"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "ShortLinkRequest": {
+        "description": "Partner service body: long URL to shorten for SMS or deep links.",
         "properties": {
           "link": {
-            "type": "string"
+            "type": "string",
+            "description": "Absolute HTTPS URL to shorten. Example: `https://app.example.com/path?x=1`."
           }
         },
         "required": [
@@ -10486,7 +10588,8 @@
       "ShortLinkResponse": {
         "properties": {
           "shortUrl": {
-            "type": "string"
+            "type": "string",
+            "description": "Shortened URL returned by the link service."
           }
         },
         "required": [
@@ -10496,9 +10599,11 @@
         "additionalProperties": false
       },
       "CIPWebRequest": {
+        "description": "Partner service body: CIP **web session** token to resolve into a hosted URL.",
         "properties": {
           "token": {
-            "type": "string"
+            "type": "string",
+            "description": "Opaque CIP session token issued by the CIP widget or prior step."
           }
         },
         "required": [
@@ -10510,7 +10615,8 @@
       "CIPWebResponse": {
         "properties": {
           "link": {
-            "type": "string"
+            "type": "string",
+            "description": "HTTPS URL to open the CIP web flow."
           }
         },
         "required": [
@@ -10518,6 +10624,260 @@
         ],
         "type": "object",
         "additionalProperties": false
+      },
+      "CountryAlpha2Code": {
+        "type": "string",
+        "enum": [
+          "AF",
+          "AX",
+          "AL",
+          "DE",
+          "AD",
+          "AO",
+          "AI",
+          "AQ",
+          "AG",
+          "SA",
+          "DZ",
+          "AR",
+          "AM",
+          "AW",
+          "AU",
+          "AT",
+          "AZ",
+          "BS",
+          "BD",
+          "BB",
+          "BH",
+          "BE",
+          "BZ",
+          "BJ",
+          "BM",
+          "BY",
+          "BO",
+          "BQ",
+          "BA",
+          "BW",
+          "BR",
+          "BN",
+          "BG",
+          "BF",
+          "BI",
+          "BT",
+          "CV",
+          "KH",
+          "CM",
+          "CA",
+          "QA",
+          "TD",
+          "CL",
+          "CN",
+          "CY",
+          "CO",
+          "KM",
+          "KP",
+          "KR",
+          "CI",
+          "CR",
+          "HR",
+          "CU",
+          "CW",
+          "DK",
+          "DM",
+          "EC",
+          "EG",
+          "SV",
+          "AE",
+          "ER",
+          "SK",
+          "SI",
+          "ES",
+          "US",
+          "EE",
+          "ET",
+          "PH",
+          "FI",
+          "FJ",
+          "FR",
+          "GA",
+          "GM",
+          "GE",
+          "GH",
+          "GI",
+          "GD",
+          "GR",
+          "GL",
+          "GP",
+          "GU",
+          "GT",
+          "GF",
+          "GG",
+          "GN",
+          "GW",
+          "GQ",
+          "GY",
+          "HT",
+          "HN",
+          "HK",
+          "HU",
+          "IN",
+          "ID",
+          "IQ",
+          "IR",
+          "IE",
+          "BV",
+          "IM",
+          "CX",
+          "IS",
+          "KY",
+          "CC",
+          "CK",
+          "FO",
+          "GS",
+          "HM",
+          "FK",
+          "MP",
+          "MH",
+          "PN",
+          "SB",
+          "TC",
+          "UM",
+          "VG",
+          "VI",
+          "IL",
+          "IT",
+          "JM",
+          "JP",
+          "JE",
+          "JO",
+          "KZ",
+          "KE",
+          "KG",
+          "KI",
+          "KW",
+          "LA",
+          "LS",
+          "LV",
+          "LB",
+          "LR",
+          "LY",
+          "LI",
+          "LT",
+          "LU",
+          "MO",
+          "MK",
+          "MG",
+          "MY",
+          "MW",
+          "MV",
+          "ML",
+          "MT",
+          "MA",
+          "MQ",
+          "MU",
+          "MR",
+          "YT",
+          "MX",
+          "FM",
+          "MD",
+          "MC",
+          "MN",
+          "ME",
+          "MS",
+          "MZ",
+          "MM",
+          "NA",
+          "NR",
+          "NP",
+          "NI",
+          "NE",
+          "NG",
+          "NU",
+          "NF",
+          "NO",
+          "NC",
+          "NZ",
+          "OM",
+          "NL",
+          "PK",
+          "PW",
+          "PS",
+          "PA",
+          "PG",
+          "PY",
+          "PE",
+          "PF",
+          "PL",
+          "PT",
+          "PR",
+          "GB",
+          "EH",
+          "CF",
+          "CZ",
+          "CG",
+          "CD",
+          "DO",
+          "RE",
+          "RW",
+          "RO",
+          "RU",
+          "WS",
+          "AS",
+          "BL",
+          "KN",
+          "SM",
+          "MF",
+          "PM",
+          "VC",
+          "SH",
+          "LC",
+          "ST",
+          "SN",
+          "RS",
+          "SC",
+          "SL",
+          "SG",
+          "SX",
+          "SY",
+          "SO",
+          "LK",
+          "SZ",
+          "ZA",
+          "SD",
+          "SS",
+          "SE",
+          "CH",
+          "SR",
+          "SJ",
+          "TH",
+          "TW",
+          "TZ",
+          "TJ",
+          "IO",
+          "TF",
+          "TL",
+          "TG",
+          "TK",
+          "TO",
+          "TT",
+          "TN",
+          "TM",
+          "TR",
+          "TV",
+          "UA",
+          "UG",
+          "UY",
+          "UZ",
+          "VU",
+          "VA",
+          "VE",
+          "VN",
+          "WF",
+          "YE",
+          "DJ",
+          "ZM",
+          "ZW"
+        ]
       },
       "ISOCurrenciesCodes": {
         "description": "ISO 4217 Currency Codes supported.",
@@ -10643,9 +11003,11 @@
         "additionalProperties": false
       },
       "UserExtendDataInfo": {
+        "description": "Extended debug snapshot for a user in test-helper responses.",
         "properties": {
           "userToken": {
-            "type": "string"
+            "type": "string",
+            "description": "Resolved user id / token for the row."
           },
           "lastKey": {
             "type": "string"
@@ -10679,39 +11041,50 @@
         "additionalProperties": false
       },
       "TestHelperParams": {
+        "description": "Non-production **test helper** body to seed users/contacts between two phones.",
         "properties": {
           "senderPhone": {
-            "type": "string"
+            "type": "string",
+            "description": "Sender phone (**E.164**)."
           },
           "destinationPhone": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination phone (**E.164**)."
           },
           "autoCreateContact": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "When true, creates an address-book contact from sender → destination if missing."
           }
         },
         "type": "object",
         "additionalProperties": false
       },
       "UserUpdateParams": {
+        "description": "Partial profile update payload for **partner** `PUT /user/profile/{phoneOrEmail}` and related flows.\nAll fields are optional unless the route applies additional validation; only send fields that change.",
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address. Duplicates may be rejected per tenant policy. Example: `user@example.com`."
           },
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "description": "Given / first name(s). Example: `María`."
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Primary last name. Example: `García`."
           },
           "middleName": {
-            "type": "string"
+            "type": "string",
+            "description": "Middle name when collected."
           },
           "secondLastName": {
-            "type": "string"
+            "type": "string",
+            "description": "Second last name (e.g. maternal) when collected."
           },
           "address1": {
-            "type": "string"
+            "type": "string",
+            "description": "Primary address line (street and number). Example: `Av. Reforma 222`."
           },
           "address2": {
             "type": "string"
@@ -10723,46 +11096,103 @@
             "type": "string"
           },
           "placeId": {
-            "type": "string"
+            "type": "string",
+            "description": "Google Places or internal place identifier when available."
           },
           "country": {
-            "type": "string"
+            "type": "string",
+            "description": "Country name or label as stored for the profile (not necessarily ISO code)."
           },
           "gender": {
-            "type": "string"
+            "type": "string",
+            "description": "Self-reported gender when the product collects it."
           },
           "dob": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Date of birth. **ISO 8601** date or date-time.\nWhen validated, typically must represent age **18–100** years unless product rules differ."
           },
           "country_id": {
             "type": "string"
           },
           "status": {
-            "type": "string",
-            "enum": [
-              "new",
-              "ready"
-            ]
+            "$ref": "#/components/schemas/UserStatus",
+            "description": "Account lifecycle status for the user record."
           },
           "firstTime": {
             "type": "boolean"
           },
+          "zipCode": {
+            "type": "string",
+            "description": "Postal / ZIP code when applicable."
+          },
+          "placeDetail": {
+            "type": "string",
+            "description": "Human-readable place detail (e.g. from geocoding)."
+          },
+          "addressDescription": {
+            "type": "string"
+          },
+          "customCountryCode": {
+            "type": "string",
+            "description": "Custom country code field when used by tenant-specific flows."
+          },
+          "facebookPublicUserName": {
+            "type": "string"
+          },
+          "instagramPublicUserName": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "description": "State / province / department.\nPrefer **ISO 3166-2** where available (e.g. `MX-JAL`)."
+          },
+          "city": {
+            "type": "string"
+          },
+          "birthState": {
+            "type": "string",
+            "description": "State or region of birth when collected for compliance.\n**ISO 3166-2** or short name per product rules."
+          },
+          "accountCode": {
+            "type": "string"
+          },
+          "documentNumber": {
+            "type": "string"
+          },
+          "subscriberType": {
+            "type": "string"
+          },
+          "lang": {
+            "$ref": "#/components/schemas/Language",
+            "description": "Preferred language (**ISO 639-1**). Example: `es`."
+          },
+          "tAndCAccepted": {
+            "type": "boolean",
+            "description": "Terms and conditions acceptance flag when updated via API."
+          },
           "latitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Latitude from **address** geocoding when available."
           },
           "longitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Longitude from **address** geocoding when available."
           },
           "callLocationLatitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Latitude from **device / session** location when available."
           },
           "callLocationLongitude": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "description": "Longitude from **device / session** location when available."
+          },
+          "subscriberId": {
+            "type": "string"
           }
         },
         "type": "object",
@@ -10777,7 +11207,8 @@
             "type": "string"
           },
           "pincode": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span> PIN attempt to verify."
           }
         },
         "required": [
@@ -10791,12 +11222,15 @@
         "description": "Construct a type with the properties of T except for those in type K."
       },
       "ValidatePINCodeParamsPartner": {
-        "$ref": "#/components/schemas/Omit_ValidatePINCodeParams.deviceId_"
+        "$ref": "#/components/schemas/Omit_ValidatePINCodeParams.deviceId_",
+        "description": "Partner validate-PIN: same as {@link ValidatePINCodeParams} without `deviceId` (not used on partner route)."
       },
       "SetPincodeParams": {
+        "description": "PIN lifecycle payloads for **partner** `userController` (`set-pincode`, `validate-pincode`).\nPIN values are hashed server-side; never log raw pins.",
         "properties": {
           "pincode": {
-            "type": "string"
+            "type": "string",
+            "description": "<span style=\"color:red\">required</span>\nNumeric PIN per product rules (length validated server-side)."
           }
         },
         "required": [
@@ -10821,7 +11255,8 @@
             },
             "type": "object"
           }
-        ]
+        ],
+        "description": "Partner set-PIN body: may include `phone` or `email` when not implied by the path."
       }
     },
     "securitySchemes": {
