@@ -6,7 +6,6 @@ description: "Explore our API endpoints"
 Welcome to the RaaS Partner API Reference. Our platform provides a robust set of tools for integrating financial services, including:
 
 - **Authentication & Security**: Secure access via API keys and user-specific tokens.
-- **User & Identity Management**: Comprehensive CIP/KYC workflows and profile management.
 - **Funding & Accounts**: Support for multiple funding sources, including bank accounts and cards.
 - **Operations & Network**: Real-time money transfers, currency exchange, and network corridor management.
 
@@ -124,24 +123,5 @@ sequenceDiagram
     API-->>Partner: operationSuccess
 ```
 
-## Common HTTP errors (auth)
-
-These apply to `POST /auth/get-user-token-v2` (`getUserTokenV2`) and similar auth routes. Response bodies use JSON with at least a `reason` string unless noted otherwise.
-
-| HTTP | Typical cause | What to do |
-|------|----------------|------------|
-| 400 | Missing both `phoneNumber` and `email`, invalid email format, or invalid input schema. | Fix the JSON body and retry. |
-| 404 | No user matches the normalized phone or email. | Run registration (`registerUserV2`) or verify the alias. |
-| 500 | Normalization or lookup failed unexpectedly. | Retry with backoff; if it persists, contact support with timestamps. |
-| 401 | Invalid or missing `api_key` header (often enforced before the route handler). | Rotate or configure the API key; never expose it in client-side code. |
-
-## Common HTTP errors (money request)
-
-For `POST /user/operations/request-money-v2/{userToken}` (`requestMoneyV2`), error bodies usually include `code` and `reason`.
-
-| HTTP | Typical cause | What to do |
-|------|----------------|------------|
-| 400 | Invalid corridor, payment method, contact, or business rule rejection. | Read `reason` / `code`, correct payload or user state, then retry. |
-| 500 | Unexpected server or downstream failure. | Retry with backoff; include `correlationId` when opening a support ticket. |
 
 Some operations in the **API Reference** tabs include example request or response JSON to speed up integration; shapes follow the published OpenAPI schemas.
