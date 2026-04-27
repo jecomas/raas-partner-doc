@@ -1,387 +1,740 @@
 {
-  "_comment": "Curated examples keyed by operationId. Fields: request, response, optional responses per HTTP status.",
-  "getUserTokenV2": {
-    "request": {
-      "email": "+5215521206703",
-      "countryCode": "MX"
-    },
-    "response": {
-      "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2"
-    },
-    "responses": {
-      "400": { "reason": "Missing or invalid email/phone in request body." },
-      "404": { "reason": "User not found for the given alias." },
-      "500": { "reason": "Phone normalization or lookup failed." }
-    }
-  },
-  "registerUserV2": {
-    "request": {
-      "phoneNumber": "+5215521206703",
-      "firstName": "Maria del Carmen",
-      "lastName": "Arenas Mendoza",
-      "dob": "1987-06-24T07:00:00.000Z",
-      "address1": "Cancún International Airport, Carretera a Aeropuerto Cancún, Cancún, Quintana Roo, Mexico",
-      "countryCode": "MX",
-      "city": "Cancún",
-      "state": "Q.R."
-    },
-    "response": {
-      "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2",
-      "status": "Created"
-    },
-    "responses": {
-      "400": { "reason": "Invalid tenant, country mismatch, invalid schema, or invalid date of birth." },
-      "500": { "reason": "Registration could not be completed; see server message." }
-    }
-  },
-  "requestMoneyV2": {
-    "request": {
-      "requestTo": "+19166014999",
-      "correlationId":"7011cefb-0c0b-48c1-a68a-7134d32e61e4",
-      "destinationPaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
-      "reason":"Request CrossBorder to ...",
-      "recipientAmount": 25,
-      "recipientCurrency": "USD"
-    },
-    "response": {
-      "attributionLink": "https://links-dev.nomas.cash/EFUb8",
-      "createdAt": "/Date(1776102856022)/",
-      "status": "Sent",
-      "code": "Ze2i4o",
-      "correlationId": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
-      "fromUser": {
-        "country": "US",
-        "phoneNumber": "+19163015400",
-        "firstName": "Jose",
-        "lastName": "Llontop",
-        "userId": "0"
-      },
-      "toUser": {
-        "country": "MX",
-        "phoneNumber": "+5215521206706",
-        "firstName": "Maria",
-        "lastName": "Garcia",
-        "email": "",
-        "userId": "d8491cd95cae4fa0ad45d765021adbbb"
-      },
-      "sourcePaymentMethod": {},
-      "destinationPaymentMethod": {
-        "isPrimary": false,
-        "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
-        "type": "DebitCard"
-      },
-      "amount": 500,
-      "currency": "MXN",
-      "senderAmount": 500,
-      "senderCurrency": "MXN",
-      "recipientAmout": 500,
-      "recipientCurrency": "MXN",
-      "estimatedExchangeRate": 1,
-      "platId": "22038600-846a-47fd-8733-3b0fa886d894"
-    },
-    "responses": {
-      "400": { "code": "COUNTRY_NOT_SUPPORTED", "reason": "Destination or corridor not allowed for this user." },
-      "500": { "code": "INTERNAL_SERVER_ERROR", "reason": "Unexpected error while creating the request-money operation." }
-    }
-  },
-  "operationQuoteV2": {
-    "request": {
-      "recipientUserId": "d8491cd95cae4fa0ad45d765021adbbb",
-      "currency": "USD",
-      "amount": 100,
-      "isSenderAmount": true,
-      "sourcePaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
-      "destinationPaymentMethodId": "f9b8131f-404a-41e0-9312-927cf81f97fe"
-    },
-    "responses": {
-      "400": {
-        "code": "ERROR_INVALID_QUOTATION_REQUEST_DATA",
-        "reason": "Invalid quotation request data"
-      },
-      "500": {
-        "code": "INTERNAL_SERVER_ERROR",
-        "reason": "Quote could not be computed (tenant, user, corridor, or rate failure)."
-      }
-    }
-  },
-  "createContact": {
-    "request": {
-      "firstName": "Hugo",
-      "lastName": "Tru",
-      "phone": "+19166014999",
-      "email": "javier+1@leapfinancial.com",
-      "countryCode": "US"
-    },
-    "responses": {
-      "200": { "code": "OK", "reason": "Contact created" },
-      "400": { "code": "INVALID_USER_ID", "reason": "User token is not a valid Firebase-style id." },
-      "422": {
-        "name": "ValidateError",
-        "message": "Validation failed",
-        "status": 422,
-        "fields": {
-          "body.phone": { "message": "Invalid value", "value": "" }
+    "_comment": "Curated examples keyed by operationId. Each `responses` object must include examples for 400, 401, 404, and 500 (each with `reason`). Additional success keys (e.g. 200) are optional.",
+    "_mintlifyResponseDescriptions": {
+        "_comment": "Merged by scripts/reorder-swagger.js into each response description (Mintlify API reference). operationId -> { HTTP status -> markdown }.",
+        "getUserTokenV2": {
+            "200": "**200 — OK.** User resolved; optional CIP fields depend on tenant.\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Known user by phone or email | E.164 `phoneNumber` (with `+`) or `email` that already exists for the tenant; align `countryCode` with the number when you send it. | Success JSON: `userId` (and optional `status` / `statusDetail`). |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#getusertokenv2-%E2%80%94-scenario-matrix).",
+            "400": "**400 — Bad request.** Invalid tenant, missing alias, invalid email, or phone validation.\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Tenant could not be loaded | First `tenantService.getById` returns no tenant for the resolved `request.tenant.id` (environment-specific). | `ERROR_INVALID_TENANT` |\n| Missing alias | Empty JSON `{}` or omit both `phoneNumber` and `email`. | `ERROR_INVALID_SCHEMA` |\n| Invalid email shape | String that fails the server-side email check, e.g. `\"no-es-un-email\"`, or an email containing a null byte. | `ERROR_INVALID_EMAIL_FORMAT` |\n| Phone not E.164 | `phoneNumber` without a leading `+` (e.g. national digits only). | `INVALID_PHONE_NUMBER` |\n| Country mismatch | Valid E.164 for one country with `countryCode` that does not match **platform phone validation** (e.g. MX mobile with `countryCode` forced to `US`). | `ERROR_COUNTRY_NOT_SUPPORTED` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#getusertokenv2-%E2%80%94-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or send an invalid/expired partner key (enforcement may still occur at the gateway before the handler). | OpenAPI documents `@Response<ErrorResponse>(401, \"Missing or invalid API key\")`; body shape may match `ErrorResponse` or your gateway. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#getusertokenv2-%E2%80%94-scenario-matrix).",
+            "404": "**404 — Not found.** No user for the given phone or email.\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| User not found | `email` or `phoneNumber` that is syntactically valid but **not registered** in that environment / tenant. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#getusertokenv2-%E2%80%94-scenario-matrix).",
+            "500": "**500 — Internal server error.** Generic internal payload.\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Internal / downstream failure | Not reliably simulated from a static HTTP file; may appear on datastore, CIP, tenant, TPE, or any unexpected exception after **`NumiBadRequestError`** is ruled out. | `ERROR_INTERNAL_SERVER_ERROR` (generic handler payload) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#getusertokenv2-%E2%80%94-scenario-matrix)."
+        },
+        "registerUserV2": {
+            "200": "**200 — OK.** Async registration accepted.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Registration accepted | Valid `RegisterUserParams`, phone/email not already enrolled. | `userId` (+ optional `status`). |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#register-user-v2-scenario-matrix).",
+            "400": "**400 — Bad request.** Tenant, country, schema, DOB, already enrolled, or phone validation.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Invalid tenant | Missing or unknown `tenant` on request. | `ERROR_INVALID_TENANT` |\n| Country mismatch | `countryCode` ≠ tenant country. | `ERROR_INVALID_COUNTRY_CODE` |\n| Invalid schema | `validateRegistrationData` fails (names, address, etc.). | `ERROR_INVALID_SCHEMA` |\n| Invalid DOB | `dob` fails `registerUserV2DobIsValid`. | `ERROR_INVALID_DATE_OF_BIRTH` |\n| Already enrolled | Same phone/email already exists. | `ERROR_USER_ALREADY_ENROLLED` |\n| Phone validation | `normalizePhoneNumber` rejects input. | `INVALID_PHONE_NUMBER` / `ERROR_COUNTRY_NOT_SUPPORTED` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#register-user-v2-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or send an invalid key. | `@Response<ErrorResponse>(401, \"Missing or invalid API key\")` in OpenAPI; actual body may be gateway-specific. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#register-user-v2-scenario-matrix).",
+            "500": "**500 — Internal server error.** After validation; unexpected or `NumiError` from registration.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Registration / platform failure | Downstream `NumiError` or unknown exception. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` `code` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#register-user-v2-scenario-matrix)."
+        },
+        "listContacts": {
+            "200": "**200 — OK.** Contact list returned.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| List contacts | Valid `userToken` that resolves to a stored user. | `ContactInfo[]` (may be empty). |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#list-contacts-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or send an invalid key (gateway / auth layer). | Environment-specific error body |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#list-contacts-scenario-matrix).",
+            "404": "**404 — Not found.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| User not resolved | Path `userToken` is not a stored user id (or user was removed). | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#list-contacts-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Storage failure | Contact store throws (rare). | `ERROR_INTERNAL_SERVER_ERROR` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#list-contacts-scenario-matrix)."
+        },
+        "createContact": {
+            "200": "**200 — OK.** Contact persisted.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Contact created | Valid token + body + unique phone. | `{ \"reason\": \"Contact created\", \"code\": \"OK\" }` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-contact-scenario-matrix).",
+            "400": "**400 — Bad request.** Validation and business rules.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing names | Empty `firstName` or `lastName`. | `ERROR_NAME_NOT_PROVIDED` / `ERROR_INVALID_NAME` |\n| Missing / bad phone | Missing `phone` or normalization fails. | `INVALID_PHONE_NUMBER` / `ERROR_COUNTRY_NOT_SUPPORTED` |\n| Missing country | No `countryCode`. | `ERROR_COUNTRY_NOT_PROVIDED` |\n| Duplicate phone | Same phone for same owner. | `ERROR_DUPLICATED_PHONE` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-contact-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or send an invalid key. | Same as `listContacts` — OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-contact-scenario-matrix).",
+            "404": "**404 — Not found.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` does not resolve to a stored user. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-contact-scenario-matrix).",
+            "500": "**500 — Internal server error.** Unexpected after validation.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown failure | Non-`NumiBadRequestError` / non-`NumiError`. | `ERROR_INTERNAL_SERVER_ERROR` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-contact-scenario-matrix)."
+        },
+        "updateContact": {
+            "200": "**200 — OK.** Contact updated.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Update applied | Valid token + existing contact + body. | `{ \"reason\": \"Contact updated\", \"code\": \"OK\" }` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#update-contact-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Payload / business rules | Invalid body or contact rules (as returned by handler). | `ERROR_*` from `ErrorCodes` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#update-contact-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key / wrong scope for `partner` + `partner_send`. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#update-contact-scenario-matrix).",
+            "404": "**404 — Not found.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` does not resolve to a stored user. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#update-contact-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Update failed | Storage / unexpected errors. | `ERROR_INTERNAL_SERVER_ERROR` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#update-contact-scenario-matrix)."
+        },
+        "getAvailablePaymentMethods": {
+            "200": "**200 — OK.** Receiver method types for corridors.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Types resolved | Valid user + tenant + corridor config. | `string[]` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key for corridor routes. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix).",
+            "404": "**404 — Not found.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` does not resolve to a stored user. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Resolution failed | Tenant/corridor or unexpected error after user resolved. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` `reason` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-available-payment-methods-scenario-matrix)."
+        },
+        "getReceivingMethods": {
+            "200": "**200 — OK.** Receiving methods for RequestFunds.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| SOF list | Valid tenant + user + query params. | `SourceOfFunding[]` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-receiving-methods-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Invalid tenant | Missing tenant id or tenant not found. | `ERROR_INVALID_TENANT` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-receiving-methods-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid `partner` key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-receiving-methods-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Service failure | `NumiError` or unexpected exception. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` payload |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-receiving-methods-scenario-matrix)."
+        },
+        "createFundingCard": {
+            "200": "**200 — OK.** Card registered or existing card returned.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Valid card / duplicate | Processor accepts or returns existing PM. | `RaaSPaymentMethod` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-funding-card-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| User not found | Unknown `userToken`. | `USER_NOT_FOUND` |\n| Invalid expiry / card | `validateCardExpiration` or processor decline. | Card error payload |\n| Processor decline | `registerAndValidate*` failure paths. | Parsed `badResponse` body |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-funding-card-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or key without `partner_send` / `partner` scope as required. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-funding-card-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unexpected | Non-`NumiBadRequestError` errors. | `ERROR_INTERNAL_SERVER_ERROR` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#create-funding-card-scenario-matrix)."
+        },
+        "addUBNAccount": {
+            "200": "**200 — OK.** UBN added.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Valid UBN | Valid user + subscriber + accepted UBN. | `AddPaymentMethodResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| UBN validation | `InvalidCard` / algorithm failure. | `UBN_VALIDATION_ERROR` |\n| Duplicate UBN | `PAYMENTMETHOD_ALREADY_EXISTS`. | `UBN_ALREADY_ADDED` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key for combined scopes on this route. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
+            "403": "**403 — Forbidden.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| User / tenant | Unknown user or missing tenant on record. | `USER_NOT_FOUND` / `INVALID_TENANT` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Platform failure | `NumiError` / add UBN errors. | Mapped `NumiError` or generic internal |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#add-ubn-account-scenario-matrix)."
+        },
+        "getPaymentMethodV2": {
+            "200": "**200 — OK.** Payment method summary.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| PM found | Valid subscriber + existing `id` query param. | `RaaSPartnerPaymentMethod` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-payment-method-v2-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Downstream bad request | `NumiBadRequestError` from funding layer (other than payment method not found). | `reason` + `code` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-payment-method-v2-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-payment-method-v2-scenario-matrix).",
+            "404": "**404 — Not found.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` does not resolve to a stored user. | `ERROR_USER_NOT_FOUND` |\n| No subscriber | User resolved but has no subscriber record. | `ERROR_SUBSCRIBER_NOT_FOUND` |\n| PM not in wallet | Valid user + `id` not in returned payment methods (e.g. random UUID). | `ERROR_PAYMENT_METHOD_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-payment-method-v2-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Platform / unexpected | `NumiError` or non-Numi exception from connectors. | `ERROR_INTERNAL_SERVER_ERROR` or mapped `NumiError` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-payment-method-v2-scenario-matrix)."
+        },
+        "requestMoneyV2": {
+            "200": "**200 — OK.** Request-money operation created.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Happy path | Valid `userToken`, corridor, destination PM, and payload. | `OperationResponsePartner` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
+            "400": "**400 — Bad request.** Corridor, contact, or payment-method validation.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Business validation | Unsupported corridor, missing PM, etc. | `ERROR_*` / whitelisted `reason`+`code` per handler |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or key without `partner` / `partner_full`. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
+            "404": "**404 — Not found.** Path user does not resolve.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` not found via `resolveUserIdFromPathUserToken`. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unexpected / NumiError | After `NumiBadRequestError` ruled out; `NumiError` returns mapped `errorCode`. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` payload (no raw exception message) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#request-money-v2-scenario-matrix)."
+        },
+        "operationQuoteV2": {
+            "200": "**200 — OK.** Firm quotation returned.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Quote OK | Valid sender, recipients, PMs, and amounts. | `RaasQuoteTransactionResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix).",
+            "400": "**400 — Bad request.** Invalid quotation payload.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Invalid data | Empty recipient id, zero amount, empty currency, etc. | `ERROR_INVALID_QUOTATION_REQUEST_DATA` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or key without `partner_send` / `partner_full`. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Downstream failure | Tenant/user missing, rate/corridor errors, unexpected exception. | `ERROR_INTERNAL_SERVER_ERROR` or mapped codes |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#operation-quote-v2-scenario-matrix)."
+        },
+        "getOperationStatus": {
+            "200": "**200 — OK.** Status string for the operation.\n\nThe initial status is `Sent`. While the operation is still in progress, before it settles as `Completed` or `Failed`, the status may move through intermediate values that belong to the enumeration below (for example `Funding`, `Funded`, `OnHold`, or `InTransit`).\n\nPossible statuses: `Sent`, `Funding`, `Funded`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Status read | Resolved `userToken` + valid `operationId`. | Plain string, one of the statuses above |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-status-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Service rejected | `NumiBadRequestError` from operation service. | `ErrorResponse` with mapped `code` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-status-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid `partner` / `partner_send` key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-status-scenario-matrix).",
+            "404": "**404 — Not found.** User from path not found.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` does not resolve. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-status-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unexpected | Non-Numi errors or `NumiError` after bad-request branch. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` `errorCode` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-status-scenario-matrix)."
+        },
+        "getOperationQuote": {
+            "200": "**200 — OK.** Quotation preview.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Quote computed | Valid user, subscriber, tenant, payload. | `RaasQuoteTransactionResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Bad quote input | `NumiBadRequestError` from quote path. | Mapped `ErrorCodes` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
+            "404": "**404 — Not found.** User not resolved.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Unknown path user | `userToken` not in user store. | `ERROR_USER_NOT_FOUND` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Quote failure | Invalid tenant, missing quote, `NumiError`, or unexpected error. | `ERROR_INTERNAL_SERVER_ERROR` or specific `errorCode` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-quote-scenario-matrix)."
+        },
+        "preQuote": {
+            "200": "**200 — OK.** Pre-quote simulation.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Scenarios returned | Valid tenant + `PartnerPreQuoteRequest`. | `RaasPreQuoteResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#pre-quote-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#pre-quote-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Market / internal | `NumiError` or unexpected after validation. | `ERROR_INTERNAL_SERVER_ERROR` or mapped `errorCode` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#pre-quote-scenario-matrix)."
+        },
+        "getOperation": {
+            "200": "**200 — OK.** Operation detail for partner.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Detail returned | Operation id exists and belongs to caller tenant. | `OperationDetailResponse` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid multi-scope key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Not found / mismatch | Operation missing or user tenant ≠ request tenant. | `ERROR_OPERATION_NOT_FOUND` or generic internal |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operation-scenario-matrix)."
+        },
+        "getOperations": {
+            "200": "**200 — OK.** Operation history list.\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| History | Valid `userToken` aligned with tenant. | `OperationDetail[]` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Tenant mismatch | `userToken` user not in requesting tenant. | `ErrorResponse` from handler |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response**:\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| List failure | Unexpected datastore errors. | `ERROR_INTERNAL_SERVER_ERROR` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-operations-scenario-matrix)."
+        },
+        "getFrequentContacts": {
+            "200": "**200 — OK.** Frequent contacts.\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Top N | Valid `userToken` and numeric `limit` within policy bounds. | `ContactInfo[]` |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix).",
+            "400": "**400 — Bad request.**\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Bad limit / validation | Non-numeric `limit`, negative or zero limit, or `NumiBadRequestError` from `getLastOperationsContact`. | `ErrorResponse` (`reason` + `code`) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix).",
+            "401": "**401 — Unauthorized.**\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Missing / bad API key | Omit `api_key` or invalid key / scope for `partner`, `partner_send`, or `partner_full`. | OpenAPI `401` via `@Response<ErrorResponse>`. |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix).",
+            "500": "**500 — Internal server error.**\n\n**Scenarios for this response** (keep in sync with `testing-sandbox.mdx`):\n\n| Scenario | How to reproduce | Typical `code` / body |\n|------------|------------------|------------------------|\n| Indexed query / unexpected | `operationService.getLastOperationsContact` throws after `NumiBadRequestError` is ruled out, or datastore/index failure. | `ERROR_INTERNAL_SERVER_ERROR` (no raw exception text to client) |\n\nSee also [Full scenario matrix](/raas/guides/testing-sandbox#get-frequent-contacts-scenario-matrix)."
         }
-      },
-      "500": { "code": "ERROR_UNKNOWN", "reason": "Error creating contact" }
-    }
-  },
-  "updateContact": {
-    "request": {
-      "firstName": "Hugo",
-      "lastName": "Tru",
-      "phone": "+19166014999",
-      "email": "javier+1@leapfinancial.com",
-      "countryCode": "US"
-    }
-  },
-  "listContacts": {
-    "response": [
-      {
-        "firstName": "Hugo",
-        "lastName": "Tru",
-        "phone": "+19166014999",
-        "email": "javier+1@leapfinancial.com",
-        "countryCode": "US",
-        "alias": "Hugo"
-      }
-    ]
-  },
-  "getAvailablePaymentMethods": {
-    "response": [
-      "CreditCard",
-      "DebitCard",
-      "UBN"
-    ]
-  },
-  "listFundingSourcesForRequest": {
-    "response": [
-      {
-        "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
-        "name": "VISA-1234",
-        "type": "CreditCard",
-        "isPrimary": true,
-        "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234",
-        "nameOnCard": "John Doe",
-        "expirationDate": "12/2025",
-        "cardNetwork": "Visa",
-        "country": "US",
-        "currency": "USD"
-      }
-    ]
-  },
-  "createFundingCard": {
-    "request": {
-      "cardtype": "CreditCard",
-      "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234",
-      "isPrimary": true,
-      "expirationDate": "0629",
-      "country": "US",
-      "nameOnCard": "PEDRO ALFONSO MOCK ITSOK",
-      "cardNetwork": "Visa",
-      "securityCode": "",
-      "name": "Visa-1111"
     },
-    "response": {
-      "id": "b28cd13a-df67-46db-9f2d-c48e634789d6",
-      "name": "VISA-1111",
-      "isPrimary": true,
-      "latitude": 0,
-      "longitude": 0,
-      "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
-      "nameOnCard": "PEDRO ALFONSO MOCK ITSOK",
-      "expirationDate": "1228",
-      "expirationYear": "28",
-      "expirationMonth": "12",
-      "securityCode": "",
-      "cardNetwork": "Visa",
-      "allowPushCrossBorder": true,
-      "allowPushDomestic": true,
-      "allowReviewAddress": false,
-      "accountId": "",
-      "externalId": "E1678D6DA1284CF39FD241E6509F4518000000",
-      "type": "DebitCard",
-      "status": "ValidatedPush",
-      "country": "MX",
-      "createdAt": null,
-      "updatedAt": null
-    }
-  },
-  "getPaymentMethodV2": {
-    "response": {
-      "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
-      "name": "VISA-1234",
-      "type": "CreditCard",
-      "isPrimary": true,
-      "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234"
-    }
-  },
-  "addUBNAccount": {
-    "request": {
-      "number": "002320275621938815",
-      "currency": "MXN",
-      "country": "MX"
+    "getUserTokenV2": {
+        "request": {
+            "email": "+5215521206703",
+            "countryCode": "MX"
+        },
+        "response": {
+            "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2"
+        },
+        "responses": {
+            "400": {
+                "reason": "Missing or invalid email/phone in request body."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found for the given alias."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
     },
-    "response": {
-      "id": "6d41ada5-4ecd-4bc4-a561-9a0577a39da7",
-      "status": "Created",
-      "name": "UBN-7890",
-      "isPrimary": false,
-      "createdAt": "2026-04-13T17:47:35.667Z"
-    }
-  },
-  "getOperationStatus": {
-    "response": "Completed"
-  },
-  "getOperations": {
-    "response": 
-      [
-        {
-          "id": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
-          "type": "request",
-          "createdAt": "2026-04-13T17:54:15.180Z",
-          "updatedAt": "2026-04-13T17:54:16.022Z",
-          "amount": 500,
-          "status": "Sent",
-          "statusDetails": "RequestSent",
-          "reason": "Pago de servicio",
-          "code": "Ze2i4o",
-          "recipientAmout": 500,
-          "senderAmount": 0,
-          "fromUser": {
+    "registerUserV2": {
+        "request": {
+            "phoneNumber": "+5215521206703",
+            "firstName": "Maria del Carmen",
+            "lastName": "Arenas Mendoza",
+            "dob": "1987-06-24T07:00:00.000Z",
+            "address1": "Cancún International Airport, Carretera a Aeropuerto Cancún, Cancún, Quintana Roo, Mexico",
+            "countryCode": "MX",
+            "city": "Cancún",
+            "state": "Q.R."
+        },
+        "response": {
+            "userId": "OSZwErXgt1MGPHwkYJVqz3LTN0R2",
+            "status": "OnProcess"
+        },
+        "responses": {
+            "400": {
+                "reason": "Invalid tenant, country mismatch, invalid schema, or invalid date of birth."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "requestMoneyV2": {
+        "request": {
+            "requestTo": "+19166014999",
+            "correlationId": "7011cefb-0c0b-48c1-a68a-7134d32e61e4",
+            "destinationPaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
+            "reason": "Request CrossBorder to ...",
+            "recipientAmount": 25,
+            "recipientCurrency": "USD"
+        },
+        "response": {
+            "attributionLink": "https://links-dev.nomas.cash/EFUb8",
+            "createdAt": "/Date(1776102856022)/",
+            "status": "Sent",
+            "code": "Ze2i4o",
+            "correlationId": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
+            "fromUser": {
+                "country": "US",
+                "phoneNumber": "+19163015400",
+                "firstName": "Jose",
+                "lastName": "Llontop",
+                "userId": "0"
+            },
+            "toUser": {
+                "country": "MX",
+                "phoneNumber": "+5215521206706",
+                "firstName": "Maria",
+                "lastName": "Garcia",
+                "email": "",
+                "userId": "d8491cd95cae4fa0ad45d765021adbbb"
+            },
+            "sourcePaymentMethod": {},
+            "destinationPaymentMethod": {
+                "isPrimary": false,
+                "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+                "type": "DebitCard"
+            },
+            "amount": 500,
+            "currency": "MXN",
+            "senderAmount": 500,
+            "senderCurrency": "MXN",
+            "recipientAmout": 500,
+            "recipientCurrency": "MXN",
+            "estimatedExchangeRate": 1,
+            "platId": "22038600-846a-47fd-8733-3b0fa886d894"
+        },
+        "responses": {
+            "400": {
+                "reason": "Destination or corridor not allowed for this user."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found for path userToken."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "operationQuoteV2": {
+        "request": {
+            "recipientUserId": "d8491cd95cae4fa0ad45d765021adbbb",
+            "currency": "USD",
+            "amount": 100,
+            "isSenderAmount": true,
+            "sourcePaymentMethodId": "6af8e158-be29-422a-8d69-703d6c343c3c",
+            "destinationPaymentMethodId": "f9b8131f-404a-41e0-9312-927cf81f97fe"
+        },
+        "responses": {
+            "400": {
+                "reason": "Invalid quotation request data"
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found for path userToken."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "createContact": {
+        "request": {
+            "firstName": "Hugo",
+            "lastName": "Tru",
+            "phone": "+19166014999",
+            "email": "javier+1@leapfinancial.com",
+            "countryCode": "US"
+        },
+        "responses": {
+            "200": {
+                "reason": "Contact created"
+            },
+            "400": {
+                "reason": "Name not provided"
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found"
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "updateContact": {
+        "request": {
+            "firstName": "Hugo",
+            "lastName": "Tru",
+            "phone": "+19166014999",
+            "email": "javier+1@leapfinancial.com",
+            "countryCode": "US"
+        },
+        "responses": {
+            "200": {
+                "reason": "Contact updated"
+            },
+            "400": {
+                "reason": "Name not provided"
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found"
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "listContacts": {
+        "responses": {
+            "200": {
+                "firstName": "Hugo",
+                "lastName": "Tru",
+                "phone": "+19166014999",
+                "email": "javier+1@leapfinancial.com",
+                "countryCode": "US",
+                "alias": "Hugo"
+            },
+            "400": {
+                "reason": "Bad request (atypical for list; e.g. upstream validation)."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found"
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getAvailablePaymentMethods": {
+        "response": ["CreditCard", "DebitCard", "UBN"],
+        "responses": {
+            "400": {
+                "reason": "Bad request."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found for path userToken."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "listFundingSourcesForRequest": {
+        "response": [
+            {
+                "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
+                "name": "VISA-1234",
+                "type": "CreditCard",
+                "isPrimary": true,
+                "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234",
+                "nameOnCard": "John Doe",
+                "expirationDate": "12/2025",
+                "cardNetwork": "Visa",
+                "country": "US",
+                "currency": "USD"
+            }
+        ],
+        "responses": {
+            "400": {
+                "reason": "Invalid tenant or request parameters."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User or resource not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "createFundingCard": {
+        "request": {
+            "cardtype": "CreditCard",
+            "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234",
+            "isPrimary": true,
+            "expirationDate": "0629",
+            "country": "US",
+            "nameOnCard": "PEDRO ALFONSO MOCK ITSOK",
+            "cardNetwork": "Visa",
+            "securityCode": "",
+            "name": "Visa-1111"
+        },
+        "response": {
+            "id": "b28cd13a-df67-46db-9f2d-c48e634789d6",
+            "name": "VISA-1111",
+            "isPrimary": true,
+            "latitude": 0,
+            "longitude": 0,
+            "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+            "nameOnCard": "PEDRO ALFONSO MOCK ITSOK",
+            "expirationDate": "1228",
+            "expirationYear": "28",
+            "expirationMonth": "12",
+            "securityCode": "",
+            "cardNetwork": "Visa",
+            "allowPushCrossBorder": true,
+            "allowPushDomestic": true,
+            "allowReviewAddress": false,
+            "accountId": "",
+            "externalId": "E1678D6DA1284CF39FD241E6509F4518000000",
+            "type": "DebitCard",
+            "status": "ValidatedPush",
+            "country": "MX",
+            "createdAt": null,
+            "updatedAt": null
+        },
+        "responses": {
+            "400": {
+                "reason": "Card validation or processor decline."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getPaymentMethodV2": {
+        "response": {
+            "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
+            "name": "VISA-1234",
+            "type": "CreditCard",
+            "isPrimary": true,
+            "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234"
+        },
+        "responses": {
+            "400": {
+                "reason": "Bad request from funding layer."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User, subscriber, or payment method not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getReceivingMethods": {
+        "response": [
+            {
+                "id": "6af8e158-be29-422a-8d69-703d6c343c3c",
+                "name": "VISA-1234",
+                "type": "CreditCard",
+                "isPrimary": true,
+                "number": "TOK_SANDBOX_9PNaaaqpqwertnD1jYkdw1_1234"
+            }
+        ],
+        "responses": {
+            "400": {
+                "reason": "Bad request from funding layer."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User, subscriber, or payment method not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "addUBNAccount": {
+        "request": {
+            "number": "002320275621938815",
+            "currency": "MXN",
+            "country": "MX"
+        },
+        "response": {
+            "id": "6d41ada5-4ecd-4bc4-a561-9a0577a39da7",
+            "status": "Created",
+            "name": "UBN-7890",
+            "isPrimary": false,
+            "createdAt": "2026-04-13T17:47:35.667Z"
+        },
+        "responses": {
+            "400": {
+                "reason": "UBN validation failed or duplicate account."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getOperationStatus": {
+        "response": "Completed",
+        "responses": {
+            "400": {
+                "reason": "Bad request from operation service."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found for path userToken."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getOperations": {
+        "response": [
+            {
+                "id": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
+                "type": "request",
+                "createdAt": "2026-04-13T17:54:15.180Z",
+                "updatedAt": "2026-04-13T17:54:16.022Z",
+                "amount": 500,
+                "status": "Sent",
+                "statusDetails": "RequestSent",
+                "reason": "Pago de servicio",
+                "code": "Ze2i4o",
+                "recipientAmout": 500,
+                "senderAmount": 0,
+                "fromUser": {
+                    "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+                    "firstName": "Maria",
+                    "lastName": "Garcia",
+                    "phoneNumber": "+5215521206706",
+                    "email": "",
+                    "country": "MX"
+                },
+                "toUser": {
+                    "phoneNumber": "+19163015400",
+                    "country": "US"
+                },
+                "currency": "MXN",
+                "recipientCurrency": "MXN",
+                "senderCurrency": "USD",
+                "exchangeRate": 1,
+                "destinationPaymentMethod": {
+                    "type": "DebitCard",
+                    "country": "MX",
+                    "id": "f9b8131f-404a-41e0-9312-927cf81f97fe",
+                    "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+                    "currency": "MXN"
+                },
+                "attributionLink": "https://links-dev.nomas.cash/EFUb8",
+                "isIgnored": false,
+                "tenantfee": 0,
+                "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+                "cancelable": false,
+                "fromTo": ["5bMwDyW4ZDVgu58HKzocpZcZ7fz1"],
+                "platId": "22038600-846a-47fd-8733-3b0fa886d894"
+            }
+        ],
+        "responses": {
+            "400": {
+                "reason": "User tenant does not match request tenant."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getOperation": {
+        "response": {
+            "id": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
+            "type": "request",
+            "createdAt": "2026-04-13T17:54:15.180Z",
+            "updatedAt": "2026-04-13T17:54:16.022Z",
+            "amount": 500,
+            "status": "Sent",
+            "statusDetails": "RequestSent",
+            "reason": "Pago de servicio",
+            "code": "Ze2i4o",
+            "recipientAmout": 500,
+            "senderAmount": 0,
+            "fromUser": {
+                "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+                "firstName": "Maria",
+                "lastName": "Garcia",
+                "phoneNumber": "+5215521206706",
+                "email": "",
+                "country": "MX"
+            },
+            "toUser": {
+                "phoneNumber": "+19163015400",
+                "country": "US"
+            },
+            "currency": "MXN",
+            "recipientCurrency": "MXN",
+            "senderCurrency": "USD",
+            "exchangeRate": 1,
+            "destinationPaymentMethod": {
+                "type": "DebitCard",
+                "country": "MX",
+                "id": "f9b8131f-404a-41e0-9312-927cf81f97fe",
+                "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+                "currency": "MXN"
+            },
+            "attributionLink": "https://links-dev.nomas.cash/EFUb8",
+            "isIgnored": false,
+            "tenantfee": 0,
             "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+            "cancelable": false,
+            "fromTo": ["5bMwDyW4ZDVgu58HKzocpZcZ7fz1"]
+        },
+        "responses": {
+            "400": {
+                "reason": "Bad request."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "Operation not found or tenant mismatch."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getFrequentContacts": {
+        "response": [
+            {
+                "phone": "+19163015400",
+                "firstName": "Jose",
+                "lastName": "Llontop",
+                "countryCode": "US"
+            }
+        ],
+        "responses": {
+            "400": {
+                "reason": "Invalid limit or request parameters."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
+    },
+    "getSessionLinkV2": {
+        "request": {
+            "phoneNumber": "+5215521206706",
             "firstName": "Maria",
             "lastName": "Garcia",
-            "phoneNumber": "+5215521206706",
-            "email": "",
-            "country": "MX"
-          },
-          "toUser": {
-            "phoneNumber": "+19163015400",
-            "country": "US"
-          },
-          "currency": "MXN",
-          "recipientCurrency": "MXN",
-          "senderCurrency": "USD",
-          "exchangeRate": 1,
-          "destinationPaymentMethod": {
-            "type": "DebitCard",
-            "country": "MX",
-            "id": "f9b8131f-404a-41e0-9312-927cf81f97fe",
-            "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
-            "currency": "MXN"
-          },
-          "attributionLink": "https://links-dev.nomas.cash/EFUb8",
-          "isIgnored": false,
-          "tenantfee": 0,
-          "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
-          "cancelable": false,
-          "fromTo": [
-            "5bMwDyW4ZDVgu58HKzocpZcZ7fz1"
-          ],
-          "platId": "22038600-846a-47fd-8733-3b0fa886d894"
+            "dob": "1987-06-24",
+            "city": "San Pedro de los Pinos",
+            "zipCode": "03800",
+            "state": "CDMX",
+            "address3": "Ciudad de México",
+            "countryCode": "MX",
+            "address1": "Avenida Calle Dos 296",
+            "latitude": 19.3953755,
+            "longitude": -99.1384059,
+            "gender": "Male",
+            "email": "ariel+fielContigo@leapfinancial.com",
+            "lang": "en",
+            "birthState": "MX-CMX",
+            "paymentMethodType": "Card",
+            "addCardParams": {
+                "nameOnCard": "Juan Perez Gomez",
+                "cardtype": "DebitCard",
+                "expirationDate": "1128",
+                "cardNetwork": "Visa",
+                "name": "VISA-1111",
+                "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111"
+            }
+        },
+        "response": {
+            "paymentMethodStatus": "ValidCard",
+            "link": "https://links-dev.nomas.cash/Q1nO3",
+            "status": "Completed",
+            "statusDetail": "None"
+        },
+        "responses": {
+            "400": {
+                "reason": "Validation failed on session link payload."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
         }
-      ]
-  },
-  "getOperation": {
-    "response": {
-      "id": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
-      "type": "request",
-      "createdAt": "2026-04-13T17:54:15.180Z",
-      "updatedAt": "2026-04-13T17:54:16.022Z",
-      "amount": 500,
-      "status": "Sent",
-      "statusDetails": "RequestSent",
-      "reason": "Pago de servicio",
-      "code": "Ze2i4o",
-      "recipientAmout": 500,
-      "senderAmount": 0,
-      "fromUser": {
-        "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
-        "firstName": "Maria",
-        "lastName": "Garcia",
-        "phoneNumber": "+5215521206706",
-        "email": "",
-        "country": "MX"
-      },
-      "toUser": {
-        "phoneNumber": "+19163015400",
-        "country": "US"
-      },
-      "currency": "MXN",
-      "recipientCurrency": "MXN",
-      "senderCurrency": "USD",
-      "exchangeRate": 1,
-      "destinationPaymentMethod": {
-        "type": "DebitCard",
-        "country": "MX",
-        "id": "f9b8131f-404a-41e0-9312-927cf81f97fe",
-        "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
-        "currency": "MXN"
-      },
-      "attributionLink": "https://links-dev.nomas.cash/EFUb8",
-      "isIgnored": false,
-      "tenantfee": 0,
-      "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
-      "cancelable": false,
-      "fromTo": [
-        "5bMwDyW4ZDVgu58HKzocpZcZ7fz1"
-      ]
-    }
-  },
-  "getFrequentContacts": {
-    "response": [
-      {
-        "phone": "+19163015400",
-        "firstName": "Jose",
-        "lastName": "Llontop",
-        "countryCode": "US"
-      }
-    ]
-  },
-  "getSessionLinkV2": {
-    "request": {
-      "phoneNumber": "+5215521206706", 
-      "firstName": "Maria",
-      "lastName": "Garcia",
-      "dob": "1987-06-24",
-      "city": "San Pedro de los Pinos",
-      "zipCode": "03800",
-      "state":"CDMX",
-      "address3": "Ciudad de México",
-      "countryCode":"MX",
-      "address1": "Avenida Calle Dos 296",
-      "latitude": 19.3953755,
-      "longitude": -99.1384059,
-      "gender" : "Male",
-      "email": "ariel+fielContigo@leapfinancial.com",
-      "lang": "en",
-      "birthState": "MX-CMX",
-      "paymentMethodType": "Card",
-      "addCardParams" : {
-          "nameOnCard" :"Juan Perez Gomez",
-          "cardtype": "DebitCard",
-          "expirationDate": "1128",
-          "cardNetwork": "Visa",
-          "name": "VISA-1111",
-          "number": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111"
-      }
-  },
-    "response": {
-      "paymentMethodStatus": "ValidCard",
-      "link": "https://links-dev.nomas.cash/Q1nO3",
-      "status": "Completed",
-      "statusDetail": "None"
-    }
-  },
-  "getSessionLinkV4": {
-    "request": {
-      "userToken": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1"
     },
-    "response": {
-      "link": "https://links-dev.nomas.cash/pBFWL",
-      "status": "Completed",
-      "statusDetail": "None"
+    "getSessionLinkV4": {
+        "request": {
+            "userToken": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1"
+        },
+        "response": {
+            "link": "https://links-dev.nomas.cash/pBFWL",
+            "status": "Completed",
+            "statusDetail": "None"
+        },
+        "responses": {
+            "400": {
+                "reason": "Invalid userToken or request body."
+            },
+            "401": {
+                "reason": "Missing or invalid API key"
+            },
+            "404": {
+                "reason": "User not found."
+            },
+            "500": {
+                "reason": "An unhandled error has occurred"
+            }
+        }
     }
-  }
 }

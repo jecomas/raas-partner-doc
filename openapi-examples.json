@@ -383,5 +383,44 @@
       "status": "Completed",
       "statusDetail": "None"
     }
+  },
+  "requestMoneyFull": {
+    "request": {
+      "requester": {
+          "phoneNumber": "+525528930077",
+          "firstName": "Javier",
+          "lastName": "Comas",
+          "dob": "1987-06-24T07:00:00.000Z",
+          "address1": "Av. Tingo María 398",
+          "countryCode": "MX",
+          "city": "Mexico",
+          "state": "Mexico",
+          "zipCode": "06000"
+      },
+      "request": {
+          "requestTo": {
+              "phoneNumber": "+19163015400",
+              "firstName": "Jose",
+              "lastName": "Llontop",
+              "countryCode": "US"
+          },
+          "correlationId":"{{$guid}}",
+          "destinationPaymentMethod": {
+              "id":"{{$guid}}",
+              "number" :"683101100000088168",
+              "currency": "MXN",
+              "country": "MX",
+              "type": "UBN"
+          },
+          "recipientAmount": 100,
+          "recipientCurrency": "MXN"
+      }
+  },
+    "response": {
+      "userId": "5bMwDyW4ZDVgu58HKzocpZcZ7fz1",
+      "operationId": "b6bf4bcd-7751-426b-86c6-1b3d72ee5a02",
+      "status": "Accepted",
+      "link": "https://links-dev.nomas.cash/EFUb8"
+    }
   }
 }

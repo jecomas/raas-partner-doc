@@ -1,6 +1,6 @@
 ---
 title: "Testing & sandbox"
-description: "Integration test environments, sample tokens, and safe data for Partner API development."
+description: "Integration test environments, and safe data for Partner API development."
 ---
 
 <Warning>
@@ -14,8 +14,6 @@ Sandbox tokens, card numbers, and API keys in this documentation are **examples 
 | CV / integration (default in this doc) | `https://raas-partner-cv.nomas.cash/v1` | Example non-production host; your contract may use a different hostname. |
 | mTLS (same logical API) | `https://mtls-partner-cv.nomas.cash/v1` | See [Introduction](/raas/api-reference/introduction) for certificate usage. |
 
-Your tenant may also use **QA**, **dev**, or **prod** hosts; confirm the base URL with your Leap integration contact.
-
 ## Authentication in tests
 
 - Send header **`api_key`** on every request (value issued for your tenant in that environment).
@@ -25,24 +23,61 @@ Your tenant may also use **QA**, **dev**, or **prod** hosts; confirm the base UR
 Keep `api_key` on your **server** only. Do not embed it in mobile apps or public web clients.
 </Tip>
 
-## Tokenized test cards (sandbox)
+## Test card number (sandbox)
 
-The platform stores **tokens** (not raw PANs). The values below are **illustrative** for sandbox-style integrations—always obtain current test tokens from your **card capture widget** or from **Leap** for your tenant and processor, since sandbox assets can rotate.
+Use these **sandbox-only** PANs where your flow accepts a test card number (for example via VGS or a widget that tokenizes before RaaS). Confirm with Leapfinancial which rows apply to your tenant and processor; lists can change.
 
-| Purpose | Example `number` (token) | Example `securityCode` (token) | Notes |
-|---------|--------------------------|----------------------------------|--------|
-| Generic Visa sandbox card | `tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111` | e.g. `tok_sandbox_4G3wTXXpqCQVct3n2oZHH9` (varies by flow) | Typical shape returned after tokenizing a test Visa in sandbox. |
+| Network | Card number | CVV |
+|---------|-------------|-----|
+| Visa | `4111 1111 1111 1111` | — |
+| Visa | `4622 9431 2701 3705` | `838` |
+| Visa | `4622 9431 2701 3713` | `043` |
+| Visa | `4622 9431 2701 3721` | `258` |
+| Visa | `4622 9431 2701 3739` | `942` |
+| Visa | `4622 9431 2701 3747` | `370` |
+| Mastercard | `2222 4200 0000 1113` | — |
+| Mastercard | `2222 6300 0000 1125` | — |
+| Mastercard | `5555 5555 5555 4444` | — |
 
-Typical card fields in requests (names may vary by endpoint):
+## Card field tokenization (VGS)
 
-- **`cardtype`**: `CreditCard` or `DebitCard`
-- **`cardNetwork`**: `Visa`, etc.
-- **`expirationDate`**: `MMYY` format as required by your integration guide
-- **`nameOnCard`**, **`country`**: must align with corridor / tenant rules
+Some integrations send **sensitive card fields** (PAN, CVV) to **Very Good Security (VGS)** outbound proxy endpoints instead of posting raw values to RaaS. The **vault identifier** in the hostname is **tenant- or environment-specific**; replace it with your own value (for example a REST Client variable `{{vgsVaultId}}` declared in your `.http` file).
 
-<Note>
-If tokenization fails or the processor rotates test assets, you will get **4xx/5xx** with a `reason` (and often `code`) in the JSON body. Retry with a freshly tokenized card from your payment widget or test harness.
-</Note>
+**Sandbox URL pattern**
+
+```text
+https://{{vgsVaultId}}.sandbox.verygoodproxy.com/post
+```
+
+**Example request** (`Content-Type: application/json`):
+
+```http
+POST https://{{vgsVaultId}}.sandbox.verygoodproxy.com/post
+Content-Type: application/json
+
+{
+    "CardNumber": "4111111111111111",
+    "Cvv": "123"
+}
+```
+
+**Example response** (shape may vary slightly by VGS route configuration; tokens below are illustrative):
+
+```json
+{
+  "data": "{\"CardNumber\": \"41111111\"}",
+  "json": {
+    "CardNumber": "tok_sandbox_9PNgfqqpdpyQpnD1jYkdw1_1111",
+    "Cvv": "tok_sandbox_cE5jCyTLtr2cC666to2ie2"
+  }
+}
+```
+
+Use the values under **`json`** (e.g. `tok_sandbox_…`) as **`number`** / **`securityCode`** (or equivalent fields) when calling Partner funding or card endpoints—**never** send live PAN/CVV to RaaS from untrusted clients.
+
+<Warning>
+Do not commit real card data, production vault IDs, or proxy credentials. The PAN/CVV in the request example are **test-only** patterns for sandbox documentation.
+</Warning>
 
 ## UBN and bank-style test data
 
@@ -50,14 +85,264 @@ For `POST /user/funding/source/ubn-account/add/{userToken}` (and related flows),
 
 ## Phones, users, and contacts
 
-- Use **E.164** phone numbers with the correct `countryCode` for `getUserTokenV2` and registration flows.
-- Prefer **synthetic** identities (e.g. `+52…`, `+1…` patterns) that your sandbox tenant is configured to accept.
+- Use **E.164** phone numbers with the correct `dial country code` for `getUserTokenV2` and registration flows.
 - For **duplicate contact** tests, reuse the same `phone` under the same `userToken` and expect a **400**-class error with a clear `reason` / `code` (see OpenAPI for `createContact`).
 
-## CIP / KYC and session links
+## `getUserTokenV2` — scenario matrix
 
-- Sandbox tenants may auto-promote certain CIP levels or require widget-based flows.
-- Session link endpoints (`sessionlink-v2`, `sessionlink-v4`, etc.) often return a **`link`** URL; open it in a browser or headless flow as documented for your product.
+Use **`POST /auth/get-user-token-v2`** with a valid **`api_key`** so the request reaches this handler. Body: `GetUserTokenParams` (`phoneNumber` and/or `email`, optional `countryCode`). The table lists **handler** outcomes (`successResponse`, `badRequestResponse`, `notFoundResponse`, `errorResponse`) **and** the **401** case now declared in OpenAPI via `@Response<ErrorResponse>(401, "Missing or invalid API key")` (enforcement may still occur at the gateway before TSOA).
+
+Ready-to-run examples for these rows live in **`clients/clientv5/partner-ask-v1.http`** — search for `getUserToken-v2 —`.
+
+| HTTP | Scenario | How to reproduce | Typical JSON (`reason` / `code`) |
+|------|-----------|------------------|-----------------------------------|
+| **200** | Known user by phone or email | E.164 `phoneNumber` (with `+`) or `email` that already exists for the tenant; align `countryCode` with the number when you send it. | `{ "userId": "…", "status": "…" }` (optional fields depend on tenant / CIP). |
+| **401** | Missing / bad API key | Omit `api_key` or send an invalid/expired partner key. | OpenAPI example: `Missing or invalid API key`; live stacks may return a gateway-specific body. |
+| **400** | Tenant could not be loaded | First `tenantService.getById` returns no tenant for the resolved `request.tenant.id` (environment-specific). | `ERROR_INVALID_TENANT` |
+| **400** | Missing alias | Empty JSON `{}` or omit both `phoneNumber` and `email`. | `ERROR_INVALID_SCHEMA` |
+| **400** | Invalid email shape | String that fails the server-side email check, e.g. `"no-es-un-email"`, or an email containing a null byte. | `ERROR_INVALID_EMAIL_FORMAT` |
+| **400** | Phone not E.164 | `phoneNumber` without a leading `+` (e.g. national digits only). | `INVALID_PHONE_NUMBER` |
+| **400** | Country mismatch | Valid E.164 for one country with `countryCode` that does not match **platform phone validation** (e.g. MX mobile with `countryCode` forced to `US`). | `ERROR_COUNTRY_NOT_SUPPORTED` |
+| **404** | User not found | `email` or `phoneNumber` that is syntactically valid but **not registered** in that environment / tenant. | `ERROR_USER_NOT_FOUND` |
+| **500** | Internal / downstream failure | Not reliably simulated from a static HTTP file; may appear on datastore, CIP, tenant, TPE, or any unexpected exception after **`NumiBadRequestError`** is ruled out. | Handler returns the **generic** internal error (`ERROR_INTERNAL_SERVER_ERROR`); retry with backoff and support correlation if provided. |
+
+<Tip>
+For **`ERROR_COUNTRY_NOT_SUPPORTED`**, use a **real sandbox mobile** your TPE accepts, then deliberately pass the wrong `countryCode`. If validation is stubbed in a local dev stack, this row may not fire until you hit a CV-like environment.
+</Tip>
+
+<Note>
+Responses often include both **`reason`** (human-readable) and **`code`** (machine-readable). Treat **400** as “fix the request or tenant context”; **404** as “user does not exist — register or fix the alias”; **500** as “retry later / escalate with timestamps.” For **`getUserTokenV2`**, **500** uses the **same generic** internal payload (`ERROR_INTERNAL_SERVER_ERROR`).
+</Note>
+
+<span id="register-user-v2-scenario-matrix"></span>
+
+## `registerUserV2` — scenario matrix
+
+`POST /auth/register-user-v2`. Handler returns **200** with `userId` when registration is queued; **400** for tenant, country, schema, DOB, already enrolled, or phone validation (`NumiBadRequestError`); **500** for unexpected or platform errors (generic body, no raw `error.message`). **401** is documented in OpenAPI (`@Response<ErrorResponse>(401, "Missing or invalid API key")`).
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | New user accepted | Valid `RegisterUserParams`, phone/email not already registered. | `userId` + optional `status` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid partner key. | OpenAPI `401` description; body may be gateway-shaped. |
+| **400** | Invalid tenant / country / schema / DOB / enrolled | Missing tenant, `countryCode` ≠ tenant, invalid fields, bad DOB, or existing user. | `ERROR_INVALID_*` / `ERROR_USER_ALREADY_ENROLLED` / phone validation codes |
+| **500** | Platform / unexpected | Downstream failure after validation. | `ERROR_INTERNAL_SERVER_ERROR` |
+
+<span id="list-contacts-scenario-matrix"></span>
+
+## `listContacts` — scenario matrix
+
+`GET /user/contacts/{userToken}`. Resolves the path `userToken` via user storage: **404** if there is no user; **200** with an array (possibly empty) when the user exists; **500** if contact storage throws. Use **`api_key`** with `partner` or `partner_send` scope (**401**/**403** come from the gateway when the key is missing, invalid, or out of scope).
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | List OK | Valid `userToken` for an existing user. | Array of contacts (may be empty) |
+| **404** | Unknown user | Random path segment or deleted user id (not found in user store). | `ERROR_USER_NOT_FOUND` |
+| **401** | No / bad API key | Omit `api_key` or use a wrong key. | Environment-specific |
+| **403** | Scope | Key without `partner` / `partner_send`. | Environment-specific |
+| **500** | Storage error | Rare failure from contact store. | `ERROR_INTERNAL_SERVER_ERROR` |
+
+<span id="create-contact-scenario-matrix"></span>
+
+## `createContact` — scenario matrix
+
+`POST /user/contacts/{userToken}`. **404** when `userToken` does not resolve to a user; **400** for missing names, bad phone, missing country, duplicates; **500** sanitized on unknown errors (`NumiBadRequestError` / `NumiError` mapped in catch). **401** is documented in OpenAPI (same `@Response<ErrorResponse>(401, …)` pattern as `listContacts`). **422** TSOA `ValidateError` is no longer declared on this route; structural validation errors surface as **400** / **500** per handler.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Contact stored | Valid body + normalized phone. | `{ "reason": "Contact created", "code": "OK" }` |
+| **404** | Unknown path user | `userToken` not in user store. | `ERROR_USER_NOT_FOUND` |
+| **401** | Missing / bad API key | Omit `api_key` or wrong key / scope. | OpenAPI `401`; body may be gateway-specific. |
+| **400** | Validation / business | Missing `firstName`/`lastName`, bad `phone`, duplicate phone, etc. | `ERROR_*` from `ErrorCodes` |
+| **500** | Unexpected | Rare storage failures after validation. | `ERROR_INTERNAL_SERVER_ERROR` |
+
+<span id="update-contact-scenario-matrix"></span>
+
+## `updateContact` — scenario matrix
+
+`PUT /user/contacts/{userToken}`. **404** when `userToken` does not resolve to a user; **400** / **500** for payload or storage errors (sanitized). **401** documented in OpenAPI like other contact routes.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Updated | Valid token + existing contact + valid body. | `{ "reason": "Contact updated", "code": "OK" }` |
+| **404** | Unknown path user | `userToken` not in user store. | `ERROR_USER_NOT_FOUND` |
+| **401** | Missing / bad API key | Omit `api_key` or wrong key / scope. | OpenAPI `401`. |
+| **400** | Invalid payload | Body fails validation rules returned by the handler. | `ERROR_*` |
+| **500** | Unexpected | Contact missing or storage error. | `ERROR_INTERNAL_SERVER_ERROR` |
+
+<span id="get-available-payment-methods-scenario-matrix"></span>
+
+## `getAvailablePaymentMethods` — scenario matrix
+
+`GET /user/corridors/available-receiver-methodtypes/{userToken}` (`getAvailableReceiverMethodTypes` in code). Returns method type strings for corridors.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Types resolved | Valid user and tenant; corridors configured. | `["DebitCard", ...]` |
+| **404** | Unknown path user | `userToken` not found in user store. | `ERROR_USER_NOT_FOUND` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid key for `partner` / `partner_send` / `partner_full`. | OpenAPI `401` via `@Response<ErrorResponse>`. |
+| **500** | Resolution failure | Tenant/corridor errors or unexpected exception after user resolved. | Generic internal `reason` |
+
+<span id="get-receiving-methods-scenario-matrix"></span>
+
+## `getReceivingMethods` — scenario matrix
+
+`GET /user/funding/source/get-receiving-methods/{userToken}`. **400** invalid tenant; **200** SOF list; **500** downstream / `NumiError`.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | SOF list | Valid tenant + user + query countries. | `SourceOfFunding[]` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid `partner` key. | OpenAPI `401` via `@Response<ErrorResponse>`. |
+| **400** | Invalid tenant | Request without resolvable tenant / missing tenant row. | `ERROR_INVALID_TENANT` |
+| **500** | Service error | Funding service / unexpected errors. | `ERROR_INTERNAL_SERVER_ERROR` or `NumiError` payload |
+
+<span id="create-funding-card-scenario-matrix"></span>
+
+## `createFundingCard` (add card) — scenario matrix
+
+`POST /user/funding/source/card/add/{userToken}` (`OperationId`: `createFundingCard`). **400** card/issuer validation; **200** existing or new PM; **500** unexpected.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Card added or duplicate returned | Valid sandbox token + valid card payload (or duplicate number). | `RaaSPaymentMethod` |
+| **401** | Missing / bad API key | Omit `api_key` or key without `partner_send` / `partner`. | OpenAPI `401` via `@Response<ErrorResponse>`. |
+| **400** | Declined / invalid | Bad expiry, BIN, processor decline, user not found. | Parsed card error object |
+| **500** | Unexpected | Non-`NumiBadRequestError` failures. | `ERROR_INTERNAL_SERVER_ERROR` |
+
+<span id="add-ubn-account-scenario-matrix"></span>
+
+## `addUBNAccount` — scenario matrix
+
+`POST /user/funding/source/ubn-account/add/{userToken}`. **403** user/tenant; **400** UBN validation / duplicate; **500** platform failure.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | UBN added | Valid user, subscriber, sandbox UBN. | `AddPaymentMethodResponse` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid multi-scope key. | OpenAPI `401` via `@Response<ErrorResponse>`. |
+| **400** | Invalid UBN / duplicate | Bad account algorithm or `PAYMENTMETHOD_ALREADY_EXISTS`. | `UBN_VALIDATION_ERROR` / `UBN_ALREADY_ADDED` |
+| **403** | User/tenant | Unknown `userToken` or tenant mismatch paths. | `USER_NOT_FOUND` / `INVALID_TENANT` (as returned by handler) |
+| **500** | Platform | `NumiError` / unknown errors. | `ERROR_INTERNAL_SERVER_ERROR` or mapped `NumiError` |
+
+<span id="get-payment-method-v2-scenario-matrix"></span>
+
+## `getPaymentMethodV2` — scenario matrix
+
+`GET /user/funding/source/get-payment-method-v2/{userToken}?id=...`. **200** when the payment method exists for the subscriber; **404** when there is no subscriber or the `id` is not in the user’s methods; **400** for other `NumiBadRequestError` paths from downstream; **500** for `NumiError` or unexpected failures.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | PM found | Valid `userToken`, subscriber, existing `id`. | `RaaSPartnerPaymentMethod` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401` via `@Response<ErrorResponse>`. |
+| **400** | Bad request | Other `NumiBadRequestError` from funding/connectors (not PM-not-found). | `reason` + `code` |
+| **404** | Unknown path user | `userToken` not in user store. | `ERROR_USER_NOT_FOUND` |
+| **404** | Subscriber missing | User path resolves but has no subscriber row. | `ERROR_SUBSCRIBER_NOT_FOUND` |
+| **404** | PM not in wallet | Valid user + random/non-owned `id` (e.g. new UUID). | `ERROR_PAYMENT_METHOD_NOT_FOUND` |
+| **500** | Internal | `NumiError` or unexpected exception. | `ERROR_INTERNAL_SERVER_ERROR` or mapped `NumiError` |
+
+<span id="request-money-v2-scenario-matrix"></span>
+
+## `requestMoneyV2` — scenario matrix
+
+`POST /user/operations/request-money-v2/{userToken}`. **404** when path `userToken` does not resolve; **400** for corridor / contact / PM validation; **500** uses mapped `NumiError` or generic internal (no raw exception text). **401** in OpenAPI for missing/invalid API key.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Request created | Valid payload + corridor + destination PM. | `OperationResponsePartner` |
+| **401** | Missing / bad API key | Omit `api_key` or key without `partner` / `partner_full`. | OpenAPI `401`. |
+| **404** | Unknown path user | `userToken` not in user store. | `ERROR_USER_NOT_FOUND` |
+| **400** | Validation | Unsupported destination, PM, or corridor rules. | `ERROR_*` / handler `reason`+`code` |
+| **500** | Unexpected | `NumiError` or unknown after bad-request handling. | `ERROR_INTERNAL_SERVER_ERROR` or `errorCode` |
+
+<span id="operation-quote-v2-scenario-matrix"></span>
+
+## `operationQuoteV2` — scenario matrix
+
+`POST /user/operations/operation-quote-v2/{userToken}`. **400** invalid quotation fields; **500** tenant/user/rate failures; **401** documented in OpenAPI.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Quote OK | Valid recipient id, amounts, PM ids. | `RaasQuoteTransactionResponse` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid `partner_send` / `partner_full` key. | OpenAPI `401`. |
+| **400** | Invalid payload | Empty recipient, zero amount, empty currency. | `ERROR_INVALID_QUOTATION_REQUEST_DATA` |
+| **500** | Internal | Downstream / unexpected. | `INTERNAL_SERVER_ERROR` or mapped codes |
+
+<span id="get-operation-status-scenario-matrix"></span>
+
+## `getOperationStatus` — scenario matrix
+
+`GET /user/operations/status/{userToken}/{operationId}`. **404** unknown user; **400** `NumiBadRequestError`; **500** otherwise; **401** in OpenAPI.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Status | Resolved user + valid operation id. | Status string |
+| **401** | Missing / bad API key | Omit `api_key` or invalid `partner` / `partner_send`. | OpenAPI `401`. |
+| **404** | Unknown path user | `userToken` not resolved. | `ERROR_USER_NOT_FOUND` |
+| **400** | Bad request | Operation service `NumiBadRequestError`. | `ErrorResponse` |
+| **500** | Internal | Unexpected / `NumiError`. | Generic or `errorCode` |
+
+<span id="get-operation-quote-scenario-matrix"></span>
+
+## `getOperationQuote` — scenario matrix
+
+`POST /user/operations/quotation/{userToken}`. Same auth pattern as other operations routes; **401** in OpenAPI.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Quote | Valid user + `QuoteTransactionBase`. | `RaasQuoteTransactionResponse` |
+| **401** | Missing / bad API key | Omit `api_key`. | OpenAPI `401`. |
+| **404** | Unknown path user | `userToken` not in user store. | `ERROR_USER_NOT_FOUND` |
+| **400** | Bad input | Quote validation failures. | Mapped `ErrorCodes` |
+| **500** | Internal | Missing tenant, invalid quotation data path, etc. | `ERROR_INTERNAL_SERVER_ERROR` or specific code |
+
+<span id="pre-quote-scenario-matrix"></span>
+
+## `preQuote` — scenario matrix
+
+`POST /user/operations/pre-quote/{userToken}`. **500** on market/integration errors; **401** in OpenAPI.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Pre-quote | Valid tenant + `PartnerPreQuoteRequest`. | `RaasPreQuoteResponse` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid key. | OpenAPI `401`. |
+| **500** | Internal | `NumiError` or unexpected. | `ERROR_INTERNAL_SERVER_ERROR` or mapped |
+
+<span id="get-operation-scenario-matrix"></span>
+
+## `getOperation` (operation detail) — scenario matrix
+
+`GET /user/operations/detail/{id}`. **500** when operation missing or tenant mismatch (`OPERATION_NOT_FOUND`); **401** in OpenAPI.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Detail | Operation exists for partner tenant. | `OperationDetailResponse` |
+| **401** | Missing / bad API key | Omit `api_key` or invalid multi-scope key. | OpenAPI `401`. |
+| **500** | Not found / error | Wrong id or tenant mismatch. | `ERROR_OPERATION_NOT_FOUND` or internal |
+
+<span id="get-operations-scenario-matrix"></span>
+
+## `getOperations` — scenario matrix
+
+`GET /user/operations/{userToken}`. **400** when user tenant ≠ request tenant; **401** in OpenAPI.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | History | Valid user for tenant. | `OperationDetail[]` |
+| **401** | Missing / bad API key | Omit `api_key`. | OpenAPI `401`. |
+| **400** | Tenant mismatch | `userToken` belongs to another tenant. | `ErrorResponse` |
+| **500** | Internal | Datastore errors. | `ERROR_INTERNAL_SERVER_ERROR` |
+
+<span id="get-frequent-contacts-scenario-matrix"></span>
+
+## `getFrequentContacts` — scenario matrix
+
+`GET /user/operations/frequent/{userToken}/{limit}`. Returns the top **`limit`** contacts derived from recent operations for **`userToken`**. OpenAPI merges per-status scenario tables from **`openapi-examples.json`** (`_mintlifyResponseDescriptions` → `getFrequentContacts`); keep this section and that JSON **in sync**.
+
+| HTTP | Scenario | How to reproduce (minimal) | Expected `code` / body |
+|------|-----------|---------------------------|-------------------------|
+| **200** | Frequent list | Valid `userToken` + positive numeric `limit` within supported bounds. | `ContactInfo[]` (may be empty). |
+| **401** | Missing / bad API key | Omit `api_key` or use a key without `partner` / `partner_send` / `partner_full` as required by `@Security`. | OpenAPI `401` (`@Response<ErrorResponse>(401, "Missing or invalid API key")`). |
+| **400** | Bad input / `NumiBadRequestError` | Invalid `limit` (non-numeric, ≤ 0), or service rejects the request with `NumiBadRequestError`. | `ErrorResponse` with mapped `reason` / `code`. |
+| **500** | Indexed query / internal | Downstream failure from `getLastOperationsContact` or unexpected exception after validation. | `ERROR_INTERNAL_SERVER_ERROR` (sanitized body; no raw stack or `error.message`). |
+
 
 ## Webhooks and async events
 
@@ -65,10 +350,11 @@ For `POST /user/funding/source/ubn-account/add/{userToken}` (and related flows),
 - Verify **signature / shared secret** handling if your integration consumes outbound events.
 - Use a unique **`correlationId`** on money operations so support can correlate logs across systems.
 
-## Idempotency and retries
+## Correlation IDs for money operations
 
-- Treat **POST** money and funding operations as **non-idempotent** unless you have an explicit idempotency contract.
-- On **500** or network errors, use **exponential backoff**; on **400**, fix the payload before retrying.
+- **`requestMoney`** requests **must** include a **`correlationId`**. That same value is **carried into the related funding operation**, so request money and its funding step share one correlation boundary for tracing and support.
+- A **standalone or spontaneous send money** (not tied to that request-money → funding chain) **must** use its **own** **`correlationId`**.
+- Treat **`correlationId`** as **unique per distinct money operation**. The **only** exception is the linked case above: funding reuses the **`correlationId`** you sent with **`requestMoney`**.
 
 ## Related pages
 
