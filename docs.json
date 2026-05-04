@@ -52,8 +52,7 @@
               {
                 "group": "Overview",
                 "pages": [
-                  "raas/api-reference/introduction",
-                  "raas/api-reference/partner-webhooks"
+                  "raas/api-reference/introduction"
                 ]
               },
               {
