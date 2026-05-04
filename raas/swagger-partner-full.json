@@ -10200,6 +10200,10 @@
               "Sender",
               "Recipient"
             ]
+          },
+          "totalFee": {
+            "type": "number",
+            "format": "double"
           }
         },
         "required": [
@@ -10221,7 +10225,8 @@
           "reason",
           "validTimeInMinutes",
           "operationType",
-          "reasonDetail"
+          "reasonDetail",
+          "totalFee"
         ],
         "type": "object",
         "additionalProperties": false
