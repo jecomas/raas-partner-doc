@@ -5,6 +5,8 @@ description: "Call the Partner API with your api_key and obtain a userToken in a
 
 You need a sandbox **api_key** and the **base URL** for your tenant. If you do not have them yet, ask your Leap integration contact.
 
+If your tenant uses **Request4R**, JSON payloads can be exchanged as **JWE** under `/v1/partners/request4r` — see [Request4R](/raas/guides/request4r-jwe).
+
 <Steps>
   <Step title="Send api_key on every request">
     Add header `api_key: <your_key>`. Keep this value on your server only.

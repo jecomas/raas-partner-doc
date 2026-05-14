@@ -41,7 +41,8 @@
               {
                 "group": "Guides",
                 "pages": [
-                  "raas/guides/testing-sandbox"
+                  "raas/guides/testing-sandbox",
+                  "raas/guides/request4r-jwe"
                 ]
               }
             ]
@@ -52,7 +53,8 @@
               {
                 "group": "Overview",
                 "pages": [
-                  "raas/api-reference/introduction"
+                  "raas/api-reference/introduction",
+                  "raas/api-reference/partner-webhooks"
                 ]
               },
               {

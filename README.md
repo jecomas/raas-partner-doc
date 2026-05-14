@@ -4,10 +4,23 @@ This directory follows the **leap-documenter** conventions: product content unde
 
 ## Local preview
 
-From this folder:
+The Mintlify CLI **does not support Node.js 25+**. From the **repository root** (`raas/`):
 
 ```bash
-npx mintlify dev
+yarn docs:dev
+```
+
+This runs [`run-mint-dev.sh`](run-mint-dev.sh), which picks **Homebrew** `node@22` / `node@20` if installed (`brew install node@22`), else a compatible default `node`, else **Docker** (`node:22-bookworm`).
+
+From **this folder**, same script:
+
+```bash
+bash run-mint-dev.sh
+```
+
+Optional: `PORT=4000 yarn docs:dev` to change the preview port.
+
+```bash
 npx mintlify broken-links
 ```
 

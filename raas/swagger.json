@@ -63,15 +63,15 @@
 				"type": "object"
 			},
 			"GetUserTokenParams": {
-				"description": "Resolve an existing user by **phone** or **email** for partner “get user token” style calls.",
+				"description": "Resolve an existing user by **phone** or **email** for partner “get user token” style calls.\n\nIf both `email` and `phoneNumber` fields are sent in the same request, `email` takes precedence and `phoneNumber` will be ignored.",
 				"properties": {
 					"phoneNumber": {
 						"type": "string",
-						"description": "<span style=\"color:red\">required</span>.\n\nMobile phone number with country code. Must be a valid mobile phone number.\nExample: `+5215521206703` for MX."
+						"description": "<span style=\"color:red\">required</span> if `email` is not provided.\n\nMobile phone number with country code. Must be a valid mobile phone number.\nExample: `+5215521206703` for MX."
 					},
 					"email": {
 						"type": "string",
-						"description": "Email address."
+						"description": "<span style=\"color:red\">required</span> if `phoneNumber` is not provided.\n\nEmail address."
 					},
 					"countryCode": {
 						"type": "string",
@@ -89,7 +89,7 @@
 				"type": "string"
 			},
 			"RegisterUserParams": {
-				"description": "Core body for partner user registration (`register-user-v2` and related). At least one of `phoneNumber` or `email` is typically required by the route.",
+				"description": "Core body for partner user registration (`register-user-v2` and related). At least one of `phoneNumber` or `email` is typically required by the route.\nReused as `requester` on POST `/request-money-full` (see `RequestMoneyFullParams` in `model/operation`).",
 				"properties": {
 					"phoneNumber": {
 						"type": "string",
@@ -101,7 +101,7 @@
 					},
 					"lastName2": {
 						"type": "string",
-						"description": "Optional second last name when used (e.g. maternal surname).\nExample: `Gómez`."
+						"description": "Optional second last name when used (e.g. maternal surname).\nExample: `Gómez`.\n\n**Strongly recommended** to avoid OFAC matches."
 					},
 					"gender": {
 						"type": "string",
@@ -116,11 +116,11 @@
 					"dob": {
 						"type": "string",
 						"format": "date-time",
-						"description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nDOB must be a real calendar date and the person must be at least 18 and under 100 years old."
+						"description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old.\n\n**Strongly recommended** to avoid OFAC matches."
 					},
 					"email": {
 						"type": "string",
-						"description": "Email address.\nIt doesn't allow duplicates."
+						"description": "Email address.\nIt doesn't allow duplicates.\n\n**Strongly recommended**."
 					},
 					"firstName": {
 						"type": "string",
@@ -128,11 +128,11 @@
 					},
 					"middleName": {
 						"type": "string",
-						"description": "Middle name when collected. Example: `María`."
+						"description": "Middle name when collected. Example: `María`. \nStrongly recommended to avoid OFAC matches."
 					},
 					"address1": {
 						"type": "string",
-						"description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`."
+						"description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`.\n\n**Strongly recommended** to avoid OFAC matches."
 					},
 					"address2": {
 						"type": "string"
@@ -167,7 +167,7 @@
 					},
 					"placeDetail": {
 						"type": "string",
-						"description": "Place detail from address if available.\nFrom google maps place details."
+						"description": "Place detail from address if available.\n**Must be a valid place detail json from google maps**."
 					},
 					"latitude": {
 						"type": "number",
@@ -240,6 +240,10 @@
 					"country": {
 						"type": "string",
 						"description": "Country\nISO 3166-1 alpha-2 format"
+					},
+					"bankName": {
+						"type": "string",
+						"description": "Bank name"
 					}
 				},
 				"required": [
@@ -323,7 +327,7 @@
 				"additionalProperties": false
 			},
 			"SessionLinkParams": {
-				"description": "Extends {@link RegisterUserParams} for **session-link** flows that may collect a payment method type\nand optional UBN or card payloads in the same request.",
+				"description": "Extends `RegisterUserParams` for **session-link** flows that may collect a payment method type\nand optional UBN or card payloads in the same request.",
 				"properties": {
 					"phoneNumber": {
 						"type": "string",
@@ -335,7 +339,7 @@
 					},
 					"lastName2": {
 						"type": "string",
-						"description": "Optional second last name when used (e.g. maternal surname).\nExample: `Gómez`."
+						"description": "Optional second last name when used (e.g. maternal surname).\nExample: `Gómez`.\n\n**Strongly recommended** to avoid OFAC matches."
 					},
 					"gender": {
 						"type": "string",
@@ -350,11 +354,11 @@
 					"dob": {
 						"type": "string",
 						"format": "date-time",
-						"description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nDOB must be a real calendar date and the person must be at least 18 and under 100 years old."
+						"description": "Date of birth in ISO 8601 format (`YYYY-MM-DD` or full date-time).\nOptional; when set it must be a real calendar date and the person must be at least 18 and under 100 years old.\n\n**Strongly recommended** to avoid OFAC matches."
 					},
 					"email": {
 						"type": "string",
-						"description": "Email address.\nIt doesn't allow duplicates."
+						"description": "Email address.\nIt doesn't allow duplicates.\n\n**Strongly recommended**."
 					},
 					"firstName": {
 						"type": "string",
@@ -362,11 +366,11 @@
 					},
 					"middleName": {
 						"type": "string",
-						"description": "Middle name when collected. Example: `María`."
+						"description": "Middle name when collected. Example: `María`. \nStrongly recommended to avoid OFAC matches."
 					},
 					"address1": {
 						"type": "string",
-						"description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`."
+						"description": "User legal address, Street and number.\nExample: `Blvd. Kukulcan Km. 4.5`.\n\n**Strongly recommended** to avoid OFAC matches."
 					},
 					"address2": {
 						"type": "string"
@@ -401,7 +405,7 @@
 					},
 					"placeDetail": {
 						"type": "string",
-						"description": "Place detail from address if available.\nFrom google maps place details."
+						"description": "Place detail from address if available.\n**Must be a valid place detail json from google maps**."
 					},
 					"latitude": {
 						"type": "number",
@@ -1091,7 +1095,7 @@
 				"additionalProperties": false
 			},
 			"GetSessionTokenParams": {
-				"description": "Request body to mint a **session token** from phone or email (partner auth).",
+				"description": "Request body to mint a **session token** from phone or email (partner auth).\n\nIf both `email` and `phoneNumber` fields are sent in the same request, `email` takes precedence and `phoneNumber` will be ignored.",
 				"properties": {
 					"phoneNumber": {
 						"type": "string",
@@ -1376,6 +1380,60 @@
 				"type": "object",
 				"description": "**CIP level two** supplemental data (device location, SSN where legally allowed) for partner `cipController`."
 			},
+			"userIdentityDataMap": {
+				"properties": {},
+				"additionalProperties": {},
+				"type": "object"
+			},
+			"UserDocument": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"None",
+							"Id",
+							"ProofOfResidence",
+							"ProofOfIncome",
+							"ProofOfLife",
+							"ProofOfAddress"
+						]
+					},
+					"subType": {
+						"type": "number",
+						"format": "double"
+					},
+					"number": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"issuedCountry": {
+						"type": "string"
+					},
+					"issuedDate": {
+						"type": "string"
+					},
+					"userIdentityData": {
+						"$ref": "#/components/schemas/userIdentityDataMap"
+					},
+					"dateTime": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"subType",
+					"number"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AlternateFlow": {
 				"type": "string",
 				"enum": [
@@ -1558,6 +1616,14 @@
 					},
 					"accountId": {
 						"type": "string"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
 					}
 				},
 				"required": [
@@ -2371,7 +2437,7 @@
 					},
 					"status": {
 						"type": "string",
-						"description": "Lifecycle / validation status string for the method.\n\nValues align with {@link PaymentMethodStatus} (e.g. `Created`, `Validated`, `Blocked`)."
+						"description": "Lifecycle / validation status string for the method.\n\nValues align with `PaymentMethodStatus` (e.g. `Created`, `Validated`, `Blocked`)."
 					},
 					"allowPullCrossBorder": {
 						"type": "boolean",
@@ -2699,6 +2765,9 @@
 					},
 					"imageCircleUrl": {
 						"type": "string"
+					},
+					"countryCode": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -2953,7 +3022,6 @@
 					}
 				},
 				"required": [
-					"country",
 					"type"
 				],
 				"type": "object",
@@ -3324,7 +3392,7 @@
 				"additionalProperties": false
 			},
 			"RaasBillingAddress": {
-				"description": "Billing address lines and geo hints for {@link UpdateAndValidateBillingAddress}.",
+				"description": "Billing address lines and geo hints for `UpdateAndValidateBillingAddress`.",
 				"properties": {
 					"address1": {
 						"type": "string",
@@ -3666,6 +3734,14 @@
 						"type": "string",
 						"description": "Operation status\n\nExample: `Sent`, `Funding`, `Funded`, `Accepted`, `Rejected`, `ReadyForPickup`, `Completed`, `Failed`, `OnHold`, `InTransit`, `Cancelled`."
 					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"platId": {
 						"type": "string",
 						"description": "Internal Platform UUID"
@@ -3673,14 +3749,6 @@
 					"type": {
 						"type": "string",
 						"description": "Operation type\n\nExample: `SendFunds`, `RequestFunds`, `WalletLoad`, `WalletTransferOut`, `TopUp`, `RequestTopUp`, `SendFundsVirtualAgent`, `RequestFundsVirtualAgent`, `StorePayment`."
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
 					},
 					"amount": {
 						"type": "number",
@@ -3819,8 +3887,8 @@
 				"required": [
 					"id",
 					"status",
-					"type",
 					"createdAt",
+					"type",
 					"amount",
 					"code"
 				],
@@ -4095,7 +4163,7 @@
 						"properties": {
 							"requestTo": {
 								"type": "string",
-								"description": "Beneficiary phone or alias string when not using {@link RequestMoneyPartnerParams}."
+								"description": "Beneficiary phone or alias string when not using `RequestMoneyPartnerParams`."
 							}
 						},
 						"type": "object"
@@ -4298,6 +4366,572 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"RequestMoneyFullResponse": {
+				"description": "Immediate HTTP 200 payload after the job is enqueued (not final operation state).\nFinal async outcome is delivered only via `RequestMoneyFullOutcomePayload` webhook when configured.",
+				"properties": {
+					"userId": {
+						"type": "string",
+						"description": "Trusted user id created or resolved during the call."
+					},
+					"operationId": {
+						"type": "string",
+						"description": "Same value as `request.correlationId`."
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"Accepted"
+						],
+						"nullable": false,
+						"description": "Always `\"Accepted\"` here meaning “accepted for processing”, not platform operation completed."
+					},
+					"link": {
+						"type": "string",
+						"description": "Tenant attribution / tracking URL for this correlation id."
+					}
+				},
+				"required": [
+					"userId",
+					"operationId",
+					"status",
+					"link"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestToParams": {
+				"description": "Beneficiary (“request to”) embedded in `RequestMoneyFullParams.request`.\nWorker normalizes `phoneNumber` and registers the contact for the trusted requester.",
+				"properties": {
+					"phoneNumber": {
+						"type": "string",
+						"description": "E.164 or national form accepted by `libphonenumber-js`; must match tenant dial code rules in the controller."
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"countryCode": {
+						"type": "string",
+						"description": "ISO 3166-1 alpha-2 for the beneficiary; used for attribution link and contact metadata."
+					}
+				},
+				"required": [
+					"phoneNumber",
+					"firstName",
+					"lastName",
+					"countryCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethodDebitCard": {
+				"description": "Card payment method (request-money-full, add card, etc.). Required fields enforced at compile time.",
+				"properties": {
+					"currency": {
+						"type": "string",
+						"description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+					},
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						],
+						"description": "Bank account type\n\nExample: `CheckingAccount`, `SavingsAccount`, `OtherAccount`."
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						],
+						"description": "Credit/Debit card type\n\nExample: `DebitCard`, `CreditCard`."
+					},
+					"number": {
+						"type": "string",
+						"description": "Credit/Debit/UBN/VNA/CLABE number\n\nExample: `1234567890`."
+					},
+					"accountNumber": {
+						"type": "string",
+						"description": "\nAccount number of the payment method. Example `1234567890`."
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"bankName": {
+						"type": "string",
+						"description": "Name of the bank. Example `BCP`."
+					},
+					"isPrimary": {
+						"type": "boolean",
+						"description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
+					},
+					"name": {
+						"type": "string",
+						"description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
+					},
+					"id": {
+						"type": "string",
+						"description": "Payment method ID"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"DebitCard"
+						],
+						"nullable": false
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					},
+					"cardType": {
+						"type": "string",
+						"enum": [
+							"DebitCard"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"type",
+					"number",
+					"nameOnCard",
+					"expirationDate",
+					"country",
+					"currency"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethodCreditCard": {
+				"description": "Credit card payment method. Required fields enforced at compile time.",
+				"properties": {
+					"currency": {
+						"type": "string",
+						"description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+					},
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						],
+						"description": "Bank account type\n\nExample: `CheckingAccount`, `SavingsAccount`, `OtherAccount`."
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						],
+						"description": "Credit/Debit card type\n\nExample: `DebitCard`, `CreditCard`."
+					},
+					"number": {
+						"type": "string",
+						"description": "Credit/Debit/UBN/VNA/CLABE number\n\nExample: `1234567890`."
+					},
+					"accountNumber": {
+						"type": "string",
+						"description": "\nAccount number of the payment method. Example `1234567890`."
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"bankName": {
+						"type": "string",
+						"description": "Name of the bank. Example `BCP`."
+					},
+					"isPrimary": {
+						"type": "boolean",
+						"description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
+					},
+					"name": {
+						"type": "string",
+						"description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
+					},
+					"id": {
+						"type": "string",
+						"description": "Payment method ID"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"CreditCard"
+						],
+						"nullable": false
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					},
+					"country": {
+						"type": "string"
+					},
+					"cardType": {
+						"type": "string",
+						"enum": [
+							"CreditCard"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"type",
+					"number",
+					"nameOnCard",
+					"expirationDate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethodUBN": {
+				"description": "UBN payment method. Required: number, currency, country (ISO 3166-1 alpha-2).",
+				"properties": {
+					"currency": {
+						"type": "string",
+						"description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+					},
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						],
+						"description": "Bank account type\n\nExample: `CheckingAccount`, `SavingsAccount`, `OtherAccount`."
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						],
+						"description": "Credit/Debit card type\n\nExample: `DebitCard`, `CreditCard`."
+					},
+					"number": {
+						"type": "string",
+						"description": "Credit/Debit/UBN/VNA/CLABE number\n\nExample: `1234567890`."
+					},
+					"accountNumber": {
+						"type": "string",
+						"description": "\nAccount number of the payment method. Example `1234567890`."
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"bankName": {
+						"type": "string",
+						"description": "Name of the bank. Example `BCP`."
+					},
+					"isPrimary": {
+						"type": "boolean",
+						"description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
+					},
+					"name": {
+						"type": "string",
+						"description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
+					},
+					"id": {
+						"type": "string",
+						"description": "Payment method ID"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"UBN"
+						],
+						"nullable": false
+					},
+					"country": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"number",
+					"currency",
+					"country"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPaymentMethodOtherType": {
+				"type": "string",
+				"enum": [
+					"MobileWallet",
+					"BankAccount",
+					"CashLoadLocation",
+					"AppleDigitalWallet",
+					"GoogleDigitalWallet",
+					"CLABE",
+					"VirtualNetworkAccount"
+				],
+				"description": "Other payment method types. Only type + country required; bank account not fully supported yet."
+			},
+			"RaaSPaymentMethodOther": {
+				"properties": {
+					"currency": {
+						"type": "string",
+						"description": "Currency code.\n\nISO 4217 format.\nExample: `USD` for United States Dollar, `MXN` for Mexican Peso."
+					},
+					"bankAccountType": {
+						"type": "string",
+						"enum": [
+							"CheckingAccount",
+							"SavingsAccount",
+							"OtherAccount"
+						],
+						"description": "Bank account type\n\nExample: `CheckingAccount`, `SavingsAccount`, `OtherAccount`."
+					},
+					"cardtype": {
+						"type": "string",
+						"enum": [
+							"DebitCard",
+							"CreditCard"
+						],
+						"description": "Credit/Debit card type\n\nExample: `DebitCard`, `CreditCard`."
+					},
+					"number": {
+						"type": "string",
+						"description": "Credit/Debit/UBN/VNA/CLABE number\n\nExample: `1234567890`."
+					},
+					"accountNumber": {
+						"type": "string",
+						"description": "\nAccount number of the payment method. Example `1234567890`."
+					},
+					"bankEntityNumber": {
+						"type": "string"
+					},
+					"bankName": {
+						"type": "string",
+						"description": "Name of the bank. Example `BCP`."
+					},
+					"isPrimary": {
+						"type": "boolean",
+						"description": "Is primary payment method?\n\nExample: `true` for primary payment method, `false` for secondary payment method."
+					},
+					"name": {
+						"type": "string",
+						"description": "Payment method name\n\nName of the payment method. Example `VISA-1234`."
+					},
+					"id": {
+						"type": "string",
+						"description": "Payment method ID"
+					},
+					"type": {
+						"$ref": "#/components/schemas/RaaSPaymentMethodOtherType"
+					},
+					"country": {
+						"type": "string"
+					},
+					"nameOnCard": {
+						"type": "string"
+					},
+					"expirationDate": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"country"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RaaSPartnerPaymentMethod": {
+				"anyOf": [
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodDebitCard"
+					},
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodCreditCard"
+					},
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodUBN"
+					},
+					{
+						"$ref": "#/components/schemas/RaaSPaymentMethodOther"
+					}
+				],
+				"description": "Payment method object used by API clients. Discriminated union by `type` for better DX and compile-time checks.\n- DebitCard / CreditCard: number, nameOnCard, expirationDate (MMYY), country, currency required.\n- UBN: number, currency, country required.\n- Other types: type + country required."
+			},
+			"RequestMoneyFullParams": {
+				"description": "POST `/request-money-full` body: register-or-link the **requester**, then async money request to **requestTo**\nwith **destinationPaymentMethod** (see `RaaSPartnerPaymentMethod`).\n\nController validates partner vs `requester.countryCode`, phone prefix, names, DOB, amounts/currency vs partner country, corridor (`DestinationCountry` / `DestinationPaymentMethodType` from destination PM), and idempotent `correlationId`.",
+				"properties": {
+					"requester": {
+						"$ref": "#/components/schemas/RegisterUserParams",
+						"description": "End-user profile and address. Same shape as partner registration; becomes the trusted sender after `ensureTrustedUser`.\nField-level docs: `RegisterUserParams` (`model/partner/auth`)."
+					},
+					"request": {
+						"properties": {
+							"recipientCurrency": {
+								"type": "string",
+								"description": "Must match tenant default currency and `destinationPaymentMethod.currency` in controller validation."
+							},
+							"recipientAmount": {
+								"type": "number",
+								"format": "double"
+							},
+							"reason": {
+								"type": "string",
+								"description": "Optional reason for the request"
+							},
+							"destinationPaymentMethod": {
+								"$ref": "#/components/schemas/RaaSPartnerPaymentMethod",
+								"description": "Destination rail (card, UBN, etc.); discriminated by `type`."
+							},
+							"correlationId": {
+								"type": "string",
+								"description": "Partner-supplied idempotency key; must be unused and is returned as `operationId` on success."
+							},
+							"requestTo": {
+								"$ref": "#/components/schemas/RequestToParams"
+							}
+						},
+						"required": [
+							"recipientCurrency",
+							"recipientAmount",
+							"destinationPaymentMethod",
+							"correlationId",
+							"requestTo"
+						],
+						"type": "object",
+						"description": "Correlation id, beneficiary, amounts, optional reason, and payout method. Processed asynchronously after HTTP 200."
+					}
+				},
+				"required": [
+					"requester",
+					"request"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestMoneyFullErrorCode": {
+				"description": "Códigos de error posibles en respuestas 4xx/5xx de POST /request-money-full\ny en el webhook request_money_full_outcome (campo errorCode).\nIncluido en OpenAPI para que los clientes generen tipos/enums.",
+				"enum": [
+					"ERROR_TENANT_NOT_FOUND",
+					"ERROR_CIP_NOT_FOUND",
+					"ERROR_CIP_NOT_COMPLETED",
+					"ERROR_MUST_PERFORM_LEVEL_ONE_FIRST",
+					"ERROR_SUBSCRIBER_NOT_FOUND",
+					"CARD_VERIFICATION_ERROR",
+					"ERROR_CARD_VERIFICATION",
+					"ERROR_PAYMENT_METHOD_NOT_FOUND",
+					"ERROR_ERROR_ADD_SOURCE_UBN_ERROR",
+					"ERROR_CONTACT_NOT_FOUND",
+					"ERROR_COUNTRY_NOT_SUPPORTED",
+					"ERROR_INVALID_COUNTRY_CODE",
+					"ERROR_PHONE_NUMBER_NOT_SUPPORTED",
+					"ERROR_INVALID_OPERATION",
+					"ERROR_OPERATION_NOT_FOUND",
+					"ERROR_OPERATION_ALREADY_COMPLETED",
+					"ERROR_INTERNAL_SERVER_ERROR",
+					"ERROR_REQUEST_MONEY_FULL",
+					"ERROR_INVALID_PARTNER_TOKEN",
+					"ERROR_INVALID_AMOUNT_ERROR",
+					"ERROR_INVALID_CURRENCY_CODE",
+					"ERROR_CORRELATION_ID_REQUIRED",
+					"ERROR_CORRELATION_ID_ALREADY_USED",
+					"ERROR_DESTINATION_COUNTRY_NOT_SUPPORTED",
+					"INVALID_PHONE_NUMBER",
+					"INVALID_NAME",
+					"ERROR_UBN_NUMBER_REQUIRED",
+					"ERROR_INVALID_DATE_OF_BIRTH"
+				],
+				"type": "string"
+			},
+			"RequestMoneyFullErrorResponse": {
+				"description": "Respuesta de error 4xx/5xx de POST /request-money-full. OpenAPI expone el enum en code.",
+				"properties": {
+					"reason": {
+						"type": "string"
+					},
+					"code": {
+						"$ref": "#/components/schemas/RequestMoneyFullErrorCode"
+					}
+				},
+				"required": [
+					"reason",
+					"code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestMoneyFullOutcomeStatus": {
+				"type": "string",
+				"enum": [
+					"Accepted",
+					"Failed"
+				],
+				"description": "Valores de `status` en el webhook `request_money_full_outcome` (alineado con OpenAPI)."
+			},
+			"RequestMoneyFullOutcomePhase": {
+				"description": "Fase del flujo donde falló request-money-full (webhook request_money_full_outcome).\nIncluido en OpenAPI para que los clientes generen tipos/enums.",
+				"enum": [
+					"cip",
+					"contact",
+					"payment_method",
+					"request_money",
+					"unknown"
+				],
+				"type": "string"
+			},
+			"RequestMoneyFullOutcomePayload": {
+				"description": "Payload enviado al webhook del tenant cuando el worker de request-money-full\ntermina (éxito o fallo). Permite a la integración reaccionar a fallos async (CIP, tarjeta, etc.).",
+				"properties": {
+					"eventType": {
+						"type": "string",
+						"enum": [
+							"request_money_full_outcome"
+						],
+						"nullable": false
+					},
+					"correlationId": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/RequestMoneyFullOutcomeStatus"
+					},
+					"date": {
+						"type": "string"
+					},
+					"errorCode": {
+						"$ref": "#/components/schemas/RequestMoneyFullErrorCode",
+						"description": "Solo cuando status === 'failed'. Código estable para la integración."
+					},
+					"reason": {
+						"type": "string",
+						"description": "Solo cuando status === 'failed'. Mensaje legible."
+					},
+					"phase": {
+						"$ref": "#/components/schemas/RequestMoneyFullOutcomePhase",
+						"description": "Fase donde falló. Solo cuando status === 'failed'."
+					}
+				},
+				"required": [
+					"eventType",
+					"correlationId",
+					"status",
+					"date"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"SendMoneyResponse": {
 				"properties": {
 					"flow": {
@@ -4332,7 +4966,6 @@
 				"type": "object"
 			},
 			"SendMoneyBase": {
-				"description": "Internal/base shape for “send money” including fees and locked quotation.",
 				"properties": {
 					"correlationId": {
 						"type": "string",
@@ -4547,7 +5180,7 @@
 					"correlationId"
 				],
 				"type": "object",
-				"description": "Partner **send funds v2** body: like {@link SendMoneyPartnerParams} but may include structured `sendTo` / destination PM."
+				"description": "Partner **send funds v2** body: like `SendMoneyPartnerParams` but may include structured `sendTo` / destination PM."
 			},
 			"ReceiveMoneyParams": {
 				"properties": {
@@ -4758,6 +5391,9 @@
 					},
 					"sendTo": {
 						"$ref": "#/components/schemas/PerformLevelOneParams"
+					},
+					"correlationId": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -4798,7 +5434,10 @@
 					"destinationPaymentMethodId": {
 						"type": "string"
 					},
-					"destinationPaymentMethod": {}
+					"destinationPaymentMethod": {},
+					"correlationId": {
+						"type": "string"
+					}
 				},
 				"required": [
 					"recipientUserId",
@@ -5337,6 +5976,14 @@
 					"totalFee": {
 						"type": "number",
 						"format": "double"
+					},
+					"lowerLimit": {
+						"type": "number",
+						"format": "double"
+					},
+					"upperLimit": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
@@ -5359,7 +6006,9 @@
 					"validTimeInMinutes",
 					"operationType",
 					"reasonDetail",
-					"totalFee"
+					"totalFee",
+					"lowerLimit",
+					"upperLimit"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -5439,6 +6088,9 @@
 						"type": "string"
 					},
 					"destinationCurrency": {
+						"type": "string"
+					},
+					"correlationId": {
 						"type": "string"
 					}
 				},
@@ -6219,7 +6871,7 @@
 			},
 			"ValidatePINCodeParamsPartner": {
 				"$ref": "#/components/schemas/Omit_ValidatePINCodeParams.deviceId_",
-				"description": "Partner validate-PIN: same as {@link ValidatePINCodeParams} without `deviceId` (not used on partner route)."
+				"description": "Partner validate-PIN: same as `ValidatePINCodeParams` without `deviceId` (not used on partner route)."
 			},
 			"SetPincodeParams": {
 				"description": "PIN lifecycle payloads for **partner** `userController` (`set-pincode`, `validate-pincode`).\nPIN values are hashed server-side; never log raw pins.",
@@ -7662,6 +8314,74 @@
 						}
 					}
 				]
+			}
+		},
+		"/cip/level/two/trusted/v3/{userId}": {
+			"post": {
+				"operationId": "setTrustedLevelTwoV3",
+				"responses": {
+					"200": {
+						"description": ""
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Performs a direct upgrade to Level 2 (trusted) using V3 token, accepting a list of identity documents.",
+				"summary": "Grant trusted level to V3 identity with documents",
+				"tags": [
+					"Partner Full",
+					"Users"
+				],
+				"security": [
+					{
+						"api_key": [
+							"partner_full"
+						]
+					}
+				],
+				"parameters": [
+					{
+						"description": "- User identifier.",
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- List of identity documents to associate with the upgrade.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"items": {
+									"$ref": "#/components/schemas/UserDocument"
+								},
+								"type": "array"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/cip/alternate/{phoneNumber}": {
@@ -10771,6 +11491,87 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/RequestMoneyPartnerParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/operations/request-money-full": {
+			"post": {
+				"operationId": "requestMoneyFull",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestMoneyFullErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"reason": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"reason"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"description": "**Request money (atomic / full)**: validates input, ensures a **trusted requester** (`UserServices.ensureTrustedUser`),\nthen enqueues the **RequestMoneyFull** queue job (worker: CIP → contact → payment method → `requestMoneyV2`).\n\n**HTTP** responds immediately with `RequestMoneyFullResponse` (`status: \"Accepted\"`, `operationId` = `correlationId`, tenant attribution `link`).\nSynchronous 4xx/5xx: tenant/country, corridor, currency alignment, correlation id uniqueness, name/DOB/phone, and basic payout-method rules.\n\n**Webhook** (`operationStatusHook` + `sharedSecret`): async outcome as `RequestMoneyFullOutcomePayload`\n(`eventType: \"request_money_full_outcome\"`; `status` `\"Accepted\"` or `\"Failed\"` with `errorCode`, `reason`, `phase`).\nHeader `x-raas-signature` = Base64(HMAC-SHA256(raw JSON body, tenant `sharedSecret`)).\n\nSee also:\n[Webhooks reference](/raas/api-reference/partner-webhooks).",
+				"summary": "Request money (atomic flow)",
+				"tags": [
+					"Partner",
+					"Operations"
+				],
+				"security": [
+					{
+						"api_key": [
+							"partner",
+							"partner_full"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"description": "`RequestMoneyFullParams` body",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RequestMoneyFullParams"
 							}
 						}
 					}

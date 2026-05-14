@@ -119,7 +119,7 @@
     },
     "getUserTokenV2": {
         "request": {
-            "phoneNumber": "+5215521206703",
+            "email": "+5215521206703",
             "countryCode": "MX"
         },
         "response": {
@@ -127,7 +127,7 @@
         },
         "responses": {
             "400": {
-                "reason": "Missing or invalid phone number in request body."
+                "reason": "Missing or invalid email/phone in request body."
             },
             "401": {
                 "reason": "Missing or invalid API key"

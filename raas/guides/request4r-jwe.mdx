@@ -1,0 +1,105 @@
+---
+title: "Request4R (JWE encrypted channel)"
+description: "Optional Partner API path that wraps JSON in JWE for end-to-end payload confidentiality beyond TLS."
+---
+
+When **Request4R** is enabled for your tenant, you can call the same Partner operations through a dedicated URL prefix. Request bodies are **compact JWE** strings instead of raw JSON; JSON responses may be returned as **JWE** with `Content-Type: application/jose`. Your **`api_key`** header is unchanged.
+
+<Info>
+  Enablement, base URLs, and key exchange are coordinated with **Leap integration**. Do not assume Request4R is active in production until your tenant is explicitly configured.
+</Info>
+
+## When to use it
+
+- You need **payload confidentiality** at the application layer (in addition to HTTPS).
+- Your backend can produce and consume **compact JWE** (e.g. with the **`jose`** library).
+
+## Concepts
+
+| Item | Details |
+|------|---------|
+| **URL prefix** | Use `{BASE}/v1/partners/request4r` instead of `{BASE}/v1`. The path after the prefix mirrors the standard Partner route (e.g. `.../request4r/auth/register-user-v2` ↔ `.../v1/auth/register-user-v2`). |
+| **Algorithms** | Key encryption: **RSA-OAEP-256**. Content encryption: **A256GCM**. Format: **compact JWE** (RFC 7516). |
+| **Requests (you → RaaS)** | Plaintext is **UTF-8 JSON** (same schema as OpenAPI). Encrypt with the **RaaS public key** (SPKI PEM provided by Leap). |
+| **Responses (RaaS → you)** | When encryption applies, the body is a **compact JWE** string and **`Content-Type: application/jose`**. Decrypt with your **partner private key** (PKCS#8) that matches the **partner public key** registered with Leap. |
+| **Correlation** | Include **`reference_id`** (string) in the JSON plaintext when you need tracing; the gateway may surface **`X-Reference-ID`** downstream. |
+
+## Authentication
+
+Send **`api_key`** on every request, identical to the standard Partner API ([Authentication](/raas/authentication)). Request4R wraps the body only; it does not replace tenant authentication.
+
+## Building a request
+
+1. Build the **same JSON body** documented in OpenAPI for the underlying route.
+2. Encrypt the UTF-8 JSON string to **compact JWE** using the **RaaS SPKI** and headers `alg: RSA-OAEP-256`, `enc: A256GCM`.
+3. **HTTP:** use the same method (`POST`, `PUT`, `PATCH`, …). Put the **single-line JWE** in the body. Use a text-friendly `Content-Type` (e.g. `text/plain`) unless Leap specifies otherwise for your environment.
+
+## Reading a response
+
+- If **`Content-Type: application/jose`**, decrypt the body with your **partner private key**, then parse UTF-8 plaintext as JSON (same response shapes as the standard endpoint).
+- With sandbox-only **`X-Skip-Encryption`** (see below), responses may remain **`application/json`**.
+
+## Sandbox and testing
+
+<Warning>
+  **`X-Skip-Encryption`** disables payload encryption for **internal or sandbox testing only**. Do **not** send this header from production clients.
+</Warning>
+
+If this header is present (any value):
+
+- Send **`Content-Type: application/json`** and a normal JSON body.
+- Responses may stay JSON instead of JWE.
+
+## Errors
+
+Invalid or undecryptable bodies typically return **`400`** with a stable code such as **`ERROR_INVALID_JWE_PAYLOAD`** and a short **reason**—not stack traces.
+
+## Example (Node.js + `jose`)
+
+Run crypto only on your **backend**. Do not ship partner private keys to browsers or mobile apps.
+
+```javascript
+import { readFile } from "fs/promises";
+import { CompactEncrypt, compactDecrypt, importPKCS8, importSPKI } from "jose";
+
+// Encrypt request (RaaS SPKI from Leap)
+const raasPublicPem = await readFile("raas-request4r-public.pem", "utf8");
+const payload = JSON.stringify({ reference_id: "your-ref" /* …fields per OpenAPI… */ });
+const encKey = await importSPKI(raasPublicPem.trim(), "RSA-OAEP");
+const jwe = await new CompactEncrypt(new TextEncoder().encode(payload))
+  .setProtectedHeader({ alg: "RSA-OAEP-256", enc: "A256GCM" })
+  .encrypt(encKey);
+
+// POST `jwe` as raw body to …/v1/partners/request4r/… with header api_key
+
+// Decrypt response (partner PKCS#8)
+const partnerPrivatePem = await readFile("partner-request4r-private.pem", "utf8");
+const decKey = await importPKCS8(partnerPrivatePem.trim(), "RSA-OAEP");
+const { plaintext } = await compactDecrypt(responseBodyString, decKey);
+const json = JSON.parse(new TextDecoder().decode(plaintext));
+```
+
+## Checklist for integrators
+
+<Steps>
+  <Step title="Confirm enablement">
+    Verify with Leap that Request4R is on for your **tenant** and **environment** (sandbox vs production).
+  </Step>
+  <Step title="Keys">
+    Install **RaaS public** (encrypt requests) and protect **partner private** (decrypt responses). Rotate only with Leap guidance.
+  </Step>
+  <Step title="Route mapping">
+    Map each call from `/v1/...` to `/v1/partners/request4r/...` with the same method and decrypted JSON schema.
+  </Step>
+  <Step title="Operations">
+    Use **`reference_id`** for reconciliation when your product requires it.
+  </Step>
+</Steps>
+
+## Related
+
+- [Authentication](/raas/authentication)
+- [Testing & sandbox](/raas/guides/testing-sandbox)
+- Partner OpenAPI — schemas are unchanged once payloads are decrypted.
+
+Questions or key onboarding: your Leap integration contact or [support@leapfinancial.com](mailto:support@leapfinancial.com).

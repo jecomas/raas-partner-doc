@@ -1,0 +1,145 @@
+---
+title: "Partner Webhooks"
+description: "Signature, delivery, and payload reference for operationStatusHook (including request-money-full outcomes)"
+---
+
+# Partner webhooks (`operationStatusHook`)
+
+RaaS can **POST** JSON events to the URLs configured on the tenant (`operationStatusHook`), using a shared **HMAC** so you can verify authenticity.
+
+Today the primary documented event is **`request_money_full_outcome`**, emitted when the async **request-money-full** pipeline finishes (after the HTTP API has already returned `Accepted`). Delivery is implemented by `requestMoneyFullWebhookWorker` in `src/queues/workers/OperationWorkers.ts` and `sendRequestMoneyFullOutcomeWebhook` in the same module.
+
+## Prerequisites (request-money-full outcome)
+
+The outcome webhook is **only sent** if the tenant has:
+
+1. **At least one URL** in `operationStatusHook`, and  
+2. A configured **`sharedSecret`**.
+
+If either is missing, RaaS **skips** sending the event (it logs a warning; no HTTP call is made). Configure both before relying on async notifications.
+
+## Request
+
+- **Method:** `POST`
+- **Content-Type:** `application/json`
+- **Body:** Event JSON (shape depends on `eventType`).
+- **Timeout (RaaS → your URL):** 30 seconds per request (`axios` timeout in code).
+
+## Headers sent by RaaS
+
+| Header | Description |
+|--------|-------------|
+| `x-raas-signature` | **Required when a body is sent.** Base64-encoded HMAC-SHA256 of the **raw** JSON body using the tenant `sharedSecret`. See [Signature verification](#signature-verification). |
+| `x-raas-op-country` | Tenant country id (for example `MX`). May be empty if not set on the tenant model. |
+
+## Signature verification
+
+Verify `x-raas-signature` using the **exact raw request body bytes** (UTF-8 string as received) and the tenant `sharedSecret`.
+
+### Algorithm
+
+```text
+signature = Base64( HMAC-SHA256( rawRequestBody, sharedSecret ) )
+```
+
+- **rawRequestBody:** the raw HTTP body string **before** `JSON.parse` (must match what RaaS signed—same key order as `JSON.stringify` from the producer).
+- **sharedSecret:** tenant shared secret.
+- **HMAC-SHA256:** RFC 2104.
+- **Base64:** standard encoding of the HMAC digest.
+
+### Example (Node.js)
+
+```js
+const crypto = require('crypto');
+
+function verifyWebhookSignature(rawBody, signatureHeader, sharedSecret) {
+  const expected = crypto
+    .createHmac('sha256', sharedSecret)
+    .update(rawBody, 'utf8')
+    .digest('base64');
+
+  return crypto.timingSafeEqual(
+    Buffer.from(signatureHeader, 'base64'),
+    Buffer.from(expected, 'base64')
+  );
+}
+```
+
+Use the raw body from your framework (e.g. Express `req.body` as a string only if you use a raw body middleware; otherwise read the raw stream before parsing).
+
+---
+
+## Event: `request_money_full_outcome`
+
+Sent when the **background** request-money-full flow completes: CIP, beneficiary contact, payment method registration, and platform `requestMoneyV2` (see `requestMoneyFullWorker` in `OperationWorkers.ts`).
+
+Your handler should be **idempotent** on `correlationId` (duplicate deliveries can occur around retries).
+
+### Payload shape
+
+| Field | Type | Always present | Description |
+|-------|------|----------------|-------------|
+| `eventType` | string | Yes | Always `"request_money_full_outcome"`. |
+| `correlationId` | string | Yes | Same id the partner sent as `request.correlationId` on `POST /request-money-full`. |
+| `status` | string | Yes | `"Accepted"` when the pipeline completed successfully, or `"Failed"` when it stopped with a business/platform error. **Casing matches the JSON exactly** (not `completed` / `failed`). |
+| `date` | string | Yes | ISO 8601 timestamp when the payload was built. |
+| `errorCode` | string | Only if `status === "Failed"` | Stable machine code from the failing `NumiError` (e.g. `ERROR_CIP_NOT_COMPLETED`). Aligns with `RequestMoneyFullErrorCode` in the API types. |
+| `reason` | string | Only if `status === "Failed"` | Human-readable message. |
+| `phase` | string | Only if `status === "Failed"` | High-level stage: `cip`, `contact`, `payment_method`, `request_money`, or `unknown`. Derived from the error code in `OperationWorkers.REQUEST_MONEY_FULL_PHASE_BY_CODE`. |
+
+### Example — success
+
+```json
+{
+  "eventType": "request_money_full_outcome",
+  "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+  "status": "Accepted",
+  "date": "2026-04-24T12:34:56.789Z"
+}
+```
+
+### Example — failure
+
+```json
+{
+  "eventType": "request_money_full_outcome",
+  "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+  "status": "Failed",
+  "date": "2026-04-24T12:35:10.000Z",
+  "errorCode": "ERROR_CIP_NOT_COMPLETED",
+  "reason": "…",
+  "phase": "cip"
+}
+```
+
+### Delivery, retries, and multiple URLs
+
+- Jobs are processed on the Bull queue **`requestMoneyFullWebhook`** (`QUEUE_NAME_REQUEST_MONEY_FULL_WEBHOOK` in `src/config/queues.ts`).
+- **Retries:** up to **5** attempts, **fixed backoff 5 seconds** between attempts, **1 second** initial delay (see `queues.ts` `defaultJobOptions` for that queue).
+- If **any** configured URL returns a network error, non-2xx, or times out, RaaS treats delivery as failed: failed attempts are logged and the job throws `WEBHOOK_DELIVERY_FAILED` so Bull can retry according to the options above.
+- **All** URLs in `operationStatusHook` are called in parallel (`Promise.allSettled`); one failure fails the whole notification attempt for that job run.
+
+---
+
+## Synchronous errors vs webhook
+
+`POST /request-money-full` can return **4xx/5xx** immediately (validation, tenant, duplicate `correlationId`, etc.). Those responses use a JSON body with `reason` and `code` suitable for the HTTP layer.
+
+Failures that happen **after** the API returned **200** with `status: "Accepted"` (e.g. CIP not completed, card errors) are reported only via **`request_money_full_outcome`** with `status: "Failed"`, not by changing the original HTTP response.
+
+## Endpoint error codes (HTTP)
+
+Error responses from `POST /user/operations/request-money-full` use this shape:
+
+```json
+{ "reason": "string", "code": "string" }
+```
+
+Use `code` for branching in your integration; values align with `RequestMoneyFullErrorCode` in the OpenAPI / TypeScript models.
+
+## Source
+
+- Runtime: `src/queues/workers/OperationWorkers.ts` (`sendRequestMoneyFullOutcomeWebhook`, `requestMoneyFullWebhookWorker`, `requestMoneyFullWorker`).
+- Queue options: `src/config/queues.ts` (`QUEUE_NAME_REQUEST_MONEY_FULL_WEBHOOK`).
+- Types: `src/model/operation.ts` (`RequestMoneyFullOutcomePayload`, `RequestMoneyFullOutcomeStatus`, `RequestMoneyFullOutcomePhase`, `RequestMoneyFullErrorCode`).
+- Legacy markdown: `docs/partner_webhooks.md` in the repository (if present).
