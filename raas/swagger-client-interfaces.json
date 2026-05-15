@@ -4357,7 +4357,7 @@
             "description": "Reason\n\nReason for the request"
           },
           "destinationPaymentMethod": {
-            "$ref": "#/components/schemas/AddCardPartnerParams",
+            "$ref": "#/components/schemas/RaaSPaymentMethod",
             "description": "Destination `payout` method\n\n<span style=\"color:red\">required</span> if the destinationPaymentMethodId parameter is not provided.\n\nThe full payout method object that will receive the money.\n\nYou can provide either the full payout method object using this parameter, or just the payout method ID using the destinationPaymentMethodId parameter.\n\nIf both parameters are provided, this object will be ignored and destinationPaymentMethodId will take precedence."
           }
         },
@@ -5070,7 +5070,6 @@
           }
         },
         "required": [
-          "correlationId",
           "sourcePaymentMethod",
           "amount",
           "currency",
@@ -5180,8 +5179,7 @@
           }
         },
         "required": [
-          "quotationId",
-          "correlationId"
+          "quotationId"
         ],
         "type": "object",
         "description": "Partner **send funds v2** body: like `SendMoneyPartnerParams` but may include structured `sendTo` / destination PM."
@@ -5239,7 +5237,8 @@
               "BalanceCheck",
               "UnusableCard",
               "SenderInvalidPhone",
-              "RecipientInvalidPhone"
+              "RecipientInvalidPhone",
+              "NonMatchingCurrencyAccount"
             ]
           },
           "sourceAmount": {
